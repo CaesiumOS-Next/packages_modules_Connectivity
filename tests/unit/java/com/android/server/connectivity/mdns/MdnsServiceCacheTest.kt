@@ -109,10 +109,13 @@ class MdnsServiceCacheTest {
         thread.join()
     }
 
-    private fun makeFlags(isExpiredServicesRemovalEnabled: Boolean = false) =
-            MdnsFeatureFlags.Builder()
-                    .setIsExpiredServicesRemovalEnabled(isExpiredServicesRemovalEnabled)
-                    .build()
+    private fun makeFlags(
+            isExpiredServicesRemovalEnabled: Boolean = false,
+            isOptimizedExpiredServiceRemovalEnabled: Boolean = false
+    ) = MdnsFeatureFlags.Builder()
+            .setIsExpiredServicesRemovalEnabled(isExpiredServicesRemovalEnabled)
+            .setIsOptimizedExpiredServiceRemovalEnabled(isOptimizedExpiredServiceRemovalEnabled)
+            .build()
 
     private fun <T> runningOnHandlerAndReturn(functor: (() -> T)): T {
         val future = CompletableFuture<T>()
@@ -195,6 +198,14 @@ class MdnsServiceCacheTest {
             currentTime: Long
     ): Int = runningOnHandlerAndReturn {
         serviceCache.markExpiredServices(cacheKey, currentTime)
+    }
+
+    private fun doRemoveExpiredServiceAndNotifyListeners(
+            serviceCache: MdnsServiceCache,
+            cacheKey: CacheKey,
+            currentTime: Long
+    ): Unit = runningOnHandlerAndReturn {
+        serviceCache.doRemoveExpiredServiceAndNotifyListeners(cacheKey, currentTime)
     }
 
     @Test
@@ -508,6 +519,64 @@ class MdnsServiceCacheTest {
         )
         assertNotNull(response)
         assertEquals(SERVICE_NAME_1, response.serviceInstanceName)
+    }
+
+    @Test
+    fun testRemoveExpiredServiceAfterQuerySent() {
+        val serviceCache = MdnsServiceCache(
+                thread.looper,
+                makeFlags(
+                        isExpiredServicesRemovalEnabled = true,
+                        isOptimizedExpiredServiceRemovalEnabled = true
+                ),
+                clock
+        )
+        var currentTime = TEST_ELAPSED_REALTIME_MS
+
+        // Add a service, then advance the time to expire the service.
+        doReturn(currentTime).`when`(clock).elapsedRealtime()
+        addOrUpdateService(
+                serviceCache,
+                cacheKey1,
+                createResponse(SERVICE_NAME_1, SERVICE_TYPE_1, 1L /* ttlTime */)
+        )
+        currentTime += 2L
+        doReturn(currentTime).`when`(clock).elapsedRealtime()
+        assertNull(getService(serviceCache, SERVICE_NAME_1, cacheKey1))
+        assertNotNull(getService(
+                serviceCache,
+                SERVICE_NAME_1,
+                cacheKey1,
+                excludeExpiredService = false
+        ))
+
+        // Attempt to remove the expired service, but it should not be removed due to no query being
+        // sent.
+        doRemoveExpiredServiceAndNotifyListeners(serviceCache, cacheKey1, currentTime)
+        assertNotNull(getService(
+                serviceCache,
+                SERVICE_NAME_1,
+                cacheKey1,
+                excludeExpiredService = false
+        ))
+
+        // Update the last query time and attempt to remove the expired service again. It should
+        // now be removed.
+        currentTime += 3L
+        doReturn(currentTime).`when`(clock).elapsedRealtime()
+        updateLastQueryTimeForCachedService(
+                serviceCache,
+                SERVICE_NAME_1,
+                cacheKey1,
+                currentTime
+        )
+        doRemoveExpiredServiceAndNotifyListeners(serviceCache, cacheKey1, currentTime)
+        assertNull(getService(
+                serviceCache,
+                SERVICE_NAME_1,
+                cacheKey1,
+                excludeExpiredService = false
+        ))
     }
 
     private fun createResponse(
