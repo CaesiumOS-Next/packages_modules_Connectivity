@@ -330,8 +330,8 @@ public class TunInterfaceController {
         // For OMR address and link-local address we only use the value isPreferred set by
         // ot-daemon.
         boolean isPreferred = addressInfo.isPreferred;
-        if (addressInfo.isMeshLocal && hasActiveOmrAddress) {
-            isPreferred = false;
+        if (addressInfo.isMeshLocal) {
+            isPreferred = (!hasActiveOmrAddress && addressInfo.isMeshLocalEid);
         }
 
         final long deprecationTimeMillis =
