@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fb44c9e_0c9c4dd4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-12T03:57:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d028cc2_d714a7fc",
+      "range": {
+        "startLine": 7,
+        "startChar": 25,
+        "endLine": 7,
+        "endChar": 44
+      },
+      "revId": "7e94713604cb10d96bb757d1ac424db160ac063d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5026cb8c_4c9405e0",
@@ -601,6 +625,30 @@
       "writtenOn": "2025-03-10T10:46:28Z",
       "side": 1,
       "message": "This calls removeAllPendingRequests twice. Also - why *all* requests? It\u0027s true that at the moment requestTracker can\u0027t deal with more than one request per type. But if that\u0027s a limitation in RequestTracker, then we should avoid leaking that limitation into this code. Otherwise future changes to this code or to RequestTracker could be out of sync.\n\nCan this code just tell RequestTracker, \"this request has been promoted from pending to serving\" and have requestTracker do whatever bookeeping it needs?",
+      "range": {
+        "startLine": 1203,
+        "startChar": 24,
+        "endLine": 1203,
+        "endChar": 48
+      },
+      "revId": "7e94713604cb10d96bb757d1ac424db160ac063d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1dfce5d_1f6c217d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1203,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-12T03:57:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "187ebca0_f162580c",
       "range": {
         "startLine": 1203,
         "startChar": 24,
