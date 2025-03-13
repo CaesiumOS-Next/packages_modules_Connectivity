@@ -58,6 +58,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ee08313_d62f830e",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1303,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-13T01:36:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3b1fe30_0d2141d1",
+      "range": {
+        "startLine": 1303,
+        "startChar": 12,
+        "endLine": 1303,
+        "endChar": 14
+      },
+      "revId": "5f32ba61aa6062c31b4342a4e2a7e1c8a1849929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fe0f783c_1a05067d",
@@ -71,6 +95,30 @@
       "writtenOn": "2025-03-13T00:07:56Z",
       "side": 1,
       "message": "Per discussion - since wifi doesn\u0027t actually support concurrent hotspots with different configurations, we should probably remove the softapconfiguration here.",
+      "range": {
+        "startLine": 1305,
+        "startChar": 24,
+        "endLine": 1305,
+        "endChar": 38
+      },
+      "revId": "5f32ba61aa6062c31b4342a4e2a7e1c8a1849929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "830c13ad_2aa890b1",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1305,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-13T01:36:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe0f783c_1a05067d",
       "range": {
         "startLine": 1305,
         "startChar": 24,
@@ -104,6 +152,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5e8f1eb_f3eb89b8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/RequestTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-13T01:36:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44029ff8_70a3ca96",
+      "range": {
+        "startLine": 205,
+        "startChar": 69,
+        "endLine": 205,
+        "endChar": 76
+      },
+      "revId": "5f32ba61aa6062c31b4342a4e2a7e1c8a1849929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "21896b43_12a84ae9",
@@ -117,6 +189,30 @@
       "writtenOn": "2025-03-13T00:07:56Z",
       "side": 1,
       "message": "added to the serving list",
+      "range": {
+        "startLine": 206,
+        "startChar": 13,
+        "endLine": 206,
+        "endChar": 18
+      },
+      "revId": "5f32ba61aa6062c31b4342a4e2a7e1c8a1849929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83fe0df2_ace895e9",
+        "filename": "Tethering/src/com/android/networkstack/tethering/RequestTracker.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-13T01:36:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "21896b43_12a84ae9",
       "range": {
         "startLine": 206,
         "startChar": 13,
@@ -150,6 +246,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8237090_d8351ca1",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-13T01:36:34Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "162707a3_56f48aab",
+      "range": {
+        "startLine": 315,
+        "startChar": 45,
+        "endLine": 315,
+        "endChar": 79
+      },
+      "revId": "5f32ba61aa6062c31b4342a4e2a7e1c8a1849929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "190cbe29_e85b4535",
@@ -163,6 +283,30 @@
       "writtenOn": "2025-03-13T00:07:56Z",
       "side": 1,
       "message": "Can you add a TODO here to add an integration or CTS test that ensures that an app that calls startTethering, then stops tethering and immediately starts it again succeeds and doesn\u0027t get a duplicate request error? Per previous discussions I think this will not work for wifi, but if possible we should at least make it work in the tethering code itself. Probably easiest to use Ethernet for this - it\u0027s a link layer that we control in mainline code.",
+      "range": {
+        "startLine": 714,
+        "startChar": 16,
+        "endLine": 714,
+        "endChar": 52
+      },
+      "revId": "5f32ba61aa6062c31b4342a4e2a7e1c8a1849929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76061bd4_63bdfd6d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-13T01:36:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "190cbe29_e85b4535",
       "range": {
         "startLine": 714,
         "startChar": 16,
@@ -196,6 +340,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e922c06f_566f7f51",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 741,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-13T01:36:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9debff77_f9cc8e1d",
+      "range": {
+        "startLine": 741,
+        "startChar": 40,
+        "endLine": 741,
+        "endChar": 41
+      },
+      "revId": "5f32ba61aa6062c31b4342a4e2a7e1c8a1849929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "483cd9b1_7895865e",
@@ -209,6 +377,30 @@
       "writtenOn": "2025-03-13T00:07:56Z",
       "side": 1,
       "message": "Suggest:\n\n    // TODO: when fuzzy-matching is enabled, check whether any pending request\n    // fuzzy-matches this request instead of just checking the type.",
+      "range": {
+        "startLine": 752,
+        "startChar": 16,
+        "endLine": 752,
+        "endChar": 47
+      },
+      "revId": "5f32ba61aa6062c31b4342a4e2a7e1c8a1849929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "270fd4a1_e8aabbda",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 752,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-13T01:36:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "483cd9b1_7895865e",
       "range": {
         "startLine": 752,
         "startChar": 16,
@@ -524,6 +716,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4970f133_5d7ecb6e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 3049,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-13T01:36:34Z",
+      "side": 1,
+      "message": "It shouldn\u0027t happen except in AOSP code, but if an OEM modified Wifi, then it\u0027s possible we get a WIFI_AP_STATE_CHANGE disabled event for an iface we\u0027ve never heard of.\n\nThe original code checked this in disableWifiIpServingCommon and logged an error if there was no TetherState found, but actually it continues to try to find a wifi TetherState in Pre-T. Thus I\u0027ve removed this null check and readded it back to disableWifiIpServingCommon. The null check isn\u0027t needed elsewhere since the other usages of ensureIpServerUnwanted already null-check the TetherState before calling into it.",
+      "parentUuid": "88be7d8f_3c85bd69",
+      "range": {
+        "startLine": 3049,
+        "startChar": 27,
+        "endLine": 3049,
+        "endChar": 31
+      },
+      "revId": "5f32ba61aa6062c31b4342a4e2a7e1c8a1849929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "29ee0e9b_bebacc69",
@@ -537,6 +753,30 @@
       "writtenOn": "2025-03-13T00:07:56Z",
       "side": 1,
       "message": "Per other comment, this will probably need to change.",
+      "range": {
+        "startLine": 2618,
+        "startChar": 60,
+        "endLine": 2618,
+        "endChar": 95
+      },
+      "revId": "5f32ba61aa6062c31b4342a4e2a7e1c8a1849929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b45771e5_0b15754e",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2618,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-13T01:36:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29ee0e9b_bebacc69",
       "range": {
         "startLine": 2618,
         "startChar": 60,
