@@ -740,6 +740,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "908d9b90_27574b51",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 3049,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-13T01:40:05Z",
+      "side": 1,
+      "message": "Actually it doesn\u0027t make sense to pass in TetherState if we\u0027re just using it to get the IpServer. I\u0027ve changed this to take an IpServer arg already. That way, we don\u0027t have to assume that iface will have a valid TetherState.",
+      "parentUuid": "4970f133_5d7ecb6e",
+      "range": {
+        "startLine": 3049,
+        "startChar": 27,
+        "endLine": 3049,
+        "endChar": 31
+      },
+      "revId": "5f32ba61aa6062c31b4342a4e2a7e1c8a1849929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "29ee0e9b_bebacc69",
