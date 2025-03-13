@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e46bc3f_68bcc27e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-03-13T13:50:02Z",
+      "side": 1,
+      "message": "Android B+",
+      "range": {
+        "startLine": 10,
+        "startChar": 38,
+        "endLine": 10,
+        "endChar": 42
+      },
+      "revId": "f2ba0c5dd38b0b167d84848ebc84a8600a4416c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
