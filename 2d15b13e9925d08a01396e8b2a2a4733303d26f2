@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4422b94_0ac013fc",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-03-13T17:18:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6121911b_b88dfc37",
+      "range": {
+        "startLine": 98,
+        "startChar": 7,
+        "endLine": 98,
+        "endChar": 33
+      },
+      "revId": "2d15b13e9925d08a01396e8b2a2a4733303d26f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f68db77f_f16b0176",
@@ -54,6 +78,30 @@
       "writtenOn": "2025-03-13T00:03:03Z",
       "side": 1,
       "message": "I\u0027d just recommend marking it @NonNull and even using Objects.requireNotNull in the constructor",
+      "range": {
+        "startLine": 919,
+        "startChar": 22,
+        "endLine": 919,
+        "endChar": 47
+      },
+      "revId": "2d15b13e9925d08a01396e8b2a2a4733303d26f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ad25f83_40c84b61",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 919,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-03-13T17:18:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f68db77f_f16b0176",
       "range": {
         "startLine": 919,
         "startChar": 22,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4ab8026_0cd234ba",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 9620,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-03-13T17:18:42Z",
+      "side": 1,
+      "message": "Yes, moved it. We need to make sure updateLocalNetworkAddresses is called before removing interface and after adding interface.",
+      "parentUuid": "c95f4eeb_c2c3408c",
+      "range": {
+        "startLine": 9620,
+        "startChar": 8,
+        "endLine": 9620,
+        "endChar": 50
+      },
+      "revId": "2d15b13e9925d08a01396e8b2a2a4733303d26f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "832b5ebf_4867383a",
@@ -100,6 +172,30 @@
       "writtenOn": "2025-03-13T00:03:03Z",
       "side": 1,
       "message": "s/{@hide}/@hide/",
+      "range": {
+        "startLine": 33,
+        "startChar": 3,
+        "endLine": 33,
+        "endChar": 10
+      },
+      "revId": "2d15b13e9925d08a01396e8b2a2a4733303d26f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb931a54_d1e6c5b9",
+        "filename": "service/src/com/android/server/connectivity/InterfaceTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-03-13T17:18:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "832b5ebf_4867383a",
       "range": {
         "startLine": 33,
         "startChar": 3,
@@ -133,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a3c4d8b_c54e1c21",
+        "filename": "service/src/com/android/server/connectivity/InterfaceTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-03-13T17:18:42Z",
+      "side": 1,
+      "message": "Thanks for suggestion, addresses it.",
+      "parentUuid": "749aae54_4225e285",
+      "range": {
+        "startLine": 71,
+        "startChar": 22,
+        "endLine": 71,
+        "endChar": 26
+      },
+      "revId": "2d15b13e9925d08a01396e8b2a2a4733303d26f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e67fb21e_085bdc63",
@@ -146,6 +266,30 @@
       "writtenOn": "2025-03-13T00:03:03Z",
       "side": 1,
       "message": "I think you\u0027ll need @ConnectivityModuleTest",
+      "range": {
+        "startLine": 40,
+        "startChar": 13,
+        "endLine": 40,
+        "endChar": 33
+      },
+      "revId": "2d15b13e9925d08a01396e8b2a2a4733303d26f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfa607fe_e54ce6c9",
+        "filename": "tests/unit/java/com/android/server/connectivity/InterfaceTrackerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-03-13T17:18:42Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "e67fb21e_085bdc63",
       "range": {
         "startLine": 40,
         "startChar": 13,
