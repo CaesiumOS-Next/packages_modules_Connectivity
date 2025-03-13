@@ -1,0 +1,39 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1e34512_c51fd017",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyJob.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2025-03-13T23:30:03Z",
+      "side": 1,
+      "message": "nit: I can\u0027t find a proper authoritative source internally but usually a simple for loop will generate less bytecode (see b/225263854 and the presentation link in there).",
+      "fixSuggestions": [
+        {
+          "fixId": "34409440_a8997b85",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyJob.java",
+              "range": {
+                "startLine": 104,
+                "startChar": 0,
+                "endLine": 105,
+                "endChar": 0
+              },
+              "replacement": "        for (CompatibilityVersion compatVersion : mCompatVersions) {\n            compatVersion.delete();\n        }\n"
+            }
+          ]
+        }
+      ],
+      "revId": "820aff2d43addbc1daac871e501eb9b0d1acd5f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
