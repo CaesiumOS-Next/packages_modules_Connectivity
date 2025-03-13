@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92cc78b0_5c4508ba",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3375,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-13T23:51:33Z",
+      "side": 1,
+      "message": "style",
+      "range": {
+        "startLine": 3375,
+        "startChar": 31,
+        "endLine": 3375,
+        "endChar": 32
+      },
+      "revId": "d42d44921d1c16a007b0cf4f793e052ac369ffe8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5430216d_ab97fa42",
+        "filename": "staticlibs/client-libs/netd/com/android/net/module/util/NetdUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-13T23:51:33Z",
+      "side": 1,
+      "message": "We should at least rename this method, and if possible make it private to avoid future developers mistakenly forgetting to pass the boolean",
+      "range": {
+        "startLine": 258,
+        "startChar": 34,
+        "endLine": 258,
+        "endChar": 51
+      },
+      "revId": "d42d44921d1c16a007b0cf4f793e052ac369ffe8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83c64e5f_002eefc1",
+        "filename": "staticlibs/device/com/android/net/module/util/IRoutingCoordinator.aidl",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-13T23:51:33Z",
+      "side": 1,
+      "message": "Maybe mark as @deprecated ?",
+      "range": {
+        "startLine": 41,
+        "startChar": 9,
+        "endLine": 41,
+        "endChar": 17
+      },
+      "revId": "d42d44921d1c16a007b0cf4f793e052ac369ffe8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76046768_d727ce35",
+        "filename": "staticlibs/netd/binder/android/net/RouteInfoParcel.aidl",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-13T23:51:33Z",
+      "side": 1,
+      "message": "a local route",
+      "range": {
+        "startLine": 28,
+        "startChar": 26,
+        "endLine": 28,
+        "endChar": 43
+      },
+      "revId": "d42d44921d1c16a007b0cf4f793e052ac369ffe8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc43a1ae_db7b210c",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalNetworkProtectionTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-13T23:51:33Z",
+      "side": 1,
+      "message": "Maybe move this to a new CSLocalRoutesTest.kt or something",
+      "range": {
+        "startLine": 607,
+        "startChar": 5,
+        "endLine": 607,
+        "endChar": 9
+      },
+      "revId": "d42d44921d1c16a007b0cf4f793e052ac369ffe8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
