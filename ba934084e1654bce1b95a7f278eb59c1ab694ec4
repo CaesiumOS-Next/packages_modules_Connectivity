@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9bbcbec4_19528bc9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-03-13T06:34:37Z",
+      "side": 1,
+      "message": "You can move the staticlib part into a seaparte CL, we can get that reviewed and merged first.",
+      "revId": "ba934084e1654bce1b95a7f278eb59c1ab694ec4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
