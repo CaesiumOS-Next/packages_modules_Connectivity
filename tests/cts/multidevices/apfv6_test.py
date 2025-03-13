@@ -14,6 +14,11 @@
 
 from mobly import asserts
 from scapy.layers.inet import IP, ICMP, IPOption_Router_Alert
+<<<<<<< PATCH SET (f80213 Add Ping6 offload for APFv6 multi-devices tests)
+from scapy.layers.inet6 import IPv6, ICMPv6EchoRequest, ICMPv6EchoReply
+||||||| BASE
+=======
+>>>>>>> BASE      (d49266 Merge "Fix missing function in NetworkStaticLibHostPythonTes)
 from scapy.layers.l2 import Ether
 from scapy.contrib.igmpv3 import IGMPv3, IGMPv3mq, IGMPv3mr, IGMPv3gr
 from net_tests_utils.host.python import apf_test_base, apf_utils, adb_utils, assert_utils, packet_utils
@@ -102,6 +107,23 @@ class ApfV6Test(apf_test_base.ApfTestBase):
         )
 
     @apf_utils.at_least_B()
+<<<<<<< PATCH SET (f80213 Add Ping6 offload for APFv6 multi-devices tests)
+    def test_ipv6_icmp_echo_request_offload(self):
+        eth = Ether(src=self.server_mac_address, dst=self.client_mac_address)
+        ip = IPv6(src=self.server_ipv6_addresses[0], dst=self.client_ipv6_addresses[0])
+        icmp = ICMPv6EchoRequest(id=1, seq=123)
+        echo_request = bytes(eth/ip/icmp/b"hello").hex()
+
+        eth = Ether(src=self.client_mac_address, dst=self.server_mac_address)
+        ip = IPv6(src=self.client_ipv6_addresses[0], dst=self.server_ipv6_addresses[0])
+        icmp = ICMPv6EchoReply(id=1, seq=123)
+        expected_echo_reply = bytes(eth/ip/icmp/b"hello").hex()
+
+        self.send_packet_and_expect_reply_received(
+            echo_request, "DROPPED_IPV6_ICMP6_ECHO_REQUEST_REPLIED", expected_echo_reply
+        )
+||||||| BASE
+=======
     def test_igmpv3_general_query_offload(self):
         ether = Ether(src=self.server_mac_address, dst='01:00:5e:00:00:01')
         ip = IP(
@@ -144,3 +166,4 @@ class ApfV6Test(apf_test_base.ApfTestBase):
                 self.clientDevice,
                 f'ip addr del {addr}/32 dev {self.client_iface_name}'
             )
+>>>>>>> BASE      (d49266 Merge "Fix missing function in NetworkStaticLibHostPythonTes)
