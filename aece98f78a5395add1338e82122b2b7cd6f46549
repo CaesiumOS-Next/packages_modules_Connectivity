@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21251cd3_39e5f396",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/TetheringPermissionsUtils.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-13T07:46:55Z",
+      "side": 1,
+      "message": "Should we add a TODO to stop tethering if the app loses carrier privilege?",
+      "range": {
+        "startLine": 70,
+        "startChar": 36,
+        "endLine": 70,
+        "endChar": 71
+      },
+      "revId": "aece98f78a5395add1338e82122b2b7cd6f46549",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
