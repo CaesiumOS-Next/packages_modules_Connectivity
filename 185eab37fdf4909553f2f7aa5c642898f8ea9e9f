@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "992274f8_a8cc06c0",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-13T07:33:11Z",
+      "side": 1,
+      "message": "Suggest:\n\n    // Wrap the app-provided ResultReceiver in an IIntResultListener in order to call\n    // checkAndNotifyCommonError with it.",
+      "range": {
+        "startLine": 176,
+        "startChar": 12,
+        "endLine": 176,
+        "endChar": 30
+      },
+      "revId": "185eab37fdf4909553f2f7aa5c642898f8ea9e9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78c3ecc2_bd3278fe",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-13T07:33:11Z",
+      "side": 1,
+      "message": "This should never be called, right? If so, should it instead do something like:\n\n    throw new UnsupportedOperationException(\"asBinder unexpectedly called on internal-only listener\");",
+      "range": {
+        "startLine": 184,
+        "startChar": 20,
+        "endLine": 184,
+        "endChar": 31
+      },
+      "revId": "185eab37fdf4909553f2f7aa5c642898f8ea9e9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
