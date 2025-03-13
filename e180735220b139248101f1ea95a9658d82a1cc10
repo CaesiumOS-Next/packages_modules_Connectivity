@@ -120,6 +120,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c547c12_c112c0fc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2025-03-13T01:32:30Z",
+      "side": 1,
+      "message": "(Discussed to have a separate request object, resolved for now)",
+      "parentUuid": "707d1d9e_dbca21a7",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 0
+      },
+      "revId": "e180735220b139248101f1ea95a9658d82a1cc10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "33632704_73b0742d",
