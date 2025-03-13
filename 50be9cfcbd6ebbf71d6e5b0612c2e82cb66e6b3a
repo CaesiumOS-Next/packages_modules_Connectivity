@@ -42,6 +42,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1aba550f_ed6a61c8",
+        "filename": "thread/service/java/com/android/server/thread/TunInterfaceController.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2025-03-13T07:28:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "829155fd_e2a3ed15",
+      "range": {
+        "startLine": 328,
+        "startChar": 68,
+        "endLine": 329,
+        "endChar": 82
+      },
+      "revId": "50be9cfcbd6ebbf71d6e5b0612c2e82cb66e6b3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4d4c02eb_b6e46c24",
@@ -55,6 +79,30 @@
       "writtenOn": "2025-03-13T02:30:53Z",
       "side": 1,
       "message": "should it also check OMRs are preferred?",
+      "range": {
+        "startLine": 292,
+        "startChar": 48,
+        "endLine": 292,
+        "endChar": 72
+      },
+      "revId": "50be9cfcbd6ebbf71d6e5b0612c2e82cb66e6b3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bed60d5e_a450ceda",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2025-03-13T07:28:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d4c02eb_b6e46c24",
       "range": {
         "startLine": 292,
         "startChar": 48,
@@ -88,6 +136,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5268594_d1e79cac",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2025-03-13T07:28:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eed57e7c_0d9c5413",
+      "range": {
+        "startLine": 308,
+        "startChar": 0,
+        "endLine": 309,
+        "endChar": 93
+      },
+      "revId": "50be9cfcbd6ebbf71d6e5b0612c2e82cb66e6b3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "213dbe08_b7eadf8f",
@@ -101,6 +173,30 @@
       "writtenOn": "2025-03-13T02:30:53Z",
       "side": 1,
       "message": "Though it\u0027s unlikely to go wrong, shall we check there\u0027s at least one mesh local address?",
+      "range": {
+        "startLine": 327,
+        "startChar": 0,
+        "endLine": 334,
+        "endChar": 13
+      },
+      "revId": "50be9cfcbd6ebbf71d6e5b0612c2e82cb66e6b3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1b79abd_75ac181c",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2025-03-13T07:28:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "213dbe08_b7eadf8f",
       "range": {
         "startLine": 327,
         "startChar": 0,
