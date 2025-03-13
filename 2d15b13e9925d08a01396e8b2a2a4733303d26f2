@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "beb461c1_e0a9b5dd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-13T00:03:03Z",
+      "side": 1,
+      "message": "+2 assuming comments are addressed",
+      "revId": "2d15b13e9925d08a01396e8b2a2a4733303d26f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6121911b_b88dfc37",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-13T00:03:03Z",
+      "side": 1,
+      "message": "android.annotation.Nullable ?",
+      "range": {
+        "startLine": 98,
+        "startChar": 7,
+        "endLine": 98,
+        "endChar": 33
+      },
+      "revId": "2d15b13e9925d08a01396e8b2a2a4733303d26f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f68db77f_f16b0176",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 919,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-13T00:03:03Z",
+      "side": 1,
+      "message": "I\u0027d just recommend marking it @NonNull and even using Objects.requireNotNull in the constructor",
+      "range": {
+        "startLine": 919,
+        "startChar": 22,
+        "endLine": 919,
+        "endChar": 47
+      },
+      "revId": "2d15b13e9925d08a01396e8b2a2a4733303d26f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c95f4eeb_c2c3408c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 9620,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-13T00:03:03Z",
+      "side": 1,
+      "message": "If that works : suggest moving this above updateInterfaces, adding a comment that says this must be done before updateInterfaces() because that will update the interface map in InterfaceTracker, and move the adding and removing from the tracker to updateInterfaces.",
+      "range": {
+        "startLine": 9620,
+        "startChar": 8,
+        "endLine": 9620,
+        "endChar": 50
+      },
+      "revId": "2d15b13e9925d08a01396e8b2a2a4733303d26f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "832b5ebf_4867383a",
+        "filename": "service/src/com/android/server/connectivity/InterfaceTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-13T00:03:03Z",
+      "side": 1,
+      "message": "s/{@hide}/@hide/",
+      "range": {
+        "startLine": 33,
+        "startChar": 3,
+        "endLine": 33,
+        "endChar": 10
+      },
+      "revId": "2d15b13e9925d08a01396e8b2a2a4733303d26f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "749aae54_4225e285",
+        "filename": "service/src/com/android/server/connectivity/InterfaceTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-13T00:03:03Z",
+      "side": 1,
+      "message": "Suggest synchronizing on mInterfaceMap instead so that the lock doesn\u0027t escape",
+      "range": {
+        "startLine": 71,
+        "startChar": 22,
+        "endLine": 71,
+        "endChar": 26
+      },
+      "revId": "2d15b13e9925d08a01396e8b2a2a4733303d26f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e67fb21e_085bdc63",
+        "filename": "tests/unit/java/com/android/server/connectivity/InterfaceTrackerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-13T00:03:03Z",
+      "side": 1,
+      "message": "I think you\u0027ll need @ConnectivityModuleTest",
+      "range": {
+        "startLine": 40,
+        "startChar": 13,
+        "endLine": 40,
+        "endChar": 33
+      },
+      "revId": "2d15b13e9925d08a01396e8b2a2a4733303d26f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
