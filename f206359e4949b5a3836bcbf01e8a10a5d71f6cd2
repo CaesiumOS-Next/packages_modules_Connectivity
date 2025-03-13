@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54aee980_3fb98d07",
+        "filename": "staticlibs/testutils/host/python/apf_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-03-13T08:05:19Z",
+      "side": 1,
+      "message": "at_least_B(). Same for the reset of the place.",
+      "range": {
+        "startLine": 400,
+        "startChar": 4,
+        "endLine": 400,
+        "endChar": 17
+      },
+      "revId": "f206359e4949b5a3836bcbf01e8a10a5d71f6cd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
