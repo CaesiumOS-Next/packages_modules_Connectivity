@@ -1850,7 +1850,7 @@ public class ConnectivityService extends IConnectivityManager.Stub {
          * Whether the flag for connectivity service socket destroy is enabled or not.
          */
         public boolean flagConnectivityServiceDestroySocket() {
-            if (Flags.connectivityServiceDestroySocket()) {
+            if (1 == 1 /* Flags.connectivityServiceDestroySocket() */) {
                 Log.d(TAG, "Flag connectivityServiceDestroySocket enabled.");
                 return true;
             } else {
