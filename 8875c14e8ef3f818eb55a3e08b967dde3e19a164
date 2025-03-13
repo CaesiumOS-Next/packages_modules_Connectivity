@@ -1,0 +1,274 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe5e6331_b9d3618c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 155
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-13T07:26:32Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed.",
+      "revId": "8875c14e8ef3f818eb55a3e08b967dde3e19a164",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60730870_8f51b41b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 155
+      },
+      "lineNbr": 1575,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-13T07:26:32Z",
+      "side": 1,
+      "message": "This callback behaves somewhat counterintuitively, so can you explain the behaviour here? In particular it sounds like:\n- A call to startTetheredHotspot can only succeed if the SoftAp is idle. If the SoftAp\n  is running or is being disabled, the call will fail.\n- If a call to startTetheredHotspot fails, the callback is immediately called with\n  WIFI_AP_STATE_FAILED and a null interface.\n- If a call to startTetheredHostpot succeeds, the passed-in callback is the only\n  callback that will receive future WIFI_AP_STATE_ENABLED and WIFI_AP_STATE_DISABLED\n  events in the future, until another call to startTetheredHostpot succeeds, at which\n  point the old callback will stop receiving any events.\n- Wifi may decide to restart the hotspot at any time, and if it does so, it will send\n  WIFI_AP_STATE_DISABLED and then either WIFI_AP_STATE_ENABLED or (if restarting\n  fails) WIFI_AP_STATE_FAILED.",
+      "range": {
+        "startLine": 1575,
+        "startChar": 20,
+        "endLine": 1575,
+        "endChar": 34
+      },
+      "revId": "8875c14e8ef3f818eb55a3e08b967dde3e19a164",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9301f6d8_6c440c76",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 155
+      },
+      "lineNbr": 1582,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-13T07:26:32Z",
+      "side": 1,
+      "message": "Suggest:\n\n    // If stopTethering has already been called, IP serving will still be started, but\n    // as soon as the wifi code processes the stop, WIFI_AP_STATE_DISABLED will be sent\n    // and tethering will be stopped again.",
+      "range": {
+        "startLine": 1582,
+        "startChar": 20,
+        "endLine": 1582,
+        "endChar": 52
+      },
+      "revId": "8875c14e8ef3f818eb55a3e08b967dde3e19a164",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c11d2e35_980ce736",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 155
+      },
+      "lineNbr": 1586,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-13T07:26:32Z",
+      "side": 1,
+      "message": "Suggest:\n\n    // TODO: if a call to startTethering happens just after a call to stopTethering,\n    // the start will fail because hotspot is still being disabled. This likely cannot\n    // be fixed in tethering code but must be fixed in WiFi.",
+      "range": {
+        "startLine": 1586,
+        "startChar": 33,
+        "endLine": 1586,
+        "endChar": 53
+      },
+      "revId": "8875c14e8ef3f818eb55a3e08b967dde3e19a164",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15b73aab_61c35684",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 155
+      },
+      "lineNbr": 1590,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-13T07:26:32Z",
+      "side": 1,
+      "message": "Per discussion: it sounds like WIFI_AP_STATE_FAILED is only sent if an attempt to start hotspot fails and is not sent when a hotstpot goes down for other reasons. If so, then why disable IP serving here? IP serving cannot have been started if the hotspot was not running.",
+      "range": {
+        "startLine": 1590,
+        "startChar": 20,
+        "endLine": 1590,
+        "endChar": 40
+      },
+      "revId": "8875c14e8ef3f818eb55a3e08b967dde3e19a164",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "470cb82a_8c787782",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 155
+      },
+      "lineNbr": 1593,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-13T07:26:32Z",
+      "side": 1,
+      "message": "If hotspot restarts \"by itself\", then there is no longer a request here, neither pending nor serving. If in this moment an app calls startTethering, then what happens? Will it just fail?",
+      "range": {
+        "startLine": 1593,
+        "startChar": 20,
+        "endLine": 1593,
+        "endChar": 40
+      },
+      "revId": "8875c14e8ef3f818eb55a3e08b967dde3e19a164",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6768007_85c710f8",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 155
+      },
+      "lineNbr": 2083,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-13T07:26:32Z",
+      "side": 1,
+      "message": "Nit: do we need this?",
+      "range": {
+        "startLine": 2083,
+        "startChar": 19,
+        "endLine": 2083,
+        "endChar": 41
+      },
+      "revId": "8875c14e8ef3f818eb55a3e08b967dde3e19a164",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "593a2ae9_2b9f9939",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 155
+      },
+      "lineNbr": 2161,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-13T07:26:32Z",
+      "side": 1,
+      "message": "Perhaps not for this CL, but shouldn\u0027t we be testing the new callbacks instead of the legacy broadcast?",
+      "range": {
+        "startLine": 2161,
+        "startChar": 8,
+        "endLine": 2161,
+        "endChar": 32
+      },
+      "revId": "8875c14e8ef3f818eb55a3e08b967dde3e19a164",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0dde982_510337ff",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 155
+      },
+      "lineNbr": 2164,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-13T07:26:32Z",
+      "side": 1,
+      "message": "Per discussion: it sounds like this can\u0027t happen? Should this be WIFI_AP_STATE_DISABLED instead?",
+      "range": {
+        "startLine": 2164,
+        "startChar": 8,
+        "endLine": 2164,
+        "endChar": 23
+      },
+      "revId": "8875c14e8ef3f818eb55a3e08b967dde3e19a164",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3b0e343_9d5521b0",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 155
+      },
+      "lineNbr": 2264,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-13T07:26:32Z",
+      "side": 1,
+      "message": "Per discussion: it sounds like this was an existing bug in the test. Could you fix it in its own CL?",
+      "range": {
+        "startLine": 2264,
+        "startChar": 40,
+        "endLine": 2264,
+        "endChar": 41
+      },
+      "revId": "8875c14e8ef3f818eb55a3e08b967dde3e19a164",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27c164c9_142947cc",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 155
+      },
+      "lineNbr": 3546,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-13T07:26:32Z",
+      "side": 1,
+      "message": "If we do this, then we will lose coverage on older releases. Can we maintain that coverage?",
+      "range": {
+        "startLine": 3546,
+        "startChar": 20,
+        "endLine": 3546,
+        "endChar": 54
+      },
+      "revId": "8875c14e8ef3f818eb55a3e08b967dde3e19a164",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "398693d3_442eb3d9",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 155
+      },
+      "lineNbr": 4398,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-13T07:26:32Z",
+      "side": 1,
+      "message": "You do this several times. Maybe refactor out to a helper method?",
+      "range": {
+        "startLine": 4398,
+        "startChar": 8,
+        "endLine": 4398,
+        "endChar": 51
+      },
+      "revId": "8875c14e8ef3f818eb55a3e08b967dde3e19a164",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

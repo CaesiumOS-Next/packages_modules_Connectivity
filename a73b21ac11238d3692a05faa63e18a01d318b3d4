@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11e0c12f_ead1e438",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 155
+      },
+      "lineNbr": 2732,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-13T07:26:32Z",
+      "side": 0,
+      "message": "This should be called somewhere in the test.",
+      "range": {
+        "startLine": 2732,
+        "startChar": 8,
+        "endLine": 2732,
+        "endChar": 23
+      },
+      "revId": "a73b21ac11238d3692a05faa63e18a01d318b3d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
