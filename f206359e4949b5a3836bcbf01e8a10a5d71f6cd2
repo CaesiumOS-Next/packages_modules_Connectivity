@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "03985aa3_24c7c556",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-03-13T09:57:17Z",
+      "side": 1,
+      "message": "LGTM assume the comment is adjusted",
+      "revId": "f206359e4949b5a3836bcbf01e8a10a5d71f6cd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "54aee980_3fb98d07",
         "filename": "staticlibs/testutils/host/python/apf_utils.py",
         "patchSetId": 2
