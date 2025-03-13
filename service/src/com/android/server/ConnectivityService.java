@@ -1870,7 +1870,7 @@ public class ConnectivityService extends IConnectivityManager.Stub {
          * Whether the flag for connectivity service socket destroy is enabled or not.
          */
         public boolean flagConnectivityServiceDestroySocket() {
-            if (Flags.connectivityServiceDestroySocket()) {
+            if (1 == 1 /* Flags.connectivityServiceDestroySocket() */) {
                 Log.d(TAG, "Flag connectivityServiceDestroySocket enabled.");
                 return true;
             } else {
@@ -5763,6 +5763,8 @@ public class ConnectivityService extends IConnectivityManager.Stub {
     }
 
     private void destroyNetwork(NetworkAgentInfo nai) {
+        updateIpAddressForNetwork(nai, nai.linkProperties, null);
+        log ("sswssw updateIpAddressForNetwork before destroyNativeNetwork()");
         if (shouldDestroyNativeNetwork(nai)) {
             // Tell netd to clean up the configuration for this network
             // (routing rules, DNS, etc).
@@ -5773,7 +5775,7 @@ public class ConnectivityService extends IConnectivityManager.Stub {
             // for an unnecessarily long time.
             destroyNativeNetwork(nai);
         }
-        updateIpAddressForNetwork(nai, nai.linkProperties, null);
+        //updateIpAddressForNetwork(nai, nai.linkProperties, null);
         if (!nai.isCreated() && !mDeps.isAtLeastT()) {
             // Backwards compatibility: send onNetworkDestroyed even if network was never created.
             // This can never run if the code above runs because shouldDestroyNativeNetwork is
@@ -9923,6 +9925,8 @@ public class ConnectivityService extends IConnectivityManager.Stub {
                 }
             }
         }
+        log("sswssw mIpToNetworksMap size: " + mIpToNetworksMap.size());
+        log("mIpToNetworksMap: " + mIpToNetworksMap);
     }
 
     private void destroySocketsByNetworkAgentUpdate(InetAddress address, NetworkAgentInfo nai,
