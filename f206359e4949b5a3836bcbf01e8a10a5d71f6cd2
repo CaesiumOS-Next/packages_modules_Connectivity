@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "197c1b50_741ae16c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-03-13T11:52:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03985aa3_24c7c556",
+      "revId": "f206359e4949b5a3836bcbf01e8a10a5d71f6cd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "54aee980_3fb98d07",
@@ -31,6 +49,30 @@
       "writtenOn": "2025-03-13T08:05:19Z",
       "side": 1,
       "message": "at_least_B(). Same for the reset of the place.",
+      "range": {
+        "startLine": 400,
+        "startChar": 4,
+        "endLine": 400,
+        "endChar": 17
+      },
+      "revId": "f206359e4949b5a3836bcbf01e8a10a5d71f6cd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8289d9a8_29ce2c22",
+        "filename": "staticlibs/testutils/host/python/apf_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-03-13T11:52:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54aee980_3fb98d07",
       "range": {
         "startLine": 400,
         "startChar": 4,
