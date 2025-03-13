@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "720d3f7c_dcc211d0",
+        "filename": "service/src/com/android/server/connectivity/InterfaceTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-13T23:49:51Z",
+      "side": 1,
+      "message": "@GuardedBy(\"mInterfaceMap\")",
+      "range": {
+        "startLine": 42,
+        "startChar": 39,
+        "endLine": 42,
+        "endChar": 52
+      },
+      "revId": "53ecd95072d89a0fcd8161feb851950afe533501",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
