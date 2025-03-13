@@ -350,6 +350,9 @@ public class InetDiagMessage extends NetlinkMessage {
         Consumer<InetDiagMessage> handleNlDumpMsg = (diagMsg) -> {
             if (filter.test(diagMsg)) {
                 try {
+                    InetAddress address = diagMsg.inetDiagMsg.id.locSocketAddress.getAddress();
+                    int port = diagMsg.inetDiagMsg.id.locSocketAddress.getPort();
+                    Log.d(TAG, "sendNetlinkDestroyRequest for address" + address + " port:" + port);
                     sendNetlinkDestroyRequest(destroyFd, proto, diagMsg.inetDiagMsg.id,
                             diagMsg.inetDiagMsg.idiag_family, 1 << diagMsg.inetDiagMsg.idiag_state);
                     destroyedSockets.getAndIncrement();
@@ -565,6 +568,12 @@ public class InetDiagMessage extends NetlinkMessage {
             Set<Range<Integer>> uidRanges, int interfaceId, int netIdMask,
             @NonNull InetDiagMessage diagMsg) {
         InetAddress addressDiag = diagMsg.inetDiagMsg.id.locSocketAddress.getAddress();
+        int port = diagMsg.inetDiagMsg.id.locSocketAddress.getPort();
+        Log.d(TAG, "matchingDestroyCondition: address" + address + " port:" + port +
+                " addressDiag:" + addressDiag +
+                " netIdRange:" + netIdRange + " exemptNetIds:" + exemptNetIds +
+                " uidRanges:" + uidRanges + " interfaceId:" + interfaceId +
+                " netIdMask:" + netIdMask);
         boolean matched = address.equals(addressDiag);
         if (address instanceof Inet4Address && addressDiag instanceof Inet6Address
                 && addressDiag.equals(InetAddressUtils.v4MappedV6Address((Inet4Address) address))) {
@@ -572,10 +581,12 @@ public class InetDiagMessage extends NetlinkMessage {
         }
         if (!matched) {
             // Socket's local address should be matched to the given address.
+            Log.d(TAG, "matchingDestroyCondition unmatched address.");
             return false;
         }
         if (interfaceId > 0) {
             // If valid interface ID is explicitly given, we destroy matching sockets for the ID.
+            Log.d(TAG, "matchingDestroyCondition unmatched interface Id.");
             return interfaceId == diagMsg.inetDiagMsg.id.ifIndex;
         }
 

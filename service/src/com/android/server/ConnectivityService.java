@@ -1870,7 +1870,7 @@ public class ConnectivityService extends IConnectivityManager.Stub {
          * Whether the flag for connectivity service socket destroy is enabled or not.
          */
         public boolean flagConnectivityServiceDestroySocket() {
-            if (Flags.connectivityServiceDestroySocket()) {
+            if (1 == 1 /* Flags.connectivityServiceDestroySocket() */) {
                 Log.d(TAG, "Flag connectivityServiceDestroySocket enabled.");
                 return true;
             } else {
@@ -9924,6 +9924,8 @@ public class ConnectivityService extends IConnectivityManager.Stub {
                 }
             }
         }
+        log("sswssw mIpToNetworksMap size: " + mIpToNetworksMap.size());
+        log("mIpToNetworksMap: " + mIpToNetworksMap);
     }
 
     private void destroySocketsByNetworkAgentUpdate(InetAddress address, NetworkAgentInfo nai,
