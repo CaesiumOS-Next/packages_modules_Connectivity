@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d57518b5_2eceeffb",
+        "filename": "tests/cts/multidevices/apfv6_test.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-03-13T13:40:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a0a21a90_0f06af79",
+      "range": {
+        "startLine": 88,
+        "startChar": 15,
+        "endLine": 88,
+        "endChar": 28
+      },
+      "revId": "00b54d22834a17d734a7b16eb507ff3e3bce5883",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e881113c_b3b1b555",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-03-13T08:07:09Z",
       "side": 1,
       "message": "nit: expected_echo_reply",
+      "range": {
+        "startLine": 98,
+        "startChar": 8,
+        "endLine": 98,
+        "endChar": 18
+      },
+      "revId": "00b54d22834a17d734a7b16eb507ff3e3bce5883",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ca51902_0c26c463",
+        "filename": "tests/cts/multidevices/apfv6_test.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-03-13T13:40:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e881113c_b3b1b555",
       "range": {
         "startLine": 98,
         "startChar": 8,
