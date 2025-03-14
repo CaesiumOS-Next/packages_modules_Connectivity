@@ -3014,9 +3014,9 @@ public class Tethering {
         final TetherState tetherState = mTetherStates.get(iface);
         if (tetherState == null) return;
 
-        tetherState.ipServer.stop();
         mLog.i("removing IpServer for: " + iface);
         mTetherStates.remove(iface);
+        tetherState.ipServer.stop();
     }
 
     private static String[] copy(String[] strarray) {
