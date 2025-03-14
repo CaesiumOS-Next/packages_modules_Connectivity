@@ -1,0 +1,45 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1238e7b_8d8c7ff6",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1147,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-14T06:20:59Z",
+      "side": 1,
+      "message": "nits: I think this check was added not to trigger `logTerribleErrorMessageBeforeConnect` by `testUnregisterBeforeRegister`.\nIf so, I think this should be `mState \u003e\u003d STATE_REGISTERED`.",
+      "range": {
+        "startLine": 1147,
+        "startChar": 16,
+        "endLine": 1147,
+        "endChar": 39
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "d2e8a457_2d2bfd4c",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "framework/src/android/net/NetworkAgent.java",
+              "range": {
+                "startLine": 1147,
+                "startChar": 0,
+                "endLine": 1148,
+                "endChar": 0
+              },
+              "replacement": "            if (mState \u003e\u003d STATE_REGISTERED) {\n"
+            }
+          ]
+        }
+      ],
+      "revId": "9f20721bf4bec4d9ecc3c36a7f7e4a2541068461",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
