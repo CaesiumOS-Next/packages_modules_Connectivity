@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "18e3974f_6ee44d0b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-14T03:49:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "992274f8_a8cc06c0",
+      "range": {
+        "startLine": 176,
+        "startChar": 12,
+        "endLine": 176,
+        "endChar": 30
+      },
+      "revId": "185eab37fdf4909553f2f7aa5c642898f8ea9e9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "78c3ecc2_bd3278fe",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-03-13T07:33:11Z",
       "side": 1,
       "message": "This should never be called, right? If so, should it instead do something like:\n\n    throw new UnsupportedOperationException(\"asBinder unexpectedly called on internal-only listener\");",
+      "range": {
+        "startLine": 184,
+        "startChar": 20,
+        "endLine": 184,
+        "endChar": 31
+      },
+      "revId": "185eab37fdf4909553f2f7aa5c642898f8ea9e9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47542a16_14dddf09",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-14T03:49:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78c3ecc2_bd3278fe",
       "range": {
         "startLine": 184,
         "startChar": 20,
