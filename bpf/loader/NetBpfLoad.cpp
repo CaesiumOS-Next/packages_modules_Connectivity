@@ -17,6 +17,7 @@
 #define LOG_TAG "NetBpfLoad"
 
 #include <arpa/inet.h>
+#include <bpf/btf.h>
 #include <bpf/libbpf.h>
 #include <dirent.h>
 #include <elf.h>
@@ -82,6 +83,84 @@ using std::vector;
 
 namespace android {
 namespace bpf {
+
+//-----
+// From
+// https://android.googlesource.com/platform/external/libbpf/+/6abeb4203d0f1f8a5dd2bf09939ce2c55846acb3%5E%21/
+// 'libbpf: remove deprecated BTF APIs' eliminated libbpf_err() calls,
+// s/pr_warn/ALOGW/, s/pr_debug/ALOGD/
+int btf__get_map_kv_tids(const struct btf *btf, const char *map_name,
+                         __u32 expected_key_size, __u32 expected_value_size,
+                         __u32 *key_type_id, __u32 *value_type_id) {
+  const struct btf_type *container_type;
+  const struct btf_member *key, *value;
+  const size_t max_name = 256;
+  char container_name[max_name];
+  __s64 key_size, value_size;
+  __s32 container_id;
+
+  if (snprintf(container_name, max_name, "____btf_map_%s", map_name) ==
+      max_name) {
+    ALOGW("map:%s length of '____btf_map_%s' is too long\n", map_name,
+          map_name);
+    return -EINVAL;
+  }
+
+  container_id = btf__find_by_name(btf, container_name);
+  if (container_id < 0) {
+    ALOGD("map:%s container_name:%s cannot be found in BTF. Missing "
+          "BPF_ANNOTATE_KV_PAIR?\n",
+          map_name, container_name);
+    return container_id;
+  }
+
+  container_type = btf__type_by_id(btf, container_id);
+  if (!container_type) {
+    ALOGW("map:%s cannot find BTF type for container_id:%u\n", map_name,
+          container_id);
+    return -EINVAL;
+  }
+
+  if (!btf_is_struct(container_type) || btf_vlen(container_type) < 2) {
+    ALOGW("map:%s container_name:%s is an invalid container struct\n", map_name,
+          container_name);
+    return -EINVAL;
+  }
+
+  key = btf_members(container_type);
+  value = key + 1;
+
+  key_size = btf__resolve_size(btf, key->type);
+  if (key_size < 0) {
+    ALOGW("map:%s invalid BTF key_type_size\n", map_name);
+    return key_size;
+  }
+
+  if (expected_key_size != key_size) {
+    ALOGW("map:%s btf_key_type_size:%u != map_def_key_size:%u\n", map_name,
+          (__u32)key_size, expected_key_size);
+    return -EINVAL;
+  }
+
+  value_size = btf__resolve_size(btf, value->type);
+  if (value_size < 0) {
+    ALOGW("map:%s invalid BTF value_type_size\n", map_name);
+    return value_size;
+  }
+
+  if (expected_value_size != value_size) {
+    ALOGW("map:%s btf_value_type_size:%u != map_def_value_size:%u\n", map_name,
+          (__u32)value_size, expected_value_size);
+    return -EINVAL;
+  }
+
+  *key_type_id = key->type;
+  *value_type_id = value->type;
+
+  return 0;
+}
+
+//-----
 
 // Bpf programs may specify per-program & per-map selinux_context and pin_subdir.
 //
@@ -649,10 +728,132 @@ static bool mapMatchesExpectations(const unique_fd& fd, const string& mapName,
     return false;
 }
 
+static int setBtfDatasecSize(ifstream &elfFile, struct btf *btf,
+                             struct btf_type *bt) {
+  const char *name = btf__name_by_offset(btf, bt->name_off);
+  if (!name) {
+    return -1;
+  }
+
+  vector<char> data;
+  if (readSectionByName(name, elfFile, data)) {
+    ALOGE("Failed to read section, datasec: %s", name);
+    return -1;
+  }
+  bt->size = data.size();
+  return 0;
+}
+
+static int getSymOffsetByName(ifstream &elfFile, const char *name, int *off) {
+  vector<Elf64_Sym> symtab;
+  int ret = readSymTab(elfFile, 1 /* sort */, symtab);
+  if (ret) {
+    return ret;
+  }
+  for (int i = 0; i < (int)symtab.size(); i++) {
+    string s;
+    ret = getSymName(elfFile, symtab[i].st_name, s);
+    if (ret) {
+      continue;
+    }
+    if (!strcmp(s.c_str(), name)) {
+      *off = symtab[i].st_value;
+      return 0;
+    }
+  }
+  return -1;
+}
+
+static int setBtfVarOffset(ifstream &elfFile, struct btf *btf,
+                           struct btf_type *datasecBt) {
+  const char *datasecName = btf__name_by_offset(btf, datasecBt->name_off);
+  int i, vars = btf_vlen(datasecBt);
+  struct btf_var_secinfo *vsi;
+
+  for (i = 0, vsi = btf_var_secinfos(datasecBt); i < vars; i++, vsi++) {
+    const struct btf_type *varBt = btf__type_by_id(btf, vsi->type);
+    if (!varBt) {
+      ALOGE("Failed to resolve btf type, datasec: %s", datasecName);
+      return -1;
+    }
+    if (!btf_is_var(varBt)) {
+      ALOGE("Found non VAR kind, datasec: %s, kind: %d", datasecName,
+            btf_kind(varBt));
+      return -1;
+    }
+
+    const struct btf_var *var = btf_var(varBt);
+    if (var->linkage == BTF_VAR_STATIC)
+      continue;
+
+    const char *varName = btf__name_by_offset(btf, varBt->name_off);
+    if (!varName) {
+      ALOGE("Failed to resolve var name, datasec: %s", datasecName);
+      return -1;
+    }
+
+    int off;
+    int ret = getSymOffsetByName(elfFile, varName, &off);
+    if (ret) {
+      ALOGE("No offset found in symbol table, datasec: %s, var: %s",
+            datasecName, varName);
+      return -1;
+    }
+    vsi->offset = off;
+  }
+  return 0;
+}
+
+static int loadBtf(ifstream &elfFile, struct btf *btf) {
+  int ret;
+  for (unsigned int i = 1; i < btf__type_cnt(btf); ++i) {
+    struct btf_type *bt = (struct btf_type *)btf__type_by_id(btf, i);
+    if (!btf_is_datasec(bt)) {
+      continue;
+    }
+    ret = setBtfDatasecSize(elfFile, btf, bt);
+    if (ret)
+      return ret;
+    ret = setBtfVarOffset(elfFile, btf, bt);
+    if (ret)
+      return ret;
+  }
+
+  ret = btf__load_into_kernel(btf);
+  if (ret) {
+    if (errno != EINVAL) {
+      ALOGE("btf__load_into_kernel failed, errno: %d", errno);
+      btf__free(btf);
+      return ret;
+    };
+    // For BTF_KIND_FUNC, newer kernels can read the BTF_INFO_VLEN bits of
+    // struct btf_type to distinguish static vs. global vs. extern
+    // functions, but older kernels enforce that only the BTF_INFO_KIND bits
+    // can be set. Retry with non-BTF_INFO_KIND bits zeroed out to handle
+    // this case.
+    for (unsigned int i = 1; i < btf__type_cnt(btf); ++i) {
+      struct btf_type *bt = (struct btf_type *)btf__type_by_id(btf, i);
+      if (btf_is_func(bt)) {
+        bt->info = (BTF_INFO_KIND(bt->info)) << 24;
+      }
+    }
+    ret = btf__load_into_kernel(btf);
+    if (ret) {
+      ALOGE("btf__load_into_kernel retry failed, errno: %d", errno);
+      return ret;
+    };
+  }
+  return 0;
+}
+
+static bool isBtfSupported(enum bpf_map_type type) {
+  return type != BPF_MAP_TYPE_DEVMAP_HASH && type != BPF_MAP_TYPE_RINGBUF;
+}
+
 static int createMaps(const char* elfPath, ifstream& elfFile, vector<unique_fd>& mapFds,
                       const char* prefix, const unsigned int bpfloader_ver) {
     int ret;
-    vector<char> mdData;
+    vector<char> mdData, btfData;
     vector<struct bpf_map_def> md;
     vector<string> mapNames;
     string objName = pathToObjName(string(elfPath));
@@ -678,6 +879,22 @@ static int createMaps(const char* elfPath, ifstream& elfFile, vector<unique_fd>&
 
     ret = getSectionSymNames(elfFile, "maps", mapNames);
     if (ret) return ret;
+
+    ret = readSectionByName(".BTF", elfFile, btfData);
+    if (ret) {
+      ALOGE("Failed to read .BTF section, ret:%d", ret);
+      return ret;
+    }
+    struct btf *btf = btf__new(btfData.data(), btfData.size());
+    if (btf == NULL) {
+      ALOGE("btf__new failed, errno: %d", errno);
+      return -errno;
+    }
+    ret = loadBtf(elfFile, btf);
+    if (ret) {
+      btf__free(btf);
+      return ret;
+    }
 
     unsigned kvers = kernelVersion();
 
@@ -804,6 +1021,25 @@ static int createMaps(const char* elfPath, ifstream& elfFile, vector<unique_fd>&
             };
             if (isAtLeastKernelVersion(4, 15, 0))
                 strlcpy(req.map_name, mapNames[i].c_str(), sizeof(req.map_name));
+
+            if (isBtfSupported(type)) {
+              uint32_t kTid, vTid;
+              ret =
+                  btf__get_map_kv_tids(btf, mapNames[i].c_str(), md[i].key_size,
+                                       md[i].value_size, &kTid, &vTid);
+              if (ret) {
+                ALOGE("btf__get_map_kv_tids failed, ret: %d", ret);
+                btf__free(btf);
+                return ret;
+              }
+              req.btf_fd = btf__fd(btf);
+              req.btf_key_type_id = kTid;
+              req.btf_value_type_id = vTid;
+              ALOGI("Create map with BTF, map: %s", mapNames[i].c_str());
+            } else {
+              ALOGI("Create map without BTF, map: %s", mapNames[i].c_str());
+            }
+
             fd.reset(bpf(BPF_MAP_CREATE, req));
             saved_errno = errno;
             if (fd.ok()) {
@@ -813,12 +1049,18 @@ static int createMaps(const char* elfPath, ifstream& elfFile, vector<unique_fd>&
             }
         }
 
-        if (!fd.ok()) return -saved_errno;
+        if (!fd.ok()) {
+          btf__free(btf);
+          return -saved_errno;
+        }
 
         // When reusing a pinned map, we need to check the map type/sizes/etc match, but for
         // safety (since reuse code path is rare) run these checks even if we just created it.
         // We assume failure is due to pinned map mismatch, hence the 'NOT UNIQUE' return code.
-        if (!mapMatchesExpectations(fd, mapNames[i], md[i], type)) return -ENOTUNIQ;
+        if (!mapMatchesExpectations(fd, mapNames[i], md[i], type)) {
+          btf__free(btf);
+          return -ENOTUNIQ;
+        }
 
         if (!reuse) {
             if (specified(selinux_context)) {
@@ -828,6 +1070,7 @@ static int createMaps(const char* elfPath, ifstream& elfFile, vector<unique_fd>&
                 if (ret) {
                     const int err = errno;
                     ALOGE("create %s -> %d [%d:%s]", createLoc.c_str(), ret, err, strerror(err));
+                    btf__free(btf);
                     return -err;
                 }
                 ret = renameat2(AT_FDCWD, createLoc.c_str(),
@@ -836,6 +1079,7 @@ static int createMaps(const char* elfPath, ifstream& elfFile, vector<unique_fd>&
                     const int err = errno;
                     ALOGE("rename %s %s -> %d [%d:%s]", createLoc.c_str(), mapPinLoc.c_str(), ret,
                           err, strerror(err));
+                    btf__free(btf);
                     return -err;
                 }
             } else {
@@ -843,6 +1087,7 @@ static int createMaps(const char* elfPath, ifstream& elfFile, vector<unique_fd>&
                 if (ret) {
                     const int err = errno;
                     ALOGE("pin %s -> %d [%d:%s]", mapPinLoc.c_str(), ret, err, strerror(err));
+                    btf__free(btf);
                     return -err;
                 }
             }
@@ -851,6 +1096,7 @@ static int createMaps(const char* elfPath, ifstream& elfFile, vector<unique_fd>&
                 const int err = errno;
                 ALOGE("chmod(%s, 0%o) = %d [%d:%s]", mapPinLoc.c_str(), md[i].mode, ret, err,
                       strerror(err));
+                btf__free(btf);
                 return -err;
             }
             ret = chown(mapPinLoc.c_str(), (uid_t)md[i].uid, (gid_t)md[i].gid);
@@ -858,6 +1104,7 @@ static int createMaps(const char* elfPath, ifstream& elfFile, vector<unique_fd>&
                 const int err = errno;
                 ALOGE("chown(%s, %u, %u) = %d [%d:%s]", mapPinLoc.c_str(), md[i].uid, md[i].gid,
                       ret, err, strerror(err));
+                btf__free(btf);
                 return -err;
             }
         }
@@ -867,6 +1114,7 @@ static int createMaps(const char* elfPath, ifstream& elfFile, vector<unique_fd>&
             if (mapId == -1) {
                 const int err = errno;
                 ALOGE("bpfGetFdMapId failed, errno: %d", err);
+                btf__free(btf);
                 return -err;
             }
             ALOGI("map %s id %d", mapPinLoc.c_str(), mapId);
@@ -875,6 +1123,7 @@ static int createMaps(const char* elfPath, ifstream& elfFile, vector<unique_fd>&
         mapFds.push_back(std::move(fd));
     }
 
+    btf__free(btf);
     return ret;
 }
 
@@ -1414,6 +1663,29 @@ static bool isWear() {
     return wear;
 }
 
+static int libbpfPrint(enum libbpf_print_level lvl, const char *const formatStr,
+                       va_list argList) {
+  int32_t prio;
+  switch (lvl) {
+  case LIBBPF_WARN:
+    prio = ANDROID_LOG_WARN;
+    break;
+  case LIBBPF_INFO:
+    prio = ANDROID_LOG_INFO;
+    break;
+  case LIBBPF_DEBUG:
+    prio = ANDROID_LOG_DEBUG;
+    break;
+  }
+  char *s = strdup(formatStr ?: "(no format string)");
+  int len = strlen(s);
+  if (len && s[len - 1] == '\n')
+    s[len - 1] = 0;
+  LOG_PRI_VA(prio, LOG_TAG, s, argList);
+  free(s);
+  return 0;
+}
+
 static int doLoad(char** argv, char * const envp[]) {
     if (!isAtLeastS) {
         ALOGE("Impossible - not reachable on Android <S.");
@@ -1421,6 +1693,7 @@ static int doLoad(char** argv, char * const envp[]) {
         // for any possible busted 'optimized' start everything vendor init hacks on R
         return 0;
     }
+    libbpf_set_print(libbpfPrint);
 
     const bool runningAsRoot = !getuid();  // true iff U QPR3 or V+
 
