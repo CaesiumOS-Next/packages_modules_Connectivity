@@ -16,6 +16,24 @@
       "message": "Started an abtd run for this change on the previously failing target: https://android-build.corp.google.com/builds/abtd/run/L59500030010316383",
       "revId": "8e69178c32544ef2649134ddc7d0a75e5ccb6705",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5381480_5c8d33e9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-14T03:33:40Z",
+      "side": 1,
+      "message": "Unresolved until the run passes",
+      "parentUuid": "c7914a78_438eccd6",
+      "revId": "8e69178c32544ef2649134ddc7d0a75e5ccb6705",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
