@@ -33,6 +33,41 @@
       "message": "I will take a look",
       "revId": "50f66511992ed1e756bfad4188de5fc1e53f129b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "593dee7d_82ac0f31",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-03-14T08:33:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "249272a8_b4cb425d",
+      "revId": "50f66511992ed1e756bfad4188de5fc1e53f129b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "faf1f52b_e50cbecd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-03-14T08:33:45Z",
+      "side": 1,
+      "message": "LGTM, please test it on real device and make sure it is not flaky.",
+      "revId": "50f66511992ed1e756bfad4188de5fc1e53f129b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
