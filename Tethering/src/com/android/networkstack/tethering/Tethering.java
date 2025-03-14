@@ -148,7 +148,6 @@ import com.android.internal.util.MessageUtils;
 import com.android.internal.util.State;
 import com.android.internal.util.StateMachine;
 import com.android.modules.utils.build.SdkLevel;
-import com.android.net.flags.Flags;
 import com.android.net.module.util.BaseNetdUnsolicitedEventListener;
 import com.android.net.module.util.CollectionUtils;
 import com.android.net.module.util.HandlerUtils;
@@ -312,7 +311,7 @@ public class Tethering {
         mLooper = mDeps.makeTetheringLooper();
         mNotificationUpdater = mDeps.makeNotificationUpdater(mContext, mLooper);
         mTetheringMetrics = mDeps.makeTetheringMetrics(mContext);
-        mRequestTracker = new RequestTracker(isTetheringWithSoftApConfigEnabled());
+        mRequestTracker = new RequestTracker(SdkLevel.isAtLeastB());
 
         mTetherStates = new ArrayMap<>();
         mConnectedClientsTracker = new ConnectedClientsTracker();
@@ -461,11 +460,6 @@ public class Tethering {
     @VisibleForTesting
     ContentObserver getSettingsObserverForTest() {
         return mSettingsObserver;
-    }
-
-    // TODO: Replace with SdkLevel.isAtLeastB() once the feature is fully implemented.
-    boolean isTetheringWithSoftApConfigEnabled() {
-        return SdkLevel.isAtLeastB() && Flags.tetheringWithSoftApConfig();
     }
 
     /**
@@ -739,7 +733,7 @@ public class Tethering {
 
     void stopTetheringRequest(@NonNull final TetheringRequest request,
             @NonNull final IIntResultListener listener) {
-        if (!isTetheringWithSoftApConfigEnabled()) return;
+        if (!SdkLevel.isAtLeastB()) return;
         final boolean hasNetworkSettings = hasCallingPermission(NETWORK_SETTINGS);
         mHandler.post(() -> {
             if (mRequestTracker.findFuzzyMatchedRequest(request, !hasNetworkSettings) != null) {

@@ -74,6 +74,7 @@ import android.net.cts.util.CtsTetheringUtils.TestTetheringEventCallback;
 import android.net.wifi.SoftApConfiguration;
 import android.net.wifi.WifiManager;
 import android.net.wifi.WifiSsid;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.os.ResultReceiver;
@@ -86,7 +87,7 @@ import androidx.test.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
 
 import com.android.modules.utils.build.SdkLevel;
-import com.android.net.flags.Flags;
+import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 import com.android.testutils.ParcelUtils;
 import com.android.testutils.com.android.testutils.CarrierConfigRule;
 
@@ -236,8 +237,8 @@ public class TetheringManagerTest {
     }
 
     @Test
+    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testStartTetheringDuplicateRequestRejected() throws Exception {
-        assumeTrue(isTetheringWithSoftApConfigEnabled());
         final TestTetheringEventCallback tetherEventCallback =
                 mCtsTetheringUtils.registerTetheringEventCallback();
         try {
@@ -405,13 +406,13 @@ public class TetheringManagerTest {
             tetherEventCallback.assumeWifiTetheringSupported(mContext);
             tetherEventCallback.expectNoTetheringActive();
 
-            SoftApConfiguration softApConfig = isTetheringWithSoftApConfigEnabled()
+            SoftApConfiguration softApConfig = SdkLevel.isAtLeastB()
                     ? createSoftApConfiguration("SSID") : null;
             final TetheringInterface tetheredIface =
                     mCtsTetheringUtils.startWifiTethering(tetherEventCallback, softApConfig);
 
             assertNotNull(tetheredIface);
-            if  (isTetheringWithSoftApConfigEnabled()) {
+            if  (SdkLevel.isAtLeastB()) {
                 assertEquals(softApConfig, tetheredIface.getSoftApConfiguration());
             }
 
@@ -483,8 +484,8 @@ public class TetheringManagerTest {
     }
 
     @Test
+    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testStopTetheringRequestNoMatchFailure() throws Exception {
-        assumeTrue(isTetheringWithSoftApConfigEnabled());
         final TestTetheringEventCallback tetherEventCallback =
                 mCtsTetheringUtils.registerTetheringEventCallback();
         try {
@@ -503,8 +504,8 @@ public class TetheringManagerTest {
     }
 
     @Test
+    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testStopTetheringRequestMatchSuccess() throws Exception {
-        assumeTrue(isTetheringWithSoftApConfigEnabled());
         final TestTetheringEventCallback tetherEventCallback =
                 mCtsTetheringUtils.registerTetheringEventCallback();
         try {
@@ -527,8 +528,8 @@ public class TetheringManagerTest {
     }
 
     @Test
+    @IgnoreUpTo(Build.VERSION_CODES.S_V2)
     public void testStopTetheringRequestFuzzyMatchSuccess() throws Exception {
-        assumeTrue(isTetheringWithSoftApConfigEnabled());
         final TestTetheringEventCallback tetherEventCallback =
                 mCtsTetheringUtils.registerTetheringEventCallback();
         try {
@@ -554,10 +555,6 @@ public class TetheringManagerTest {
         }
     }
 
-    private boolean isTetheringWithSoftApConfigEnabled() {
-        return SdkLevel.isAtLeastB() && Flags.tetheringWithSoftApConfig();
-    }
-
     @Test
     public void testStartTetheringNoPermission() throws Exception {
         final StartTetheringCallback startTetheringCallback = new StartTetheringCallback();
@@ -568,7 +565,7 @@ public class TetheringManagerTest {
         startTetheringCallback.expectTetheringFailed(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
 
         // WRITE_SETTINGS not sufficient
-        if (isTetheringWithSoftApConfigEnabled()) {
+        if (SdkLevel.isAtLeastB()) {
             runAsShell(WRITE_SETTINGS, () -> {
                 mTM.startTethering(new TetheringRequest.Builder(TETHERING_WIFI).build(),
                         c -> c.run() /* executor */, startTetheringCallback);

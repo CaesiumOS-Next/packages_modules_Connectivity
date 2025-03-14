@@ -201,7 +201,6 @@ import androidx.test.runner.AndroidJUnit4;
 import com.android.internal.util.test.BroadcastInterceptingContext;
 import com.android.internal.util.test.FakeSettingsProvider;
 import com.android.modules.utils.build.SdkLevel;
-import com.android.net.flags.Flags;
 import com.android.net.module.util.CollectionUtils;
 import com.android.net.module.util.InterfaceParams;
 import com.android.net.module.util.PrivateAddressCoordinator;
@@ -2437,7 +2436,7 @@ public class TetheringTest {
 
     @Test
     public void testSoftApConfigInTetheringEventCallback() throws Exception {
-        assumeTrue(isTetheringWithSoftApConfigEnabled());
+        assumeTrue(SdkLevel.isAtLeastB());
         when(mContext.checkCallingOrSelfPermission(NETWORK_SETTINGS))
                 .thenReturn(PERMISSION_DENIED);
         when(mContext.checkCallingOrSelfPermission(NETWORK_STACK))
@@ -2533,13 +2532,9 @@ public class TetheringTest {
         callback.assertNoCallback();
     }
 
-    private boolean isTetheringWithSoftApConfigEnabled() {
-        return SdkLevel.isAtLeastB() && Flags.tetheringWithSoftApConfig();
-    }
-
     @Test
     public void testFuzzyMatchedWifiCannotBeAdded() throws Exception {
-        assumeTrue(isTetheringWithSoftApConfigEnabled());
+        assumeTrue(SdkLevel.isAtLeastB());
         initTetheringOnTestThread();
         TestTetheringEventCallback callback = new TestTetheringEventCallback();
         SoftApConfiguration softApConfig = new SoftApConfiguration.Builder().setWifiSsid(
@@ -2623,7 +2618,7 @@ public class TetheringTest {
 
     @Test
     public void testFuzzyMatchedWifiCanBeAddedAfterIpServerStopped() throws Exception {
-        assumeTrue(isTetheringWithSoftApConfigEnabled());
+        assumeTrue(SdkLevel.isAtLeastB());
         when(mWifiManager.startTetheredHotspot(null)).thenReturn(true);
         initTetheringOnTestThread();
 
@@ -2656,7 +2651,7 @@ public class TetheringTest {
 
     @Test
     public void testFuzzyMatchedWifiCanBeAddedAfterIpServerUnwanted() throws Exception {
-        assumeTrue(isTetheringWithSoftApConfigEnabled());
+        assumeTrue(SdkLevel.isAtLeastB());
         when(mWifiManager.startTetheredHotspot(null)).thenReturn(true);
         initTetheringOnTestThread();
 
@@ -2689,7 +2684,7 @@ public class TetheringTest {
 
     @Test
     public void testFuzzyMatchedWifiCanBeAddedAfterIpServerError() throws Exception {
-        assumeTrue(isTetheringWithSoftApConfigEnabled());
+        assumeTrue(SdkLevel.isAtLeastB());
         when(mWifiManager.startTetheredHotspot(null)).thenReturn(true);
         initTetheringOnTestThread();
 
@@ -2717,7 +2712,7 @@ public class TetheringTest {
 
     @Test
     public void testFuzzyMatchedWifiCanBeAddedAfterStoppingPendingRequest() throws Exception {
-        assumeTrue(isTetheringWithSoftApConfigEnabled());
+        assumeTrue(SdkLevel.isAtLeastB());
         when(mWifiManager.startTetheredHotspot(null)).thenReturn(true);
         initTetheringOnTestThread();
 
@@ -2749,7 +2744,7 @@ public class TetheringTest {
 
     @Test
     public void testFuzzyMatchedWifiCanBeAddedAfterStoppingServingRequest() throws Exception {
-        assumeTrue(isTetheringWithSoftApConfigEnabled());
+        assumeTrue(SdkLevel.isAtLeastB());
         when(mWifiManager.startTetheredHotspot(null)).thenReturn(true);
         initTetheringOnTestThread();
 
@@ -2782,7 +2777,7 @@ public class TetheringTest {
 
     @Test
     public void testStopTetheringWithMatchingRequest() throws Exception {
-        assumeTrue(isTetheringWithSoftApConfigEnabled());
+        assumeTrue(SdkLevel.isAtLeastB());
         when(mContext.checkCallingOrSelfPermission(NETWORK_SETTINGS)).thenReturn(PERMISSION_DENIED);
         initTetheringOnTestThread();
         UpstreamNetworkState upstreamState = buildMobileDualStackUpstreamState();
@@ -2830,7 +2825,7 @@ public class TetheringTest {
 
     @Test
     public void testStopTetheringWithSettingsPermission() throws Exception {
-        assumeTrue(isTetheringWithSoftApConfigEnabled());
+        assumeTrue(SdkLevel.isAtLeastB());
         initTetheringOnTestThread();
         UpstreamNetworkState upstreamState = buildMobileDualStackUpstreamState();
         initTetheringUpstream(upstreamState);
@@ -3126,7 +3121,7 @@ public class TetheringTest {
 
     @Test
     public void testMultipleStartTetheringLegacy() throws Exception {
-        assumeFalse(isTetheringWithSoftApConfigEnabled());
+        assumeFalse(SdkLevel.isAtLeastB());
         initTetheringOnTestThread();
         final LinkAddress serverLinkAddr = new LinkAddress("192.168.20.1/24");
         final LinkAddress clientLinkAddr = new LinkAddress("192.168.20.42/24");
@@ -3907,7 +3902,7 @@ public class TetheringTest {
     @Test
     public void testStartBluetoothTetheringFailsWhenTheresAnExistingRequestWaitingForPanService()
             throws Exception {
-        assumeFalse(isTetheringWithSoftApConfigEnabled());
+        assumeFalse(SdkLevel.isAtLeastB());
         initTetheringOnTestThread();
 
         mockBluetoothSettings(true /* bluetoothOn */, true /* tetheringOn */);
