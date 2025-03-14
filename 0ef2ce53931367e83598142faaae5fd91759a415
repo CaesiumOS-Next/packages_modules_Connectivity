@@ -175,6 +175,30 @@
       },
       "revId": "0ef2ce53931367e83598142faaae5fd91759a415",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59452d07_905e7923",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-03-14T09:00:09Z",
+      "side": 1,
+      "message": "I\u0027m not sure gemini is right here (and why would it be better ?), HashSet requires boxing every Integer as a different object which has overhead and will need to be garbage collected, but SparseBooleanArray is just 2 arrays (ints and booleans). You\u0027ll get a bit slower lookup but the javadoc says for hundreds of items it\u0027s less than 50%.",
+      "parentUuid": "78730b95_3f2aa15c",
+      "range": {
+        "startLine": 281,
+        "startChar": 68,
+        "endLine": 281,
+        "endChar": 75
+      },
+      "revId": "0ef2ce53931367e83598142faaae5fd91759a415",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4eb40d2c_562a3d45",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsFactory.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-03-14T09:00:09Z",
+      "side": 1,
+      "message": "Nit: this should probably be after L.286 instead (after creating the set)",
+      "revId": "5512be9a766eb8aeef7625b595511721a21982f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "769849e8_405c6930",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsFactory.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-03-14T09:00:09Z",
+      "side": 1,
+      "message": "This will be logged once per extra entry, isn\u0027t that a bit too much ?\n\nYou could log after adding the last entry to have only one log:\n\n```\nif (tagSet.add(tag) \u0026\u0026 tagSet.size() \u003d\u003d mPerUidTagThrottlingThreshold) {\n    Log.wtf(...)\n}\n```",
+      "revId": "5512be9a766eb8aeef7625b595511721a21982f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
