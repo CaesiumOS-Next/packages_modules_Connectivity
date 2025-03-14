@@ -322,8 +322,8 @@ public class TetheringService extends Service {
 
             if (hasTetherPrivilegedPermission()) return true;
 
-            // After TetheringManager moves to public API, prevent third-party apps from being able
-            // to change tethering with only WRITE_SETTINGS permission.
+            // For B+, prevent third-party apps from being able to change tethering with only
+            // WRITE_SETTINGS permission.
             if (mTethering.isTetheringWithSoftApConfigEnabled()) return false;
 
             if (mTethering.isTetherProvisioningRequired()) return false;
