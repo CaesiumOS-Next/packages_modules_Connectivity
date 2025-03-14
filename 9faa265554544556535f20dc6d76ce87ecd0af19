@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c5d560d_6a17b530",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-14T04:28:45Z",
+      "side": 1,
+      "message": "Ouch yes ! Good catch, thanks.",
+      "parentUuid": "311d5aab_829beb2f",
+      "range": {
+        "startLine": 677,
+        "startChar": 38,
+        "endLine": 677,
+        "endChar": 56
+      },
+      "revId": "9faa265554544556535f20dc6d76ce87ecd0af19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ece1e9f6_7c7b8565",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb510195_0985ee5b",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/TestableNetworkAgent.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-14T04:28:45Z",
+      "side": 1,
+      "message": "Indeed.",
+      "parentUuid": "ece1e9f6_7c7b8565",
+      "range": {
+        "startLine": 127,
+        "startChar": 12,
+        "endLine": 127,
+        "endChar": 53
+      },
+      "revId": "9faa265554544556535f20dc6d76ce87ecd0af19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bdddc429_78cff0fe",
@@ -60,6 +108,30 @@
       "writtenOn": "2025-03-12T03:02:52Z",
       "side": 1,
       "message": "Does this trigger logTerribleErrorMessageBeforeConnect?",
+      "range": {
+        "startLine": 2002,
+        "startChar": 8,
+        "endLine": 2002,
+        "endChar": 26
+      },
+      "revId": "9faa265554544556535f20dc6d76ce87ecd0af19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3ec39e5_f4563963",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 2002,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-14T04:28:45Z",
+      "side": 1,
+      "message": "Yes it would, but it didn\u0027t in practice because I had forgotten @Test 😅\n\nAdded @Test, and made sure it doesn\u0027t log. In fact I think it doesn\u0027t matter too much if we don\u0027t log for that particular case even in the wild.",
+      "parentUuid": "bdddc429_78cff0fe",
       "range": {
         "startLine": 2002,
         "startChar": 8,
