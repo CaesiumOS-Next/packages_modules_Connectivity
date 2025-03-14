@@ -22,6 +22,30 @@
       },
       "revId": "53ecd95072d89a0fcd8161feb851950afe533501",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c6967c2_605bba40",
+        "filename": "service/src/com/android/server/connectivity/InterfaceTracker.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-03-14T00:05:05Z",
+      "side": 1,
+      "message": "Will add this in follow-up CL. The operations are already synchronized by this map.",
+      "parentUuid": "720d3f7c_dcc211d0",
+      "range": {
+        "startLine": 42,
+        "startChar": 39,
+        "endLine": 42,
+        "endChar": 52
+      },
+      "revId": "53ecd95072d89a0fcd8161feb851950afe533501",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
