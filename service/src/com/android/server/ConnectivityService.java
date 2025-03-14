@@ -5737,6 +5737,10 @@ public class ConnectivityService extends IConnectivityManager.Stub {
             mDeps.disableIngressRateLimit(nai.linkProperties.getInterfaceName());
         }
 
+        // Removes the interfaces associated with the network being destroyed from the tracker.
+        for (String interfaceName : nai.linkProperties.getAllInterfaceNames()) {
+            mInterfaceTracker.removeInterface(interfaceName);
+        }
         nai.setDestroyed();
         nai.onNetworkDestroyed();
     }
