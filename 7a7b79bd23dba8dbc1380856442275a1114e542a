@@ -127,6 +127,48 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd460aba_7fb164c5",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetPortInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2025-03-14T08:04:34Z",
+      "side": 1,
+      "message": "Added fields.",
+      "parentUuid": "4ee297ea_5487c899",
+      "revId": "7a7b79bd23dba8dbc1380856442275a1114e542a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb5f7bd8_52638fe2",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetPortInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2025-03-14T08:04:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad94917c_bccec6b5",
+      "range": {
+        "startLine": 26,
+        "startChar": 54,
+        "endLine": 26,
+        "endChar": 69
+      },
+      "revId": "7a7b79bd23dba8dbc1380856442275a1114e542a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "208fbefe_5218afa3",
@@ -152,6 +194,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6eeaefbd_1e5c1cdb",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetPortInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2025-03-14T08:04:34Z",
+      "side": 1,
+      "message": "Currently when we callback, we get interface state from factory each time, and not keeping the state, so I thought this should be a one-off object constructed when callback? Are we planning to track EthernetPortInfo?",
+      "parentUuid": "208fbefe_5218afa3",
+      "range": {
+        "startLine": 28,
+        "startChar": 22,
+        "endLine": 28,
+        "endChar": 27
+      },
+      "revId": "7a7b79bd23dba8dbc1380856442275a1114e542a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7702f5f3_de9b21de",
         "filename": "service-t/src/com/android/server/ethernet/EthernetPortInfo.java",
         "patchSetId": 1
@@ -163,6 +229,30 @@
       "writtenOn": "2025-03-14T06:47:23Z",
       "side": 1,
       "message": "A Builder class is not necessary here since the class is read-only for clients and they never need to create a EthernetPortInfo by themselves i.e they always get EthernetPortInfo objects from API callbacks or return values.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 14
+      },
+      "revId": "7a7b79bd23dba8dbc1380856442275a1114e542a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d54edd3e_cfafe760",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetPortInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1962260
+      },
+      "writtenOn": "2025-03-14T08:04:34Z",
+      "side": 1,
+      "message": "That makes sense, thanks.",
+      "parentUuid": "7702f5f3_de9b21de",
       "range": {
         "startLine": 41,
         "startChar": 0,
