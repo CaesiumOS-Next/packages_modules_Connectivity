@@ -1,0 +1,303 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9357c691_8a537512",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-14T06:59:15Z",
+      "side": 1,
+      "message": "Isn\u0027t this always true given that it\u0027s been tested on the line above ?",
+      "range": {
+        "startLine": 498,
+        "startChar": 12,
+        "endLine": 498,
+        "endChar": 28
+      },
+      "revId": "2e6f9adb21f67753363e35200e88859bd601a7e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6af61c0f_54a16486",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-14T06:59:15Z",
+      "side": 1,
+      "message": "I think this is dangerous. An app can circumvent your protections by just having their package name start with this. Package name is entirely up to the app.\n\nBesides the above, I am concerned that this code is setting a bad example and a damaging precedent. We regularly insist that OEMs must not circumvent or detect CTS. I wonder what we should tell an OEM who wants their package added to this list. There is also the case of an OEM listing explicitly CTS package names in their framework code to pass CTS, and who could point to this code and make the point that we\u0027re doing the same thing.\n\nIn our code we use a combination of techniques including adding @TestApi, shell commands, test-only public methods behind hard permission checks etc. I don\u0027t know what the problem you\u0027re trying to solve here is, but if the above doesn\u0027t help I can offer we\u0027d have a quick VC where you can explain the issue and we\u0027d brainstorm and explore options together.",
+      "range": {
+        "startLine": 376,
+        "startChar": 0,
+        "endLine": 378,
+        "endChar": 75
+      },
+      "revId": "2e6f9adb21f67753363e35200e88859bd601a7e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b1444f3_23780c00",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-14T06:59:15Z",
+      "side": 1,
+      "message": "If I am reading the body of `sendPackagePermissionsForAppId` correctly, this code heavily relies on that method saying that sdkSandboxUid doesn\u0027t have an SDK sandbox and therefore avoiding to send permissions for a sandbox UID, which is pretty confusing. It also overwrites the permissions sent in l.877, which is wasteful. It\u0027s also confusing that this doesn\u0027t have a corresponding block in onPackageRemoved (there could be a comment there to address this point).\n\nISTM that having this code inside sendPackagePermissionsForAppId is most natural, given that method is already looking up the sandbox UID ; since you\u0027ll need to know whether to add or remove it, maybe it\u0027s best to pass it an additional argument for the permissions of the sandbox app ? Or test for UNINSTALLED or something ?",
+      "range": {
+        "startLine": 882,
+        "startChar": 12,
+        "endLine": 882,
+        "endChar": 42
+      },
+      "revId": "2e6f9adb21f67753363e35200e88859bd601a7e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57a948f5_056f313f",
+        "filename": "tests/cts/integration/CtsSdkClientApp/Android.bp",
+        "patchSetId": 19
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-14T06:59:15Z",
+      "side": 1,
+      "message": "5\n(also in other files in the apps)",
+      "range": {
+        "startLine": 2,
+        "startChar": 20,
+        "endLine": 2,
+        "endChar": 21
+      },
+      "revId": "2e6f9adb21f67753363e35200e88859bd601a7e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e41ae47_c674b720",
+        "filename": "tests/native/connectivity_native_test/SdkSandboxLocalhostRestrictedTest.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-14T06:59:15Z",
+      "side": 1,
+      "message": "...because it is so high that no such app is installed ? Or some other reason ?",
+      "range": {
+        "startLine": 35,
+        "startChar": 47,
+        "endLine": 35,
+        "endChar": 50
+      },
+      "revId": "2e6f9adb21f67753363e35200e88859bd601a7e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b15f1f6_c39c1981",
+        "filename": "tests/native/connectivity_native_test/SdkSandboxLocalhostRestrictedTest.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-14T06:59:15Z",
+      "side": 1,
+      "message": "Should we have tests with some local IP that\u0027s off-device ? The loopback address very conceivably could behave differently from local destinations.",
+      "range": {
+        "startLine": 50,
+        "startChar": 45,
+        "endLine": 50,
+        "endChar": 60
+      },
+      "revId": "2e6f9adb21f67753363e35200e88859bd601a7e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "90118889_df1f1a4d",
+        "filename": "tests/native/connectivity_native_test/SdkSandboxLocalhostRestrictedTest.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-14T06:59:15Z",
+      "side": 1,
+      "message": "I might just be missing something but I don\u0027t understand well why we make sure that getsockname can be called and returns 0 but not the value filled in",
+      "range": {
+        "startLine": 62,
+        "startChar": 53,
+        "endLine": 62,
+        "endChar": 61
+      },
+      "revId": "2e6f9adb21f67753363e35200e88859bd601a7e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "deac5e74_01369121",
+        "filename": "tests/native/connectivity_native_test/SdkSandboxLocalhostRestrictedTest.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-14T06:59:15Z",
+      "side": 1,
+      "message": "It took me some time to figure out that this is allowed because it\u0027s out of a ScopedUidChange and that it\u0027s writing data that we want to check in l.73 can\u0027t be received. Can you add a few comments here to say this is allowed because it\u0027s executed as a non-sandboxed UID or otherwise make it more prominent ?",
+      "range": {
+        "startLine": 66,
+        "startChar": 9,
+        "endLine": 66,
+        "endChar": 11
+      },
+      "revId": "2e6f9adb21f67753363e35200e88859bd601a7e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8513925_6128ca36",
+        "filename": "tests/native/connectivity_native_test/SdkSandboxLocalhostRestrictedTest.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-14T06:59:15Z",
+      "side": 1,
+      "message": "Do you want to test errno here ?",
+      "range": {
+        "startLine": 73,
+        "startChar": 14,
+        "endLine": 73,
+        "endChar": 16
+      },
+      "revId": "2e6f9adb21f67753363e35200e88859bd601a7e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3456564_676c8ec5",
+        "filename": "tests/native/connectivity_native_test/SdkSandboxLocalhostRestrictedTest.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-14T06:59:15Z",
+      "side": 1,
+      "message": "Nit : maybe add a comment to reference the framework code that this mimics",
+      "range": {
+        "startLine": 101,
+        "startChar": 12,
+        "endLine": 101,
+        "endChar": 22
+      },
+      "revId": "2e6f9adb21f67753363e35200e88859bd601a7e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbef035c_436382ca",
+        "filename": "tests/native/connectivity_native_test/SdkSandboxLocalhostRestrictedTest.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-14T06:59:15Z",
+      "side": 1,
+      "message": "Suggest having some comments here on what this returns (e.g. if the package doesn\u0027t exist this returns 0 etc)",
+      "range": {
+        "startLine": 127,
+        "startChar": 11,
+        "endLine": 127,
+        "endChar": 41
+      },
+      "revId": "2e6f9adb21f67753363e35200e88859bd601a7e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "613bf3e5_16684569",
+        "filename": "tests/native/connectivity_native_test/SdkSandboxLocalhostRestrictedTest.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-14T06:59:15Z",
+      "side": 1,
+      "message": "Maybe EQ(3) to mirror l.227. Though this isn\u0027t the case here, it\u0027s frequent that sendto may only send a chunk of what was requested, so you could imagine that it returns 2 and then l.227 is incorrect. EQ(3) makes it more obvious that in this case there can\u0027t be any fragmentation.",
+      "range": {
+        "startLine": 221,
+        "startChar": 11,
+        "endLine": 221,
+        "endChar": 16
+      },
+      "revId": "2e6f9adb21f67753363e35200e88859bd601a7e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edbd661a_677b2de3",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-14T06:59:15Z",
+      "side": 1,
+      "message": "IIUC in the context of this test it doesn\u0027t really matter whether this is a CTS package or not – maybe it\u0027s clearer it these packages are just any random package name that don\u0027t particularly look like they need to be CTS",
+      "range": {
+        "startLine": 171,
+        "startChar": 37,
+        "endLine": 171,
+        "endChar": 49
+      },
+      "revId": "2e6f9adb21f67753363e35200e88859bd601a7e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

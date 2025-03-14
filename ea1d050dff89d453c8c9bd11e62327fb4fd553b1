@@ -381,6 +381,24 @@
       "message": "better yet, maybe just do \u0027permission |\u003d PERMISSION_SDKSANDBOX_LOCALHOST\nand move the .put() outside the if (would need to not be final)",
       "revId": "ea1d050dff89d453c8c9bd11e62327fb4fd553b1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d306964_a361cf99",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-14T06:59:15Z",
+      "side": 1,
+      "message": "It might be even simpler to just put with the OR :\n\n    if (isSdkSandboxLocalHostEnabled(app.packageName)) {\n      log()\n      appIdsPerm.put(toSandboxUid(appId), permission | PERMISSION_SDKSANDBOX_LOCALHOST)\n    } else {\n      ...\n    }\n\n...and you don\u0027t need to remove final.",
+      "parentUuid": "8b547a7c_b4d4e8b0",
+      "revId": "ea1d050dff89d453c8c9bd11e62327fb4fd553b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
