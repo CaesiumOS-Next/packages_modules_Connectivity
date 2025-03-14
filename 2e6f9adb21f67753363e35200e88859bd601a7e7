@@ -26,6 +26,53 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e06ca1d1_62ac6790",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-03-14T07:49:06Z",
+      "side": 1,
+      "message": "yeah, this seems spurious",
+      "parentUuid": "9357c691_8a537512",
+      "range": {
+        "startLine": 498,
+        "startChar": 12,
+        "endLine": 498,
+        "endChar": 28
+      },
+      "revId": "2e6f9adb21f67753363e35200e88859bd601a7e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0b443be_27747f6b",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-03-14T07:49:06Z",
+      "side": 1,
+      "message": "why?  (hint: AFAICT it can happen)",
+      "range": {
+        "startLine": 502,
+        "startChar": 40,
+        "endLine": 502,
+        "endChar": 56
+      },
+      "revId": "2e6f9adb21f67753363e35200e88859bd601a7e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6af61c0f_54a16486",
         "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
         "patchSetId": 19
