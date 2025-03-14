@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09a368f3_dc1b6771",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-14T09:38:16Z",
+      "side": 1,
+      "message": "Let\u0027s wait for the ABDT run for the original failing test to succeed:\nhttps://android-build.corp.google.com/builds/abtd/run/L99100030010329598",
+      "revId": "df011020c41b5d4295caf86fae9fa956add27b4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
