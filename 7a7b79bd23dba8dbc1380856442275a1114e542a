@@ -1,0 +1,176 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad94917c_bccec6b5",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetPortInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-03-14T06:47:23Z",
+      "side": 1,
+      "message": "typo in \"Manager\"",
+      "range": {
+        "startLine": 26,
+        "startChar": 54,
+        "endLine": 26,
+        "endChar": 69
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "354a623a_f2819e78",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service-t/src/com/android/server/ethernet/EthernetPortInfo.java",
+              "range": {
+                "startLine": 26,
+                "startChar": 0,
+                "endLine": 28,
+                "endChar": 0
+              },
+              "replacement": "    // Role of this ethernet interface, one of {@code EthernetManager.ROLE_SERVER},\n    // {@code EthernetManager.ROLE_CLIENT}, or {@code EthernetManager.ROLE_NONE}.\n"
+            },
+            {
+              "path": "service-t/src/com/android/server/ethernet/EthernetPortInfo.java",
+              "range": {
+                "startLine": 30,
+                "startChar": 0,
+                "endLine": 31,
+                "endChar": 0
+              },
+              "replacement": "    // State of this ethernet interface, one of {@code EthernetManager.STATE_LINK_UP},\n"
+            }
+          ]
+        }
+      ],
+      "revId": "7a7b79bd23dba8dbc1380856442275a1114e542a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ee297ea_5487c899",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetPortInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-03-14T06:47:23Z",
+      "side": 1,
+      "message": "We should all other info relevant for the port:\n  - ifindex\n  - ifname\n  - MAC address",
+      "fixSuggestions": [
+        {
+          "fixId": "bd628fc1_aca0b905",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service-t/src/com/android/server/ethernet/EthernetPortInfo.java",
+              "range": {
+                "startLine": 19,
+                "startChar": 0,
+                "endLine": 19,
+                "endChar": 0
+              },
+              "replacement": "import android.net.EthernetManager;\nimport android.os.Parcel;\nimport android.os.Parcelable;\n\n"
+            },
+            {
+              "path": "service-t/src/com/android/server/ethernet/EthernetPortInfo.java",
+              "range": {
+                "startLine": 26,
+                "startChar": 0,
+                "endLine": 28,
+                "endChar": 0
+              },
+              "replacement": "    // Role of this ethernet interface, one of {@code EthernetManager.ROLE_SERVER},\n    // {@code EthernetManager.ROLE_CLIENT}, or {@code EthernetManager.ROLE_NONE}.\n"
+            },
+            {
+              "path": "service-t/src/com/android/server/ethernet/EthernetPortInfo.java",
+              "range": {
+                "startLine": 30,
+                "startChar": 0,
+                "endLine": 31,
+                "endChar": 0
+              },
+              "replacement": "    // State of this ethernet interface, one of {@code EthernetManager.STATE_LINK_UP},\n"
+            },
+            {
+              "path": "service-t/src/com/android/server/ethernet/EthernetPortInfo.java",
+              "range": {
+                "startLine": 37,
+                "startChar": 0,
+                "endLine": 39,
+                "endChar": 0
+              },
+              "replacement": "    // Whether this interface is metered. This is only valid when mState is\n    // {@code EthernetManager.STATE_LINK_UP}.\n    private boolean mMetered;\n"
+            },
+            {
+              "path": "service-t/src/com/android/server/ethernet/EthernetPortInfo.java",
+              "range": {
+                "startLine": 40,
+                "startChar": 0,
+                "endLine": 45,
+                "endChar": 0
+              },
+              "replacement": "    // Constructor.\n    public EthernetPortInfo(int role, int state, EthernetConfiguration config, boolean metered) {\n        mRole \u003d role;\n        mState \u003d state;\n        mConfig \u003d config;\n        mMetered \u003d metered;\n    }\n\n    // Getters and Setters.\n    public int getRole() {\n        return mRole;\n    }\n\n    public int getState() {\n        return mState;\n    }\n\n    public EthernetConfiguration getConfig() {\n        return mConfig;\n    }\n\n    public boolean isMetered() {\n        return mMetered;\n    }\n\n    public void setMetered(boolean metered) {\n        mMetered \u003d metered;\n    }\n\n    // Parcelable implementation.\n    public static final Parcelable.Creator\u003cEthernetPortInfo\u003e CREATOR \u003d\n            new Parcelable.Creator\u003cEthernetPortInfo\u003e() {\n        public EthernetPortInfo createFromParcel(Parcel in) {\n            return new EthernetPortInfo(in);\n        }\n\n        public EthernetPortInfo[] newArray(int size) {\n            return new EthernetPortInfo[size];\n        }\n    };\n\n    @Override\n    public int describeContents() {\n        return 0;\n    }\n\n    @Override\n    public void writeToParcel(Parcel dest, int flags) {\n        dest.writeInt(mRole);\n        dest.writeInt(mState);\n        dest.writeParcelable(mConfig, flags);\n        dest.writeInt(mMetered ? 1 : 0);\n    }\n\n    private EthernetPortInfo(Parcel in) {\n        mRole \u003d in.readInt();\n        mState \u003d in.readInt();\n        mConfig \u003d in.readParcelable(EthernetConfiguration.class.getClassLoader());\n        mMetered \u003d in.readInt() \u003d\u003d 1;\n    }\n\n    @Override\n    public String toString() {\n        return \"EthernetPortInfo{\" +\n                \"role\u003d\" + mRole +\n                \", state\u003d\" + mState +\n                \", config\u003d\" + mConfig +\n                \", metered\u003d\" + mMetered +\n                \u0027}\u0027;\n    }\n"
+            }
+          ]
+        }
+      ],
+      "revId": "7a7b79bd23dba8dbc1380856442275a1114e542a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "208fbefe_5218afa3",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetPortInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-03-14T06:47:23Z",
+      "side": 1,
+      "message": "I believe the role is not final and can change (for instance an interface can be used for tethering downstream and then for Internet access later on.",
+      "range": {
+        "startLine": 28,
+        "startChar": 22,
+        "endLine": 28,
+        "endChar": 27
+      },
+      "revId": "7a7b79bd23dba8dbc1380856442275a1114e542a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7702f5f3_de9b21de",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetPortInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-03-14T06:47:23Z",
+      "side": 1,
+      "message": "A Builder class is not necessary here since the class is read-only for clients and they never need to create a EthernetPortInfo by themselves i.e they always get EthernetPortInfo objects from API callbacks or return values.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 14
+      },
+      "revId": "7a7b79bd23dba8dbc1380856442275a1114e542a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
