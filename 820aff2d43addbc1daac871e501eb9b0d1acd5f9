@@ -34,6 +34,24 @@
       ],
       "revId": "820aff2d43addbc1daac871e501eb9b0d1acd5f9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38599717_3f375fdf",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyJob.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2025-03-14T14:49:59Z",
+      "side": 1,
+      "message": "huh, thanks for the pointer, I did not know that streams were so inefficient. Done.",
+      "parentUuid": "a1e34512_c51fd017",
+      "revId": "820aff2d43addbc1daac871e501eb9b0d1acd5f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
