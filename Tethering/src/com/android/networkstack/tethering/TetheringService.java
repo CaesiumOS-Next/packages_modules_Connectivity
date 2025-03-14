@@ -56,6 +56,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.modules.utils.build.SdkLevel;
 import com.android.networkstack.apishim.SettingsShimImpl;
 import com.android.networkstack.apishim.common.SettingsShim;
 
@@ -322,9 +323,9 @@ public class TetheringService extends Service {
 
             if (hasTetherPrivilegedPermission()) return true;
 
-            // After TetheringManager moves to public API, prevent third-party apps from being able
-            // to change tethering with only WRITE_SETTINGS permission.
-            if (mTethering.isTetheringWithSoftApConfigEnabled()) return false;
+            // For B+, prevent third-party apps from being able to change tethering with only
+            // WRITE_SETTINGS permission.
+            if (SdkLevel.isAtLeastB()) return false;
 
             if (mTethering.isTetherProvisioningRequired()) return false;
 
