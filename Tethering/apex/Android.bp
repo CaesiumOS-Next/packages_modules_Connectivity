@@ -82,6 +82,7 @@ apex {
         },
     },
     binaries: [
+        //"bpftool",
         "clatd",
         "ethtool",
         "netbpfload",
