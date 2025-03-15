@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package android.net.thread;
+package android.net.thread.borderrouter;
 
 import static android.net.InetAddresses.parseNumericAddress;
 import static android.net.thread.utils.IntegrationTestUtils.DEFAULT_DATASET;
