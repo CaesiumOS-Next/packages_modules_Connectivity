@@ -36,6 +36,7 @@ import static android.net.TetheringManager.TETHER_ERROR_DUPLICATE_REQUEST;
 import static android.net.TetheringManager.TETHER_ERROR_ENTITLEMENT_UNKNOWN;
 import static android.net.TetheringManager.TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION;
 import static android.net.TetheringManager.TETHER_ERROR_NO_ERROR;
+import static android.net.TetheringManager.TETHER_ERROR_UNKNOWN_REQUEST;
 import static android.net.cts.util.CtsTetheringUtils.isAnyIfaceMatch;
 import static android.os.Process.INVALID_UID;
 
@@ -121,6 +122,7 @@ public class TetheringManagerTest {
     private CtsTetheringUtils mCtsTetheringUtils;
 
     private static final int DEFAULT_TIMEOUT_MS = 60_000;
+    private static final String CARRIER_SERVICE_PACKAGE = "android.net.cts.carrierservicepackage";
 
     @Before
     public void setUp() throws Exception {
@@ -708,5 +710,147 @@ public class TetheringManagerTest {
         assumeTrue(SdkLevel.isAtLeastB());
         assertThrows(UnsupportedOperationException.class, () -> mTM.tether("iface"));
         assertThrows(UnsupportedOperationException.class, () -> mTM.untether("iface"));
+    }
+
+    @Test
+    public void testIsTetheringSupportedWithCarrierPrivileges() {
+        assumeTrue(SdkLevel.isAtLeastB());
+        int defaultSubId = SubscriptionManager.getDefaultSubscriptionId();
+        mCarrierConfigRule.acquireCarrierPrivilege(defaultSubId);
+        mCarrierConfigRule.setCarrierServicePackageOverride(
+                defaultSubId, CARRIER_SERVICE_PACKAGE);
+
+        assertTrue(mTM.isTetheringSupported());
+    }
+
+    @Test
+    public void testCarrierPrivilegedStartTetheringNonWifiFails() {
+        assumeTrue(SdkLevel.isAtLeastB());
+        int defaultSubId = SubscriptionManager.getDefaultSubscriptionId();
+        mCarrierConfigRule.acquireCarrierPrivilege(defaultSubId);
+        mCarrierConfigRule.setCarrierServicePackageOverride(
+                defaultSubId, CARRIER_SERVICE_PACKAGE);
+        StartTetheringCallback callback = new StartTetheringCallback();
+        TetheringRequest request = new TetheringRequest.Builder(TETHERING_WIFI + 1).build();
+
+        mTM.startTethering(request, Runnable::run, callback);
+
+        callback.expectTetheringFailed(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
+    }
+
+    @Test
+    public void testCarrierPrivilegedStartTetheringWifiWithoutConfigFails() {
+        assumeTrue(SdkLevel.isAtLeastB());
+        int defaultSubId = SubscriptionManager.getDefaultSubscriptionId();
+        mCarrierConfigRule.acquireCarrierPrivilege(defaultSubId);
+        mCarrierConfigRule.setCarrierServicePackageOverride(
+                defaultSubId, CARRIER_SERVICE_PACKAGE);
+        StartTetheringCallback callback = new StartTetheringCallback();
+        TetheringRequest request = new TetheringRequest.Builder(TETHERING_WIFI).build();
+
+        mTM.startTethering(request, Runnable::run, callback);
+
+        callback.expectTetheringFailed(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
+    }
+
+    @Test
+    public void testCarrierPrivilegedStartTetheringWifiWithConfigSucceeds() {
+        assumeTrue(SdkLevel.isAtLeastB());
+        int defaultSubId = SubscriptionManager.getDefaultSubscriptionId();
+        mCarrierConfigRule.acquireCarrierPrivilege(defaultSubId);
+        mCarrierConfigRule.setCarrierServicePackageOverride(
+                defaultSubId, CARRIER_SERVICE_PACKAGE);
+        TestTetheringEventCallback eventCallback =
+                mCtsTetheringUtils.registerTetheringEventCallback();
+        try {
+            mCtsTetheringUtils.startWifiTethering(eventCallback,
+                    new SoftApConfiguration.Builder()
+                            .setSsid("This AP was started by CTS with carrier privilege.")
+                            .build());
+        } finally {
+            mCtsTetheringUtils.unregisterTetheringEventCallback(eventCallback);
+        }
+    }
+
+    @Test
+    public void testCarrierPrivilegedStopTetheringNonWifiFails() {
+        assumeTrue(SdkLevel.isAtLeastB());
+        int defaultSubId = SubscriptionManager.getDefaultSubscriptionId();
+        mCarrierConfigRule.acquireCarrierPrivilege(defaultSubId);
+        mCarrierConfigRule.setCarrierServicePackageOverride(
+                defaultSubId, CARRIER_SERVICE_PACKAGE);
+        TetheringRequest request = new TetheringRequest.Builder(TETHERING_WIFI + 1).build();
+        CtsTetheringUtils.StopTetheringCallback
+                callback = new CtsTetheringUtils.StopTetheringCallback();
+
+        mTM.stopTethering(request, Runnable::run, callback);
+
+        callback.expectStopTetheringFailed(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
+    }
+
+    @Test
+    public void testCarrierPrivilegedStopTetheringWifiWithoutConfigFails() {
+        assumeTrue(SdkLevel.isAtLeastB());
+        int defaultSubId = SubscriptionManager.getDefaultSubscriptionId();
+        mCarrierConfigRule.acquireCarrierPrivilege(defaultSubId);
+        mCarrierConfigRule.setCarrierServicePackageOverride(
+                defaultSubId, CARRIER_SERVICE_PACKAGE);
+        TetheringRequest request = new TetheringRequest.Builder(TETHERING_WIFI).build();
+        CtsTetheringUtils.StopTetheringCallback
+                callback = new CtsTetheringUtils.StopTetheringCallback();
+
+        mTM.stopTethering(request, Runnable::run, callback);
+
+        callback.expectStopTetheringFailed(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
+    }
+
+    @Test
+    public void testCarrierPrivilegedStopTetheringWifiWithConfigButNoActiveRequestFails() {
+        assumeTrue(SdkLevel.isAtLeastB());
+        int defaultSubId = SubscriptionManager.getDefaultSubscriptionId();
+        mCarrierConfigRule.acquireCarrierPrivilege(defaultSubId);
+        mCarrierConfigRule.setCarrierServicePackageOverride(
+                defaultSubId, CARRIER_SERVICE_PACKAGE);
+        TetheringRequest request =
+                new TetheringRequest.Builder(TETHERING_WIFI)
+                        .setSoftApConfiguration(new SoftApConfiguration.Builder()
+                                .setSsid("This AP was started by CTS with carrier privilege.")
+                                .build())
+                        .build();
+        CtsTetheringUtils.StopTetheringCallback
+                callback = new CtsTetheringUtils.StopTetheringCallback();
+
+        mTM.stopTethering(request, Runnable::run, callback);
+
+        callback.expectStopTetheringFailed(TETHER_ERROR_UNKNOWN_REQUEST);
+    }
+
+    @Test
+    public void testCarrierPrivilegedStopTetheringWifiWithConfigSucceeds() {
+        assumeTrue(SdkLevel.isAtLeastB());
+        int defaultSubId = SubscriptionManager.getDefaultSubscriptionId();
+        mCarrierConfigRule.acquireCarrierPrivilege(defaultSubId);
+        mCarrierConfigRule.setCarrierServicePackageOverride(
+                defaultSubId, CARRIER_SERVICE_PACKAGE);
+        TestTetheringEventCallback eventCallback =
+                mCtsTetheringUtils.registerTetheringEventCallback();
+        try {
+            SoftApConfiguration softApConfig = new SoftApConfiguration.Builder()
+                    .setSsid("This AP was started by CTS with carrier privilege.")
+                    .build();
+            mCtsTetheringUtils.startWifiTethering(eventCallback, softApConfig);
+            TetheringRequest request =
+                    new TetheringRequest.Builder(TETHERING_WIFI)
+                            .setSoftApConfiguration(softApConfig)
+                            .build();
+            CtsTetheringUtils.StopTetheringCallback
+                    callback = new CtsTetheringUtils.StopTetheringCallback();
+
+            mTM.stopTethering(request, Runnable::run, callback);
+
+            callback.verifyStopTetheringSucceeded();
+        } finally {
+            mCtsTetheringUtils.unregisterTetheringEventCallback(eventCallback);
+        }
     }
 }
