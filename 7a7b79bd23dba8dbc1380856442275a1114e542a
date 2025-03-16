@@ -218,6 +218,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6e9b7a37_a81a35c1",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetPortInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2025-03-16T02:27:24Z",
+      "side": 1,
+      "message": "oh yeah you are right. If we use this object only for the callbacks, we can make everything final and just have one constructor with the final field values to set, and no builder and no setter.",
+      "parentUuid": "6eeaefbd_1e5c1cdb",
+      "range": {
+        "startLine": 28,
+        "startChar": 22,
+        "endLine": 28,
+        "endChar": 27
+      },
+      "revId": "7a7b79bd23dba8dbc1380856442275a1114e542a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7702f5f3_de9b21de",
         "filename": "service-t/src/com/android/server/ethernet/EthernetPortInfo.java",
         "patchSetId": 1
