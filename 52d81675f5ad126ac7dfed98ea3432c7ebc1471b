@@ -33,6 +33,24 @@
       "message": "If the delay is 0, this will post a message to the handler which will post a message to the handler. This is the most common case but would be wasteful. Right now that case would have just posted directly.\n\nMaybe you could do:\n\n```\nif (realtimeScheduler !\u003d null) {\n    if (delayMillis \u003d\u003d 0L) {\n        handler.post(function);\n        return;\n    }\n    if (HandlerUtils.isRunningOnHandlerThread(handler))\n    ...\n}\n```",
       "revId": "52d81675f5ad126ac7dfed98ea3432c7ebc1471b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5667aba7_24530f39",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/DiscoveryExecutor.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-16T15:02:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "316e4fa9_1451736a",
+      "revId": "52d81675f5ad126ac7dfed98ea3432c7ebc1471b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
