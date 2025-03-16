@@ -66,6 +66,7 @@ import android.net.TetheringManager;
 import android.net.TetheringManager.OnTetheringEntitlementResultListener;
 import android.net.TetheringManager.TetheringInterfaceRegexps;
 import android.net.TetheringManager.TetheringRequest;
+import android.net.cts.util.CarrierPrivilegesUtils;
 import android.net.cts.util.CtsNetUtils;
 import android.net.cts.util.CtsNetUtils.TestNetworkCallback;
 import android.net.cts.util.CtsTetheringUtils;
@@ -119,8 +120,10 @@ public class TetheringManagerTest {
     private TetherChangeReceiver mTetherChangeReceiver;
     private CtsNetUtils mCtsNetUtils;
     private CtsTetheringUtils mCtsTetheringUtils;
+    private CarrierPrivilegesUtils mCarrierPrivilegesUtils;
 
     private static final int DEFAULT_TIMEOUT_MS = 60_000;
+    private static final String CARRIER_SERVICE_PACKAGE = "android.net.cts.carrierservicepackage";
 
     @Before
     public void setUp() throws Exception {
@@ -131,6 +134,7 @@ public class TetheringManagerTest {
         mPm = mContext.getPackageManager();
         mCtsNetUtils = new CtsNetUtils(mContext);
         mCtsTetheringUtils = new CtsTetheringUtils(mContext);
+        mCarrierPrivilegesUtils = new CarrierPrivilegesUtils(mCarrierConfigRule);
         mTetherChangeReceiver = new TetherChangeReceiver();
         final IntentFilter filter = new IntentFilter(
                 TetheringManager.ACTION_TETHER_STATE_CHANGED);
@@ -708,5 +712,21 @@ public class TetheringManagerTest {
         assumeTrue(SdkLevel.isAtLeastB());
         assertThrows(UnsupportedOperationException.class, () -> mTM.tether("iface"));
         assertThrows(UnsupportedOperationException.class, () -> mTM.untether("iface"));
+    }
+
+    @Test
+    public void testIsTetheringSupportedWithCarrierPrivileges() {
+        assumeTrue(SdkLevel.isAtLeastB());
+        int defaultSubId = SubscriptionManager.getDefaultSubscriptionId();
+        assertNotEquals(0, defaultSubId);
+        mCarrierPrivilegesUtils.acquireCarrierPrivilege(defaultSubId);
+        mCarrierPrivilegesUtils.setCarrierServicePackageOverride(
+                defaultSubId, CARRIER_SERVICE_PACKAGE);
+        try {
+            assertTrue(mTM.isTetheringSupported());
+        } finally {
+            mCarrierPrivilegesUtils.setCarrierServicePackageOverride(defaultSubId, null);
+            mCarrierPrivilegesUtils.dropCarrierPrivilege(defaultSubId);
+        }
     }
 }
