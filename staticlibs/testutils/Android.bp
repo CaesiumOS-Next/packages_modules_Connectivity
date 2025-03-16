@@ -33,6 +33,7 @@ java_library {
     static_libs: [
         "androidx.test.ext.junit",
         "collector-device-lib",
+        "compatibility-device-util-axt",
         "kotlin-reflect",
         "libnanohttpd",
         "mockito-target-minus-junit4",
