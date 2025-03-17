@@ -62,7 +62,6 @@ import com.android.server.connectivity.ConnectivityResources
 import com.android.server.connectivity.InterfaceTracker
 import com.android.server.connectivity.MockableSystemProperties
 import com.android.server.connectivity.MultinetworkPolicyTracker
-import com.android.server.connectivity.PermissionMonitor
 import com.android.server.connectivity.ProxyTracker
 import com.android.server.connectivity.SatelliteAccessController
 import com.android.testutils.DevSdkIgnoreRunner
@@ -241,8 +240,7 @@ class ConnectivityServiceIntegrationTest {
         dnsResolver,
         log,
         netd,
-        deps,
-        PermissionMonitorDependencies()
+        deps
     )
 
     private inner class TestDependencies : ConnectivityService.Dependencies() {
@@ -310,10 +308,6 @@ class ConnectivityServiceIntegrationTest {
         )
 
         override fun makeL2capNetworkProvider(context: Context) = null
-    }
-
-    private inner class PermissionMonitorDependencies : PermissionMonitor.Dependencies() {
-        override fun shouldEnforceLocalNetRestrictions(uid: Int) = false
     }
 
     @After
