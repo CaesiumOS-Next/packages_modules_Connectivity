@@ -100,27 +100,16 @@ public final class TapTestNetworkTracker {
     private void setUpTestNetwork() throws Exception {
         mInterface = mContext.getSystemService(TestNetworkManager.class).createTapInterface();
 
-        mConnectivityManager.requestNetwork(newNetworkRequest(), mNetworkCallback);
+        mConnectivityManager.requestNetwork(
+                TestableNetworkAgent.makeNetworkRequestForInterface(mInterface.interfaceName),
+                mNetworkCallback);
 
         LinkProperties lp = new LinkProperties();
         lp.setInterfaceName(getInterfaceName());
         mAgent =
-                new TestableNetworkAgent(
-                        mContext,
-                        mLooper,
-                        newNetworkCapabilities(),
-                        lp,
-                        new NetworkAgentConfig.Builder().build());
-        mNetwork = mAgent.register();
-        mAgent.markConnected();
+                TestableNetworkAgent.createOnInterface(
+                        mContext, mLooper, mInterface.interfaceName, TIMEOUT_MS);
 
-        PollingCheck.check(
-                "No usable address on interface",
-                TIMEOUT.toMillis(),
-                () -> hasUsableAddress(mNetwork, getInterfaceName()));
-
-        lp.setLinkAddresses(makeLinkAddresses());
-        mAgent.sendLinkProperties(lp);
         mNetworkCallback.eventuallyExpect(
                 LINK_PROPERTIES_CHANGED,
                 TIMEOUT.toMillis(),
@@ -132,14 +121,6 @@ public final class TapTestNetworkTracker {
         mAgent.unregister();
         mInterface.getFileDescriptor().close();
         mAgent.waitForIdle(TIMEOUT.toMillis());
-    }
-
-    private NetworkRequest newNetworkRequest() {
-        return new NetworkRequest.Builder()
-                .removeCapability(NET_CAPABILITY_TRUSTED)
-                .addTransportType(TRANSPORT_TEST)
-                .setNetworkSpecifier(new TestNetworkSpecifier(getInterfaceName()))
-                .build();
     }
 
     private NetworkCapabilities newNetworkCapabilities() {
