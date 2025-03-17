@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6267df6_d9f7dec7",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 170
+      },
+      "lineNbr": 1592,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-17T09:18:51Z",
+      "side": 1,
+      "message": "Currently we need this behavior to continue since SoftAP may restart due to CC change -- in that case, we want to continue tethering once we get WIFI_AP_STATE_ENABLED again even though the pending request was already promoted a while ago.",
+      "parentUuid": "9faa2bc1_d3fe7fb7",
+      "range": {
+        "startLine": 1592,
+        "startChar": 36,
+        "endLine": 1592,
+        "endChar": 43
+      },
+      "revId": "c3ad28220e8b9dcf43cca180d43708203f11d8cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "041715b3_4e49ad3d",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-03-17T06:54:08Z",
       "side": 1,
       "message": "Why SERVICE_UNAVAIL and not, say, INTERNAL_ERROR? Is it because it matches existing behaviour?",
+      "range": {
+        "startLine": 1605,
+        "startChar": 28,
+        "endLine": 1605,
+        "endChar": 56
+      },
+      "revId": "c3ad28220e8b9dcf43cca180d43708203f11d8cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c835dbb_25831228",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 170
+      },
+      "lineNbr": 1605,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-17T09:18:51Z",
+      "side": 1,
+      "message": "Actuall this should be INTERNAL_ERROR, since it would match the existing behavior and also match the error we give for BT when it fails",
+      "parentUuid": "041715b3_4e49ad3d",
       "range": {
         "startLine": 1605,
         "startChar": 28,
