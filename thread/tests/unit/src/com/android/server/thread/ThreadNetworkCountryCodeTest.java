@@ -84,6 +84,7 @@ import java.util.Locale;
 @RunWith(AndroidJUnit4.class)
 @SmallTest
 public class ThreadNetworkCountryCodeTest {
+    private static final String TEST_COUNTRY_CODE_WW = "WW";
     private static final String TEST_COUNTRY_CODE_US = "US";
     private static final String TEST_COUNTRY_CODE_CN = "CN";
     private static final String TEST_COUNTRY_CODE_INVALID = "INVALID";
@@ -197,6 +198,22 @@ public class ThreadNetworkCountryCodeTest {
         mThreadNetworkCountryCode.initialize();
 
         assertThat(mThreadNetworkCountryCode.getCountryCode()).isEqualTo(TEST_COUNTRY_CODE_US);
+    }
+
+    @Test
+    public void initialize_countryCodeDisabled_defaultCountryCodeIsUsed() {
+        when(mResources.getBoolean(R.bool.config_thread_country_code_enabled))
+                .thenReturn(false);
+
+        mThreadNetworkCountryCode.initialize();
+
+        verifyNoMoreInteractions(mWifiManager);
+        verifyNoMoreInteractions(mTelephonyManager);
+        verifyNoMoreInteractions(mSubscriptionManager);
+        verifyNoMoreInteractions(mGeocoder);
+        verifyNoMoreInteractions(mLocationManager);
+
+        assertThat(mThreadNetworkCountryCode.getCountryCode()).isEqualTo(TEST_COUNTRY_CODE_WW);
     }
 
     @Test

@@ -213,6 +213,10 @@ public class ThreadNetworkCountryCode {
                 .getBoolean(R.bool.config_thread_location_use_for_country_code_enabled);
     }
 
+    private boolean isCountryCodeEnabled() {
+        return mResources.get().getBoolean(R.bool.config_thread_country_code_enabled);
+    }
+
     public ThreadNetworkCountryCode(
             LocationManager locationManager,
             ThreadNetworkControllerService threadNetworkControllerService,
@@ -260,6 +264,10 @@ public class ThreadNetworkCountryCode {
 
     /** Sets up this country code module to listen to location country code changes. */
     public synchronized void initialize() {
+        if (!isCountryCodeEnabled()) {
+            return;
+        }
+
         registerGeocoderCountryCodeCallback();
         registerWifiCountryCodeCallback();
         registerTelephonyCountryCodeCallback();
@@ -592,6 +600,7 @@ public class ThreadNetworkCountryCode {
     /** Dumps the current state of this ThreadNetworkCountryCode object. */
     public synchronized void dump(FileDescriptor fd, PrintWriter pw, String[] args) {
         pw.println("---- Dump of ThreadNetworkCountryCode begin ----");
+        pw.println("isCountryCodeEnabled            : " + isCountryCodeEnabled());
         pw.println("mOverrideCountryCodeInfo        : " + mOverrideCountryCodeInfo);
         pw.println("mTelephonyCountryCodeSlotInfoMap: " + mTelephonyCountryCodeSlotInfoMap);
         pw.println("mTelephonyCountryCodeInfo       : " + mTelephonyCountryCodeInfo);

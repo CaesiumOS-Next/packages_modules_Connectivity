@@ -30,6 +30,12 @@
     -->
     <bool name="config_thread_border_router_default_enabled">false</bool>
 
+    <!-- Whether to enable or disable setting Thread country code from the telephony, wifi, location,
+     etc. Setting this value to false can disable the Thread service from setting the Thread
+     country code.
+    -->
+    <bool name="config_thread_country_code_enabled">true</bool>
+
     <!-- Whether to use location APIs in the algorithm to determine country code or not.
     If disabled, will use other sources (telephony, wifi, etc) to determine device location for
     Thread Network regulatory purposes.

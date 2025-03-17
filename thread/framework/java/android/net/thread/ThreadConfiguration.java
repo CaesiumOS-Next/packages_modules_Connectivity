@@ -47,16 +47,25 @@ public final class ThreadConfiguration implements Parcelable {
     private final boolean mBorderRouterEnabled;
     private final boolean mNat64Enabled;
     private final boolean mDhcpv6PdEnabled;
+    private final boolean mCountryCodeEnabled;
 
     private ThreadConfiguration(Builder builder) {
-        this(builder.mBorderRouterEnabled, builder.mNat64Enabled, builder.mDhcpv6PdEnabled);
+        this(
+                builder.mBorderRouterEnabled,
+                builder.mNat64Enabled,
+                builder.mDhcpv6PdEnabled,
+                builder.mCountryCodeEnabled);
     }
 
     private ThreadConfiguration(
-            boolean borderRouterEnabled, boolean nat64Enabled, boolean dhcpv6PdEnabled) {
+            boolean borderRouterEnabled,
+            boolean nat64Enabled,
+            boolean dhcpv6PdEnabled,
+            boolean countryCodeEnabled) {
         this.mBorderRouterEnabled = borderRouterEnabled;
         this.mNat64Enabled = nat64Enabled;
         this.mDhcpv6PdEnabled = dhcpv6PdEnabled;
+        this.mCountryCodeEnabled = countryCodeEnabled;
     }
 
     /**
@@ -90,6 +99,15 @@ public final class ThreadConfiguration implements Parcelable {
         return mDhcpv6PdEnabled;
     }
 
+    /**
+     * Returns {@code true} if setting country code is enabled.
+     *
+     * @hide
+     */
+    public boolean isCountryCodeEnabled() {
+        return mCountryCodeEnabled;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (this == other) {
@@ -100,13 +118,15 @@ public final class ThreadConfiguration implements Parcelable {
             ThreadConfiguration otherConfig = (ThreadConfiguration) other;
             return mBorderRouterEnabled == otherConfig.mBorderRouterEnabled
                     && mNat64Enabled == otherConfig.mNat64Enabled
-                    && mDhcpv6PdEnabled == otherConfig.mDhcpv6PdEnabled;
+                    && mDhcpv6PdEnabled == otherConfig.mDhcpv6PdEnabled
+                    && mCountryCodeEnabled == otherConfig.mCountryCodeEnabled;
         }
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mBorderRouterEnabled, mNat64Enabled, mDhcpv6PdEnabled);
+        return Objects.hash(
+                mBorderRouterEnabled, mNat64Enabled, mDhcpv6PdEnabled, mCountryCodeEnabled);
     }
 
     @Override
@@ -116,6 +136,7 @@ public final class ThreadConfiguration implements Parcelable {
         sb.append("borderRouterEnabled=").append(mBorderRouterEnabled);
         sb.append(", nat64Enabled=").append(mNat64Enabled);
         sb.append(", dhcpv6PdEnabled=").append(mDhcpv6PdEnabled);
+        sb.append(", countryCodeEnabled=").append(mCountryCodeEnabled);
         sb.append('}');
         return sb.toString();
     }
@@ -130,6 +151,7 @@ public final class ThreadConfiguration implements Parcelable {
         dest.writeBoolean(mBorderRouterEnabled);
         dest.writeBoolean(mNat64Enabled);
         dest.writeBoolean(mDhcpv6PdEnabled);
+        dest.writeBoolean(mCountryCodeEnabled);
     }
 
     public static final @NonNull Creator<ThreadConfiguration> CREATOR =
@@ -140,6 +162,7 @@ public final class ThreadConfiguration implements Parcelable {
                     builder.setBorderRouterEnabled(in.readBoolean());
                     builder.setNat64Enabled(in.readBoolean());
                     builder.setDhcpv6PdEnabled(in.readBoolean());
+                    builder.setCountryCodeEnabled(in.readBoolean());
                     return builder.build();
                 }
 
@@ -163,6 +186,7 @@ public final class ThreadConfiguration implements Parcelable {
 
         private boolean mNat64Enabled = false;
         private boolean mDhcpv6PdEnabled = false;
+        private boolean mCountryCodeEnabled = true;
 
         /**
          * Creates a new {@link Builder} object with all features disabled.
@@ -187,6 +211,7 @@ public final class ThreadConfiguration implements Parcelable {
             mBorderRouterEnabled = config.mBorderRouterEnabled;
             mNat64Enabled = config.mNat64Enabled;
             mDhcpv6PdEnabled = config.mDhcpv6PdEnabled;
+            mCountryCodeEnabled = config.mCountryCodeEnabled;
         }
 
         /**
@@ -230,6 +255,19 @@ public final class ThreadConfiguration implements Parcelable {
         @NonNull
         public Builder setDhcpv6PdEnabled(boolean enabled) {
             this.mDhcpv6PdEnabled = enabled;
+            return this;
+        }
+
+        /**
+         * Enables or disables setting country code.
+         *
+         * <p>Enabling this feature will allow setting the country code of the Thread device.
+         *
+         * @hide
+         */
+        @NonNull
+        public Builder setCountryCodeEnabled(boolean enabled) {
+            this.mCountryCodeEnabled = enabled;
             return this;
         }
 
