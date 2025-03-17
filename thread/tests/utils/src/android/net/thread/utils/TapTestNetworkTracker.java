@@ -57,7 +57,7 @@ import java.util.List;
 
 /** A class that can create/destroy a test network based on TAP interface. */
 public final class TapTestNetworkTracker {
-    private static final Duration TIMEOUT = Duration.ofSeconds(2);
+    private static final Duration TIMEOUT = Duration.ofSeconds(5);
     private final Context mContext;
     private final Looper mLooper;
     private TestNetworkInterface mInterface;
