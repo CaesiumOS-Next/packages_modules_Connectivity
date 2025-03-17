@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "775eb0bc_b2abea8c",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-17T03:00:58Z",
+      "side": 1,
+      "message": "It\u0027s confusing that we have both a check for tetheringWithSoftApConfigEnabled and and something that forces it to false. Seems like it would be better for this to be mTetheringWithSoftApConfigEnabled and true by default? The same tests in which your current patchset sets this to true could instead set mTetheringWithSoftApConfigEnabled to false and the change wouldn\u0027t be any bigger. Or am I missing something?",
+      "range": {
+        "startLine": 345,
+        "startChar": 51,
+        "endLine": 345,
+        "endChar": 59
+      },
+      "revId": "c46f9d111c009d3b118726d53f993371a9f88267",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
