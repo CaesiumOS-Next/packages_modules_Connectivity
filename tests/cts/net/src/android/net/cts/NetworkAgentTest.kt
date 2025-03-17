@@ -88,6 +88,9 @@ import android.os.PersistableBundle
 import android.os.Process
 import android.os.SystemClock
 import android.platform.test.annotations.AppModeFull
+import android.platform.test.annotations.RequiresFlagsEnabled
+import android.platform.test.flag.junit.CheckFlagsRule
+import android.platform.test.flag.junit.DeviceFlagsValueProvider
 import android.system.OsConstants.IPPROTO_TCP
 import android.system.OsConstants.IPPROTO_UDP
 import android.telephony.CarrierConfigManager
@@ -99,6 +102,7 @@ import android.util.ArraySet
 import android.util.DebugUtils.valueToString
 import android.util.Log
 import androidx.test.InstrumentationRegistry
+import com.android.internal.telephony.flags.Flags
 import com.android.compatibility.common.util.SystemUtil.runShellCommand
 import com.android.compatibility.common.util.SystemUtil.runWithShellPermissionIdentity
 import com.android.compatibility.common.util.ThrowingSupplier
@@ -155,6 +159,7 @@ import org.junit.After
 import org.junit.Assume.assumeTrue
 import org.junit.Before
 import org.junit.Test
+import org.junit.Rule
 import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers.any
 import org.mockito.ArgumentMatchers.argThat
@@ -215,6 +220,10 @@ class NetworkAgentTest {
     private val callbacksToCleanUp = mutableListOf<TestableNetworkCallback>()
     private var qosTestSocket: Closeable? = null // either Socket or DatagramSocket
     private val ifacesToCleanUp = mutableListOf<TestNetworkInterface>()
+
+    @Rule
+    @JvmField
+    val mCheckFlagsRule: CheckFlagsRule = DeviceFlagsValueProvider.createCheckFlagsRule()
 
     @Before
     fun setUp() {
@@ -757,6 +766,7 @@ class NetworkAgentTest {
         // present
     }
 
+    @RequiresFlagsEnabled(Flags.FLAG_ENFORCE_TELEPHONY_FEATURE_MAPPING_FOR_PUBLIC_APIS)
     @Test
     @IgnoreUpTo(Build.VERSION_CODES.S)
     fun testAllowedUids_WithCarrierServicePackage() {
