@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1857da21_44d14fa1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-17T03:14:58Z",
+      "side": 1,
+      "message": "This is a clean re-merging of aosp/3527440",
+      "revId": "b90e073d8494804bb3055575fc2d6c26f8254146",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
