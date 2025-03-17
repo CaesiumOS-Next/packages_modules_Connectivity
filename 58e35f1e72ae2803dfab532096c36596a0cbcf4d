@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "320d066e_9b0fdb37",
+        "filename": "staticlibs/testutils/Android.bp",
+        "patchSetId": 9
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-17T10:53:04Z",
+      "side": 1,
+      "message": "That\u0027s for UiccUtil#bytesToHexString",
+      "parentUuid": "8b6cb08f_20122dde",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 40
+      },
+      "revId": "58e35f1e72ae2803dfab532096c36596a0cbcf4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8e6caf7d_ea0186bf",
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5df62d72_6ad287f9",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/CarrierConfigRule.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-17T10:53:04Z",
+      "side": 1,
+      "message": "Ah right, it should be available in T. However, doesn\u0027t testAllowedUids_WithCarrierServicePackage check SdkLevel.isAtLeastU() before actually calling into this?",
+      "parentUuid": "8e6caf7d_ea0186bf",
+      "range": {
+        "startLine": 132,
+        "startChar": 13,
+        "endLine": 132,
+        "endChar": 23
+      },
+      "revId": "58e35f1e72ae2803dfab532096c36596a0cbcf4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "15718eed_828c348a",
         "filename": "staticlibs/testutils/devicetests/com/android/testutils/CarrierConfigRule.kt",
         "patchSetId": 9
@@ -60,6 +108,30 @@
       "writtenOn": "2025-03-17T06:51:10Z",
       "side": 1,
       "message": "in (sorry I know this typo was here before but ^^;)",
+      "range": {
+        "startLine": 235,
+        "startChar": 38,
+        "endLine": 235,
+        "endChar": 40
+      },
+      "revId": "58e35f1e72ae2803dfab532096c36596a0cbcf4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "80f1ec49_562a1e48",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/CarrierConfigRule.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-17T10:53:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "15718eed_828c348a",
       "range": {
         "startLine": 235,
         "startChar": 38,
@@ -118,6 +190,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5beb350d_2d9a56f2",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/CarrierConfigRule.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-17T10:53:04Z",
+      "side": 1,
+      "message": "Does that still apply if subIdsWithOverriddenCarrierServicePackage is a MutableSet?\n\nIt seems we do something similar below in getConfigForSubIdCompat\n```\n        val allKeys \u003d config.keySet().toList()\n        allKeys.forEach {\n            if (!keys.contains(it)) {\n                config.remove(it)\n            }\n        }\n```",
+      "parentUuid": "21a2b9a3_86b07ccb",
+      "range": {
+        "startLine": 299,
+        "startChar": 64,
+        "endLine": 299,
+        "endChar": 70
+      },
+      "revId": "58e35f1e72ae2803dfab532096c36596a0cbcf4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "71b14f91_fb587b76",
         "filename": "staticlibs/testutils/devicetests/com/android/testutils/CarrierConfigRule.kt",
         "patchSetId": 9
@@ -129,6 +225,24 @@
       "writtenOn": "2025-03-17T06:51:10Z",
       "side": 1,
       "message": "I think you should either put a TODO here saying that if there was any carrier service package for this subId then this will clear it, or better actually address the TODO. (I\u0027d be happy with a TODO though, this is not making anything worse)",
+      "revId": "58e35f1e72ae2803dfab532096c36596a0cbcf4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba98ca4b_0e6a3acf",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/CarrierConfigRule.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-17T10:53:04Z",
+      "side": 1,
+      "message": "Fixed",
+      "parentUuid": "71b14f91_fb587b76",
       "revId": "58e35f1e72ae2803dfab532096c36596a0cbcf4d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -156,6 +270,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "32d87111_d779d12e",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 746,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-17T10:53:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "69fcd9d7_23db0c48",
+      "range": {
+        "startLine": 746,
+        "startChar": 12,
+        "endLine": 746,
+        "endChar": 38
+      },
+      "revId": "58e35f1e72ae2803dfab532096c36596a0cbcf4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5ee309a0_01f51930",
@@ -169,6 +307,30 @@
       "writtenOn": "2025-03-17T06:51:10Z",
       "side": 1,
       "message": "Did you want to remove these ?",
+      "range": {
+        "startLine": 1927,
+        "startChar": 6,
+        "endLine": 1927,
+        "endChar": 29
+      },
+      "revId": "58e35f1e72ae2803dfab532096c36596a0cbcf4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50d2e8f6_1c05333c",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 1927,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-17T10:53:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ee309a0_01f51930",
       "range": {
         "startLine": 1927,
         "startChar": 6,
