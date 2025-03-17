@@ -1,0 +1,79 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02ce9c62_a165cb89",
+        "filename": "service/ServiceConnectivityResources/res/values/config_thread.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2025-03-17T09:40:08Z",
+      "side": 1,
+      "message": "Could you add hints why country code is useful and when should the OEMs enable it?",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 18
+      },
+      "revId": "0e21380477ba841b1d20bc66e11f7e2014573265",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fc7b405_0eadfbf4",
+        "filename": "thread/framework/java/android/net/thread/ThreadConfiguration.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2025-03-17T09:40:08Z",
+      "side": 1,
+      "message": "This is the API class, the countryCode option doesn\u0027t need to be added here, it needs to be added to only OtDaemonConfiguration",
+      "revId": "0e21380477ba841b1d20bc66e11f7e2014573265",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "113cd3a9_45738a01",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2025-03-17T09:40:08Z",
+      "side": 1,
+      "message": "nit: log a message",
+      "fixSuggestions": [
+        {
+          "fixId": "8ba7b966_948b20a2",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+              "range": {
+                "startLine": 268,
+                "startChar": 0,
+                "endLine": 268,
+                "endChar": 0
+              },
+              "replacement": "            LOG.i(\"Thread country code is disabled\");\n"
+            }
+          ]
+        }
+      ],
+      "revId": "0e21380477ba841b1d20bc66e11f7e2014573265",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
