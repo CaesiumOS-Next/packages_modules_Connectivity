@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0572bd63_5644f301",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2025-03-17T09:32:45Z",
+      "side": 1,
+      "message": "Add a \"[Thread]\" tag for all Thread CLs in the Connectivity/ module so make it clear this is Thread-only changes. There are other teams working in the same git repo and they periodically review merged CLs before releases. This would make their work easier as they can ignore Thread CLs.\n\n\n```suggestion\n[Thread] unregister all country code callbacks when CountryCode is not needed\n```",
+      "revId": "5ca07527fbc2672ad23920fa68a8906e5be27073",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
