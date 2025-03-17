@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88a7aee0_4a36f58d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3869500
+      },
+      "writtenOn": "2025-03-17T08:03:59Z",
+      "side": 1,
+      "message": "Hi, This is also part of Subscription Manager Buganizer. A separate commit was needed as the test case is in a different path.",
+      "revId": "14782c2879468276aec7ce4ec715d932a9ce685e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
