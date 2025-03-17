@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efbb86bd_562e888f",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-03-17T06:19:51Z",
+      "side": 1,
+      "message": "But how is that possible ? The notification should be sent when the service is found or when the callback is registered, whichever happens last, right ? So there shouldn\u0027t be any listener that matches the service but didn\u0027t get notified ?\n\nDoes that only happen after some of your patches ?",
+      "range": {
+        "startLine": 604,
+        "startChar": 46,
+        "endLine": 604,
+        "endChar": 94
+      },
+      "revId": "f78f3403b3b2af126c8d7e6a1d56b0b0524fbf4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
