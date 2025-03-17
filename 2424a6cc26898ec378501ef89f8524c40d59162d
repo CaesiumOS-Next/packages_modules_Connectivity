@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "83d05e7b_a1b12bc4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-03-17T07:13:37Z",
+      "side": 1,
+      "message": "Also see aosp/3530119: actually I think what we need is `mFirstQueryTimeAfterLastUpdate`",
+      "revId": "2424a6cc26898ec378501ef89f8524c40d59162d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "27347648_44a238c9",
         "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
         "patchSetId": 2
