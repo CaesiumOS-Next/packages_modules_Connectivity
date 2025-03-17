@@ -590,7 +590,6 @@ public class ConnectivityServiceTest {
     private MockContext mServiceContext;
     private HandlerThread mCsHandlerThread;
     private ConnectivityServiceDependencies mDeps;
-    private PermissionMonitorDependencies mPermDeps;
     private AutomaticOnOffKeepaliveTrackerDependencies mAutoOnOffKeepaliveDependencies;
     private ConnectivityService mService;
     private WrappedConnectivityManager mCm;
@@ -1918,7 +1917,6 @@ public class ConnectivityServiceTest {
         doReturn(mResources).when(mockResContext).getResources();
         ConnectivityResources.setResourcesContextForTest(mockResContext);
         mDeps = new ConnectivityServiceDependencies(mockResContext);
-        mPermDeps = new PermissionMonitorDependencies();
         doReturn(true).when(mMockKeepaliveTrackerDependencies)
                 .isAddressTranslationEnabled(mServiceContext);
         doReturn(new ConnectivityResources(mockResContext)).when(mMockKeepaliveTrackerDependencies)
@@ -1931,7 +1929,7 @@ public class ConnectivityServiceTest {
                 mMockDnsResolver,
                 mock(IpConnectivityLog.class),
                 mMockNetd,
-                mDeps, mPermDeps);
+                mDeps);
         mService.mLingerDelayMs = TEST_LINGER_DELAY_MS;
         mService.mNascentDelayMs = TEST_NASCENT_DELAY_MS;
 
@@ -2389,14 +2387,6 @@ public class ConnectivityServiceTest {
             return null;
         }
     }
-
-    static class PermissionMonitorDependencies extends PermissionMonitor.Dependencies {
-        @Override
-        public boolean shouldEnforceLocalNetRestrictions(int uid) {
-            return false;
-        }
-    }
-
     private class AutomaticOnOffKeepaliveTrackerDependencies
             extends AutomaticOnOffKeepaliveTracker.Dependencies {
         AutomaticOnOffKeepaliveTrackerDependencies(Context context) {
