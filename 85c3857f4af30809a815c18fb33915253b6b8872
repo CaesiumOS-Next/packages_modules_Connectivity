@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8245903_ca9702bc",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 169
+      },
+      "lineNbr": 805,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-17T06:54:08Z",
+      "side": 1,
+      "message": "Is it guaranteed that in all circumstances wifi will send a callback? For example, here\u0027s a few cases to check:\n- If wifi tethering is not supported\n- If there are multiple requests in flight\n- If the request is accepted, but somehow bringing up the AP doesn\u0027t work due to a subsequent error\n- If the request is processed while the AP is restarting for its own reasons (e.g., country code change).\n\nIf it\u0027s not guaranteed always to be called, apps might call startTethering and then receive no callback (either success or failure).\n\nIf we do find such cases, I think it\u0027s OK to just add a TODO for them for now, as long as we think there\u0027s a reasonable way to fix them.",
+      "range": {
+        "startLine": 805,
+        "startChar": 53,
+        "endLine": 805,
+        "endChar": 84
+      },
+      "revId": "85c3857f4af30809a815c18fb33915253b6b8872",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9faa2bc1_d3fe7fb7",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 170
+      },
+      "lineNbr": 1592,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-17T06:54:08Z",
+      "side": 1,
+      "message": "This request Should(TM) match the pending request, right? Should this code check that the request matches the pending request, and if it doesn\u0027t, just do nothing, as suggested in go/no-tethering-without-request ?\n\nIn order to do that we\u0027d probably need to cause stopTethering to cause pending requests for TETHERING_WIFI with SCOPE_GLOBAL to fail with onTetheringFailed (option 3 in go/no-tethering-without-request ). Hopefully that\u0027s not difficult to implement?",
+      "range": {
+        "startLine": 1592,
+        "startChar": 36,
+        "endLine": 1592,
+        "endChar": 43
+      },
+      "revId": "c3ad28220e8b9dcf43cca180d43708203f11d8cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "041715b3_4e49ad3d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 170
+      },
+      "lineNbr": 1605,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-17T06:54:08Z",
+      "side": 1,
+      "message": "Why SERVICE_UNAVAIL and not, say, INTERNAL_ERROR? Is it because it matches existing behaviour?",
+      "range": {
+        "startLine": 1605,
+        "startChar": 28,
+        "endLine": 1605,
+        "endChar": 56
+      },
+      "revId": "c3ad28220e8b9dcf43cca180d43708203f11d8cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
