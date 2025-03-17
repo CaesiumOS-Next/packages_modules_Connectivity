@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90fecadc_3cee68fa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-03-17T06:37:30Z",
+      "side": 1,
+      "message": "Typo: argument",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 8
+      },
+      "revId": "cb8049c3b6175da08bc07714a9541bba6763381a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3556cd01_0e4034f7",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-03-17T06:37:30Z",
+      "side": 1,
+      "message": "As per comments in the previous change, I don\u0027t think this should be as an argument here, but for this change you\u0027d need a excludeExpiredServices argument instead",
+      "range": {
+        "startLine": 703,
+        "startChar": 20,
+        "endLine": 703,
+        "endChar": 36
+      },
+      "revId": "cb8049c3b6175da08bc07714a9541bba6763381a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c4a1491_0f11309d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 832,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-03-17T06:37:30Z",
+      "side": 1,
+      "message": "Shouldn\u0027t that be false ? If some services expired, we shouldn\u0027t delay the next query",
+      "range": {
+        "startLine": 832,
+        "startChar": 26,
+        "endLine": 832,
+        "endChar": 30
+      },
+      "revId": "cb8049c3b6175da08bc07714a9541bba6763381a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
