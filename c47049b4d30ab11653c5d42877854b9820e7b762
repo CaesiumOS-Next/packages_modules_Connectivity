@@ -1,0 +1,45 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38ce1a11_27dc0ddb",
+        "filename": "service/src/com/android/server/connectivity/AutodestructReference.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-17T06:02:09Z",
+      "side": 1,
+      "message": "Does this throw NPE if getAndDestroy was called before and mHeld.get() returns null?",
+      "range": {
+        "startLine": 45,
+        "startChar": 44,
+        "endLine": 45,
+        "endChar": 55
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "e21b0154_bb446eef",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/connectivity/AutodestructReference.java",
+              "range": {
+                "startLine": 45,
+                "startChar": 0,
+                "endLine": 46,
+                "endChar": 0
+              },
+              "replacement": "        final T obj \u003d mHeld.get();\n        return \"Autodestruct\u003c\" + (obj \u003d\u003d null ? \"null\" : obj.toString()) + \"\u003e\";\n"
+            }
+          ]
+        }
+      ],
+      "revId": "c47049b4d30ab11653c5d42877854b9820e7b762",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
