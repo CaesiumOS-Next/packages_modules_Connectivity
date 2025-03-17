@@ -128,6 +128,7 @@ import com.android.net.module.util.CollectionUtils;
 import com.android.net.module.util.PacketBuilder;
 import com.android.testutils.AutoReleaseNetworkCallbackRule;
 import com.android.testutils.ConnectUtil;
+import com.android.testutils.ConnectivityDiagnosticsCollector;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 import com.android.testutils.RecorderCallback;
@@ -950,6 +951,7 @@ public class VpnTest {
     }
 
     @Test
+    @ConnectivityDiagnosticsCollector.CollectTcpdumpOnFailure
     public void testDefault() throws Exception {
         if (!SdkLevel.isAtLeastS() && (
                 SystemProperties.getInt("persist.adb.tcp.port", -1) > -1
