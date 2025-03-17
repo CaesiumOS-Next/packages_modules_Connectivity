@@ -16,6 +16,7 @@
 
 package com.android.server.thread;
 
+import static android.net.thread.ThreadNetworkException.ERROR_UNSUPPORTED_FEATURE;
 import static com.android.server.thread.ThreadPersistentSettings.KEY_COUNTRY_CODE;
 
 import android.annotation.Nullable;
@@ -114,6 +115,9 @@ public class ThreadNetworkCountryCode {
     private final Map<Integer, TelephonyCountryCodeSlotInfo> mTelephonyCountryCodeSlotInfoMap =
             new ArrayMap();
     private final ThreadPersistentSettings mPersistentSettings;
+
+    /** Indicates whether the Thread co-processor supports setting the country code. */
+    private boolean mIsCpSettingCountryCodeSupported = true;
 
     @Nullable private CountryCodeInfo mCurrentCountryCodeInfo;
     @Nullable private CountryCodeInfo mLocationCountryCodeInfo;
@@ -520,6 +524,10 @@ public class ThreadNetworkCountryCode {
 
             @Override
             public void onError(int otError, String message) {
+                if (otError == ERROR_UNSUPPORTED_FEATURE) {
+                    mIsCpSettingCountryCodeSupported = false;
+                }
+
                 LOG.e(
                         "Error "
                                 + otError
@@ -543,6 +551,11 @@ public class ThreadNetworkCountryCode {
 
         if (!forceUpdate && countryCodeInfo.isCountryCodeMatch(mCurrentCountryCodeInfo)) {
             LOG.i("Ignoring already set country code " + countryCodeInfo.getCountryCode());
+            return;
+        }
+
+        if (!mIsCpSettingCountryCodeSupported) {
+            LOG.i("Thread co-processor doesn't support setting the country code");
             return;
         }
 
