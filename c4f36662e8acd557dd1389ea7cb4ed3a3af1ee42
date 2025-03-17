@@ -1,0 +1,45 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8294425c_df042f49",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-17T23:48:22Z",
+      "side": 1,
+      "message": "Spurious -- must\u0027ve been added automatically when I was fixing a merge conflict",
+      "range": {
+        "startLine": 153,
+        "startChar": 21,
+        "endLine": 153,
+        "endChar": 27
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "062151df_14536c90",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+              "range": {
+                "startLine": 153,
+                "startChar": 0,
+                "endLine": 154,
+                "endChar": 0
+              },
+              "replacement": ""
+            }
+          ]
+        }
+      ],
+      "revId": "c4f36662e8acd557dd1389ea7cb4ed3a3af1ee42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
