@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19ca4ed2_1fc6ba32",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-03-17T07:13:02Z",
+      "side": 1,
+      "message": "In a case where:\n - Service was received at t\u003d0s with ttl\u003d120\n - Service was re-queried at t\u003d110s\n\nThen I think the service should still expire at t\u003d120s. The bug we\u0027re trying to fix is a case where, even if we query every 20s, if the CPU is sleeping during t\u003d[100s, 121s] we shouldn\u0027t mark the service expired immediately on wakeup. But in the case where there\u0027s no sleep, expiry doesn\u0027t need to be delayed.\n\nSo I think the condition should be \"was the service queried after its last receipt time (from SRV record), and was that query more than 2 seconds ago\".\n\nIn which case `mLastQueryTime` should be changed to `mFirstQueryTimeAfterLastUpdate`",
+      "revId": "ccd32aea4df63e859bf25def1185f84dbe971296",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc9dc57c_5968a05a",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-03-17T07:13:02Z",
+      "side": 1,
+      "message": "Nit: how about just \"removeExpiredServicesAndNotifyListeners\" ? \"doRemove\" is 2 verbs",
+      "range": {
+        "startLine": 442,
+        "startChar": 17,
+        "endLine": 442,
+        "endChar": 25
+      },
+      "revId": "ccd32aea4df63e859bf25def1185f84dbe971296",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb7d4882_205a4779",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-03-17T07:13:02Z",
+      "side": 1,
+      "message": "Nit: `else if`",
+      "range": {
+        "startLine": 441,
+        "startChar": 10,
+        "endLine": 442,
+        "endChar": 14
+      },
+      "revId": "ccd32aea4df63e859bf25def1185f84dbe971296",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
