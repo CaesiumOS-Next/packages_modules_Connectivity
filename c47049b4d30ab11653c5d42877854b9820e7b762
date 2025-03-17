@@ -40,6 +40,30 @@
       ],
       "revId": "c47049b4d30ab11653c5d42877854b9820e7b762",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "893afd34_4b5a1bec",
+        "filename": "service/src/com/android/server/connectivity/AutodestructReference.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-17T07:14:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38ce1a11_27dc0ddb",
+      "range": {
+        "startLine": 45,
+        "startChar": 44,
+        "endLine": 45,
+        "endChar": 55
+      },
+      "revId": "c47049b4d30ab11653c5d42877854b9820e7b762",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
