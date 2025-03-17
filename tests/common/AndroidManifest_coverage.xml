@@ -22,6 +22,8 @@
                  android:label="Connectivity coverage tests">
         <uses-library android:name="android.test.runner" />
     </application>
+    <uses-permission android:name="android.permission.LOG_COMPAT_CHANGE" />
+    <uses-permission android:name="android.permission.READ_COMPAT_CHANGE_CONFIG" />
     <instrumentation android:name="androidx.test.runner.AndroidJUnitRunner"
                      android:targetPackage="com.android.connectivity.tests.coverage"
                      android:label="Connectivity coverage tests">
