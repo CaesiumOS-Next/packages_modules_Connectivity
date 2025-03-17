@@ -16,6 +16,23 @@
       "message": "This is a clean re-merging of aosp/3527440",
       "revId": "b90e073d8494804bb3055575fc2d6c26f8254146",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82e94302_7287c992",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-17T03:22:14Z",
+      "side": 1,
+      "message": "This is a clean remerge of aosp/3527440",
+      "revId": "b90e073d8494804bb3055575fc2d6c26f8254146",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
