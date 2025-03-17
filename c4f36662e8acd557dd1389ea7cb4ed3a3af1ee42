@@ -1,6 +1,46 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "72aa1be0_4610863f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-17T23:52:54Z",
+      "side": 1,
+      "message": "LGTM assuming the last comment is addressed",
+      "revId": "c4f36662e8acd557dd1389ea7cb4ed3a3af1ee42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c397464f_f155715b",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/CarrierConfigRule.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-17T23:52:54Z",
+      "side": 1,
+      "message": "I think the issue with this is that if you call setCarrierServicePackageOverride twice, the rule will restore the first you set and not the original one.",
+      "range": {
+        "startLine": 234,
+        "startChar": 12,
+        "endLine": 234,
+        "endChar": 42
+      },
+      "revId": "c4f36662e8acd557dd1389ea7cb4ed3a3af1ee42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8294425c_df042f49",

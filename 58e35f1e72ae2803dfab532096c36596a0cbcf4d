@@ -95,6 +95,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e32a66a_d8008aa0",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/CarrierConfigRule.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-17T23:52:54Z",
+      "side": 1,
+      "message": "Ah yes I had missed that. Yeah there is a comment saying that carrier service can\u0027t be set and therefore the rest of the test can\u0027t be tested on T-",
+      "parentUuid": "5df62d72_6ad287f9",
+      "range": {
+        "startLine": 132,
+        "startChar": 13,
+        "endLine": 132,
+        "endChar": 23
+      },
+      "revId": "58e35f1e72ae2803dfab532096c36596a0cbcf4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "15718eed_828c348a",
@@ -202,6 +226,30 @@
       "side": 1,
       "message": "Does that still apply if subIdsWithOverriddenCarrierServicePackage is a MutableSet?\n\nIt seems we do something similar below in getConfigForSubIdCompat\n```\n        val allKeys \u003d config.keySet().toList()\n        allKeys.forEach {\n            if (!keys.contains(it)) {\n                config.remove(it)\n            }\n        }\n```",
       "parentUuid": "21a2b9a3_86b07ccb",
+      "range": {
+        "startLine": 299,
+        "startChar": 64,
+        "endLine": 299,
+        "endChar": 70
+      },
+      "revId": "58e35f1e72ae2803dfab532096c36596a0cbcf4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09ac72fa_123adfc5",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/CarrierConfigRule.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-17T23:52:54Z",
+      "side": 1,
+      "message": "The thing is, AIUI making a copy is an implementation detail and not part of the contract. So it works today but optimizations to the standard lib may break this code I think.\n\nNow I expect it will never change because there is likely too much code relying on this behavior by now...\n\nAnyway, you removed that code now so the comment is no longer relevant.",
+      "parentUuid": "5beb350d_2d9a56f2",
       "range": {
         "startLine": 299,
         "startChar": 64,
