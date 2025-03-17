@@ -1,0 +1,45 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "360995b1_01ad384c",
+        "filename": "service/src/com/android/server/connectivity/AutodestructReference.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-17T07:17:57Z",
+      "side": 1,
+      "message": "nits: Can we write `\"Autodestruct\u003c\" + mHeld.getAcquire() + \"\u003e\"`?",
+      "range": {
+        "startLine": 46,
+        "startChar": 15,
+        "endLine": 46,
+        "endChar": 81
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "1ad8b816_01efa4bd",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/connectivity/AutodestructReference.java",
+              "range": {
+                "startLine": 46,
+                "startChar": 0,
+                "endLine": 47,
+                "endChar": 0
+              },
+              "replacement": "        return \"Autodestruct\u003c\" + held + \"\u003e\";\n"
+            }
+          ]
+        }
+      ],
+      "revId": "486eb352c6d23526996ac30bd21fe68f01997a0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
