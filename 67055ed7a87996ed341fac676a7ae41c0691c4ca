@@ -16,6 +16,24 @@
       "message": "Where did this test case go?",
       "revId": "67055ed7a87996ed341fac676a7ae41c0691c4ca",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f226e74_58165362",
+        "filename": "thread/tests/integration/src/android/net/thread/ThreadIntegrationTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2025-03-17T02:43:09Z",
+      "side": 0,
+      "message": "Added to ThreadBorderRouterIntegrationTests now",
+      "parentUuid": "2e3bc470_8228bfb0",
+      "revId": "67055ed7a87996ed341fac676a7ae41c0691c4ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
