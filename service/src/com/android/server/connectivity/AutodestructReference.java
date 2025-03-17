@@ -39,4 +39,10 @@ public class AutodestructReference<T> {
         if (null == obj) throw new NullPointerException("Already autodestructed");
         return obj;
     }
+
+    @Override
+    public String toString() {
+        final T held = mHeld.getAcquire();
+        return "Autodestruct<" + (null == held ? "null" : held.toString()) + ">";
+    }
 }
