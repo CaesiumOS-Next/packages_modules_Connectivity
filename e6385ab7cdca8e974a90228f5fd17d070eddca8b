@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1345d3e0_7ddf81a0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1693933
+      },
+      "writtenOn": "2025-03-17T09:33:45Z",
+      "side": 1,
+      "message": "Ditto, use \"[Thread]\" tag\n```suggestion\n[Thread] do not set the country code again if the co-processor doesn\u0027t support it\n```",
+      "revId": "e6385ab7cdca8e974a90228f5fd17d070eddca8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
