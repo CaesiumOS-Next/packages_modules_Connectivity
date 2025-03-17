@@ -210,6 +210,30 @@
       },
       "revId": "d42d44921d1c16a007b0cf4f793e052ac369ffe8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "575e02ba_e2009124",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalNetworkProtectionTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-03-17T02:42:08Z",
+      "side": 1,
+      "message": "Created new class for these tests.",
+      "parentUuid": "dc43a1ae_db7b210c",
+      "range": {
+        "startLine": 607,
+        "startChar": 5,
+        "endLine": 607,
+        "endChar": 9
+      },
+      "revId": "d42d44921d1c16a007b0cf4f793e052ac369ffe8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
