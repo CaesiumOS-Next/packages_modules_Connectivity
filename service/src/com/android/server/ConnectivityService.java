@@ -565,7 +565,6 @@ public class ConnectivityService extends IConnectivityManager.Stub {
     // The Context is created for UserHandle.ALL.
     private final Context mUserAllContext;
     private final Dependencies mDeps;
-    private final PermissionMonitor.Dependencies mPermissionMonitorDeps;
     private final ConnectivityFlags mFlags;
     // 0 is full bad, 100 is full good
     private int mDefaultInetConditionPublished = 0;
@@ -1820,13 +1819,12 @@ public class ConnectivityService extends IConnectivityManager.Stub {
     public ConnectivityService(Context context) {
         this(context, getDnsResolver(context), new IpConnectivityLog(),
                 INetd.Stub.asInterface((IBinder) context.getSystemService(Context.NETD_SERVICE)),
-                new Dependencies(), new PermissionMonitor.Dependencies());
+                new Dependencies());
     }
 
     @VisibleForTesting
     protected ConnectivityService(Context context, IDnsResolver dnsresolver,
-            IpConnectivityLog logger, INetd netd, Dependencies deps,
-            PermissionMonitor.Dependencies mPermDeps) {
+            IpConnectivityLog logger, INetd netd, Dependencies deps) {
         if (DBG) log("ConnectivityService starting up");
 
         mDeps = Objects.requireNonNull(deps, "missing Dependencies");
@@ -1900,10 +1898,8 @@ public class ConnectivityService extends IConnectivityManager.Stub {
         mInterfaceTracker = mDeps.getInterfaceTracker(mContext);
         mBpfNetMaps = mDeps.getBpfNetMaps(mContext, netd, mInterfaceTracker);
         mHandlerThread = mDeps.makeHandlerThread("ConnectivityServiceThread");
-        mPermissionMonitorDeps = mPermDeps;
         mPermissionMonitor =
-                new PermissionMonitor(mContext, mNetd, mBpfNetMaps, mPermissionMonitorDeps,
-                        mHandlerThread);
+                new PermissionMonitor(mContext, mNetd, mBpfNetMaps, mHandlerThread);
         mHandlerThread.start();
         mHandler = new InternalHandler(mHandlerThread.getLooper());
         mTrackerHandler = new NetworkStateTrackerHandler(mHandlerThread.getLooper());
