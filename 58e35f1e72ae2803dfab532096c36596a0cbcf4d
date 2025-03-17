@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b6cb08f_20122dde",
+        "filename": "staticlibs/testutils/Android.bp",
+        "patchSetId": 9
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-17T06:51:10Z",
+      "side": 1,
+      "message": "I\u0027m not sure why you need this ?",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 40
+      },
+      "revId": "58e35f1e72ae2803dfab532096c36596a0cbcf4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e6caf7d_ea0186bf",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/CarrierConfigRule.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-17T06:51:10Z",
+      "side": 1,
+      "message": "I think this is available in T ? At least, I think in the current state NetworkAgentTest#testAllowedUids_WithCarrierServicePackage will fail on T because it will try and call this (it\u0027s marked @IgnoreUpTo(S))",
+      "range": {
+        "startLine": 132,
+        "startChar": 13,
+        "endLine": 132,
+        "endChar": 23
+      },
+      "revId": "58e35f1e72ae2803dfab532096c36596a0cbcf4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15718eed_828c348a",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/CarrierConfigRule.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-17T06:51:10Z",
+      "side": 1,
+      "message": "in (sorry I know this typo was here before but ^^;)",
+      "range": {
+        "startLine": 235,
+        "startChar": 38,
+        "endLine": 235,
+        "endChar": 40
+      },
+      "revId": "58e35f1e72ae2803dfab532096c36596a0cbcf4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "564f86d6_b5afaa85",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/CarrierConfigRule.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-17T06:51:10Z",
+      "side": 1,
+      "message": "Surprised ktlint accepts this, isn\u0027t it a continuation indent ?\n\nAnyway if tools are happy then so am I",
+      "range": {
+        "startLine": 245,
+        "startChar": 16,
+        "endLine": 245,
+        "endChar": 17
+      },
+      "revId": "58e35f1e72ae2803dfab532096c36596a0cbcf4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21a2b9a3_86b07ccb",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/CarrierConfigRule.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-17T06:51:10Z",
+      "side": 1,
+      "message": "toList isn\u0027t guaranteed to make a copy, I think you may need to clone()",
+      "range": {
+        "startLine": 299,
+        "startChar": 64,
+        "endLine": 299,
+        "endChar": 70
+      },
+      "revId": "58e35f1e72ae2803dfab532096c36596a0cbcf4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71b14f91_fb587b76",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/CarrierConfigRule.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-17T06:51:10Z",
+      "side": 1,
+      "message": "I think you should either put a TODO here saying that if there was any carrier service package for this subId then this will clear it, or better actually address the TODO. (I\u0027d be happy with a TODO though, this is not making anything worse)",
+      "revId": "58e35f1e72ae2803dfab532096c36596a0cbcf4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69fcd9d7_23db0c48",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 746,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-17T06:51:10Z",
+      "side": 1,
+      "message": "I know ktlint is bugging you but I suggest we don\u0027t touch lines that your patch isn\u0027t changing. Especially as it seems ktlint is actually incorrect on the indentation of the last argument here.\n\nSame below ; I think ideally you should only be removing the two cleanup clauses and leave the rest alone",
+      "range": {
+        "startLine": 746,
+        "startChar": 12,
+        "endLine": 746,
+        "endChar": 38
+      },
+      "revId": "58e35f1e72ae2803dfab532096c36596a0cbcf4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ee309a0_01f51930",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 1927,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-17T06:51:10Z",
+      "side": 1,
+      "message": "Did you want to remove these ?",
+      "range": {
+        "startLine": 1927,
+        "startChar": 6,
+        "endLine": 1927,
+        "endChar": 29
+      },
+      "revId": "58e35f1e72ae2803dfab532096c36596a0cbcf4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
