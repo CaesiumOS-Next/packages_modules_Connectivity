@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0972ec7_8e4f606a",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/CarrierConfigRule.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-18T00:09:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c397464f_f155715b",
+      "range": {
+        "startLine": 234,
+        "startChar": 12,
+        "endLine": 234,
+        "endChar": 42
+      },
+      "revId": "c4f36662e8acd557dd1389ea7cb4ed3a3af1ee42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8294425c_df042f49",
@@ -78,6 +102,30 @@
           ]
         }
       ],
+      "revId": "c4f36662e8acd557dd1389ea7cb4ed3a3af1ee42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32212c79_6dbea1df",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-18T00:09:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8294425c_df042f49",
+      "range": {
+        "startLine": 153,
+        "startChar": 21,
+        "endLine": 153,
+        "endChar": 27
+      },
       "revId": "c4f36662e8acd557dd1389ea7cb4ed3a3af1ee42",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
