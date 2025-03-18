@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "059022f6_3f436842",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-03-18T00:33:17Z",
+      "side": 1,
+      "message": "Should getConnectionOwnerUid also be fixed to support TYPE_VPN_OEM_SERVICE ? Probably also OK in a separate change",
+      "revId": "3c33798c22230c52c5cb672760db798635483d91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

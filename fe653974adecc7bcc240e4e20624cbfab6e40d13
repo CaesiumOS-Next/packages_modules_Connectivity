@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "17488cdf_c6af5fb7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-03-18T00:33:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "438b7730_0ddf0118",
+      "revId": "fe653974adecc7bcc240e4e20624cbfab6e40d13",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "55defbad_6dd78bb7",
@@ -31,6 +49,30 @@
       "writtenOn": "2025-02-14T06:48:49Z",
       "side": 1,
       "message": "But what about existing usage that is using OEM also for enterprise use-cases ? Why is it necessary to have 2 different types, and not just use OEM ? I remember you mentioned having a different type was necessary, but it\u0027s hard to understand why this constant exists, and what the expected usage is, when just looking at the code.",
+      "range": {
+        "startLine": 43,
+        "startChar": 86,
+        "endLine": 44,
+        "endChar": 43
+      },
+      "revId": "fe653974adecc7bcc240e4e20624cbfab6e40d13",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95118ab8_6dbaf600",
+        "filename": "staticlibs/netd/binder/android/net/NativeVpnType.aidl",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-03-18T00:33:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55defbad_6dd78bb7",
       "range": {
         "startLine": 43,
         "startChar": 86,
