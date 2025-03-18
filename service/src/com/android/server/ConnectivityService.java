@@ -12835,6 +12835,7 @@ public class ConnectivityService extends IConnectivityManager.Stub {
     }
 
     private boolean isVpnServiceVpn(NetworkAgentInfo nai) {
+        // No-op comment.
         final int vpnType = getVpnType(nai);
         return vpnType == VpnManager.TYPE_VPN_SERVICE || vpnType == VpnManager.TYPE_VPN_OEM_SERVICE;
     }
