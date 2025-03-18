@@ -120,6 +120,7 @@ import static android.net.NetworkScore.POLICY_TRANSPORT_PRIMARY;
 import static android.net.OemNetworkPreferences.OEM_NETWORK_PREFERENCE_TEST;
 import static android.net.OemNetworkPreferences.OEM_NETWORK_PREFERENCE_TEST_ONLY;
 import static android.net.connectivity.ConnectivityCompatChanges.ENABLE_MATCH_LOCAL_NETWORK;
+import static android.net.connectivity.ConnectivityCompatChanges.ENABLE_MATCH_NON_THREAD_LOCAL_NETWORKS;
 import static android.net.connectivity.ConnectivityCompatChanges.ENABLE_SELF_CERTIFIED_CAPABILITIES_DECLARATION;
 import static android.net.connectivity.ConnectivityCompatChanges.NETWORK_BLOCKED_WITHOUT_INTERNET_PERMISSION;
 import static android.os.Process.INVALID_UID;
@@ -1469,6 +1470,10 @@ public class ConnectivityService extends IConnectivityManager.Stub {
 
         public boolean isAtLeastV() {
             return SdkLevel.isAtLeastV();
+        }
+
+        public boolean isAtLeastB() {
+            return SdkLevel.isAtLeastB();
         }
 
         /**
@@ -3184,6 +3189,11 @@ public class ConnectivityService extends IConnectivityManager.Stub {
     }
 
     private void maybeDisableLocalNetworkMatching(NetworkCapabilities nc, int callingUid) {
+        // If disabled, NetworkRequest cannot match non-thread local networks even if
+        // specified explicitly. Enabled on Android B+ or applications targeting B+
+        // to minimize the impact of existing devices or applications.
+        nc.setMatchNonThreadLocalNetworks(mDeps.isAtLeastV() && mDeps.isChangeEnabled(
+                ENABLE_MATCH_NON_THREAD_LOCAL_NETWORKS, callingUid));
         if (mDeps.isChangeEnabled(ENABLE_MATCH_LOCAL_NETWORK, callingUid)) {
             return;
         }
