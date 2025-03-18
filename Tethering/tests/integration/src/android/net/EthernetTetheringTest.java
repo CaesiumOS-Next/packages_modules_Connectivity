@@ -1241,7 +1241,10 @@ public class EthernetTetheringTest extends EthernetTetheringTestBase {
         }
     }
 
-    @IgnoreUpTo(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
+    // NetworkRequests cannot see non-thread local networks before B,
+    // even if the tethering local agent feature is supported.
+    // Refer to ConnectivityService#maybeDisableLocalNetworkMatching().
+    @IgnoreUpTo(Build.VERSION_CODES.VANILLA_ICE_CREAM)
     @Test
     public void testLocalAgent_networkCallbacks() throws Exception {
         mDeviceConfigRule.setConfig(NAMESPACE_TETHERING, TETHERING_LOCAL_NETWORK_AGENT, "1");
