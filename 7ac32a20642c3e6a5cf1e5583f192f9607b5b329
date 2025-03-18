@@ -16,6 +16,24 @@
       "message": "Hi Remi,\n\nI tried adding the Sdk35ModuleController, but I am still getting failures on abtd: go/abtd/run/L47800030010188849.\n\nDo you know if that is an artefact of Abtd, and the CL is fine to submit, or if there is something else missing?",
       "revId": "7ac32a20642c3e6a5cf1e5583f192f9607b5b329",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9bea49ea_38861bda",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-03-18T00:37:17Z",
+      "side": 1,
+      "message": "The failures in that run look unrelated, it\u0027s testTrafficStatsForLocalhost which is part of another test module, so this should be fine.",
+      "parentUuid": "e64a193f_a8e4a9b6",
+      "revId": "7ac32a20642c3e6a5cf1e5583f192f9607b5b329",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
