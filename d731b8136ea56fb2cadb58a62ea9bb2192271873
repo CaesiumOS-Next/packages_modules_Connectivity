@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "208bcd33_5cb99080",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-03-18T05:33:26Z",
+      "side": 1,
+      "message": "Note this conflicts with aosp/3539279, so either change will need to be rebased",
+      "revId": "d731b8136ea56fb2cadb58a62ea9bb2192271873",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
