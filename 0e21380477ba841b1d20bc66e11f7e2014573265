@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "85c9dace_0f8cb6a5",
+        "filename": "service/ServiceConnectivityResources/res/values/config_thread.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2025-03-18T03:49:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "02ce9c62_a165cb89",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 18
+      },
+      "revId": "0e21380477ba841b1d20bc66e11f7e2014573265",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9fc7b405_0eadfbf4",
@@ -37,6 +61,24 @@
       "writtenOn": "2025-03-17T09:40:08Z",
       "side": 1,
       "message": "This is the API class, the countryCode option doesn\u0027t need to be added here, it needs to be added to only OtDaemonConfiguration",
+      "revId": "0e21380477ba841b1d20bc66e11f7e2014573265",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ccde873_964ecb14",
+        "filename": "thread/framework/java/android/net/thread/ThreadConfiguration.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2025-03-18T03:49:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9fc7b405_0eadfbf4",
       "revId": "0e21380477ba841b1d20bc66e11f7e2014573265",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -72,6 +114,24 @@
           ]
         }
       ],
+      "revId": "0e21380477ba841b1d20bc66e11f7e2014573265",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d944aa8_e77ef41c",
+        "filename": "thread/service/java/com/android/server/thread/ThreadNetworkCountryCode.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1837411
+      },
+      "writtenOn": "2025-03-18T03:49:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "113cd3a9_45738a01",
       "revId": "0e21380477ba841b1d20bc66e11f7e2014573265",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
