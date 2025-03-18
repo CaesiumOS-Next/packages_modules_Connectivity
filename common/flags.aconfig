@@ -174,3 +174,12 @@ flag {
   bug: "388774939"
   is_fixed_read_only: true
 }
+
+flag {
+  name: "qos_filter_ip_range_matching"
+  is_exported: true
+  namespace: "android_core_networking"
+  description: "Flag for API to provide IP address range based QoS socket matching."
+  bug: "406146808"
+  is_fixed_read_only: true
+}
