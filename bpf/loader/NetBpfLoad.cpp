@@ -827,10 +827,14 @@ int getKeyValueTids(const struct btf *btf, const char *mapName,
   return 0;
 }
 
+static bool isBtfSupported(enum bpf_map_type type) {
+  return type != BPF_MAP_TYPE_DEVMAP_HASH && type != BPF_MAP_TYPE_RINGBUF;
+}
+
 static int createMaps(const char* elfPath, ifstream& elfFile, vector<unique_fd>& mapFds,
                       const char* prefix, const unsigned int bpfloader_ver) {
     int ret;
-    vector<char> mdData;
+    vector<char> mdData, btfData;
     vector<struct bpf_map_def> md;
     vector<string> mapNames;
     string objName = pathToObjName(string(elfPath));
@@ -856,6 +860,22 @@ static int createMaps(const char* elfPath, ifstream& elfFile, vector<unique_fd>&
 
     ret = getSectionSymNames(elfFile, "maps", mapNames);
     if (ret) return ret;
+
+    ret = readSectionByName(".BTF", elfFile, btfData);
+    if (ret) {
+      ALOGE("Failed to read .BTF section, ret:%d", ret);
+      return ret;
+    }
+    struct btf *btf = btf__new(btfData.data(), btfData.size());
+    if (btf == NULL) {
+      ALOGE("btf__new failed, errno: %d", errno);
+      return -errno;
+    }
+    ret = loadBtf(elfFile, btf);
+    if (ret) {
+      btf__free(btf);
+      return ret;
+    }
 
     unsigned kvers = kernelVersion();
 
@@ -982,6 +1002,23 @@ static int createMaps(const char* elfPath, ifstream& elfFile, vector<unique_fd>&
             };
             if (isAtLeastKernelVersion(4, 15, 0))
                 strlcpy(req.map_name, mapNames[i].c_str(), sizeof(req.map_name));
+
+            if (isBtfSupported(type)) {
+              uint32_t kTid, vTid;
+              ret = getKeyValueTids(btf, mapNames[i].c_str(), md[i].key_size,
+                                    md[i].value_size, &kTid, &vTid);
+              if (ret) {
+                btf__free(btf);
+                return ret;
+              }
+              req.btf_fd = btf__fd(btf);
+              req.btf_key_type_id = kTid;
+              req.btf_value_type_id = vTid;
+              ALOGI("Create map with BTF, map: %s", mapNames[i].c_str());
+            } else {
+              ALOGI("Create map without BTF, map: %s", mapNames[i].c_str());
+            }
+
             fd.reset(bpf(BPF_MAP_CREATE, req));
             saved_errno = errno;
             if (fd.ok()) {
@@ -991,7 +1028,10 @@ static int createMaps(const char* elfPath, ifstream& elfFile, vector<unique_fd>&
             }
         }
 
-        if (!fd.ok()) return -saved_errno;
+        if (!fd.ok()) {
+          btf__free(btf);
+          return -saved_errno;
+        }
 
         // When reusing a pinned map, we need to check the map type/sizes/etc match, but for
         // safety (since reuse code path is rare) run these checks even if we just created it.
@@ -1006,6 +1046,7 @@ static int createMaps(const char* elfPath, ifstream& elfFile, vector<unique_fd>&
                 if (ret) {
                     const int err = errno;
                     ALOGE("create %s -> %d [%d:%s]", createLoc.c_str(), ret, err, strerror(err));
+                    btf__free(btf);
                     return -err;
                 }
                 ret = renameat2(AT_FDCWD, createLoc.c_str(),
@@ -1014,6 +1055,7 @@ static int createMaps(const char* elfPath, ifstream& elfFile, vector<unique_fd>&
                     const int err = errno;
                     ALOGE("rename %s %s -> %d [%d:%s]", createLoc.c_str(), mapPinLoc.c_str(), ret,
                           err, strerror(err));
+                    btf__free(btf);
                     return -err;
                 }
             } else {
@@ -1021,6 +1063,7 @@ static int createMaps(const char* elfPath, ifstream& elfFile, vector<unique_fd>&
                 if (ret) {
                     const int err = errno;
                     ALOGE("pin %s -> %d [%d:%s]", mapPinLoc.c_str(), ret, err, strerror(err));
+                    btf__free(btf);
                     return -err;
                 }
             }
@@ -1029,6 +1072,7 @@ static int createMaps(const char* elfPath, ifstream& elfFile, vector<unique_fd>&
                 const int err = errno;
                 ALOGE("chmod(%s, 0%o) = %d [%d:%s]", mapPinLoc.c_str(), md[i].mode, ret, err,
                       strerror(err));
+                btf__free(btf);
                 return -err;
             }
             ret = chown(mapPinLoc.c_str(), (uid_t)md[i].uid, (gid_t)md[i].gid);
@@ -1036,6 +1080,7 @@ static int createMaps(const char* elfPath, ifstream& elfFile, vector<unique_fd>&
                 const int err = errno;
                 ALOGE("chown(%s, %u, %u) = %d [%d:%s]", mapPinLoc.c_str(), md[i].uid, md[i].gid,
                       ret, err, strerror(err));
+                btf__free(btf);
                 return -err;
             }
         }
@@ -1045,6 +1090,7 @@ static int createMaps(const char* elfPath, ifstream& elfFile, vector<unique_fd>&
             if (mapId == -1) {
                 const int err = errno;
                 ALOGE("bpfGetFdMapId failed, errno: %d", err);
+                btf__free(btf);
                 return -err;
             }
             ALOGI("map %s id %d", mapPinLoc.c_str(), mapId);
@@ -1053,6 +1099,7 @@ static int createMaps(const char* elfPath, ifstream& elfFile, vector<unique_fd>&
         mapFds.push_back(std::move(fd));
     }
 
+    btf__free(btf);
     return ret;
 }
 
