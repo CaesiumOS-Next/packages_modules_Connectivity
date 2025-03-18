@@ -16,6 +16,24 @@
       "message": "Could this not be completely private to BaseServingState ? Then you can make it @NonNull.",
       "revId": "b02d39a4f84f694983da6e170a9ea244f6febb9f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7dd29a12_248fbe64",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-18T11:23:53Z",
+      "side": 1,
+      "message": "This is not feasible because:\n 1. We\u0027ll need to access it from IpServer member methods such as updateUpstreamIPv6LinkProperties.\n 2. BaseServingState will be initialized when the IpServer is created:\nl.379\nmLocalHotspotState \u003d new LocalHotspotState();\nmTetheredState \u003d new TetheredState();\n  Which means we\u0027ll create 2 agents (at least 1) from device boot up even if it is not used. Not sure if it is better.\n  \n3. And we still cannot make it @NonNull given that LocalHotspotState doesn\u0027t use it. And it cannot be final seems we\u0027ll need to create another agent if tethering is re-enabled.\n  \n  \nReopen if any idea.",
+      "parentUuid": "4a443536_0b6ca314",
+      "revId": "b02d39a4f84f694983da6e170a9ea244f6febb9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

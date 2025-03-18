@@ -59,6 +59,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "94bc383e_f0c8a509",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 1062,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-18T11:23:53Z",
+      "side": 1,
+      "message": "Would like to remove it in another CL, in case we mess up something.\nSuch as a previously changed LP sent by this method in some corner cases, e.g.\n1.\nenter() {\n  startServingInterface() -\u003e changes LP\n  sendInterfaceState() -\u003e sends LP\n}\n2. \nTetheredState -\u003e InitialState",
+      "parentUuid": "7764ad3d_40d97c51",
+      "range": {
+        "startLine": 1062,
+        "startChar": 8,
+        "endLine": 1062,
+        "endChar": 26
+      },
+      "revId": "79feceb003b1f74e103a9008fb680ad7e16389ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "481606af_07e8dffd",
@@ -72,6 +96,30 @@
       "writtenOn": "2025-03-11T08:45:53Z",
       "side": 1,
       "message": "should it be explicitlySelected() ?",
+      "range": {
+        "startLine": 1175,
+        "startChar": 20,
+        "endLine": 1175,
+        "endChar": 35
+      },
+      "revId": "79feceb003b1f74e103a9008fb680ad7e16389ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2fcc978_b4ff55c2",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 1175,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-18T11:23:53Z",
+      "side": 1,
+      "message": "1. explictlySelected() is @hide.\n2. It seems it only affects:\n  a. shouldPromptUnvalidated, iff explictlySelected \u003d\u003d true \u0026\u0026 acceptUnvalidated \u003d\u003d flase\n  b. scheduleEvaluationTimeout.\n\nSince we don\u0027t need UI prompt, nor we need validation (no NET_CAPABILITY_INTERNET), it seems it is no-op if we are setting it to explictlySelected(true|false, true).\n\n3. The Threads is not setting it.\n  \nBased on the above I think we don\u0027t need it.  \n  \n  Ref:\nhttps://osscs.corp.google.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java;drc\u003dd7acd7d5623f67aa959ae23a362c337288e96d69;l\u003d6655?ss\u003dandroid\u0026q\u003dexplicitlySelected\n\nhttps://osscs.corp.google.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java;l\u003d12146;drc\u003dd7acd7d5623f67aa959ae23a362c337288e96d69?ss\u003dandroid\u0026q\u003dexplicitlySelected",
+      "parentUuid": "481606af_07e8dffd",
       "range": {
         "startLine": 1175,
         "startChar": 20,
@@ -105,6 +153,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "92e0abf6_208b4fbd",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 1271,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-18T11:23:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "70db1d03_288c96f4",
+      "range": {
+        "startLine": 1271,
+        "startChar": 20,
+        "endLine": 1271,
+        "endChar": 38
+      },
+      "revId": "79feceb003b1f74e103a9008fb680ad7e16389ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2d028904_c4ae1eff",
@@ -118,6 +190,30 @@
       "writtenOn": "2025-03-11T08:45:53Z",
       "side": 1,
       "message": "Did you forget to send the properties here ? mLP was updated.",
+      "range": {
+        "startLine": 1346,
+        "startChar": 12,
+        "endLine": 1346,
+        "endChar": 30
+      },
+      "revId": "79feceb003b1f74e103a9008fb680ad7e16389ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65320dba_0b7fa02a",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 1346,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-18T11:23:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d028904_c4ae1eff",
       "range": {
         "startLine": 1346,
         "startChar": 12,
