@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3142fd3e_2f49188a",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-18T07:45:01Z",
+      "side": 1,
+      "message": "Anything wrong with marking this @Mock in all cases ? You already check isAtLeastV() in l.231.",
+      "range": {
+        "startLine": 200,
+        "startChar": 4,
+        "endLine": 200,
+        "endChar": 11
+      },
+      "revId": "2ff03c597608d39c2da5040d1f21ce1fc8bfa24c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f9d27a1_c7c093a3",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-18T07:45:01Z",
+      "side": 1,
+      "message": "Doesn\u0027t the rule already do this ? Or if it doesn\u0027t shouldn\u0027t we write it in a generic manner, e.g.\n\n    doAnswer { invocation -\u003e return mFeatureFlags.getOrDefault(invocation.arguments[1] }",
+      "range": {
+        "startLine": 229,
+        "startChar": 27,
+        "endLine": 229,
+        "endChar": 43
+      },
+      "revId": "2ff03c597608d39c2da5040d1f21ce1fc8bfa24c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0fd97a5_81657182",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-18T07:45:01Z",
+      "side": 1,
+      "message": "Why did this build at the previous patch ?",
+      "range": {
+        "startLine": 335,
+        "startChar": 40,
+        "endLine": 335,
+        "endChar": 48
+      },
+      "revId": "2ff03c597608d39c2da5040d1f21ce1fc8bfa24c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
