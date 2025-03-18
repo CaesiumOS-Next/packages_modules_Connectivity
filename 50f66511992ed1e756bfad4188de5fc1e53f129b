@@ -68,6 +68,24 @@
       "message": "LGTM, please test it on real device and make sure it is not flaky.",
       "revId": "50f66511992ed1e756bfad4188de5fc1e53f129b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8347dbc_b2056ee5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3237198
+      },
+      "writtenOn": "2025-03-18T07:58:03Z",
+      "side": 1,
+      "message": "Test it again with 2 P9 devices with 5 times, all tests passed.",
+      "parentUuid": "faf1f52b_e50cbecd",
+      "revId": "50f66511992ed1e756bfad4188de5fc1e53f129b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
