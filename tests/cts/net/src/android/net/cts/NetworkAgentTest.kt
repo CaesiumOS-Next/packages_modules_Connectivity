@@ -183,7 +183,6 @@ private const val DEFAULT_TIMEOUT_MS = 5000L
 private const val QUEUE_NETWORK_AGENT_EVENTS_IN_SYSTEM_SERVER =
     "queue_network_agent_events_in_system_server"
 
-
 // When waiting for a NetworkCallback to determine there was no timeout, waiting is the
 // only possible thing (the relevant handler is the one in the real ConnectivityService,
 // and then there is the Binder call), so have a short timeout for this as it will be
@@ -243,7 +242,6 @@ class NetworkAgentTest {
         get() = mCM.isConnectivityServiceFeatureEnabledForTesting(
             QUEUE_NETWORK_AGENT_EVENTS_IN_SYSTEM_SERVER
         )
-
 
     @Before
     fun setUp() {
@@ -1371,15 +1369,28 @@ class NetworkAgentTest {
 
     @Test
     fun testQosCallbackRegisterAndUnregister() {
-        validateQosCallbackRegisterAndUnregister(IPPROTO_TCP)
+        validateQosCallbackRegisterAndUnregister(IPPROTO_TCP, null, 0)
     }
 
     @Test
     fun testQosCallbackRegisterAndUnregisterWithDatagramSocket() {
-        validateQosCallbackRegisterAndUnregister(IPPROTO_UDP)
+        validateQosCallbackRegisterAndUnregister(IPPROTO_UDP, null, 0)
     }
 
-    private fun validateQosCallbackRegisterAndUnregister(proto: Int) {
+    @Test
+    fun testQosCallbackRegisterAndUnregisterWithIpAddressRange() {
+        validateQosCallbackRegisterAndUnregister(
+            IPPROTO_UDP,
+            InetAddresses.parseNumericAddress("127.0.0.0"),
+            24
+        )
+    }
+
+    private fun validateQosCallbackRegisterAndUnregister(
+        proto: Int,
+        address: InetAddress?,
+        prefixLength: Int
+    ) {
         val (agent, qosTestSocket) = when (proto) {
             IPPROTO_TCP -> setupForQosSocket()
             IPPROTO_UDP -> setupForQosDatagram()
@@ -1394,6 +1405,9 @@ class NetworkAgentTest {
                 agent.expectCallback<OnRegisterQosCallback>().let {
                     callbackId = it.callbackId
                     assertTrue(it.filter.matchesProtocol(proto))
+                    if (address != null) {
+                        assertTrue(it.filter.matchesLocalAddress(address, prefixLength, 0, 65535))
+                    }
                 }
 
                 assertFailsWith<QosCallbackRegistrationException>(
