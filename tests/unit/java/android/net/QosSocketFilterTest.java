@@ -53,7 +53,7 @@ public class QosSocketFilterTest {
         final InetAddress addressA = InetAddresses.parseNumericAddress("1.2.3.4");
         final InetAddress addressB = InetAddresses.parseNumericAddress("1.2.3.4");
         assertTrue(QosSocketFilter.matchesAddress(
-                new InetSocketAddress(addressA, 10), addressB, 10, 10));
+                new InetSocketAddress(addressA, 10), addressB, 0, 10, 10));
     }
 
     @Test
@@ -61,7 +61,7 @@ public class QosSocketFilterTest {
         final InetAddress addressA = InetAddresses.parseNumericAddress("1.2.3.4");
         final InetAddress addressB = InetAddresses.parseNumericAddress("1.2.3.4");
         assertFalse(QosSocketFilter.matchesAddress(
-                new InetSocketAddress(addressA, 8), addressB, 10, 10));
+                new InetSocketAddress(addressA, 8), addressB, 0, 10, 10));
     }
 
     @Test
@@ -69,7 +69,7 @@ public class QosSocketFilterTest {
         final InetAddress addressA = InetAddresses.parseNumericAddress("1.2.3.4");
         final InetAddress addressB = InetAddresses.parseNumericAddress("1.2.3.4");
         assertFalse(QosSocketFilter.matchesAddress(
-                new InetSocketAddress(addressA, 18), addressB, 10, 10));
+                new InetSocketAddress(addressA, 18), addressB, 0, 10, 10));
     }
 
     @Test
@@ -77,7 +77,7 @@ public class QosSocketFilterTest {
         final InetAddress addressA = InetAddresses.parseNumericAddress("1.2.3.4");
         final InetAddress addressB = InetAddresses.parseNumericAddress("1.2.3.4");
         assertTrue(QosSocketFilter.matchesAddress(
-                new InetSocketAddress(addressA, 10), addressB, 8, 18));
+                new InetSocketAddress(addressA, 10), addressB, 0, 8, 18));
     }
 
     @Test
@@ -85,7 +85,7 @@ public class QosSocketFilterTest {
         final InetAddress addressA = InetAddresses.parseNumericAddress("1.2.3.4");
         final InetAddress addressB = InetAddresses.parseNumericAddress("1.2.3.5");
         assertFalse(QosSocketFilter.matchesAddress(
-                new InetSocketAddress(addressA, 10), addressB, 10, 10));
+                new InetSocketAddress(addressA, 10), addressB, 0, 10, 10));
     }
 
     @Test
@@ -93,9 +93,44 @@ public class QosSocketFilterTest {
         final InetAddress addressA = InetAddresses.parseNumericAddress("1.2.3.4");
         final InetAddress addressB = InetAddresses.parseNumericAddress("0.0.0.0");
         assertTrue(QosSocketFilter.matchesAddress(
-                new InetSocketAddress(addressA, 10), addressB, 10, 10));
+                new InetSocketAddress(addressA, 10), addressB, 0, 10, 10));
         assertFalse(QosSocketFilter.matchesAddress(
-                new InetSocketAddress(addressB, 10), addressA, 10, 10));
+                new InetSocketAddress(addressB, 10), addressA, 0, 10, 10));
+    }
+
+    @Test
+    public void testAddressMatchWithPrefixLength() {
+        final InetAddress addressA = InetAddresses.parseNumericAddress("1.2.3.100");
+        final InetAddress addressB = InetAddresses.parseNumericAddress("1.2.3.132");
+        final InetAddress addressC = InetAddresses.parseNumericAddress("1.2.3.96");
+        final InetAddress addressD = InetAddresses.parseNumericAddress("2001:2:3:5::13:D17");
+        final InetAddress addressE = InetAddresses.parseNumericAddress("2001:2:3:4::13:D17");
+        final InetAddress addressF = InetAddresses.parseNumericAddress("2001:2:3:5::");
+        final InetAddress addressG = InetAddresses.parseNumericAddress("2001:2:3:5::13:D17");
+        final InetAddress addressH = InetAddresses.parseNumericAddress("135.23.185.35");
+        final InetAddress addressJ = InetAddresses.parseNumericAddress("135.23.183.127");
+        final InetAddress addressI = InetAddresses.parseNumericAddress("135.23.186.127");
+
+        final int v4prefixLength = 27;
+        final int v4prefixLength2 = 22;
+        final int v6prefixLength = 64;
+        final int v6prefixLengthFull = 128;
+        assertTrue(QosSocketFilter.matchesAddress(
+                new InetSocketAddress(addressA, 10), addressC, v4prefixLength, 10, 10));
+        assertFalse(QosSocketFilter.matchesAddress(
+                new InetSocketAddress(addressB, 10), addressC, v4prefixLength, 10, 10));
+        assertTrue(QosSocketFilter.matchesAddress(
+                new InetSocketAddress(addressD, 10), addressF, v6prefixLength, 10, 10));
+        assertFalse(QosSocketFilter.matchesAddress(
+                new InetSocketAddress(addressE, 10), addressF, v6prefixLength, 10, 10));
+        assertFalse(QosSocketFilter.matchesAddress(
+                new InetSocketAddress(addressA, 10), addressF, v6prefixLength, 10, 10));
+        assertTrue(QosSocketFilter.matchesAddress(
+                new InetSocketAddress(addressD, 10), addressG, v6prefixLengthFull, 10, 10));
+        assertTrue(QosSocketFilter.matchesAddress(
+                new InetSocketAddress(addressH, 10), addressI, v4prefixLength2, 10, 10));
+        assertFalse(QosSocketFilter.matchesAddress(
+                new InetSocketAddress(addressJ, 10), addressI, v4prefixLength2, 10, 10));
     }
 
     @Test
