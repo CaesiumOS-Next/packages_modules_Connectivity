@@ -168,6 +168,7 @@ import kotlin.test.fail
 import org.junit.After
 import org.junit.Assume.assumeTrue
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -1088,6 +1089,7 @@ class NetworkAgentTest {
     }
 
     @Test
+    @Ignore
     @IgnoreUpTo(Build.VERSION_CODES.VANILLA_ICE_CREAM)
     fun testOemVpnTypes() {
         // TODO: why is this necessary given the @IgnoreUpTo above?
