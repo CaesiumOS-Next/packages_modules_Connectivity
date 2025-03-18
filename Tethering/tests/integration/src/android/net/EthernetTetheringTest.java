@@ -1241,9 +1241,18 @@ public class EthernetTetheringTest extends EthernetTetheringTestBase {
         }
     }
 
-    @IgnoreUpTo(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
+    // NetworkRequests cannot see non-thread local networks before B,
+    // even if the tethering local agent feature is supported.
+    // Refer to ConnectivityService#maybeDisableLocalNetworkMatching().
+    @IgnoreUpTo(Build.VERSION_CODES.VANILLA_ICE_CREAM)
     @Test
     public void testLocalAgent_networkCallbacks() throws Exception {
+        // TODO(b/404194192): Remove this line after Baklava is finalized.
+        //  With IgnoreUpTo(V), the test runs on SDK 35 with pre-release code name Baklava.
+        //  However, the current implementation of isAtLeastV does not check pre-release code names.
+        //  Hence, the test fails without this line since the production code is not enabled.
+        assumeTrue(SdkLevel.isAtLeastB());
+
         mDeviceConfigRule.setConfig(NAMESPACE_TETHERING, TETHERING_LOCAL_NETWORK_AGENT, "1");
         assumeFalse(isInterfaceForTetheringAvailable());
         setIncludeTestInterfaces(true);
