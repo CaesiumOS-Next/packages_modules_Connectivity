@@ -29,12 +29,14 @@ import android.util.ArraySet;
 import android.util.Pair;
 
 import com.android.net.module.util.CollectionUtils;
+import com.android.net.module.util.DnsUtils;
 import com.android.server.connectivity.mdns.MdnsConstants;
 import com.android.server.connectivity.mdns.MdnsInetAddressRecord;
 import com.android.server.connectivity.mdns.MdnsPacket;
 import com.android.server.connectivity.mdns.MdnsPacketWriter;
 import com.android.server.connectivity.mdns.MdnsRecord;
 import com.android.server.connectivity.mdns.MdnsResponse;
+import com.android.server.connectivity.mdns.MdnsSearchOptions;
 import com.android.server.connectivity.mdns.MdnsServiceInfo;
 
 import java.io.IOException;
@@ -51,6 +53,7 @@ import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -363,5 +366,36 @@ public class MdnsUtils {
                 response.getInterfaceIndex(),
                 response.getNetwork(),
                 now.plusMillis(response.getMinRemainingTtl(elapsedRealtimeMillis)));
+    }
+
+    /**
+     * Checks if an MDNS response matches a given instance name and a collection of subtypes.
+     *
+     * <p>This method performs a case-insensitive comparison of the instance name and subtypes,
+     * respecting DNS conventions.
+     *
+     * @param response     The MDNS response to check.
+     * @param instanceName The instance name to match, or null to ignore instance name matching.
+     * @param subTypes     The collection of subtypes to match.
+     * @return {@code true} if the response matches the instance name and at least one of the
+     * specified subtypes (if any), {@code false} otherwise.
+     */
+    public static boolean responseMatchesInstanceNameAndSubTypes(@NonNull MdnsResponse response,
+            @Nullable String instanceName, @NonNull Collection<String> subTypes) {
+        final boolean matchesInstanceName = instanceName == null
+                // DNS is case-insensitive, so ignore case in the comparison
+                || DnsUtils.equalsIgnoreDnsCase(instanceName, response.getServiceInstanceName());
+
+        // If discovery is requiring some subtypes, the response must have one that matches a
+        // requested one.
+        final List<String> responseSubtypes = response.getSubtypes() == null
+                ? Collections.emptyList() : response.getSubtypes();
+        final boolean matchesSubtype = subTypes.size() == 0
+                || CollectionUtils.any(subTypes, requiredSub ->
+                CollectionUtils.any(responseSubtypes, actualSub ->
+                        DnsUtils.equalsIgnoreDnsCase(
+                                MdnsConstants.SUBTYPE_PREFIX + requiredSub, actualSub)));
+
+        return matchesInstanceName && matchesSubtype;
     }
 }

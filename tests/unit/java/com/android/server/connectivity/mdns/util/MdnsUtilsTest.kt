@@ -213,4 +213,22 @@ class MdnsUtilsTest {
         assertEquals(mapOf("somedifferent" to "entry"),
                 serviceInfo.attributes)
     }
+
+    @Test
+    fun testResponseMatchesInstanceNameAndSubTypes() {
+        val serviceInstanceName = "MyTestService"
+        val serviceType = "_subtype._testservice._tcp.local"
+        val serviceName = "$serviceInstanceName.$serviceType".split(".").toTypedArray()
+        val interfaceIndex = 99
+        val response = MdnsResponse(0 /* now */, serviceName, interfaceIndex, null /* network */)
+        // Set PTR record
+        response.addPointerRecord(MdnsPointerRecord(serviceType.split(".").toTypedArray(),
+                120000L, false /* cacheFlush */, 0L /* ttlTime */, serviceName))
+
+        assertTrue(MdnsUtils.responseMatchesInstanceNameAndSubTypes(
+                response,
+                null /* instanceName */,
+                emptyList() /* subTypes */
+        ))
+    }
 }
