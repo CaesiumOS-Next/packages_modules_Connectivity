@@ -37,6 +37,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
 import com.android.modules.utils.build.SdkLevel;
+import com.android.net.flags.Flags;
 import com.android.net.module.util.RoutingCoordinatorManager;
 import com.android.net.module.util.RoutingCoordinatorService;
 import com.android.net.module.util.SharedLog;
@@ -210,9 +211,9 @@ public abstract class TetheringDependencies {
     }
 
     /**
-     * Returns true if the tethering with soft ap config feature is enabled.
+     * Wrapper for tethering_with_soft_ap_config feature flag.
      */
     public boolean isTetheringWithSoftApConfigEnabled() {
-        return SdkLevel.isAtLeastB();
+        return SdkLevel.isAtLeastB() && Flags.tetheringWithSoftApConfig();
     }
 }
