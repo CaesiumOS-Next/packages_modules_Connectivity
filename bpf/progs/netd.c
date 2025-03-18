@@ -597,7 +597,7 @@ static __always_inline inline int bpf_traffic_account(struct __sk_buff* skb,
 //    V |     |      |  x   |  x  |  x   |  x   |  x  |  x  |      | (netbpfload)
 //    U |     |  x   |  x   |  x  |  x   |  x   |  x  |     |      |
 //    T |  x  |  x   |  x   |  x  |  x   |  x   |     |     |      | (magic netbpfload)
-//    S |  x  |  x   |  x   |  x  |  x   |      |     |     |      | (magic netbpfload via dns)
+//    S |  x  |  x   |  x   |  x  |  x   |      |     |     |      | (netbpfload via dns, offload only)
 //    R |  x  |  x   |  x   |  x  |      |      |     |     |      | (no mainline ebpf)
 //
 // Not relevant for eBPF, but R can also run on 4.4
