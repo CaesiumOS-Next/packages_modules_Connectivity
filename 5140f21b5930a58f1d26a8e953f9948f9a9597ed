@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8616d26b_d7f3c598",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-18T06:55:46Z",
+      "side": 1,
+      "message": "Is the issue fixed only when queue_network_agent_events_in_system_server is enabled?\nIf we kill the feature, will this be an issue?",
+      "range": {
+        "startLine": 9,
+        "startChar": 39,
+        "endLine": 10,
+        "endChar": 22
+      },
+      "revId": "5140f21b5930a58f1d26a8e953f9948f9a9597ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f022338e_1a22aea1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-18T06:55:46Z",
+      "side": 1,
+      "message": "nits: this CL does not do this.",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 54
+      },
+      "revId": "5140f21b5930a58f1d26a8e953f9948f9a9597ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26e94aca_3ba3768a",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 1789,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-18T06:55:46Z",
+      "side": 1,
+      "message": "Do we need this?",
+      "range": {
+        "startLine": 1789,
+        "startChar": 12,
+        "endLine": 1789,
+        "endChar": 37
+      },
+      "revId": "5140f21b5930a58f1d26a8e953f9948f9a9597ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
