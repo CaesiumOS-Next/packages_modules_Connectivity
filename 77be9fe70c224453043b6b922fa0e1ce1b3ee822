@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "457d6995_e3b99b1a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5446,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-18T06:24:01Z",
+      "side": 1,
+      "message": "nits: we can remove this.",
+      "range": {
+        "startLine": 5446,
+        "startChar": 54,
+        "endLine": 5446,
+        "endChar": 87
+      },
+      "revId": "77be9fe70c224453043b6b922fa0e1ce1b3ee822",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4f1999d_f2cf4f4b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5450,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-18T06:24:01Z",
+      "side": 1,
+      "message": "Is it ok to return false for local network if the flag is disabled?",
+      "range": {
+        "startLine": 5450,
+        "startChar": 53,
+        "endLine": 5450,
+        "endChar": 54
+      },
+      "revId": "77be9fe70c224453043b6b922fa0e1ce1b3ee822",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
