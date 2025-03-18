@@ -40,6 +40,7 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
+import java.util.Arrays;
 import java.util.Objects;
 
 /**
@@ -179,11 +180,7 @@ public class QosSocketFilter extends QosFilter {
     @Override
     public boolean matchesLocalAddress(@NonNull final InetAddress address, final int startPort,
             final int endPort) {
-        if (mQosSocketInfo.getLocalSocketAddress() == null) {
-            return false;
-        }
-        return matchesAddress(mQosSocketInfo.getLocalSocketAddress(), address, startPort,
-                endPort);
+        return matchesLocalAddress(address, -1 /* prefixLength */, startPort, endPort);
     }
 
     /**
@@ -192,11 +189,29 @@ public class QosSocketFilter extends QosFilter {
     @Override
     public boolean matchesRemoteAddress(@NonNull final InetAddress address, final int startPort,
             final int endPort) {
+        return matchesRemoteAddress(address, -1 /* prefixLength */, startPort, endPort);
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public boolean matchesLocalAddress(@NonNull final InetAddress address, final int prefixLength,
+            final int startPort, final int endPort) {
+        if (mQosSocketInfo.getLocalSocketAddress() == null) {
+            return false;
+        }
+        return matchesAddress(mQosSocketInfo.getLocalSocketAddress(), address, prefixLength,
+                startPort, endPort);
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public boolean matchesRemoteAddress(@NonNull final InetAddress address, final int prefixLength,
+            final int startPort, final int endPort) {
         if (mQosSocketInfo.getRemoteSocketAddress() == null) {
             return false;
         }
-        return matchesAddress(mQosSocketInfo.getRemoteSocketAddress(), address, startPort,
-                endPort);
+        return matchesAddress(mQosSocketInfo.getRemoteSocketAddress(), address, prefixLength,
+                startPort, endPort);
     }
 
     /**
@@ -221,16 +236,48 @@ public class QosSocketFilter extends QosFilter {
      *
      * @param filterSocketAddress the socket address of the filter
      * @param address the address to compare the filterSocketAddressWith
+     * @param prefixLength the prefix length for the address to check
      * @param startPort the start of the port range to check
      * @param endPort the end of the port range to check
      */
     @VisibleForTesting
     public static boolean matchesAddress(@NonNull final InetSocketAddress filterSocketAddress,
-            @NonNull final InetAddress address,
+            @NonNull final InetAddress address, final int prefixLength,
             final int startPort, final int endPort) {
         return startPort <= filterSocketAddress.getPort()
                 && endPort >= filterSocketAddress.getPort()
                 && (address.isAnyLocalAddress()
-                        || filterSocketAddress.getAddress().equals(address));
+                        || matchesAddressWithPrefixLength(
+                                filterSocketAddress.getAddress(), address, prefixLength));
+    }
+
+    private static boolean matchesAddressWithPrefixLength(
+            @NonNull final InetAddress addressSocket,
+            @NonNull final InetAddress addressFilter,
+            final int prefixLength) {
+        if (prefixLength < 0) {
+            return addressSocket.equals(addressFilter);
+        }
+
+        if (addressSocket.getAddress().length != addressFilter.getAddress().length) {
+            return false;
+        } else if (prefixLength / 8 > addressFilter.getAddress().length) {
+            return false;
+        }
+
+        if (prefixLength == 0) {
+            return true;
+        }
+
+        final byte maskForLastByte = (byte) (0xFF << (8 - prefixLength % 8));
+        final byte[] addressSocketByteArray = Arrays.copyOf(
+                addressSocket.getAddress(), (prefixLength + 7) / 8);
+        final byte[] addressFilterByteArray = Arrays.copyOf(
+                addressFilter.getAddress(), (prefixLength + 7) / 8);
+        if (maskForLastByte != 0) {
+            addressSocketByteArray[addressSocketByteArray.length - 1] &= maskForLastByte;
+            addressFilterByteArray[addressFilterByteArray.length - 1] &= maskForLastByte;
+        }
+        return Arrays.equals(addressSocketByteArray, addressFilterByteArray);
     }
 }

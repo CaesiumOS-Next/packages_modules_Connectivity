@@ -16,8 +16,11 @@
 
 package android.net;
 
+import android.annotation.FlaggedApi;
 import android.annotation.NonNull;
 import android.annotation.SystemApi;
+
+import com.android.net.flags.Flags;
 
 import java.net.InetAddress;
 
@@ -92,6 +95,44 @@ public abstract class QosFilter {
      */
     public abstract boolean matchesRemoteAddress(@NonNull InetAddress address,
             int startPort, int endPort);
+
+    /**
+     * Determines whether or not the parameters will be matched with prefix length, source address
+     * and port.
+     *
+     * @param address the UE side address included in IP packet filter set of a QoS flow assigned
+     *                on {@link Network}.
+     * @param prefixLength the prefix length of the UE side address indicated in IP packet filter
+     *                set of a QoS flow assigned on {@link Network}. Value -1 means there is no
+     *                prefixLength defined.
+     * @param startPort the start of UE side port range included in IP packet filter set of a QoS
+     *                flow assigned on {@link Network}.
+     * @param endPort the end of UE side port range included in IP packet filter set of a QoS flow
+     *                assigned on {@link Network}.
+     * @return whether the parameters match the UE side address and port of the filter
+     */
+    @FlaggedApi(Flags.FLAG_QOS_FILTER_IP_RANGE_MATCHING)
+    public abstract boolean matchesLocalAddress(@NonNull InetAddress address,
+            int prefixLength, int startPort, int endPort);
+
+    /**
+     * Determines whether or not the parameters will be matched with prefix length, remote address
+     * and port.
+     *
+     * @param address the remote address included in IP packet filter set of a QoS flow
+     *                assigned on {@link Network}.
+     * @param prefixLength the prefix length of the remote  address indicated in IP packet filter
+     *                set of a QoS flow assigned on {@link Network}. Value -1 means there is no
+     *                prefixLength defined.
+     * @param startPort the start of remote port range included in IP packet filter set of a
+     *                 QoS flow assigned on {@link Network}.
+     * @param endPort the end of the remote range included in IP packet filter set of a QoS
+     *                flow assigned on {@link Network}.
+     * @return whether the parameters match the remote address and port of the filter
+     */
+    @FlaggedApi(Flags.FLAG_QOS_FILTER_IP_RANGE_MATCHING)
+    public abstract boolean matchesRemoteAddress(@NonNull InetAddress address,
+            int prefixLength, int startPort, int endPort);
 
     /**
      * Determines whether or not the parameter will be matched with this filter.

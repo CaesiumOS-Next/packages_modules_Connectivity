@@ -183,7 +183,6 @@ private const val DEFAULT_TIMEOUT_MS = 5000L
 private const val QUEUE_NETWORK_AGENT_EVENTS_IN_SYSTEM_SERVER =
     "queue_network_agent_events_in_system_server"
 
-
 // When waiting for a NetworkCallback to determine there was no timeout, waiting is the
 // only possible thing (the relevant handler is the one in the real ConnectivityService,
 // and then there is the Binder call), so have a short timeout for this as it will be
@@ -243,7 +242,6 @@ class NetworkAgentTest {
         get() = mCM.isConnectivityServiceFeatureEnabledForTesting(
             QUEUE_NETWORK_AGENT_EVENTS_IN_SYSTEM_SERVER
         )
-
 
     @Before
     fun setUp() {
@@ -1394,6 +1392,18 @@ class NetworkAgentTest {
                 agent.expectCallback<OnRegisterQosCallback>().let {
                     callbackId = it.callbackId
                     assertTrue(it.filter.matchesProtocol(proto))
+                    assertTrue(it.filter.matchesLocalAddress(
+                        InetAddress.getLoopbackAddress(),
+                        128,
+                        0,
+                        65535
+                    ))
+                    assertFalse(it.filter.matchesRemoteAddress(
+                        InetAddress.getLoopbackAddress(),
+                        0,
+                        0,
+                        65535
+                    ))
                 }
 
                 assertFailsWith<QosCallbackRegistrationException>(
