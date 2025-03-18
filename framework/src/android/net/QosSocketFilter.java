@@ -182,7 +182,7 @@ public class QosSocketFilter extends QosFilter {
         if (mQosSocketInfo.getLocalSocketAddress() == null) {
             return false;
         }
-        return matchesAddress(mQosSocketInfo.getLocalSocketAddress(), address, startPort,
+        return matchesAddress(mQosSocketInfo.getLocalSocketAddress(), address, 0, startPort,
                 endPort);
     }
 
@@ -195,8 +195,34 @@ public class QosSocketFilter extends QosFilter {
         if (mQosSocketInfo.getRemoteSocketAddress() == null) {
             return false;
         }
-        return matchesAddress(mQosSocketInfo.getRemoteSocketAddress(), address, startPort,
+        return matchesAddress(mQosSocketInfo.getRemoteSocketAddress(), address, 0, startPort,
                 endPort);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public boolean matchesLocalAddress(@NonNull final InetAddress address, final int prefixLength,
+            final int startPort, final int endPort) {
+        if (mQosSocketInfo.getLocalSocketAddress() == null) {
+            return false;
+        }
+        return matchesAddress(mQosSocketInfo.getLocalSocketAddress(), address, prefixLength,
+                startPort, endPort);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public boolean matchesRemoteAddress(@NonNull final InetAddress address, final int prefixLength,
+            final int startPort, final int endPort) {
+        if (mQosSocketInfo.getRemoteSocketAddress() == null) {
+            return false;
+        }
+        return matchesAddress(mQosSocketInfo.getRemoteSocketAddress(), address, prefixLength,
+                startPort, endPort);
     }
 
     /**
@@ -221,16 +247,50 @@ public class QosSocketFilter extends QosFilter {
      *
      * @param filterSocketAddress the socket address of the filter
      * @param address the address to compare the filterSocketAddressWith
+     * @param prefixLength the prefix length for the address to check
      * @param startPort the start of the port range to check
      * @param endPort the end of the port range to check
      */
     @VisibleForTesting
     public static boolean matchesAddress(@NonNull final InetSocketAddress filterSocketAddress,
-            @NonNull final InetAddress address,
+            @NonNull final InetAddress address, final int prefixLength,
             final int startPort, final int endPort) {
         return startPort <= filterSocketAddress.getPort()
                 && endPort >= filterSocketAddress.getPort()
                 && (address.isAnyLocalAddress()
-                        || filterSocketAddress.getAddress().equals(address));
+                        || matchesAddressWithPrefixLength(
+                                filterSocketAddress.getAddress(), address, prefixLength));
+    }
+
+    private static boolean matchesAddressWithPrefixLength(
+            @NonNull final InetAddress addressSocket,
+            @NonNull final InetAddress addressFilter,
+            final int prefixLength) {
+        if (prefixLength == 0) {
+            return addressSocket.equals(addressFilter);
+        }
+        byte[] addressSocketByteArray = addressSocket.getAddress();
+        byte[] addressFilterByteArray = addressFilter.getAddress();
+        if (addressSocketByteArray.length != addressFilterByteArray.length) {
+            return false;
+        }
+        int length = prefixLength;
+        int i = 0;
+        while (length > 0 && i < addressSocketByteArray.length) {
+            if (length >= 8) {
+                if (addressSocketByteArray[i] != addressFilterByteArray[i]) {
+                    return false;
+                }
+                length -= 8;
+            } else {
+                byte mask = (byte) (0xFF << (8 - length));
+                if ((addressSocketByteArray[i] & mask) != (addressFilterByteArray[i] & mask)) {
+                    return false;
+                }
+                length = 0;
+            }
+            i++;
+        }
+        return true;
     }
 }
