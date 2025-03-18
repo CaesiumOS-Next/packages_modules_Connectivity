@@ -106,6 +106,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd3e6ed1_bee5e497",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 12851,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-18T05:55:19Z",
+      "side": 1,
+      "message": "I will address this by separate CL b/404412620.",
+      "parentUuid": "c4c7471b_6eb97067",
+      "revId": "306d459ed4867b8c4a474c493ba7587dfb9746a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "97d167e7_60233088",
@@ -119,6 +137,24 @@
       "writtenOn": "2025-03-18T05:30:45Z",
       "side": 1,
       "message": "Because there is no @Rule DevSdkIgnoreRule in the class, it is using the DevSdkIgnoreRunner but that only affects class-level @IgnoreUpTo annotations.\n\nNo need to fix this now.",
+      "revId": "306d459ed4867b8c4a474c493ba7587dfb9746a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd84f3b7_da73d502",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 1093,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-18T05:55:19Z",
+      "side": 1,
+      "message": "I will address this by separate CL b/404412620.",
+      "parentUuid": "97d167e7_60233088",
       "revId": "306d459ed4867b8c4a474c493ba7587dfb9746a6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
