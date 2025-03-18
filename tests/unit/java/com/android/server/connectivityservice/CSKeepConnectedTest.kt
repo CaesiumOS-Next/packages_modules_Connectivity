@@ -45,20 +45,29 @@ class CSKeepConnectedTest : CSTest() {
                 .addTransportType(TRANSPORT_WIFI)
                 .addCapability(NET_CAPABILITY_LOCAL_NETWORK)
                 .build()
-        val keepConnectedAgent = Agent(nc = nc, score = FromS(NetworkScore.Builder()
+        val keepConnectedAgent = Agent(
+            nc = nc,
+            score = FromS(
+                NetworkScore.Builder()
                 .setKeepConnectedReason(KEEP_CONNECTED_LOCAL_NETWORK)
-                .build()),
-                lnc = FromS(LocalNetworkConfig.Builder().build()))
-        val dontKeepConnectedAgent = Agent(nc = nc,
-                lnc = FromS(LocalNetworkConfig.Builder().build()))
+                .build()
+            ),
+            lnc = FromS(LocalNetworkConfig.Builder().build())
+        )
+        val dontKeepConnectedAgent = Agent(
+            nc = nc,
+            lnc = FromS(LocalNetworkConfig.Builder().build())
+        )
         doTestKeepConnected(keepConnectedAgent, dontKeepConnectedAgent)
     }
 
     @Test
     fun testKeepConnectedForTest() {
-        val keepAgent = Agent(score = FromS(NetworkScore.Builder()
+        val keepAgent = Agent(score = FromS(
+            NetworkScore.Builder()
                 .setKeepConnectedReason(KEEP_CONNECTED_FOR_TEST)
-                .build()))
+                .build()
+        ))
         val dontKeepAgent = Agent()
         doTestKeepConnected(keepAgent, dontKeepAgent)
     }
