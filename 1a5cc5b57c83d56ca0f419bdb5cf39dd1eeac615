@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "689c0881_6073951f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-03-18T19:20:47Z",
+      "side": 1,
+      "message": "This *needs* to be tested on a 4.9 device, for us that basically that means a pixel 3/3xl/3a/3a xl (blueline/B1, crosshatch/C1, sargo/S4, bonito/B4) which top out at S, which in turn means in combination with a new enough dns resolver.\n\nIdeally one running T too, but that is much harder to find a device for...",
+      "revId": "1a5cc5b57c83d56ca0f419bdb5cf39dd1eeac615",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
