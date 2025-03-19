@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9178784d_0d1b3f98",
+        "filename": "staticlibs/native/bpfmapjni/com_android_net_module_util_TcUtils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-03-19T15:29:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81ad925e_3a669728",
+      "range": {
+        "startLine": 32,
+        "startChar": 12,
+        "endLine": 32,
+        "endChar": 20
+      },
+      "revId": "6479abdf95ca5a64f55fcabd21f9a20dcadf90f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "26803d93_52c6d191",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-03-19T15:22:56Z",
       "side": 1,
       "message": "this needs to return early, otherwise the rest of the function still runs.",
+      "range": {
+        "startLine": 41,
+        "startChar": 2,
+        "endLine": 41,
+        "endChar": 3
+      },
+      "revId": "6479abdf95ca5a64f55fcabd21f9a20dcadf90f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "232775d1_04c23dde",
+        "filename": "staticlibs/native/bpfmapjni/com_android_net_module_util_TcUtils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-03-19T15:29:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "26803d93_52c6d191",
       "range": {
         "startLine": 41,
         "startChar": 2,
