@@ -1,0 +1,485 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "832f2180_68e58a7d",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSKeepConnectedTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-19T02:08:15Z",
+      "side": 1,
+      "message": "Add 4 spaces?",
+      "range": {
+        "startLine": 52,
+        "startChar": 16,
+        "endLine": 52,
+        "endChar": 17
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "89b4f34b_7122bc2d",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/unit/java/com/android/server/connectivityservice/CSKeepConnectedTest.kt",
+              "range": {
+                "startLine": 52,
+                "startChar": 0,
+                "endLine": 54,
+                "endChar": 0
+              },
+              "replacement": "                    .setKeepConnectedReason(KEEP_CONNECTED_LOCAL_NETWORK)\n                    .build()\n"
+            }
+          ]
+        }
+      ],
+      "revId": "50b9f0bd28cfa9f1e5b37b44cfdf8ed6ee9ba42a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1483c766_69461e46",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentCreationTests.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-19T02:08:15Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 89,
+        "startChar": 16,
+        "endLine": 89,
+        "endChar": 20
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "77a6321c_72084b64",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentCreationTests.kt",
+              "range": {
+                "startLine": 89,
+                "startChar": 0,
+                "endLine": 90,
+                "endChar": 0
+              },
+              "replacement": "                false /* secure */,\n"
+            }
+          ]
+        }
+      ],
+      "revId": "50b9f0bd28cfa9f1e5b37b44cfdf8ed6ee9ba42a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1a562c2_c281711d",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-19T02:08:15Z",
+      "side": 1,
+      "message": "Fit one line",
+      "range": {
+        "startLine": 152,
+        "startChar": 12,
+        "endLine": 153,
+        "endChar": 25
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "98bb3b45_87688974",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+              "range": {
+                "startLine": 151,
+                "startChar": 0,
+                "endLine": 156,
+                "endChar": 0
+              },
+              "replacement": "        val agent2 \u003d Agent(nc \u003d NetworkCapabilities.Builder().build(), lnc \u003d null)\n"
+            }
+          ]
+        }
+      ],
+      "revId": "50b9f0bd28cfa9f1e5b37b44cfdf8ed6ee9ba42a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4f368f1_db591045",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-19T02:08:15Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 295,
+        "startChar": 12,
+        "endLine": 295,
+        "endChar": 16
+      },
+      "revId": "50b9f0bd28cfa9f1e5b37b44cfdf8ed6ee9ba42a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8d182e8_38d2a9a6",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-19T02:08:15Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 300,
+        "startChar": 12,
+        "endLine": 300,
+        "endChar": 16
+      },
+      "revId": "50b9f0bd28cfa9f1e5b37b44cfdf8ed6ee9ba42a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5081c271_28b4d4b9",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-19T02:08:15Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 334,
+        "startChar": 12,
+        "endLine": 334,
+        "endChar": 16
+      },
+      "revId": "50b9f0bd28cfa9f1e5b37b44cfdf8ed6ee9ba42a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ee64b00_ab40c819",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-19T02:08:15Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 339,
+        "startChar": 12,
+        "endLine": 339,
+        "endChar": 16
+      },
+      "revId": "50b9f0bd28cfa9f1e5b37b44cfdf8ed6ee9ba42a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0a9367c_2fac2280",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-19T02:08:15Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 349,
+        "startChar": 12,
+        "endLine": 349,
+        "endChar": 16
+      },
+      "revId": "50b9f0bd28cfa9f1e5b37b44cfdf8ed6ee9ba42a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ddfe2066_bb2798c7",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-19T02:08:15Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 354,
+        "startChar": 12,
+        "endLine": 354,
+        "endChar": 16
+      },
+      "revId": "50b9f0bd28cfa9f1e5b37b44cfdf8ed6ee9ba42a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6f906cb_36cffceb",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-19T02:08:15Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 395,
+        "startChar": 12,
+        "endLine": 395,
+        "endChar": 16
+      },
+      "revId": "50b9f0bd28cfa9f1e5b37b44cfdf8ed6ee9ba42a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59dfb0fc_702e492a",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-19T02:08:15Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 400,
+        "startChar": 12,
+        "endLine": 400,
+        "endChar": 16
+      },
+      "revId": "50b9f0bd28cfa9f1e5b37b44cfdf8ed6ee9ba42a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e8f1fa5_e9a69afe",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-19T02:08:15Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 417,
+        "startChar": 12,
+        "endLine": 417,
+        "endChar": 16
+      },
+      "revId": "50b9f0bd28cfa9f1e5b37b44cfdf8ed6ee9ba42a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fc82b36_89c97520",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-19T02:08:15Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 422,
+        "startChar": 12,
+        "endLine": 422,
+        "endChar": 16
+      },
+      "revId": "50b9f0bd28cfa9f1e5b37b44cfdf8ed6ee9ba42a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aea51100_901580b8",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTestHelpers.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-19T02:08:15Z",
+      "side": 1,
+      "message": "Align l.128?",
+      "range": {
+        "startLine": 129,
+        "startChar": 4,
+        "endLine": 129,
+        "endChar": 8
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "a04c130e_3c4ddbb3",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/unit/java/com/android/server/connectivityservice/base/CSTestHelpers.kt",
+              "range": {
+                "startLine": 129,
+                "startChar": 0,
+                "endLine": 131,
+                "endChar": 0
+              },
+              "replacement": "            anyInt(),\n            eq(UserHandle.getCallingUserId())\n"
+            }
+          ]
+        }
+      ],
+      "revId": "50b9f0bd28cfa9f1e5b37b44cfdf8ed6ee9ba42a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40a42e27_6924c600",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTestHelpers.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-19T02:08:15Z",
+      "side": 1,
+      "message": "Align l.161?",
+      "range": {
+        "startLine": 162,
+        "startChar": 8,
+        "endLine": 162,
+        "endChar": 12
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "7f585e69_b4563ac8",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/unit/java/com/android/server/connectivityservice/base/CSTestHelpers.kt",
+              "range": {
+                "startLine": 162,
+                "startChar": 0,
+                "endLine": 163,
+                "endChar": 0
+              },
+              "replacement": "        any\u003cWakeupMessage\u003e(),\n"
+            }
+          ]
+        }
+      ],
+      "revId": "50b9f0bd28cfa9f1e5b37b44cfdf8ed6ee9ba42a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf5346b0_19980761",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTestHelpers.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-19T02:08:15Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 212,
+        "startChar": 4,
+        "endLine": 212,
+        "endChar": 37
+      },
+      "revId": "50b9f0bd28cfa9f1e5b37b44cfdf8ed6ee9ba42a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1ed2114_adb149bb",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTestHelpers.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-19T02:08:15Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 220,
+        "startChar": 8,
+        "endLine": 220,
+        "endChar": 12
+      },
+      "revId": "50b9f0bd28cfa9f1e5b37b44cfdf8ed6ee9ba42a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
