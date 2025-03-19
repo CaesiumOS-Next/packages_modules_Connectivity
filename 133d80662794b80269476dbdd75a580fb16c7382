@@ -146,6 +146,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2c83e9a_a7d2d0a3",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringConfiguration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-19T02:31:59Z",
+      "side": 1,
+      "message": "Yes. My understanding is that we want to enable this feature after 25Q2, so it can be fully tested on all devices. This allows us to easily determine whether the feature causes an issue after the 25Q2 release, as we know it will be enabled by default. However, as you mentioned, this feature cannot be disabled after the 25Q2 release. Therefore, we must fix any issues rather than disabling it.",
+      "parentUuid": "d858e985_ce4f30a3",
+      "range": {
+        "startLine": 399,
+        "startChar": 22,
+        "endLine": 399,
+        "endChar": 35
+      },
+      "revId": "133d80662794b80269476dbdd75a580fb16c7382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dc0b1c1a_2886b0f1",
@@ -169,6 +193,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5495faf_3df3f968",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 786,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-19T02:31:59Z",
+      "side": 1,
+      "message": "This comment will be addressed in a follow-up change.",
+      "parentUuid": "dc0b1c1a_2886b0f1",
+      "range": {
+        "startLine": 786,
+        "startChar": 31,
+        "endLine": 786,
+        "endChar": 36
+      },
+      "revId": "133d80662794b80269476dbdd75a580fb16c7382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "18582c78_43f3ce27",
@@ -182,6 +230,30 @@
       "writtenOn": "2025-03-19T01:10:57Z",
       "side": 1,
       "message": "two spaces",
+      "range": {
+        "startLine": 55,
+        "startChar": 28,
+        "endLine": 55,
+        "endChar": 30
+      },
+      "revId": "133d80662794b80269476dbdd75a580fb16c7382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "67b9fc51_e2e4b313",
+        "filename": "staticlibs/framework/com/android/net/module/util/SdkUtil.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-19T02:31:59Z",
+      "side": 1,
+      "message": "This comment will be addressed in a follow-up change.",
+      "parentUuid": "18582c78_43f3ce27",
       "range": {
         "startLine": 55,
         "startChar": 28,
