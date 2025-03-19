@@ -1,5 +1,40 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b341138_efd3b587",
+        "filename": "bpf/loader/NetBpfLoad.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 1096713
+      },
+      "writtenOn": "2025-03-19T13:55:11Z",
+      "side": 1,
+      "message": "This is unsigned...",
+      "revId": "59b2099360b41e0e1f0a1331d7b9e59452f0f4bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce443a47_85e46a79",
+        "filename": "bpf/loader/NetBpfLoad.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 779,
+      "author": {
+        "id": 1096713
+      },
+      "writtenOn": "2025-03-19T13:55:11Z",
+      "side": 1,
+      "message": "...so this check is always `false`, even if `btf__find_by_name()` returns a negative value.\n\nI don\u0027t know if we want make `kvId` an `int32_t`, or use an intermediate value for checking the return value of the function.",
+      "revId": "59b2099360b41e0e1f0a1331d7b9e59452f0f4bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
