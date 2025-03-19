@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb40d1c9_74a9a427",
+        "filename": "staticlibs/testutils/host/python/apf_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-03-19T15:14:15Z",
+      "side": 1,
+      "message": "Could you reminder me what\u0027s the different between abort_class_if and skip_if?\n\nAre they both skip or one of them fail?",
+      "range": {
+        "startLine": 454,
+        "startChar": 14,
+        "endLine": 454,
+        "endChar": 28
+      },
+      "revId": "8f712c6ed98191ed5a711bc98c3999bbc233a6d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
