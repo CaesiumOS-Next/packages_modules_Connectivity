@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65759db3_717b4a4f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-03-19T15:16:46Z",
+      "side": 1,
+      "message": "Code looks good, please merge it after test it locally.",
+      "revId": "c8bf6fd5421f5779bc33b85f786d52bb3491796e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
