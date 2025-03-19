@@ -1,0 +1,65 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b42c098_4007d5f7",
+        "filename": "bpf/loader/NetBpfLoad.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1000,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-19T05:47:16Z",
+      "side": 1,
+      "message": "Ah, I guess this declaration conflicts with `struct btf *btf \u003d btf__new(btfData.data(), btfData.size());`",
+      "range": {
+        "startLine": 1000,
+        "startChar": 12,
+        "endLine": 1000,
+        "endChar": 20
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "55574a2e_31939523",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "bpf/loader/NetBpfLoad.cpp",
+              "range": {
+                "startLine": 1000,
+                "startChar": 0,
+                "endLine": 1002,
+                "endChar": 0
+              },
+              "replacement": "            bool btfSupported \u003d isBtfSupported(type);\n            if (btfSupported) {\n"
+            },
+            {
+              "path": "bpf/loader/NetBpfLoad.cpp",
+              "range": {
+                "startLine": 1014,
+                "startChar": 0,
+                "endLine": 1015,
+                "endChar": 0
+              },
+              "replacement": "                ALOGD(\"bpf_create_map[%s] btf:%d -\u003e %d\", mapNames[i].c_str(), btfSupported, fd.get());\n"
+            },
+            {
+              "path": "bpf/loader/NetBpfLoad.cpp",
+              "range": {
+                "startLine": 1016,
+                "startChar": 0,
+                "endLine": 1017,
+                "endChar": 0
+              },
+              "replacement": "                ALOGE(\"bpf_create_map[%s] btf:%d -\u003e %d errno:%d\", mapNames[i].c_str(), btfSupported, fd.get(), saved_errno);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "435d4fd1de3e2029c4bb12b89938e41dca9691c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
