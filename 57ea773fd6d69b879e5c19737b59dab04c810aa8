@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "305c4824_3b443b07",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-03-19T01:58:38Z",
+      "side": 1,
+      "message": "maybe addInterface() should return int ifindex, so we don\u0027t need to do lookup again,\n\nor perhaps there should just be a getAutoPopulatingInterfaceIndex() func...\n\nbut, whatever, I just want no errors on:\n  logcat | grep -i bpf",
+      "revId": "57ea773fd6d69b879e5c19737b59dab04c810aa8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
