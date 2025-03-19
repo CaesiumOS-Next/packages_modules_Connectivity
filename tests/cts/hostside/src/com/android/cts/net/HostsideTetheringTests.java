@@ -16,6 +16,9 @@
 
 package com.android.cts.net;
 
+import static org.junit.Assume.assumeTrue;
+
+import com.android.modules.utils.build.SdkLevel;
 import com.android.tradefed.device.DeviceNotAvailableException;
 import com.android.tradefed.invoker.TestInformation;
 import com.android.tradefed.testtype.DeviceJUnit4ClassRunner;
@@ -47,6 +50,7 @@ public class HostsideTetheringTests extends HostsideNetworkTestCase {
 
     @Test
     public void testSoftApConfigurationRedactedForOtherApps() throws Exception {
+        assumeTrue(SdkLevel.isAtLeastB());
         runDeviceTests(TEST_PKG, TEST_PKG + ".TetheringTest",
                 "testSoftApConfigurationRedactedForOtherUids");
     }
