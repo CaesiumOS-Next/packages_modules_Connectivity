@@ -52,6 +52,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "29b7ecbd_02b581fd",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-19T11:02:13Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "86ee4e07_9fad1015",
+      "range": {
+        "startLine": 217,
+        "startChar": 4,
+        "endLine": 217,
+        "endChar": 96
+      },
+      "revId": "cb8b1272a955be875a8dfe8ac0fb7d773e3bd913",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fb86608c_803ce671",
@@ -103,6 +127,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbab6230_5334227c",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 1253,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-19T11:02:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb86608c_803ce671",
+      "range": {
+        "startLine": 1253,
+        "startChar": 8,
+        "endLine": 1253,
+        "endChar": 58
+      },
+      "revId": "cb8b1272a955be875a8dfe8ac0fb7d773e3bd913",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3424da2f_75e47113",
@@ -150,6 +198,30 @@
           ]
         }
       ],
+      "revId": "cb8b1272a955be875a8dfe8ac0fb7d773e3bd913",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7411804e_c5350b1f",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 1260,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-19T11:02:13Z",
+      "side": 1,
+      "message": "tried but it seems variables need to be final in the clean up block,\nwhich is not feasible in this case.",
+      "parentUuid": "3424da2f_75e47113",
+      "range": {
+        "startLine": 1260,
+        "startChar": 8,
+        "endLine": 1260,
+        "endChar": 11
+      },
       "revId": "cb8b1272a955be875a8dfe8ac0fb7d773e3bd913",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -291,6 +363,30 @@
           ]
         }
       ],
+      "revId": "cb8b1272a955be875a8dfe8ac0fb7d773e3bd913",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9271e45b_ffe658e8",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 1280,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-19T11:02:13Z",
+      "side": 1,
+      "message": "ditto",
+      "parentUuid": "a9301206_6c3d1d3d",
+      "range": {
+        "startLine": 1279,
+        "startChar": 12,
+        "endLine": 1280,
+        "endChar": 53
+      },
       "revId": "cb8b1272a955be875a8dfe8ac0fb7d773e3bd913",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
