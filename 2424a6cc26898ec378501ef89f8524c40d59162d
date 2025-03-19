@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "70f56f7e_5380efbe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-19T03:13:31Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "83d05e7b_a1b12bc4",
+      "revId": "2424a6cc26898ec378501ef89f8524c40d59162d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "27347648_44a238c9",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-03-17T06:14:34Z",
       "side": 1,
       "message": "Nit: add some javadoc to explain this is the last time a query was sent for the service (and not the last time a reply was received)",
+      "revId": "2424a6cc26898ec378501ef89f8524c40d59162d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36af1447_e31cb197",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-19T03:13:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "27347648_44a238c9",
       "revId": "2424a6cc26898ec378501ef89f8524c40d59162d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -52,6 +88,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ac45dca_069898e0",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-19T03:13:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "143fc9ee_e8b712bc",
+      "revId": "2424a6cc26898ec378501ef89f8524c40d59162d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5edac73b_4d999348",
@@ -65,6 +119,24 @@
       "writtenOn": "2025-03-17T06:14:34Z",
       "side": 1,
       "message": "Could this be in EVENT_QUERY_RESULT instead ? The query will only be sent after some Handler loops, so the last query time isn\u0027t going to exactly match. The same problem exists in EVENT_QUERY_RESULT, but that one also sets lastSentTime, so at least the 2 would be consistent.\n\nI think that means you\u0027ll need to add servicesToResolve and sendDiscoveryQueries to the QuerySentArguments",
+      "revId": "2424a6cc26898ec378501ef89f8524c40d59162d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1761224_32515175",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-19T03:13:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5edac73b_4d999348",
       "revId": "2424a6cc26898ec378501ef89f8524c40d59162d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -86,6 +158,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "19143b08_6d1db391",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-19T03:13:31Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "8985999e_8c90ba23",
+      "revId": "2424a6cc26898ec378501ef89f8524c40d59162d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d8c6d59c_98900682",
@@ -103,6 +193,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f471bba_1e7ae11d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceTypeClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 710,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-19T03:13:31Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "d8c6d59c_98900682",
+      "revId": "2424a6cc26898ec378501ef89f8524c40d59162d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "baf889ae_6dc54862",
@@ -116,6 +224,24 @@
       "writtenOn": "2025-03-17T06:14:34Z",
       "side": 1,
       "message": "Can you have these at 3 separate tests ? (query time when added, updating a type, updating a single service). It\u0027s generally best practice to have different test methods if possible, when testing separate cases.",
+      "revId": "2424a6cc26898ec378501ef89f8524c40d59162d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fcdf7c32_8c2f6eed",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/MdnsServiceCacheTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-19T03:13:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "baf889ae_6dc54862",
       "revId": "2424a6cc26898ec378501ef89f8524c40d59162d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
