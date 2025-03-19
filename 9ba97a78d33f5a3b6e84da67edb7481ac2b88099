@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "79ce2ab7_a75197a8",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 6217,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-19T11:26:41Z",
+      "side": 1,
+      "message": "Yes this is expected. The order is not contractual ; you could also want to delete a network that you already processed. The contract is simply that the method will iterate once on each network existing when it\u0027s called.\n\nTried to clarify the wording.",
+      "parentUuid": "5fb3230c_04e2fc2f",
+      "range": {
+        "startLine": 6216,
+        "startChar": 82,
+        "endLine": 6217,
+        "endChar": 26
+      },
+      "revId": "9ba97a78d33f5a3b6e84da67edb7481ac2b88099",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "913795b7_189b6cb8",
@@ -85,6 +109,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d75b8ec5_cc602ab6",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 6227,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-19T11:26:41Z",
+      "side": 1,
+      "message": "I think this is probably inherited from a previous version of the patch, which would iterate backwards through networks and had a confusing contract. I had Lorenzo change it to make the contract clearer but this comment remained.\n\nRemoved the comment and the sorting. Also removed the first comment which also no longer applies.",
+      "parentUuid": "913795b7_189b6cb8",
+      "range": {
+        "startLine": 6225,
+        "startChar": 13,
+        "endLine": 6227,
+        "endChar": 95
+      },
+      "revId": "9ba97a78d33f5a3b6e84da67edb7481ac2b88099",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3182ed40_b9967b44",
@@ -102,6 +150,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d4580c3_4966f345",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 10485,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-19T11:26:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3182ed40_b9967b44",
+      "revId": "9ba97a78d33f5a3b6e84da67edb7481ac2b88099",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "01fcad57_10fd0df6",
@@ -115,6 +181,30 @@
       "writtenOn": "2025-03-19T06:47:38Z",
       "side": 1,
       "message": "nits: we don\u0027t need this check now.",
+      "range": {
+        "startLine": 11841,
+        "startChar": 8,
+        "endLine": 11841,
+        "endChar": 45
+      },
+      "revId": "9ba97a78d33f5a3b6e84da67edb7481ac2b88099",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25476467_1a0e3188",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 11841,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-19T11:26:41Z",
+      "side": 1,
+      "message": "Nice catch",
+      "parentUuid": "01fcad57_10fd0df6",
       "range": {
         "startLine": 11841,
         "startChar": 8,
