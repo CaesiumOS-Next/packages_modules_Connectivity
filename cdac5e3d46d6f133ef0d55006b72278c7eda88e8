@@ -16,6 +16,24 @@
       "message": "@sarup@google.com\nCould you investigate why we have this error log?\nThis CL fixes the issue but ideally ConnectivityService should call `mInterfaceTracker.addInterface` when the new interfaces appear.\nI think there is an issue in aosp/3528430.\nIf you update ConnectivityService to call `addInterface` correctly, we can revert this CL.",
       "revId": "cdac5e3d46d6f133ef0d55006b72278c7eda88e8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3b0f841_19da24f4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-03-19T13:54:10Z",
+      "side": 1,
+      "message": "Hello Motomu, I will investigate why these logs still persist on my local builds.",
+      "parentUuid": "aab9b230_b193b35d",
+      "revId": "cdac5e3d46d6f133ef0d55006b72278c7eda88e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
