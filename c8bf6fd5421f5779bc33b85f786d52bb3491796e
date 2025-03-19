@@ -16,6 +16,29 @@
       "message": "Code looks good, please merge it after test it locally.",
       "revId": "c8bf6fd5421f5779bc33b85f786d52bb3491796e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "065956da_e72f45bb",
+        "filename": "tests/cts/multidevices/apfv6_test.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-03-19T15:19:31Z",
+      "side": 1,
+      "message": "Technically, it should be sth. like self.server_ipv6_addresses[0].",
+      "range": {
+        "startLine": 178,
+        "startChar": 23,
+        "endLine": 178,
+        "endChar": 38
+      },
+      "revId": "c8bf6fd5421f5779bc33b85f786d52bb3491796e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
