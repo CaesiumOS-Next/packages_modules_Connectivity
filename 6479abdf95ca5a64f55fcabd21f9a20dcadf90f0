@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81ad925e_3a669728",
+        "filename": "staticlibs/native/bpfmapjni/com_android_net_module_util_TcUtils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-03-19T15:22:56Z",
+      "side": 1,
+      "message": "I think this already exists in JNIHelp.h, so this could just use jniThrowNullPointerException(). (And it looks like jniThrowIOException was added as well, though I think this should throw an ErrnoException, not an IOException, but that\u0027s a follow up anyways).",
+      "range": {
+        "startLine": 32,
+        "startChar": 12,
+        "endLine": 32,
+        "endChar": 20
+      },
+      "revId": "6479abdf95ca5a64f55fcabd21f9a20dcadf90f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26803d93_52c6d191",
+        "filename": "staticlibs/native/bpfmapjni/com_android_net_module_util_TcUtils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-03-19T15:22:56Z",
+      "side": 1,
+      "message": "this needs to return early, otherwise the rest of the function still runs.",
+      "range": {
+        "startLine": 41,
+        "startChar": 2,
+        "endLine": 41,
+        "endChar": 3
+      },
+      "revId": "6479abdf95ca5a64f55fcabd21f9a20dcadf90f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
