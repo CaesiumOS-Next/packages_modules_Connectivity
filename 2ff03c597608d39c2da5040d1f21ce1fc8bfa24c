@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e25b0ad_f217c7bb",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-19T03:07:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3142fd3e_2f49188a",
+      "range": {
+        "startLine": 200,
+        "startChar": 4,
+        "endLine": 200,
+        "endChar": 11
+      },
+      "revId": "2ff03c597608d39c2da5040d1f21ce1fc8bfa24c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3f9d27a1_c7c093a3",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "333b1dc0_55e15ef1",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-19T03:07:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f9d27a1_c7c093a3",
+      "range": {
+        "startLine": 229,
+        "startChar": 27,
+        "endLine": 229,
+        "endChar": 43
+      },
+      "revId": "2ff03c597608d39c2da5040d1f21ce1fc8bfa24c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a0fd97a5_81657182",
@@ -60,6 +108,30 @@
       "writtenOn": "2025-03-18T07:45:01Z",
       "side": 1,
       "message": "Why did this build at the previous patch ?",
+      "range": {
+        "startLine": 335,
+        "startChar": 40,
+        "endLine": 335,
+        "endChar": 48
+      },
+      "revId": "2ff03c597608d39c2da5040d1f21ce1fc8bfa24c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1121b1f_d503f916",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-19T03:07:05Z",
+      "side": 1,
+      "message": "No it didn\u0027t.\nThe CL is topic with the previous one so they build at the same time.",
+      "parentUuid": "a0fd97a5_81657182",
       "range": {
         "startLine": 335,
         "startChar": 40,
