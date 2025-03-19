@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "72c2b039_6a9031d2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringService.java",
+        "patchSetId": 68
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-19T10:30:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9068265_2e3f634d",
+      "range": {
+        "startLine": 184,
+        "startChar": 23,
+        "endLine": 184,
+        "endChar": 43
+      },
+      "revId": "3e1cfabbadbd1d2e82cb6499e70c96d9cf150c7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6983f0e7_3b69ce47",
@@ -54,6 +78,30 @@
       "writtenOn": "2025-03-19T09:24:54Z",
       "side": 1,
       "message": "Overloads like this often make the code harder to understand and can mask bugs or incomplete implementations. Can you update the callers instead? If that would make this CL much larger, feel free to do it in another CL that you upload on top of this one.",
+      "range": {
+        "startLine": 282,
+        "startChar": 53,
+        "endLine": 282,
+        "endChar": 58
+      },
+      "revId": "3e1cfabbadbd1d2e82cb6499e70c96d9cf150c7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0cc4baea_7e105515",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringService.java",
+        "patchSetId": 68
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-19T10:30:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6983f0e7_3b69ce47",
       "range": {
         "startLine": 282,
         "startChar": 53,
@@ -81,6 +129,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3da0d214_b1772e66",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringService.java",
+        "patchSetId": 68
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-19T10:30:32Z",
+      "side": 1,
+      "message": "Added uid -- request might be processed differently depending on whether or not there is one (eg. isTetheringSupported() allows null request but startTethering requires one for DO).",
+      "parentUuid": "075eee13_108a9487",
+      "revId": "3e1cfabbadbd1d2e82cb6499e70c96d9cf150c7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2809e41a_e8766e39",
@@ -94,6 +160,30 @@
       "writtenOn": "2025-03-19T09:24:54Z",
       "side": 1,
       "message": "2025",
+      "range": {
+        "startLine": 2,
+        "startChar": 17,
+        "endLine": 2,
+        "endChar": 21
+      },
+      "revId": "3e1cfabbadbd1d2e82cb6499e70c96d9cf150c7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92b18062_77fed85b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/TetheringPermissionsUtils.java",
+        "patchSetId": 68
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-19T10:30:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2809e41a_e8766e39",
       "range": {
         "startLine": 2,
         "startChar": 17,
@@ -127,6 +217,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e521432_893b58a7",
+        "filename": "Tethering/src/com/android/networkstack/tethering/util/TetheringPermissionsUtils.java",
+        "patchSetId": 68
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-19T10:30:32Z",
+      "side": 1,
+      "message": "Spun off b/404745694 to track adding a CTS test for this",
+      "parentUuid": "18ac57d7_c4bdd5c2",
+      "range": {
+        "startLine": 46,
+        "startChar": 84,
+        "endLine": 46,
+        "endChar": 85
+      },
+      "revId": "3e1cfabbadbd1d2e82cb6499e70c96d9cf150c7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4549bf32_293ea3d4",
@@ -150,6 +264,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "25a08050_c009cbdc",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringServiceTest.java",
+        "patchSetId": 68
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-19T10:30:32Z",
+      "side": 1,
+      "message": "This is incorrect -- the test was passing since we failed this case due to no config.\n\nSince it\u0027s impossible for non-wifi to have softApConfig, this should be identical to the no-config case. But I think it\u0027s good to have both cases to be explicit about the intention.",
+      "parentUuid": "4549bf32_293ea3d4",
+      "range": {
+        "startLine": 411,
+        "startChar": 12,
+        "endLine": 411,
+        "endChar": 50
+      },
+      "revId": "3e1cfabbadbd1d2e82cb6499e70c96d9cf150c7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8608d280_79d1da77",
@@ -163,6 +301,30 @@
       "writtenOn": "2025-03-19T09:24:54Z",
       "side": 1,
       "message": "Do we already have a test that UID B cannot stop tethering started by UID A, but Settings can? If not, could we add one? Not necessarily in this CL. A CTS test might be the best option because the restrictions and permissions are enforced by multiple components (TetheringService, Tethering, RequestTracker).",
+      "range": {
+        "startLine": 681,
+        "startChar": 4,
+        "endLine": 681,
+        "endChar": 5
+      },
+      "revId": "3e1cfabbadbd1d2e82cb6499e70c96d9cf150c7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f368a7f9_b7f51050",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringServiceTest.java",
+        "patchSetId": 68
+      },
+      "lineNbr": 681,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-19T10:30:32Z",
+      "side": 1,
+      "message": "Spun off b/404746609 to track this",
+      "parentUuid": "8608d280_79d1da77",
       "range": {
         "startLine": 681,
         "startChar": 4,
