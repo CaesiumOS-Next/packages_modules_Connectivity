@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f070abe6_38e76b78",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-19T09:28:41Z",
+      "side": 1,
+      "message": "LGTM assuming it works as we expect.",
+      "revId": "b2f72a089839d6e52aab08445b6a75b91718c31b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a0d2750_a9ee42c7",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/TetheringTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-19T09:28:41Z",
+      "side": 1,
+      "message": "Have you checked that this works correctly in hostside tests?",
+      "range": {
+        "startLine": 70,
+        "startChar": 8,
+        "endLine": 70,
+        "endChar": 18
+      },
+      "revId": "b2f72a089839d6e52aab08445b6a75b91718c31b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
