@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b46a0256_bf2fec74",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-19T08:58:45Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "19ca4ed2_1fc6ba32",
+      "revId": "ccd32aea4df63e859bf25def1185f84dbe971296",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cc9dc57c_5968a05a",
@@ -59,6 +77,54 @@
         "startChar": 10,
         "endLine": 442,
         "endChar": 14
+      },
+      "revId": "ccd32aea4df63e859bf25def1185f84dbe971296",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09f9f3b4_560c3450",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-19T08:58:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb7d4882_205a4779",
+      "range": {
+        "startLine": 441,
+        "startChar": 10,
+        "endLine": 442,
+        "endChar": 14
+      },
+      "revId": "ccd32aea4df63e859bf25def1185f84dbe971296",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "873fff4f_4e4ef24c",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsServiceCache.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-19T08:58:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cc9dc57c_5968a05a",
+      "range": {
+        "startLine": 442,
+        "startChar": 17,
+        "endLine": 442,
+        "endChar": 25
       },
       "revId": "ccd32aea4df63e859bf25def1185f84dbe971296",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
