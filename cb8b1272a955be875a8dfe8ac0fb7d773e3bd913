@@ -1,0 +1,298 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86ee4e07_9fad1015",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-19T10:36:07Z",
+      "side": 1,
+      "message": "Nit: Consider inlining this definition instead of adding a copy.",
+      "range": {
+        "startLine": 217,
+        "startChar": 4,
+        "endLine": 217,
+        "endChar": 96
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "a7418c3c_ed131e23",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+              "range": {
+                "startLine": 216,
+                "startChar": 0,
+                "endLine": 219,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+              "range": {
+                "startLine": 1247,
+                "startChar": 0,
+                "endLine": 1248,
+                "endChar": 0
+              },
+              "replacement": "        mDeviceConfigRule.setConfig(NAMESPACE_TETHERING, \"tethering_local_network_agent\", \"1\");\n"
+            }
+          ]
+        }
+      ],
+      "revId": "cb8b1272a955be875a8dfe8ac0fb7d773e3bd913",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb86608c_803ce671",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 1253,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-19T10:36:07Z",
+      "side": 1,
+      "message": "Move this line closer to its usage (l.1274) and declare it as val.",
+      "range": {
+        "startLine": 1253,
+        "startChar": 8,
+        "endLine": 1253,
+        "endChar": 58
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "440f65c7_b8cb17de",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+              "range": {
+                "startLine": 1253,
+                "startChar": 0,
+                "endLine": 1254,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+              "range": {
+                "startLine": 1274,
+                "startChar": 0,
+                "endLine": 1275,
+                "endChar": 0
+              },
+              "replacement": "            final CallbackEntry.CapabilitiesChanged capEvent \u003d\n                    networkCallback.eventuallyExpect(CallbackEntry.NETWORK_CAPS_UPDATED);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "cb8b1272a955be875a8dfe8ac0fb7d773e3bd913",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3424da2f_75e47113",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 1260,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-19T10:36:07Z",
+      "side": 1,
+      "message": "Nit: Consider using `testAndCleanup` for improved debugging.",
+      "range": {
+        "startLine": 1260,
+        "startChar": 8,
+        "endLine": 1260,
+        "endChar": 11
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "31c8c7bd_711910d7",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+              "range": {
+                "startLine": 1251,
+                "startChar": 0,
+                "endLine": 1255,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+              "range": {
+                "startLine": 1260,
+                "startChar": 0,
+                "endLine": 1260,
+                "endChar": 0
+              },
+              "replacement": "        TestNetworkInterface downstreamIface \u003d null;\n        MyTetheringEventCallback tetheringEventCallback \u003d null;\n        CallbackEntry.CapabilitiesChanged capEvent \u003d null;\n\n"
+            }
+          ]
+        }
+      ],
+      "revId": "cb8b1272a955be875a8dfe8ac0fb7d773e3bd913",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9301206_6c3d1d3d",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 1280,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-19T10:36:07Z",
+      "side": 1,
+      "message": "Nit: If you use testAndCleanup, you can separate these two cleanup steps in case one of the cleanup steps encounters an error.",
+      "range": {
+        "startLine": 1279,
+        "startChar": 12,
+        "endLine": 1280,
+        "endChar": 53
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "33ebc97d_0a2add82",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+              "range": {
+                "startLine": 23,
+                "startChar": 0,
+                "endLine": 24,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+              "range": {
+                "startLine": 25,
+                "startChar": 0,
+                "endLine": 25,
+                "endChar": 0
+              },
+              "replacement": "import static android.net.TetheringManager.CONNECTIVITY_SCOPE_LOCAL;\n"
+            },
+            {
+              "path": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+              "range": {
+                "startLine": 36,
+                "startChar": 0,
+                "endLine": 37,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+              "range": {
+                "startLine": 46,
+                "startChar": 0,
+                "endLine": 47,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+              "range": {
+                "startLine": 64,
+                "startChar": 0,
+                "endLine": 65,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+              "range": {
+                "startLine": 69,
+                "startChar": 0,
+                "endLine": 70,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+              "range": {
+                "startLine": 94,
+                "startChar": 0,
+                "endLine": 100,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+              "range": {
+                "startLine": 115,
+                "startChar": 0,
+                "endLine": 115,
+                "endChar": 0
+              },
+              "replacement": "import org.junit.After;\nimport org.junit.Rule;\nimport org.junit.Test;\nimport org.junit.runner.RunWith;\n"
+            },
+            {
+              "path": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+              "range": {
+                "startLine": 1252,
+                "startChar": 0,
+                "endLine": 1253,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+              "range": {
+                "startLine": 1269,
+                "startChar": 0,
+                "endLine": 1271,
+                "endChar": 0
+              },
+              "replacement": "            enableTetheringAndAwaitTethered(iface, request, null /* any upstream */);\n"
+            },
+            {
+              "path": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+              "range": {
+                "startLine": 1279,
+                "startChar": 0,
+                "endLine": 1281,
+                "endChar": 0
+              },
+              "replacement": "            testAndCleanup(downstreamIface, capEvent);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "cb8b1272a955be875a8dfe8ac0fb7d773e3bd913",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
