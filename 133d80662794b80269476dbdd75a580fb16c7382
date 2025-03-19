@@ -121,6 +121,75 @@
       "parentUuid": "b49dd083_94d954cf",
       "revId": "133d80662794b80269476dbdd75a580fb16c7382",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d858e985_ce4f30a3",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringConfiguration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-19T01:10:57Z",
+      "side": 1,
+      "message": "So if there is a bug, we can\u0027t chicken out of the feature on B ?",
+      "range": {
+        "startLine": 399,
+        "startChar": 22,
+        "endLine": 399,
+        "endChar": 35
+      },
+      "revId": "133d80662794b80269476dbdd75a580fb16c7382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc0b1c1a_2886b0f1",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 786,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-19T01:10:57Z",
+      "side": 1,
+      "message": "Did you want to keep this assert, but say\n\n    assertEnableSyncSM(SdkUtil.isAtLeast25Q2())",
+      "range": {
+        "startLine": 786,
+        "startChar": 31,
+        "endLine": 786,
+        "endChar": 36
+      },
+      "revId": "133d80662794b80269476dbdd75a580fb16c7382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18582c78_43f3ce27",
+        "filename": "staticlibs/framework/com/android/net/module/util/SdkUtil.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-19T01:10:57Z",
+      "side": 1,
+      "message": "two spaces",
+      "range": {
+        "startLine": 55,
+        "startChar": 28,
+        "endLine": 55,
+        "endChar": 30
+      },
+      "revId": "133d80662794b80269476dbdd75a580fb16c7382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
