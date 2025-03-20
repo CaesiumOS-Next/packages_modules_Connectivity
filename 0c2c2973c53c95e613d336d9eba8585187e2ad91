@@ -42,6 +42,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "54e3012e_218811ae",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2387,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-20T08:30:30Z",
+      "side": 1,
+      "message": "Fix for mPrivateDnsBroken as well.\nThis is suggested by the linter:\n[ObjectsHashCodePrimitive] Objects.hashCode(Object o) should not be passed a primitive value\n                + Objects.hashCode(mMatchNonThreadLocalNetworks) * 89;\n                                  ^\n    (see https://errorprone.info/bugpattern/ObjectsHashCodePrimitive)\n  Did you mean \u0027+ Boolean.hashCode(mMatchNonThreadLocalNetworks) * 89;\u0027?",
+      "parentUuid": "e021f5d4_6a0b9ac8",
+      "range": {
+        "startLine": 2387,
+        "startChar": 18,
+        "endLine": 2387,
+        "endChar": 34
+      },
+      "revId": "0c2c2973c53c95e613d336d9eba8585187e2ad91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c2abfd98_b9b0054f",
@@ -79,6 +103,30 @@
           ]
         }
       ],
+      "revId": "0c2c2973c53c95e613d336d9eba8585187e2ad91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40fe6f3e_ea0ec6ec",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2573,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-20T08:30:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2abfd98_b9b0054f",
+      "range": {
+        "startLine": 2573,
+        "startChar": 12,
+        "endLine": 2573,
+        "endChar": 60
+      },
       "revId": "0c2c2973c53c95e613d336d9eba8585187e2ad91",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -140,6 +188,30 @@
           ]
         }
       ],
+      "revId": "0c2c2973c53c95e613d336d9eba8585187e2ad91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf0a7b7b_51f7bf8a",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2995,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-20T08:30:30Z",
+      "side": 1,
+      "message": "If the flag enableds, they are checked by the existing logics, which is\nsatisfiedByTransportTypes, thus I think we can simply return true here.",
+      "parentUuid": "61879059_dc2ac693",
+      "range": {
+        "startLine": 2994,
+        "startChar": 8,
+        "endLine": 2995,
+        "endChar": 53
+      },
       "revId": "0c2c2973c53c95e613d336d9eba8585187e2ad91",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
