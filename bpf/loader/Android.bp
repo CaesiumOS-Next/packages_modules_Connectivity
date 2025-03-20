@@ -26,7 +26,7 @@ install_symlink {
     // modules, unless we add something like `system_ext_specific: true` like in hwservicemanager.
     installed_location: "bin/ethtool",
 
-    init_rc: ["netbpfload.rc"],
+    init_rc: ["netbpfload-25q2.rc"],
     required: ["bpfloader"],
 }
 
