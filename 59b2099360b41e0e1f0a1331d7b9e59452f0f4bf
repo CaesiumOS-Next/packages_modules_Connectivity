@@ -33,6 +33,24 @@
       "message": "...so this check is always `false`, even if `btf__find_by_name()` returns a negative value.\n\nI don\u0027t know if we want make `kvId` an `int32_t`, or use an intermediate value for checking the return value of the function.",
       "revId": "59b2099360b41e0e1f0a1331d7b9e59452f0f4bf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "571a672f_1f7d8fd5",
+        "filename": "bpf/loader/NetBpfLoad.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 779,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-03-20T00:36:56Z",
+      "side": 1,
+      "message": "Greg, did this trigger a warning somewhere?\nie. how did you find it ;-)",
+      "parentUuid": "ce443a47_85e46a79",
+      "revId": "59b2099360b41e0e1f0a1331d7b9e59452f0f4bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
