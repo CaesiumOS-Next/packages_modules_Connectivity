@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eaea68a4_1ba7da50",
+        "filename": "tests/cts/multidevices/apfv6_test.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1758351
+      },
+      "writtenOn": "2025-03-20T11:20:10Z",
+      "side": 1,
+      "message": "Not for this CL, but I realized this seems not necessary.... This test is CTS not MCTS. Only B device will run this test.",
+      "range": {
+        "startLine": 121,
+        "startChar": 4,
+        "endLine": 121,
+        "endChar": 27
+      },
+      "revId": "8e8bbcabdeb6c394a70e70580734d7324bc2d29d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
