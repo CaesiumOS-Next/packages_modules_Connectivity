@@ -34,6 +34,7 @@ import static android.net.thread.ThreadNetworkManager.DISALLOW_THREAD_NETWORK;
 import static android.net.thread.ThreadNetworkManager.PERMISSION_THREAD_NETWORK_PRIVILEGED;
 import static android.net.thread.ThreadNetworkManager.PERMISSION_THREAD_NETWORK_TESTING;
 
+import static com.android.server.thread.ThreadNetworkControllerService.getMeshcopTxtAttributes;
 import static com.android.server.thread.ThreadNetworkCountryCode.DEFAULT_COUNTRY_CODE;
 import static com.android.server.thread.ThreadPersistentSettings.KEY_THREAD_ENABLED;
 import static com.android.server.thread.openthread.IOtDaemon.ErrorCode.OT_ERROR_INVALID_STATE;
@@ -101,10 +102,10 @@ import com.android.connectivity.resources.R;
 import com.android.dx.mockito.inline.extended.ExtendedMockito;
 import com.android.net.module.util.RoutingCoordinatorManager;
 import com.android.server.connectivity.ConnectivityResources;
+import com.android.server.connectivity.MockableSystemProperties;
 import com.android.server.thread.openthread.DnsTxtAttribute;
 import com.android.server.thread.openthread.IOtStatusReceiver;
 import com.android.server.thread.openthread.MeshcopTxtAttributes;
-import com.android.server.thread.openthread.OtDaemonConfiguration;
 import com.android.server.thread.openthread.testing.FakeOtDaemon;
 
 import org.junit.After;
@@ -181,6 +182,7 @@ public final class ThreadNetworkControllerServiceTest {
     private static final String TEST_MODEL_NAME = "test model";
     private static final LinkAddress TEST_NAT64_CIDR = new LinkAddress("192.168.255.0/24");
 
+    @Mock private MockableSystemProperties mMockSystemProperties;
     @Mock private ConnectivityManager mMockConnectivityManager;
     @Mock private RoutingCoordinatorManager mMockRoutingCoordinatorManager;
     @Mock private NetworkAgent mMockNetworkAgent;
@@ -271,6 +273,7 @@ public final class ThreadNetworkControllerServiceTest {
                 new ThreadNetworkControllerService(
                         mContext,
                         handler,
+                        mMockSystemProperties,
                         networkProvider,
                         () -> mFakeOtDaemon,
                         mMockConnectivityManager,
@@ -359,11 +362,8 @@ public final class ThreadNetworkControllerServiceTest {
         mTestLooper.dispatchAll();
 
         verify(mMockRoutingCoordinatorManager, times(1)).requestDownstreamAddress(any());
-        verify(mFakeOtDaemon, times(1))
-                .setConfiguration(
-                        new OtDaemonConfiguration.Builder().setNat64Enabled(true).build(),
-                        null /* receiver */);
-        verify(mFakeOtDaemon, times(1)).setNat64Cidr(eq(TEST_NAT64_CIDR.toString()), any());
+        assertThat(mFakeOtDaemon.getConfiguration().nat64Enabled).isTrue();
+        assertThat(mFakeOtDaemon.getNat64Cidr()).isEqualTo(TEST_NAT64_CIDR.toString());
     }
 
     @Test
@@ -400,7 +400,7 @@ public final class ThreadNetworkControllerServiceTest {
         when(mResources.getString(eq(R.string.config_thread_vendor_name))).thenReturn("");
 
         MeshcopTxtAttributes meshcopTxts =
-                ThreadNetworkControllerService.getMeshcopTxtAttributes(mResources);
+                getMeshcopTxtAttributes(mResources, mMockSystemProperties);
 
         assertThat(meshcopTxts.vendorName).isEqualTo("");
     }
@@ -412,7 +412,31 @@ public final class ThreadNetworkControllerServiceTest {
 
         assertThrows(
                 IllegalStateException.class,
-                () -> ThreadNetworkControllerService.getMeshcopTxtAttributes(mResources));
+                () -> getMeshcopTxtAttributes(mResources, mMockSystemProperties));
+    }
+
+    @Test
+    public void getMeshcopTxtAttributes_VendorNameSetToManufacturer_manufacturerPropertyIsUsed() {
+        when(mMockSystemProperties.get(eq("ro.product.manufacturer"))).thenReturn("Banana");
+        when(mResources.getString(eq(R.string.config_thread_vendor_name)))
+                .thenReturn("ro.product.manufacturer");
+
+        MeshcopTxtAttributes meshcopTxts =
+                getMeshcopTxtAttributes(mResources, mMockSystemProperties);
+
+        assertThat(meshcopTxts.vendorName).isEqualTo("Banana");
+    }
+
+    @Test
+    public void getMeshcopTxtAttributes_ModelNameSetToModelProperty_modelPropertyIsUsed() {
+        when(mMockSystemProperties.get(eq("ro.product.model"))).thenReturn("Orange");
+        when(mResources.getString(eq(R.string.config_thread_model_name)))
+                .thenReturn("ro.product.model");
+
+        MeshcopTxtAttributes meshcopTxts =
+                getMeshcopTxtAttributes(mResources, mMockSystemProperties);
+
+        assertThat(meshcopTxts.modelName).isEqualTo("Orange");
     }
 
     @Test
@@ -422,14 +446,14 @@ public final class ThreadNetworkControllerServiceTest {
 
         assertThrows(
                 IllegalStateException.class,
-                () -> ThreadNetworkControllerService.getMeshcopTxtAttributes(mResources));
+                () -> getMeshcopTxtAttributes(mResources, mMockSystemProperties));
     }
 
     @Test
     public void getMeshcopTxtAttributes_emptyModelName_accepted() {
         when(mResources.getString(eq(R.string.config_thread_model_name))).thenReturn("");
 
-        var meshcopTxts = ThreadNetworkControllerService.getMeshcopTxtAttributes(mResources);
+        var meshcopTxts = getMeshcopTxtAttributes(mResources, mMockSystemProperties);
         assertThat(meshcopTxts.modelName).isEqualTo("");
     }
 
@@ -461,7 +485,7 @@ public final class ThreadNetworkControllerServiceTest {
 
     private byte[] getMeshcopTxtAttributesWithVendorOui(String vendorOui) {
         when(mResources.getString(eq(R.string.config_thread_vendor_oui))).thenReturn(vendorOui);
-        return ThreadNetworkControllerService.getMeshcopTxtAttributes(mResources).vendorOui;
+        return getMeshcopTxtAttributes(mResources, mMockSystemProperties).vendorOui;
     }
 
     @Test
@@ -886,16 +910,12 @@ public final class ThreadNetworkControllerServiceTest {
 
         verify(mockReceiver, times(1)).onSuccess();
         verify(mMockRoutingCoordinatorManager, times(1)).requestDownstreamAddress(any());
-        verify(mFakeOtDaemon, times(1))
-                .setConfiguration(
-                        eq(new OtDaemonConfiguration.Builder().setNat64Enabled(true).build()),
-                        any(IOtStatusReceiver.class));
-        verify(mFakeOtDaemon, times(1))
-                .setNat64Cidr(eq(TEST_NAT64_CIDR.toString()), any(IOtStatusReceiver.class));
+        assertThat(mFakeOtDaemon.getConfiguration().nat64Enabled).isTrue();
+        assertThat(mFakeOtDaemon.getNat64Cidr()).isEqualTo(TEST_NAT64_CIDR.toString());
     }
 
     @Test
-    public void setConfiguration_enablesNat64_otDaemonRemoteFailure_serviceDoesNotCrash()
+    public void setConfiguration_enablesNat64AndOtDaemonRemoteFailure_serviceDoesNotCrash()
             throws Exception {
         mService.initialize();
         mTestLooper.dispatchAll();
@@ -929,12 +949,8 @@ public final class ThreadNetworkControllerServiceTest {
         verify(mockReceiver, times(1)).onSuccess();
         verify(mMockRoutingCoordinatorManager, times(1)).releaseDownstream(any());
         verify(mMockRoutingCoordinatorManager, never()).requestDownstreamAddress(any());
-        verify(mFakeOtDaemon, times(1))
-                .setConfiguration(
-                        eq(new OtDaemonConfiguration.Builder().setNat64Enabled(false).build()),
-                        any(IOtStatusReceiver.class));
-        verify(mFakeOtDaemon, times(1)).setNat64Cidr(isNull(), any(IOtStatusReceiver.class));
-        verify(mFakeOtDaemon, never()).setNat64Cidr(isNotNull(), any(IOtStatusReceiver.class));
+        assertThat(mFakeOtDaemon.getConfiguration().nat64Enabled).isFalse();
+        assertThat(mFakeOtDaemon.getNat64Cidr()).isNull();
     }
 
     @Test
