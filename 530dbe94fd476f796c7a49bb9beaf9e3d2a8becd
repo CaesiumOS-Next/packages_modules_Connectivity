@@ -1,0 +1,270 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "445f4aa7_d3c59275",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-20T16:06:36Z",
+      "side": 1,
+      "message": "Can this simplify to below?\n```\nfinal Network network \u003d mock(Network.class);\ndoReturn(TEST_NET_ID).when(network).getNetId();\ndoReturn(network).when(mNetworkAgent).register();\ndoReturn(network).when(mNetworkAgent).getNetwork();\n```",
+      "range": {
+        "startLine": 238,
+        "startChar": 12,
+        "endLine": 243,
+        "endChar": 46
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "ad65300f_f9e9d835",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+              "range": {
+                "startLine": 122,
+                "startChar": 0,
+                "endLine": 123,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+              "range": {
+                "startLine": 238,
+                "startChar": 0,
+                "endLine": 244,
+                "endChar": 0
+              },
+              "replacement": "            final Network network \u003d mock(Network.class);\n            doReturn(TEST_NET_ID).when(network).getNetId();\n            doReturn(network).when(mNetworkAgent).register();\n            doReturn(network).when(mNetworkAgent).getNetwork();\n"
+            }
+          ]
+        }
+      ],
+      "revId": "530dbe94fd476f796c7a49bb9beaf9e3d2a8becd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af1221fa_9f61ef5f",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-20T16:06:36Z",
+      "side": 1,
+      "message": "Nit: I suggest adding a function for this check in case the condition changes in the future.\n```\nprivate boolean isTetheringLocalNetworkAgentEnabled() {\n    return isAtLeastB()\n            || mFeatureFlags.getOrDefault(TETHERING_LOCAL_NETWORK_AGENT, false);\n}\n```",
+      "range": {
+        "startLine": 399,
+        "startChar": 12,
+        "endLine": 399,
+        "endChar": 92
+      },
+      "revId": "530dbe94fd476f796c7a49bb9beaf9e3d2a8becd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a44c34cc_4daa4fc6",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 1128,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-20T16:06:36Z",
+      "side": 1,
+      "message": "Only `isAtLeastB()` is necessary since it has been statically imported.",
+      "range": {
+        "startLine": 1128,
+        "startChar": 12,
+        "endLine": 1128,
+        "endChar": 33
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "4bd168c1_31f2d354",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+              "range": {
+                "startLine": 1128,
+                "startChar": 0,
+                "endLine": 1133,
+                "endChar": 0
+              },
+              "replacement": "        doTestTetheringNetworkAgent(CONNECTIVITY_SCOPE_GLOBAL, false);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "530dbe94fd476f796c7a49bb9beaf9e3d2a8becd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85e321d1_6d4144ab",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 1129,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-20T16:06:36Z",
+      "side": 1,
+      "message": "This is same test with `testTetheringNetworkAgent_tetheringAgentEnabled`",
+      "range": {
+        "startLine": 1129,
+        "startChar": 12,
+        "endLine": 1129,
+        "endChar": 73
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "bd3ab728_19a7d42a",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+              "range": {
+                "startLine": 1128,
+                "startChar": 0,
+                "endLine": 1133,
+                "endChar": 0
+              },
+              "replacement": "        doTestTetheringNetworkAgent(CONNECTIVITY_SCOPE_GLOBAL, false);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "530dbe94fd476f796c7a49bb9beaf9e3d2a8becd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0cd6db07_536533c8",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 1142,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-20T16:06:36Z",
+      "side": 1,
+      "message": "I\u0027m not sure this test is necessary because the test does not verify different scopes.",
+      "range": {
+        "startLine": 1140,
+        "startChar": 4,
+        "endLine": 1142,
+        "endChar": 5
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "c9903ba4_9d22d825",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+              "range": {
+                "startLine": 1134,
+                "startChar": 0,
+                "endLine": 1143,
+                "endChar": 0
+              },
+              "replacement": ""
+            }
+          ]
+        }
+      ],
+      "revId": "530dbe94fd476f796c7a49bb9beaf9e3d2a8becd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03748c95_b1b651e3",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 1152,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-20T16:06:36Z",
+      "side": 1,
+      "message": "inOrder",
+      "range": {
+        "startLine": 1152,
+        "startChar": 8,
+        "endLine": 1152,
+        "endChar": 9
+      },
+      "revId": "530dbe94fd476f796c7a49bb9beaf9e3d2a8becd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "827ff390_64a2fdb7",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 1189,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-20T16:06:36Z",
+      "side": 1,
+      "message": "inOrder",
+      "range": {
+        "startLine": 1189,
+        "startChar": 7,
+        "endLine": 1189,
+        "endChar": 9
+      },
+      "revId": "530dbe94fd476f796c7a49bb9beaf9e3d2a8becd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17737f71_bade6a0a",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 1232,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-20T16:06:36Z",
+      "side": 1,
+      "message": "inOrder",
+      "range": {
+        "startLine": 1232,
+        "startChar": 7,
+        "endLine": 1232,
+        "endChar": 9
+      },
+      "revId": "530dbe94fd476f796c7a49bb9beaf9e3d2a8becd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
