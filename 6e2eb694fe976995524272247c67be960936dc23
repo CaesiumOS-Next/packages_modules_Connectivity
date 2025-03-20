@@ -1,0 +1,86 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edf539ee_bb9fbbe4",
+        "filename": "tests/common/java/android/net/NetworkTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2025-03-20T06:46:25Z",
+      "side": 1,
+      "message": "nit: maybe add a assertNotEuqals(mNetwork.getNetIdForResolv(), bypass.getNetIdForResolv());",
+      "range": {
+        "startLine": 212,
+        "startChar": 8,
+        "endLine": 212,
+        "endChar": 20
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "74d0e0d2_3b62bdbe",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/common/java/android/net/NetworkTest.java",
+              "range": {
+                "startLine": 211,
+                "startChar": 0,
+                "endLine": 211,
+                "endChar": 0
+              },
+              "replacement": "        assertNotEquals(mNetwork.getNetIdForResolv(), bypass.getNetIdForResolv());\n"
+            }
+          ]
+        }
+      ],
+      "revId": "6e2eb694fe976995524272247c67be960936dc23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ee4d25c_b61a2698",
+        "filename": "tests/common/java/android/net/NetworkTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2025-03-20T06:46:25Z",
+      "side": 1,
+      "message": "should be bypass?",
+      "range": {
+        "startLine": 229,
+        "startChar": 54,
+        "endLine": 229,
+        "endChar": 62
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "d0260fe7_a93a00f9",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/common/java/android/net/NetworkTest.java",
+              "range": {
+                "startLine": 229,
+                "startChar": 0,
+                "endLine": 230,
+                "endChar": 0
+              },
+              "replacement": "        assertNotEquals(mNetwork.getNetIdForResolv(), bypass.getNetIdForResolv());\n"
+            }
+          ]
+        }
+      ],
+      "revId": "6e2eb694fe976995524272247c67be960936dc23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
