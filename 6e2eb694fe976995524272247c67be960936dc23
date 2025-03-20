@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "56052499_3c5794a7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2025-03-20T06:53:13Z",
+      "side": 1,
+      "message": "a quick update about the manual private DNS bypass testing, looks like supporting the private DNS bypass only requires this change, which sets the private dns bypass flag and makes it passable to DNS resovler via IPC.\n\nWhat I\u0027m confused is about the permission check on the DnsProxyListener (https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/DnsResolver/DnsProxyListener.cpp;l\u003d133?q\u003dDnsProxyLi), looks like the chrome UID has the proper permssion and passes this check, then it\u0027s allowed to use the local name server without an another API to allow it. Not sure if that\u0027s a bug or not, but if that\u0027s intended bebavior, then we just need this change.",
+      "revId": "6e2eb694fe976995524272247c67be960936dc23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "edf539ee_bb9fbbe4",
