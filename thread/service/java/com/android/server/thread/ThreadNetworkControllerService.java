@@ -118,6 +118,7 @@ import android.os.Looper;
 import android.os.ParcelFileDescriptor;
 import android.os.RemoteException;
 import android.os.SystemClock;
+import android.os.SystemProperties;
 import android.os.UserManager;
 import android.util.SparseArray;
 
@@ -365,10 +366,28 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
         return mOtDaemon;
     }
 
+    static String getVendorName(Resources resources) {
+        final String PROP_MANUFACTURER = "ro.product.manufacturer";
+        final String vendorName = resources.getString(R.string.config_thread_vendor_name);
+        if (vendorName.equalsIgnoreCase(PROP_MANUFACTURER)) {
+            return SystemProperties.get(PROP_MANUFACTURER);
+        }
+        return vendorName;
+    }
+
+    static String getModelName(Resources resources) {
+        final String PROP_MODEL = "ro.product.model";
+        final String modelName = resources.getString(R.string.config_thread_model_name);
+        if (modelName.equalsIgnoreCase(PROP_MODEL)) {
+            return SystemProperties.get(PROP_MODEL);
+        }
+        return modelName;
+    }
+
     @VisibleForTesting
     static MeshcopTxtAttributes getMeshcopTxtAttributes(Resources resources) {
-        final String modelName = resources.getString(R.string.config_thread_model_name);
-        final String vendorName = resources.getString(R.string.config_thread_vendor_name);
+        final String vendorName = getVendorName(resources);
+        final String modelName = getModelName(resources);
         final String vendorOui = resources.getString(R.string.config_thread_vendor_oui);
         final String[] vendorSpecificTxts =
                 resources.getStringArray(R.array.config_thread_mdns_vendor_specific_txts);
@@ -637,6 +656,8 @@ final class ThreadNetworkControllerService extends IThreadNetworkController.Stub
                 .setSrpServerWaitForBorderRoutingEnabled(srpServerWaitEnabled)
                 .setBorderRouterAutoJoinEnabled(autoJoinEnabled)
                 .setCountryCodeEnabled(countryCodeEnabled)
+                .setVendorName(getVendorName(mResources.get()))
+                .setModelName(getModelName(mResources.get()))
                 .build();
     }
 
