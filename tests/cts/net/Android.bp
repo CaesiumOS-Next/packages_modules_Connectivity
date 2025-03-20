@@ -166,4 +166,5 @@ android_test_helper_app {
         "general-tests",
     ],
     sdk_version: "test_current",
+    target_sdk_version: "36",
 }
