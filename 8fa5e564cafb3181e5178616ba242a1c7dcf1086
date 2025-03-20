@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abeabd25_a61810f2",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringServiceTest.java",
+        "patchSetId": 37
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-20T08:35:48Z",
+      "side": 1,
+      "message": "There\u0027s a lot of code duplication in these lambdas. Could you refactor to a method? Something like:\n\n    private void expectTetheringResult(TetheringRequestParcel parcel, int expectedRresult) {\n        ...\n    }\n\nYou could also provide helper methods such as:\n\n    private TetheringRequestParcel usbRequestParcel() {\n\n    private TetheringRequestParcel wifiRequestParcel() {\n\n    private TetheringRequestParcel wifiRequestParcelWithSoftApConfig() {\n\nor alternatively statics like:\n\n    private static final TetheringRequestParcel USB_REQUEST_PARCEL \u003d ...;",
+      "range": {
+        "startLine": 482,
+        "startChar": 0,
+        "endLine": 488,
+        "endChar": 51
+      },
+      "revId": "8fa5e564cafb3181e5178616ba242a1c7dcf1086",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e978a6f5_fa91ac42",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringServiceTest.java",
+        "patchSetId": 37
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-20T08:35:48Z",
+      "side": 1,
+      "message": "Suggest adding a NO_RESULT constant.",
+      "range": {
+        "startLine": 502,
+        "startChar": 32,
+        "endLine": 502,
+        "endChar": 34
+      },
+      "revId": "8fa5e564cafb3181e5178616ba242a1c7dcf1086",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0cae6eb_64427b4b",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringServiceTest.java",
+        "patchSetId": 37
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-20T08:35:48Z",
+      "side": 1,
+      "message": "I think this would fail even if device owner bypass were not enabled because |request| doesn\u0027t have a SoftApConfiguration. Perhaps we can make this code less errorprone by not using a method-scope local |request| variable and instead ensuring the request is only in scope within the lambda (like you do, for example, in line 493). The test will then be easier to review because the request is created and immediately visible right next to the code that uses it.",
+      "range": {
+        "startLine": 507,
+        "startChar": 47,
+        "endLine": 507,
+        "endChar": 54
+      },
+      "revId": "8fa5e564cafb3181e5178616ba242a1c7dcf1086",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "409710a9_6c7ed57d",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringServiceTest.java",
+        "patchSetId": 37
+      },
+      "lineNbr": 749,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-20T08:35:48Z",
+      "side": 1,
+      "message": "SoftApConfiguration",
+      "range": {
+        "startLine": 749,
+        "startChar": 14,
+        "endLine": 749,
+        "endChar": 20
+      },
+      "revId": "8fa5e564cafb3181e5178616ba242a1c7dcf1086",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7ef422e_7e009e12",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringServiceTest.java",
+        "patchSetId": 37
+      },
+      "lineNbr": 755,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-20T08:35:48Z",
+      "side": 1,
+      "message": "SoftApConfiguration",
+      "range": {
+        "startLine": 755,
+        "startChar": 16,
+        "endLine": 755,
+        "endChar": 22
+      },
+      "revId": "8fa5e564cafb3181e5178616ba242a1c7dcf1086",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
