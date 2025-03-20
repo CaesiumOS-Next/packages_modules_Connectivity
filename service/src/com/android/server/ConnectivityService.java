@@ -10090,16 +10090,6 @@ public class ConnectivityService extends IConnectivityManager.Stub {
     }
 
     /**
-     * Returns total bit length of an Ipv4 mapped address.
-     */
-    private int getIpv4MappedAddressBitLen() {
-        final int ifaceLen = 32; // bit length of interface
-        final int inetAddressLen = 32 + 96; // length of ipv4 mapped addresses
-        final int portProtocolLen = 32;  //16 for port + 16 for protocol;
-        return ifaceLen + inetAddressLen + portProtocolLen;
-    }
-
-    /**
      * Have netd update routes from oldLp to newLp.
      * @return true if routes changed between oldLp and newLp
      */
