@@ -69,6 +69,24 @@
       "parentUuid": "571a672f_1f7d8fd5",
       "revId": "59b2099360b41e0e1f0a1331d7b9e59452f0f4bf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f641c4f_369cb5de",
+        "filename": "bpf/loader/NetBpfLoad.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 779,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-03-20T17:11:15Z",
+      "side": 1,
+      "message": "we might be able to find this by changing the Android.bp for NetBpfLoad\n\nand enabling one or more of:\n\n  \u0027-Wall\u0027\n  \u0027-Werror\u0027\n  \u0027-Werror\u003dimplicit-fallthrough\u0027\n  \u0027-Werror\u003dstrict-prototypes\u0027\n  \u0027-Wsign-compare\u0027\n  \u0027-Wsign-conversion\u0027\n  \u0027-Wunused-parameter\u0027\n  \u0027-Wuninitialized\u0027\n\nand/or lint\n\nsee also system/netd/Android.bp     tidy_checks: and tidy_checks_as_errors",
+      "parentUuid": "ae830dc2_a7b92d2a",
+      "revId": "59b2099360b41e0e1f0a1331d7b9e59452f0f4bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
