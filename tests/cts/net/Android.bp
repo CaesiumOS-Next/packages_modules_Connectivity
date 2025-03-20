@@ -101,6 +101,7 @@ android_test {
         "mcts-tethering",
         "general-tests",
     ],
+    target_sdk_version: "36",
 }
 
 java_defaults {
