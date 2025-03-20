@@ -66,6 +66,7 @@ import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
@@ -766,11 +767,11 @@ public class EthernetTracker {
         // capabilities) to prevent certain Ethernet interfaces from becoming
         // the default network. To avoid breaking existing device configurations, this
         // change is gated by the SDK level.
-        if (SdkLevel.isAtLeastB() && TextUtils.isEmpty(config.mCapabilities)) {
+        if (SdkLevel.isAtLeastB() && config.mCaps.isEmpty()) {
             boolean isTestIface = config.mIface.matches(TEST_IFACE_REGEXP);
             nc = createDefaultNetworkCapabilities(isTestIface, config.mTransport);
         } else {
-            nc = createNetworkCapabilities(config.mCapabilities, config.mTransport).build();
+            nc = createNetworkCapabilities(config.mCaps, config.mTransport).build();
         }
         mNetworkCapabilities.put(config.mIface, nc);
 
@@ -783,7 +784,7 @@ public class EthernetTracker {
     private static NetworkCapabilities createDefaultNetworkCapabilities(
             boolean isTestIface, int transportType) {
         NetworkCapabilities.Builder builder =
-                createNetworkCapabilities(/* commaSeparatedCapabilities */ null, transportType)
+                createNetworkCapabilities(Collections.emptyList(), transportType)
                         .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED)
                         .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED)
                         .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING)
@@ -811,11 +812,11 @@ public class EthernetTracker {
      *                          will cause the override to be ignored.
      */
     @VisibleForTesting
-    static NetworkCapabilities.Builder createNetworkCapabilities(
-            @Nullable String commaSeparatedCapabilities, int transportType) {
+    static NetworkCapabilities.Builder createNetworkCapabilities(List<Integer> capabilities,
+            int transportType) {
 
         final NetworkCapabilities.Builder builder =
-                TextUtils.isEmpty(commaSeparatedCapabilities)
+                capabilities.isEmpty()
                         ? new NetworkCapabilities.Builder()
                         : NetworkCapabilities.Builder.withoutDefaultCapabilities();
 
@@ -828,19 +829,8 @@ public class EthernetTracker {
         builder.setLinkUpstreamBandwidthKbps(100 * 1000);
         builder.setLinkDownstreamBandwidthKbps(100 * 1000);
 
-        if (!TextUtils.isEmpty(commaSeparatedCapabilities)) {
-            for (String strNetworkCapability : commaSeparatedCapabilities.split(",")) {
-                if (!TextUtils.isEmpty(strNetworkCapability)) {
-                    try {
-                        builder.addCapability(Integer.valueOf(strNetworkCapability));
-                    } catch (NumberFormatException nfe) {
-                        Log.e(TAG, "Capability '" + strNetworkCapability + "' could not be parsed");
-                    } catch (IllegalArgumentException iae) {
-                        Log.e(TAG, strNetworkCapability + " is not a valid "
-                                + "NetworkCapability.NET_CAPABILITY_* value");
-                    }
-                }
-            }
+        for (int capability : capabilities) {
+            builder.addCapability(capability);
         }
         // Ethernet networks have no way to update the following capabilities, so they always
         // have them.
@@ -1022,9 +1012,31 @@ public class EthernetTracker {
     @VisibleForTesting
     static class EthernetTrackerConfig {
         final String mIface;
-        final String mCapabilities;
+        final List<Integer> mCaps;
         final String mIpConfig;
         final int mTransport;
+
+        private static int parseCapabilities(String capabilitiesString) {
+            if (TextUtils.isEmpty(capabilitiesString)) {
+                return Collections.emptyList();
+            }
+
+            final ArrayList<Integer> capabilities = new ArrayList<>();
+            for (String strNetworkCapability : commaSeparatedCapabilities.split(",")) {
+                if (TextUtils.isEmpty(strNetworkCapability)) {
+                    continue;
+                }
+                final Integer capability;
+                try {
+                    capability = Integer.valueOf(strNetworkCapability);
+                } catch (NumberFormatException e) {
+                    Log.e(TAG, "Failed to parse capability: " + strNetworkCapability, e);
+                    continue;
+                }
+                capabilities.add(capability);
+            }
+            return capabilities;
+        }
 
         private static parseTransportType(String transportString) {
             if (TextUtils.isEmpty(transportString)) {
@@ -1058,7 +1070,7 @@ public class EthernetTracker {
             Objects.requireNonNull(configString, "EthernetTrackerConfig requires non-null config");
             final String[] tokens = configString.split(";", /* limit of tokens */ 4);
             mIface = tokens[0];
-            mCapabilities = tokens.length > 1 ? tokens[1] : null;
+            mCaps = tokens.length > 1 ? parseCapabilities(tokens[1]) : Collections.emptyList();
             mIpConfig = tokens.length > 2 && !TextUtils.isEmpty(tokens[2]) ? tokens[2] : null;
             mTransport = tokens.length > 3 ? parseTransportType(tokens[3]) : TRANSPORT_ETHERNET;
         }
