@@ -1,0 +1,147 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e021f5d4_6a0b9ac8",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2387,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-20T07:50:16Z",
+      "side": 1,
+      "message": "Use `Objects.hashCode` like `mPrivateDnsBroken`?",
+      "range": {
+        "startLine": 2387,
+        "startChar": 18,
+        "endLine": 2387,
+        "endChar": 34
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "a49b5d54_2b899ff6",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "framework/src/android/net/NetworkCapabilities.java",
+              "range": {
+                "startLine": 2387,
+                "startChar": 0,
+                "endLine": 2388,
+                "endChar": 0
+              },
+              "replacement": "                + Objects.hashCode(mMatchNonThreadLocalNetworks) * 89;\n"
+            }
+          ]
+        }
+      ],
+      "revId": "0c2c2973c53c95e613d336d9eba8585187e2ad91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2abfd98_b9b0054f",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2573,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-20T07:50:16Z",
+      "side": 1,
+      "message": "Nit: only `MatchNonThreadLocalNetworks` like `PrivateDnsBroken`",
+      "range": {
+        "startLine": 2573,
+        "startChar": 12,
+        "endLine": 2573,
+        "endChar": 60
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "79310351_fc1fb1b7",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "framework/src/android/net/NetworkCapabilities.java",
+              "range": {
+                "startLine": 2573,
+                "startChar": 0,
+                "endLine": 2574,
+                "endChar": 0
+              },
+              "replacement": "            sb.append(\" MatchNonThreadLocalNetworks\");\n"
+            }
+          ]
+        }
+      ],
+      "revId": "0c2c2973c53c95e613d336d9eba8585187e2ad91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61879059_dc2ac693",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2995,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-20T07:50:16Z",
+      "side": 1,
+      "message": "Should we check the transport type even if this flag is enabled?",
+      "range": {
+        "startLine": 2994,
+        "startChar": 8,
+        "endLine": 2995,
+        "endChar": 53
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "a1563a19_f25c00e4",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "framework/src/android/net/NetworkCapabilities.java",
+              "range": {
+                "startLine": 2994,
+                "startChar": 0,
+                "endLine": 2996,
+                "endChar": 0
+              },
+              "replacement": "        // If there is no restriction on matching non-thread local networks, return true if the\n        // network has TRANSPORT_THREAD.\n        if (mMatchNonThreadLocalNetworks) return nc.hasTransport(TRANSPORT_THREAD);\n"
+            },
+            {
+              "path": "framework/src/android/net/NetworkCapabilities.java",
+              "range": {
+                "startLine": 2997,
+                "startChar": 0,
+                "endLine": 3001,
+                "endChar": 0
+              },
+              "replacement": "        // If the network has TRANSPORT_THREAD, return true.\n        if (nc.hasTransport(TRANSPORT_THREAD)) return true;\n\n        // If the network has transports other than TRANSPORT_THREAD, return false.\n"
+            },
+            {
+              "path": "framework/src/android/net/NetworkCapabilities.java",
+              "range": {
+                "startLine": 3003,
+                "startChar": 0,
+                "endLine": 3003,
+                "endChar": 0
+              },
+              "replacement": "\n    /**\n     * Returns true if the network has the specified transport and no other, ignoring TRANSPORT_TEST.\n     *\n     * If this NC has the passed transport and no other, this method returns true.\n     * If this NC has the passed transport, TRANSPORT_TEST and no other, this method returns true.\n     * Otherwise, this method returns false.\n     * @hide\n     */\n    public boolean hasSingleTransportBesidesTest(@Transport int transportType) {\n        return (mTransportTypes \u0026 ~(1 \u003c\u003c TRANSPORT_TEST)) \u003d\u003d (1 \u003c\u003c transportType);\n    }\n"
+            }
+          ]
+        }
+      ],
+      "revId": "0c2c2973c53c95e613d336d9eba8585187e2ad91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
