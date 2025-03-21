@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6f5bd16_af512e03",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1075,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-03-21T22:46:49Z",
+      "side": 1,
+      "message": "mIpConfig \u003d TextUtils.isEmpty(tokens.length \u003e 2 ? tokens[2] : null) ? null : tokens[2];",
+      "range": {
+        "startLine": 1075,
+        "startChar": 0,
+        "endLine": 1075,
+        "endChar": 94
+      },
+      "revId": "269bb274826160b248f50b195acd9fb0e99a525c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
