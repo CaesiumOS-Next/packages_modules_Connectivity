@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14f5be3f_f286f300",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 37
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-21T09:38:26Z",
+      "side": 1,
+      "message": "Only nits, feel free to ignore",
+      "revId": "e2f38407d3ed52c0146bd264e21f48a11e00b0d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de16241e_d4f30e8f",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 37
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-21T09:38:26Z",
+      "side": 1,
+      "message": "Note : because this is \u003c 10 strings ArrayMap is very likely faster.",
+      "range": {
+        "startLine": 134,
+        "startChar": 55,
+        "endLine": 134,
+        "endChar": 62
+      },
+      "revId": "e2f38407d3ed52c0146bd264e21f48a11e00b0d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25ba5dca_29193492",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 37
+      },
+      "lineNbr": 1136,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-21T09:38:26Z",
+      "side": 1,
+      "message": "Maybe \"GO\" to make clear that this is Group Owner ? I know the rule is supposed to be \"Go\" in this case but I think it makes it hard to read. As you wish",
+      "range": {
+        "startLine": 1136,
+        "startChar": 45,
+        "endLine": 1136,
+        "endChar": 47
+      },
+      "revId": "e2f38407d3ed52c0146bd264e21f48a11e00b0d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4e643cf_ba945081",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 37
+      },
+      "lineNbr": 1144,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-21T09:38:26Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 1144,
+        "startChar": 8,
+        "endLine": 1144,
+        "endChar": 15
+      },
+      "revId": "e2f38407d3ed52c0146bd264e21f48a11e00b0d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
