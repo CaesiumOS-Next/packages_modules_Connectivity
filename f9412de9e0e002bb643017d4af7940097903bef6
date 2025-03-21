@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b9288cd_e874c480",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringServiceTest.java",
+        "patchSetId": 48
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-21T09:27:48Z",
+      "side": 1,
+      "message": "TetheringService just returns error early if there\u0027s no permissions, and then passes the listener to Tethering which does the fuzzy-matching error, internal error, etc and success. So a successful case in TetheringService is no callback at all.",
+      "parentUuid": "25212b6d_0b635f79",
+      "range": {
+        "startLine": 414,
+        "startChar": 4,
+        "endLine": 414,
+        "endChar": 5
+      },
+      "revId": "f9412de9e0e002bb643017d4af7940097903bef6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "20c4cee5_ad18efff",
