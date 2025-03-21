@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98023d8d_b605f094",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-03-21T22:20:55Z",
+      "side": 1,
+      "message": "This boot failure is intentional, it will go away if you use a recent image.",
+      "revId": "b977e7bd74094a52a77e362b0aaacbdd03733379",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
