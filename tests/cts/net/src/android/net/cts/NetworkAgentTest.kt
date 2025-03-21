@@ -741,12 +741,24 @@ class NetworkAgentTest {
         tryTest {
             // This process is not the carrier service UID, so allowedUids should be ignored in all
             // the following cases.
-            doTestAllowedUidsWithSubId(defaultSubId, TRANSPORT_CELLULAR, uid,
-                    expectUidsPresent = false)
-            doTestAllowedUidsWithSubId(defaultSubId, TRANSPORT_WIFI, uid,
-                    expectUidsPresent = false)
-            doTestAllowedUidsWithSubId(defaultSubId, TRANSPORT_BLUETOOTH, uid,
-                    expectUidsPresent = false)
+            doTestAllowedUidsWithSubId(
+                defaultSubId,
+                TRANSPORT_CELLULAR,
+                uid,
+                    expectUidsPresent = false
+            )
+            doTestAllowedUidsWithSubId(
+                defaultSubId,
+                TRANSPORT_WIFI,
+                uid,
+                    expectUidsPresent = false
+            )
+            doTestAllowedUidsWithSubId(
+                defaultSubId,
+                TRANSPORT_BLUETOOTH,
+                uid,
+                    expectUidsPresent = false
+            )
 
             // The tools to set the carrier service package override do not exist before U,
             // so there is no way to test the rest of this test on < U.
@@ -764,9 +776,11 @@ class NetworkAgentTest {
             val timeout = SystemClock.elapsedRealtime() + DEFAULT_TIMEOUT_MS
             while (true) {
                 if (SystemClock.elapsedRealtime() > timeout) {
-                    fail("Couldn't make $servicePackage the service package for $defaultSubId: " +
+                    fail(
+                        "Couldn't make $servicePackage the service package for $defaultSubId: " +
                             "dumpsys connectivity".execute().split("\n")
-                                    .filter { it.contains("Logical slot = $defaultSlotIndex.*") })
+                                    .filter { it.contains("Logical slot = $defaultSlotIndex.*") }
+                    )
                 }
                 if ("dumpsys connectivity"
                         .execute()
@@ -789,10 +803,18 @@ class NetworkAgentTest {
                 // TODO(b/315136340): Allow ownerUid to see allowedUids and enable below test case
                 // doTestAllowedUids(defaultSubId, TRANSPORT_WIFI, uid, expectUidsPresent = true)
             }
-            doTestAllowedUidsWithSubId(defaultSubId, TRANSPORT_BLUETOOTH, uid,
-                    expectUidsPresent = false)
-            doTestAllowedUidsWithSubId(defaultSubId, intArrayOf(TRANSPORT_CELLULAR, TRANSPORT_WIFI),
-                    uid, expectUidsPresent = false)
+            doTestAllowedUidsWithSubId(
+                defaultSubId,
+                TRANSPORT_BLUETOOTH,
+                uid,
+                    expectUidsPresent = false
+            )
+            doTestAllowedUidsWithSubId(
+                defaultSubId,
+                intArrayOf(TRANSPORT_CELLULAR, TRANSPORT_WIFI),
+                    uid,
+                expectUidsPresent = false
+            )
         }
     }
 
@@ -1612,7 +1634,24 @@ class NetworkAgentTest {
             val network2 = agent2.network!!
 
             testCallback.expectAvailableThenValidatedCallbacks(network2)
-            sendAndExpectUdpPacket(network2, reader, iface)
+
+            /**
+            * Commenting sending udp packets as these packets have destination within
+            * local network, as the test module have min_sdk_version of 10000. The compat flag
+            * RESTRICT_LOCAL_NETWORK is enabled after 10000 (current_development) so the compat
+            * flag is set for the test leading to local network calls being blocked.
+            *
+            * We have tried following things till now
+            *
+            * Granting runtime permission
+            * Changing target_sdk_version for test cases
+            * Changing IP addresses so the target link address is not considered local address
+            *
+            * We will avoid sending packet to local network till the approach of granting runtime
+            * permission is fixed.
+            * ToDo - b/405254174 Fix the test cases that send packets to local network
+            */
+            // sendAndExpectUdpPacket(network2, reader, iface)
             agent2.unregister()
             testCallback.expect<Lost>(network2)
         }
@@ -1634,7 +1673,23 @@ class NetworkAgentTest {
         val (agent1, network1) = connectNetwork(lp = lp)
         matchAllCallback.expectAvailableThenValidatedCallbacks(network1)
         testCallback.expectAvailableThenValidatedCallbacks(network1)
-        sendAndExpectUdpPacket(network1, reader, iface)
+        /**
+         * Commenting sending udp packets as these packets have destination within
+         * local network, as the test module have min_sdk_version of 10000. The compat flag
+         * RESTRICT_LOCAL_NETWORK is enabled after 10000 (current_development) so the compat
+         * flag is set for the test leading to local network calls being blocked.
+         *
+         * We have tried following things till now
+         *
+         * Granting runtime permission
+         * Changing target_sdk_version for test cases
+         * Changing IP addresses so the target link address is not considered local address
+         *
+         * We will avoid sending packet to local network till the approach of granting runtime
+         * permission is fixed.
+         * ToDo - b/405254174 Fix the test cases that send packets to local network
+         */
+        // sendAndExpectUdpPacket(network1, reader, iface)
 
         // Connect a second agent. network1 is preferred because it was already registered, so
         // testCallback will not see any events. agent2 is torn down because it has no requests.
@@ -1665,7 +1720,23 @@ class NetworkAgentTest {
         val (agent3, network3) = connectNetwork(lp = lp)
         matchAllCallback.expectAvailableThenValidatedCallbacks(network3)
         testCallback.expectAvailableDoubleValidatedCallbacks(network3)
-        sendAndExpectUdpPacket(network3, reader, iface)
+        /**
+         * Commenting sending udp packets as these packets have destination within
+         * local network, as the test module have min_sdk_version of 10000. The compat flag
+         * RESTRICT_LOCAL_NETWORK is enabled after 10000 (current_development) so the compat
+         * flag is set for the test leading to local network calls being blocked.
+         *
+         * We have tried following things till now
+         *
+         * Granting runtime permission
+         * Changing target_sdk_version for test cases
+         * Changing IP addresses so the target link address is not considered local address
+         *
+         * We will avoid sending packet to local network till the approach of granting runtime
+         * permission is fixed.
+         * ToDo - b/405254174 Fix the test cases that send packets to local network
+         */
+        // sendAndExpectUdpPacket(network3, reader, iface)
 
         // As soon as the replacement arrives, network1 is disconnected.
         // Check that this happens before the replacement timeout (5 seconds) fires.
@@ -1685,7 +1756,23 @@ class NetworkAgentTest {
         matchAllCallback.expect<Losing>(network3)
         testCallback.expectAvailableCallbacks(network4, validated = true)
         mCM.unregisterNetworkCallback(agent4callback)
-        sendAndExpectUdpPacket(network3, reader, iface)
+        /**
+         * Commenting sending udp packets as these packets have destination within
+         * local network, as the test module have min_sdk_version of 10000. The compat flag
+         * RESTRICT_LOCAL_NETWORK is enabled after 10000 (current_development) so the compat
+         * flag is set for the test leading to local network calls being blocked.
+         *
+         * We have tried following things till now
+         *
+         * Granting runtime permission
+         * Changing target_sdk_version for test cases
+         * Changing IP addresses so the target link address is not considered local address
+         *
+         * We will avoid sending packet to local network till the approach of granting runtime
+         * permission is fixed.
+         * ToDo - b/405254174 Fix the test cases that send packets to local network
+         */
+        // sendAndExpectUdpPacket(network3, reader, iface)
         agent3.unregisterAfterReplacement(5_000)
         agent3.expectCallback<OnNetworkUnwanted>()
         matchAllCallback.expect<Lost>(network3, 1000L)
@@ -1704,7 +1791,23 @@ class NetworkAgentTest {
         val (agent5, network5) = connectNetwork(lp = lp)
         matchAllCallback.expectAvailableThenValidatedCallbacks(network5)
         testCallback.expectAvailableThenValidatedCallbacks(network5)
-        sendAndExpectUdpPacket(network5, reader, iface)
+        /**
+         * Commenting sending udp packets as these packets have destination within
+         * local network, as the test module have min_sdk_version of 10000. The compat flag
+         * RESTRICT_LOCAL_NETWORK is enabled after 10000 (current_development) so the compat
+         * flag is set for the test leading to local network calls being blocked.
+         *
+         * We have tried following things till now
+         *
+         * Granting runtime permission
+         * Changing target_sdk_version for test cases
+         * Changing IP addresses so the target link address is not considered local address
+         *
+         * We will avoid sending packet to local network till the approach of granting runtime
+         * permission is fixed.
+         * ToDo - b/405254174 Fix the test cases that send packets to local network
+         */
+        // sendAndExpectUdpPacket(network5, reader, iface)
         agent5.unregisterAfterReplacement(5_000 /* timeoutMillis */)
         agent5.unregister()
         matchAllCallback.expect<Lost>(network5, 1000L /* timeoutMs */)
@@ -1816,7 +1919,23 @@ class NetworkAgentTest {
         agent13.register()
         agent13.markConnected()
         testCallback.expectAvailableThenValidatedCallbacks(agent13.network!!)
-        sendAndExpectUdpPacket(agent13.network!!, reader, iface)
+        /**
+         * Commenting sending udp packets as these packets have destination within
+         * local network, as the test module have min_sdk_version of 10000. The compat flag
+         * RESTRICT_LOCAL_NETWORK is enabled after 10000 (current_development) so the compat
+         * flag is set for the test leading to local network calls being blocked.
+         *
+         * We have tried following things till now
+         *
+         * Granting runtime permission
+         * Changing target_sdk_version for test cases
+         * Changing IP addresses so the target link address is not considered local address
+         *
+         * We will avoid sending packet to local network till the approach of granting runtime
+         * permission is fixed.
+         * ToDo - b/405254174 Fix the test cases that send packets to local network
+         */
+        // sendAndExpectUdpPacket(agent13.network!!, reader, iface)
         agent13.unregister()
     }
 
@@ -1848,8 +1967,10 @@ class NetworkAgentTest {
                 it.setTransportInfo(VpnTransportInfo(
                     VpnManager.TYPE_VPN_PLATFORM,
                     sessionId,
-                    /*bypassable=*/ false,
-                    /*longLivedTcpConnectionsExpensive=*/ false
+                    /*bypassable=*/
+                    false,
+                    /*longLivedTcpConnectionsExpensive=*/
+                    false
                 ))
                 it.underlyingNetworks = listOf()
             }
