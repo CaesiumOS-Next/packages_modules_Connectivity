@@ -781,9 +781,7 @@ public class TetheringConfigurationTest {
         assertEnableSyncSM(true);
 
         // Feature is enabled by default after 25Q2 release.
-        if (!SdkUtil.isAtLeast25Q2()) {
-            setTetherEnableSyncSMFlagEnabled(false);
-            assertEnableSyncSM(false);
-        }
+        setTetherEnableSyncSMFlagEnabled(false);
+        assertEnableSyncSM(SdkUtil.isAtLeast25Q2());
     }
 }
