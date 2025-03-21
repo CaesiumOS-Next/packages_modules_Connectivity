@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44c1d081_f6315538",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsFactory.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-21T08:35:46Z",
+      "side": 1,
+      "message": "SparseArray\u003cSparseBooleanArray\u003e",
+      "range": {
+        "startLine": 84,
+        "startChar": 69,
+        "endLine": 84,
+        "endChar": 76
+      },
+      "revId": "d82d421eec51c1142ccc4444016f897e3a7e9009",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
