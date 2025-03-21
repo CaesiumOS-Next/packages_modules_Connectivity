@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72bdca4b_efb1dd68",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2988,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-21T01:59:44Z",
+      "side": 1,
+      "message": "s/. T/, t/",
+      "range": {
+        "startLine": 2988,
+        "startChar": 26,
+        "endLine": 2988,
+        "endChar": 29
+      },
+      "revId": "c76c420ba8addad899fd0add78011502284bf46e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0156b3dc_5dde8de4",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2989,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-21T01:59:44Z",
+      "side": 1,
+      "message": "Thread",
+      "range": {
+        "startLine": 2989,
+        "startChar": 60,
+        "endLine": 2989,
+        "endChar": 67
+      },
+      "revId": "c76c420ba8addad899fd0add78011502284bf46e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3b2ccd4_71846791",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2997,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-21T01:59:44Z",
+      "side": 1,
+      "message": "I don\u0027t think you need this ?\n\nIIUC this is doing the same thing as satisfiedByTransports(). But in the context of this method, it should match if nc.hasTransport(THREAD) no matter what is asked.\n\nTo be clear I don\u0027t think there is a practical impact because this is always called after satisfiedByTransports() but you should probably address this in a followup",
+      "range": {
+        "startLine": 2997,
+        "startChar": 0,
+        "endLine": 2997,
+        "endChar": 69
+      },
+      "revId": "c76c420ba8addad899fd0add78011502284bf46e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
