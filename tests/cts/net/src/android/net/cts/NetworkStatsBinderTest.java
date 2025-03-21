@@ -100,10 +100,52 @@ public class NetworkStatsBinderTest {
                 } else {
                     // Verify that returned result is the same with the result get from
                     // TrafficStats.
+<<<<<<< HEAD   (4703e1 Merge "Use scapy to generate ARP packet in multi-device test)
                     assertEquals(uidStatsFromBinder.rxBytes, TrafficStats.getUidRxBytes(uid));
                     assertEquals(uidStatsFromBinder.rxPackets, TrafficStats.getUidRxPackets(uid));
                     assertEquals(uidStatsFromBinder.txBytes, TrafficStats.getUidTxBytes(uid));
                     assertEquals(uidStatsFromBinder.txPackets, TrafficStats.getUidTxPackets(uid));
+||||||| BASE
+                    // TODO: If the test is flaky then it should instead assert that the values
+                    //  are approximately similar.
+                    assertEquals("uidStats is not matched for query type " + type
+                                    + ", uid=" + uid + ", myUid=" + myUid, uidTrafficStats,
+                            uidStatsFromBinder);
+                } catch (IllegalAccessException e) {
+                    /* Java language access prevents exploitation. */
+                    return;
+                } catch (InvocationTargetException e) {
+                    /* Underlying method has been changed. */
+                    return;
+                } catch (ClassNotFoundException e) {
+                    /* not vulnerable if hidden API no longer available */
+                    return;
+                } catch (NoSuchMethodException e) {
+                    /* not vulnerable if hidden API no longer available */
+                    return;
+                } catch (RemoteException e) {
+                    return;
+=======
+                    // TODO: If the test is flaky then it should instead assert that the values
+                    //  are approximately similar.
+                    assertEquals("uidStats is not matched for query type " + type
+                                    + ", uid=" + uid + ", myUid=" + myUid, uidTrafficStats,
+                            uidStatsFromBinder);
+                } catch (IllegalAccessException e) {
+                    /* Java language access prevents exploitation. */
+                    return;
+                } catch (InvocationTargetException e) {
+                    /* Underlying method has been changed. */
+                    return;
+                } catch (ClassNotFoundException e) {
+                    /* not vulnerable if hidden API no longer available */
+                    return;
+                } catch (NoSuchMethodException | NoSuchMethodError e) {
+                    /* not vulnerable if hidden API no longer available */
+                    return;
+                } catch (RemoteException e) {
+                    return;
+>>>>>>> BRANCH (c43d56 Skip NetworkStatsBinderTest if the binder interface is not a)
                 }
             } catch (IllegalAccessException e) {
                 /* Java language access prevents exploitation. */
