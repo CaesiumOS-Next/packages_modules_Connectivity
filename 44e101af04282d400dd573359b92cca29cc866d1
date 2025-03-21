@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6e3762d_fef981a1",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-21T03:32:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7fb34626_87843532",
+      "range": {
+        "startLine": 550,
+        "startChar": 32,
+        "endLine": 550,
+        "endChar": 37
+      },
+      "revId": "44e101af04282d400dd573359b92cca29cc866d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3fa2e3f7_a66c6a7a",
@@ -54,6 +78,30 @@
       "writtenOn": "2025-03-21T02:26:27Z",
       "side": 1,
       "message": "Why is there no stats entry with this ? I\u0027d expect here should be ?",
+      "range": {
+        "startLine": 565,
+        "startChar": 8,
+        "endLine": 565,
+        "endChar": 26
+      },
+      "revId": "44e101af04282d400dd573359b92cca29cc866d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86cc19c6_9ae05efa",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-21T03:32:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3fa2e3f7_a66c6a7a",
       "range": {
         "startLine": 565,
         "startChar": 8,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "64cd9af2_31a45758",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-21T03:32:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "419bb21d_2f634e1b",
+      "range": {
+        "startLine": 572,
+        "startChar": 30,
+        "endLine": 572,
+        "endChar": 36
+      },
+      "revId": "44e101af04282d400dd573359b92cca29cc866d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "191a9397_2855495d",
@@ -100,6 +172,30 @@
       "writtenOn": "2025-03-21T02:26:27Z",
       "side": 1,
       "message": "existing",
+      "range": {
+        "startLine": 573,
+        "startChar": 42,
+        "endLine": 573,
+        "endChar": 46
+      },
+      "revId": "44e101af04282d400dd573359b92cca29cc866d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f21ab63_f8aa39b8",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-21T03:32:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "191a9397_2855495d",
       "range": {
         "startLine": 573,
         "startChar": 42,
