@@ -52,6 +52,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5f42781_158418e6",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-21T01:33:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "445f4aa7_d3c59275",
+      "range": {
+        "startLine": 238,
+        "startChar": 12,
+        "endLine": 243,
+        "endChar": 46
+      },
+      "revId": "530dbe94fd476f796c7a49bb9beaf9e3d2a8becd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "af1221fa_9f61ef5f",
@@ -65,6 +89,30 @@
       "writtenOn": "2025-03-20T16:06:36Z",
       "side": 1,
       "message": "Nit: I suggest adding a function for this check in case the condition changes in the future.\n```\nprivate boolean isTetheringLocalNetworkAgentEnabled() {\n    return isAtLeastB()\n            || mFeatureFlags.getOrDefault(TETHERING_LOCAL_NETWORK_AGENT, false);\n}\n```",
+      "range": {
+        "startLine": 399,
+        "startChar": 12,
+        "endLine": 399,
+        "endChar": 92
+      },
+      "revId": "530dbe94fd476f796c7a49bb9beaf9e3d2a8becd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dce35e73_98f2f633",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-21T01:33:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af1221fa_9f61ef5f",
       "range": {
         "startLine": 399,
         "startChar": 12,
@@ -116,6 +164,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "518892e1_f69b43c8",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 1128,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-21T01:33:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a44c34cc_4daa4fc6",
+      "range": {
+        "startLine": 1128,
+        "startChar": 12,
+        "endLine": 1128,
+        "endChar": 33
+      },
+      "revId": "530dbe94fd476f796c7a49bb9beaf9e3d2a8becd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "85e321d1_6d4144ab",
@@ -153,6 +225,30 @@
           ]
         }
       ],
+      "revId": "530dbe94fd476f796c7a49bb9beaf9e3d2a8becd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9cecb7de_72b8a53f",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 1129,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-21T01:33:47Z",
+      "side": 1,
+      "message": "Yes and it is what we want to test:\nthe flag is disabled but feature is enabled on B.",
+      "parentUuid": "85e321d1_6d4144ab",
+      "range": {
+        "startLine": 1129,
+        "startChar": 12,
+        "endLine": 1129,
+        "endChar": 73
+      },
       "revId": "530dbe94fd476f796c7a49bb9beaf9e3d2a8becd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -198,6 +294,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "abbb3bb1_5503727a",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 1142,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-21T01:33:47Z",
+      "side": 1,
+      "message": "It verifies CONNECTIVITY_SCOPE_LOCAL, others verify CONNECTIVITY_SCOPE_GLOBAL.\nWhere it is the scope wifi p2p has, and we want to verify the agent is not enabled for wifi p2p.\nOr do I misunderstand what you mean?",
+      "parentUuid": "0cd6db07_536533c8",
+      "range": {
+        "startLine": 1140,
+        "startChar": 4,
+        "endLine": 1142,
+        "endChar": 5
+      },
+      "revId": "530dbe94fd476f796c7a49bb9beaf9e3d2a8becd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "03748c95_b1b651e3",
@@ -211,6 +331,30 @@
       "writtenOn": "2025-03-20T16:06:36Z",
       "side": 1,
       "message": "inOrder",
+      "range": {
+        "startLine": 1152,
+        "startChar": 8,
+        "endLine": 1152,
+        "endChar": 9
+      },
+      "revId": "530dbe94fd476f796c7a49bb9beaf9e3d2a8becd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "996ec129_d4fd9a85",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 1152,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-21T01:33:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03748c95_b1b651e3",
       "range": {
         "startLine": 1152,
         "startChar": 8,
@@ -244,6 +388,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2efda33d_4547e1a1",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 1189,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-21T01:33:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "827ff390_64a2fdb7",
+      "range": {
+        "startLine": 1189,
+        "startChar": 7,
+        "endLine": 1189,
+        "endChar": 9
+      },
+      "revId": "530dbe94fd476f796c7a49bb9beaf9e3d2a8becd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "17737f71_bade6a0a",
@@ -257,6 +425,30 @@
       "writtenOn": "2025-03-20T16:06:36Z",
       "side": 1,
       "message": "inOrder",
+      "range": {
+        "startLine": 1232,
+        "startChar": 7,
+        "endLine": 1232,
+        "endChar": 9
+      },
+      "revId": "530dbe94fd476f796c7a49bb9beaf9e3d2a8becd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4cfa8ba_d4616d4e",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 1232,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-21T01:33:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "17737f71_bade6a0a",
       "range": {
         "startLine": 1232,
         "startChar": 7,
