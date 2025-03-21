@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fef9c5eb_01d1dea0",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 1275,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-21T09:43:42Z",
+      "side": 1,
+      "message": "This is marked to remove, please don\u0027t add new usages of this. Instead read the return value of `expect()` which is already a CallbackEntry.Available (or if it\u0027s not you can cast it down)",
+      "range": {
+        "startLine": 1275,
+        "startChar": 41,
+        "endLine": 1275,
+        "endChar": 64
+      },
+      "revId": "acaddb071d3c5e3c2e741930b0efd04c42bbad1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
