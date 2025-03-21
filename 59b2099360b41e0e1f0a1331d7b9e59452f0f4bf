@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "720f685c_96dc8b62",
+        "filename": "bpf/loader/NetBpfLoad.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-21T03:10:44Z",
+      "side": 1,
+      "message": "Thanks!\naosp/3555883 fixes this.",
+      "parentUuid": "1b341138_efd3b587",
+      "revId": "59b2099360b41e0e1f0a1331d7b9e59452f0f4bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ce443a47_85e46a79",
@@ -85,6 +103,24 @@
       "side": 1,
       "message": "we might be able to find this by changing the Android.bp for NetBpfLoad\n\nand enabling one or more of:\n\n  \u0027-Wall\u0027\n  \u0027-Werror\u0027\n  \u0027-Werror\u003dimplicit-fallthrough\u0027\n  \u0027-Werror\u003dstrict-prototypes\u0027\n  \u0027-Wsign-compare\u0027\n  \u0027-Wsign-conversion\u0027\n  \u0027-Wunused-parameter\u0027\n  \u0027-Wuninitialized\u0027\n\nand/or lint\n\nsee also system/netd/Android.bp     tidy_checks: and tidy_checks_as_errors",
       "parentUuid": "ae830dc2_a7b92d2a",
+      "revId": "59b2099360b41e0e1f0a1331d7b9e59452f0f4bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6a52136_8159be13",
+        "filename": "bpf/loader/NetBpfLoad.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 779,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-21T03:10:44Z",
+      "side": 1,
+      "message": "aosp/3555903 and aosp/3555904 update flags and tidy_checks.",
+      "parentUuid": "3f641c4f_369cb5de",
       "revId": "59b2099360b41e0e1f0a1331d7b9e59452f0f4bf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
