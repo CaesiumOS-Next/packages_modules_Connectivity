@@ -64,6 +64,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "12eae46a_29ac73fa",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/CarrierConfigRule.kt",
+        "patchSetId": 50
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-21T09:13:32Z",
+      "side": 1,
+      "message": "This is reused",
+      "parentUuid": "fdf32c88_6ef80a8d",
+      "range": {
+        "startLine": 208,
+        "startChar": 12,
+        "endLine": 208,
+        "endChar": 22
+      },
+      "revId": "ac3af1a145cd2c118b9bf8de3e152a989aaf6fa0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f2504295_83d1d1e8",
@@ -77,6 +101,24 @@
       "writtenOn": "2025-03-21T09:09:56Z",
       "side": 1,
       "message": "Do you have tests for the case where the called doesn\u0027t hold carrier privilege ?",
+      "revId": "ac3af1a145cd2c118b9bf8de3e152a989aaf6fa0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2ef379e_07b6f20f",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1198173
+      },
+      "writtenOn": "2025-03-21T09:13:32Z",
+      "side": 1,
+      "message": "Yes",
+      "parentUuid": "f2504295_83d1d1e8",
       "revId": "ac3af1a145cd2c118b9bf8de3e152a989aaf6fa0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
