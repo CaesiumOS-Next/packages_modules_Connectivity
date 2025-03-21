@@ -16,6 +16,29 @@
       "message": "242724",
       "revId": "beb024acaa125faf917a90acf7ab28011e884aee",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef539212_87dadde7",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 33
+      },
+      "lineNbr": 1176,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-21T08:59:49Z",
+      "side": 1,
+      "message": "You need at least a comment for this. I think it\u0027s reasonable (or you could use TETHER_ERROR_INTERNAL_ERROR, which is closer but also not very helpful), but you should explain why this is the right error in a comment.",
+      "range": {
+        "startLine": 1176,
+        "startChar": 33,
+        "endLine": 1176,
+        "endChar": 61
+      },
+      "revId": "beb024acaa125faf917a90acf7ab28011e884aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
