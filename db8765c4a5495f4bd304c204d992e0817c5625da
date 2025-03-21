@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f8b3cb9_18dae55d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 27
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-21T11:30:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f7b04c8d_b992daf8",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 6
+      },
+      "revId": "db8765c4a5495f4bd304c204d992e0817c5625da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6c721234_47a3eb47",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-03-21T10:24:26Z",
       "side": 1,
       "message": "introduces",
+      "range": {
+        "startLine": 11,
+        "startChar": 12,
+        "endLine": 11,
+        "endChar": 21
+      },
+      "revId": "db8765c4a5495f4bd304c204d992e0817c5625da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4781c762_503dd441",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 27
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-21T11:30:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c721234_47a3eb47",
       "range": {
         "startLine": 11,
         "startChar": 12,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d6ee54b_1b50f060",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 27
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-21T11:30:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e7c6fa6_386c122a",
+      "range": {
+        "startLine": 12,
+        "startChar": 5,
+        "endLine": 12,
+        "endChar": 11
+      },
+      "revId": "db8765c4a5495f4bd304c204d992e0817c5625da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "823ba38b_40379a2a",
@@ -83,6 +155,30 @@
       "writtenOn": "2025-03-21T10:24:26Z",
       "side": 1,
       "message": "I don\u0027t think so. An app targetting U on a B+ device should not see non-thread local networks.",
+      "range": {
+        "startLine": 14,
+        "startChar": 32,
+        "endLine": 14,
+        "endChar": 34
+      },
+      "revId": "db8765c4a5495f4bd304c204d992e0817c5625da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b9a502a_830e772e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 27
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-21T11:30:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "823ba38b_40379a2a",
       "range": {
         "startLine": 14,
         "startChar": 32,
