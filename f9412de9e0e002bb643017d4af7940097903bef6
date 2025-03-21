@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61ff72ad_7b4f000c",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringServiceTest.java",
+        "patchSetId": 48
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-21T07:28:08Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this assert that the result is TETHER_ERROR_NO_ERROR?",
+      "range": {
+        "startLine": 414,
+        "startChar": 4,
+        "endLine": 414,
+        "endChar": 5
+      },
+      "revId": "f9412de9e0e002bb643017d4af7940097903bef6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20c4cee5_ad18efff",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringServiceTest.java",
+        "patchSetId": 48
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-21T07:28:08Z",
+      "side": 1,
+      "message": "SoftApConfiguration",
+      "range": {
+        "startLine": 475,
+        "startChar": 16,
+        "endLine": 475,
+        "endChar": 22
+      },
+      "revId": "f9412de9e0e002bb643017d4af7940097903bef6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffbee5de_ad0a100a",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringServiceTest.java",
+        "patchSetId": 48
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-21T07:28:08Z",
+      "side": 1,
+      "message": "SoftApConfiguration",
+      "range": {
+        "startLine": 497,
+        "startChar": 16,
+        "endLine": 497,
+        "endChar": 22
+      },
+      "revId": "f9412de9e0e002bb643017d4af7940097903bef6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a30557a9_7989966b",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringServiceTest.java",
+        "patchSetId": 48
+      },
+      "lineNbr": 662,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-21T07:28:08Z",
+      "side": 1,
+      "message": "Nit: there\u0027s currently no way this can happen, right? Because the stopTethering overload that takes a request doesn\u0027t exist on V-, and in B+, WRITE_SETTINGS doesn\u0027t grant permission to start/stop tethering?\n\nIf so, can you add a comment to explain this can\u0027t happen in practice but we test it for completeness (or in case we allow it in the future)?",
+      "range": {
+        "startLine": 662,
+        "startChar": 12,
+        "endLine": 662,
+        "endChar": 46
+      },
+      "revId": "f9412de9e0e002bb643017d4af7940097903bef6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
