@@ -335,6 +335,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d014ded5_1d20e8c4",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkRequestStateStatsMetricsTests.kt",
+        "patchSetId": 26
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-21T15:07:12Z",
+      "side": 1,
+      "message": "Close to make gerrit happy.",
+      "parentUuid": "4141843e_1b7e55b0",
+      "range": {
+        "startLine": 63,
+        "startChar": 52,
+        "endLine": 63,
+        "endChar": 80
+      },
+      "revId": "3b5edffc660d85d1177d27d79a37bc6d3b3b4f04",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "765b1b6b_886c73d5",
