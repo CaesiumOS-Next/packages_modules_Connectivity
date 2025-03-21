@@ -13,6 +13,7 @@
 #  limitations under the License.
 
 from dataclasses import dataclass
+from ipaddress import IPv4Address, AddressValueError
 import re
 from mobly import asserts
 from mobly.controllers import android_device
@@ -371,6 +372,30 @@ def get_matched_packet_counts(
     raise assert_utils.UnexpectedBehaviorError(
       f"Got unexpected exception: {e} for command: {cmd}."
     )
+
+def get_ethernet_multicast_address(ip_addr: str) -> str:
+  """
+  Converts an IPv4 multicast address to its corresponding Ethernet multicast address.
+
+  This function takes an IPv4 address string as input, checks if it's a multicast address,
+  and then calculates the corresponding Ethernet multicast address according to RFC 1112.
+
+  Args:
+      ip_addr: The IPv4 address string to convert.
+
+  Returns:
+      The Ethernet multicast address as a colon-separated hexadecimal string.
+
+  Raises:
+      AddressValueError: If the provided IPv4 address is not a multicast address.
+  """
+  ipv4_addr = IPv4Address(ip_addr)
+  if not ipv4_addr.is_multicast:
+    raise AddressValueError(f'{ip_addr} is not multicast address')
+
+  eth_addr = 0x01005E000000 | (int(ipv4_addr) & 0x7FFFFF)
+  eth_addr_bytes = eth_addr.to_bytes(6)
+  return ':'.join(f'{byte:02X}' for byte in eth_addr_bytes)
 
 @dataclass
 class ApfCapabilities:

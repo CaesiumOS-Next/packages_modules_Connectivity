@@ -29,6 +29,7 @@ from scapy.layers.inet6 import (
     RouterAlert
 )
 from scapy.layers.l2 import ARP, Ether
+from scapy.contrib.igmp import IGMP
 from scapy.contrib.igmpv3 import IGMPv3, IGMPv3mq, IGMPv3mr, IGMPv3gr
 from net_tests_utils.host.python import apf_test_base, apf_utils, adb_utils, assert_utils
 
@@ -76,7 +77,7 @@ class ApfV6Test(apf_test_base.ApfTestBase):
         expected_arp_reply = expected_arp_reply.ljust(ARP_OFFLOAD_REPLY_LEN * 2, "0")
 
         self.send_packet_and_expect_reply_received(
-            arp_request, "DROPPED_ARP_REQUEST_REPLIED", expected_arp_reply
+            arp_request, "DROPPED_ARP_REQUEST_REPLIED", [expected_arp_reply]
         )
 
     def test_broadcast_arp_request_offload(self):
@@ -103,7 +104,7 @@ class ApfV6Test(apf_test_base.ApfTestBase):
         expected_arp_reply = expected_arp_reply.ljust(ARP_OFFLOAD_REPLY_LEN * 2, "0")
 
         self.send_packet_and_expect_reply_received(
-            arp_request, "DROPPED_ARP_REQUEST_REPLIED", expected_arp_reply
+            arp_request, "DROPPED_ARP_REQUEST_REPLIED", [expected_arp_reply]
         )
 
     def test_non_dad_ipv6_neighbor_solicitation_offload(self):
@@ -121,7 +122,7 @@ class ApfV6Test(apf_test_base.ApfTestBase):
         self.send_packet_and_expect_reply_received(
             neighbor_solicitation,
             "DROPPED_IPV6_NS_REPLIED_NON_DAD",
-            expected_neighbor_advertisement
+            [expected_neighbor_advertisement]
         )
 
     @apf_utils.at_least_B()
@@ -136,7 +137,7 @@ class ApfV6Test(apf_test_base.ApfTestBase):
         icmp = ICMP(type=0, id=1, seq=123)
         expected_echo_reply = bytes(eth/ip/icmp/b"hello").hex()
         self.send_packet_and_expect_reply_received(
-            echo_request, "DROPPED_IPV4_PING_REQUEST_REPLIED", expected_echo_reply
+            echo_request, "DROPPED_IPV4_PING_REQUEST_REPLIED", [expected_echo_reply]
         )
 
     @apf_utils.at_least_B()
@@ -153,7 +154,7 @@ class ApfV6Test(apf_test_base.ApfTestBase):
         expected_echo_reply = bytes(eth/ip/icmp/b"hello").hex()
 
         self.send_packet_and_expect_reply_received(
-            echo_request, "DROPPED_IPV6_ICMP6_ECHO_REQUEST_REPLIED", expected_echo_reply
+            echo_request, "DROPPED_IPV6_ICMP6_ECHO_REQUEST_REPLIED", [expected_echo_reply]
         )
 
     @apf_utils.at_least_B()
@@ -191,7 +192,7 @@ class ApfV6Test(apf_test_base.ApfTestBase):
         igmp = IGMPv3mr(records=mcast_records)
         expected_igmpv3_report = bytes(ether/ip/igmpv3_hdr/igmp).hex()
         self.send_packet_and_expect_reply_received(
-            igmpv3_general_query, "DROPPED_IGMP_V3_GENERAL_QUERY_REPLIED", expected_igmpv3_report
+            igmpv3_general_query, "DROPPED_IGMP_V3_GENERAL_QUERY_REPLIED", [expected_igmpv3_report]
         )
 
         for addr in mcast_addrs:
@@ -199,6 +200,55 @@ class ApfV6Test(apf_test_base.ApfTestBase):
                 self.clientDevice,
                 f'ip addr del {addr}/32 dev {self.client_iface_name}'
             )
+
+    @apf_utils.at_least_B()
+    def test_igmpv2_general_query_offload(self):
+        ether = Ether(src=self.server_mac_address, dst='01:00:5e:00:00:01')
+        ip = IP(
+            src=self.server_ipv4_addresses[0],
+            dst='224.0.0.1',
+            options=[IPOption_Router_Alert()]
+        )
+        igmp = IGMP(type=0x11)
+        igmpv2_general_query = bytes(ether/ip/igmp).hex()
+
+        mcast_addrs = ['239.0.0.1', '239.0.0.2', '239.0.0.3']
+
+        for addr in mcast_addrs:
+            adb_utils.adb_shell(
+                self.clientDevice,
+                f'ip addr add {addr}/32 dev {self.client_iface_name} autojoin'
+            )
+        try:
+            expected_igmpv2_reports = []
+            for addr in mcast_addrs:
+                ether_dst = apf_utils.get_ethernet_multicast_address(addr)
+                self.serverDevice.log.debug(f'[APF_TEST] ether_dst: {ether_dst}')
+                ether = Ether(src=self.client_mac_address, dst=ether_dst)
+                ip = IP(
+                    src=self.client_ipv4_addresses[0],
+                    dst=addr,
+                    options=[IPOption_Router_Alert()],
+                    id=0,
+                    flags="DF",
+                    tos=0xc0
+                )
+                igmp = IGMP(type=0x16, gaddr=addr, mrcode=0)
+                expected_igmpv2_reports.append(bytes(ether/ip/igmp).hex())
+
+            self.serverDevice.log.debug(f'[APF_TEST] send: {igmpv2_general_query}')
+
+            self.send_packet_and_expect_reply_received(
+                igmpv2_general_query,
+                "DROPPED_IGMP_V2_GENERAL_QUERY_REPLIED",
+                expected_igmpv2_reports
+            )
+        finally:
+            for addr in mcast_addrs:
+                adb_utils.adb_shell(
+                    self.clientDevice,
+                    f'ip addr del {addr}/32 dev {self.client_iface_name}'
+                )
 
     @apf_utils.at_least_B()
     @apf_utils.apf_ram_at_least(3000)
@@ -222,5 +272,7 @@ class ApfV6Test(apf_test_base.ApfTestBase):
         mld = ICMPv6MLReport2(records=mld_records)
         expected_mldv2_report = bytes(ether/ip/hopOpts/mld).hex()
         self.send_packet_and_expect_reply_received(
-            mldv2_general_query, "DROPPED_IPV6_MLD_V2_GENERAL_QUERY_REPLIED", expected_mldv2_report
+            mldv2_general_query,
+            "DROPPED_IPV6_MLD_V2_GENERAL_QUERY_REPLIED",
+            [expected_mldv2_report]
         )
