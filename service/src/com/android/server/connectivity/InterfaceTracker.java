@@ -16,6 +16,8 @@
 
 package com.android.server.connectivity;
 
+import static com.android.net.module.util.SdkUtil.isAtLeast25Q2;
+
 import android.annotation.Nullable;
 import android.content.Context;
 import android.system.Os;
@@ -23,7 +25,6 @@ import android.util.ArrayMap;
 import android.util.Log;
 
 import com.android.internal.annotations.VisibleForTesting;
-import com.android.server.BpfNetMaps;
 
 import java.util.Map;
 
@@ -33,7 +34,7 @@ import java.util.Map;
  */
 public class InterfaceTracker {
     static {
-        if (BpfNetMaps.isAtLeast25Q2()) {
+        if (isAtLeast25Q2()) {
             System.loadLibrary("service-connectivity");
         }
     }

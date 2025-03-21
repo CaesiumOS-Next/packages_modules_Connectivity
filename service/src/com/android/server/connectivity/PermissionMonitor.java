@@ -30,6 +30,7 @@ import static android.net.connectivity.ConnectivityCompatChanges.RESTRICT_LOCAL_
 import static android.os.Process.INVALID_UID;
 import static android.os.Process.SYSTEM_UID;
 
+import static com.android.net.module.util.SdkUtil.isAtLeast25Q2;
 import static com.android.server.connectivity.NetworkPermissions.PERMISSION_NETWORK;
 import static com.android.server.connectivity.NetworkPermissions.PERMISSION_NONE;
 import static com.android.server.connectivity.NetworkPermissions.PERMISSION_SYSTEM;
@@ -237,8 +238,7 @@ public class PermissionMonitor {
 
         public boolean shouldEnforceLocalNetRestrictions(int uid) {
             // TODO(b/394567896): Update compat change checks for enforcement
-            return BpfNetMaps.isAtLeast25Q2() &&
-                    CompatChanges.isChangeEnabled(RESTRICT_LOCAL_NETWORK, uid);
+            return isAtLeast25Q2() && CompatChanges.isChangeEnabled(RESTRICT_LOCAL_NETWORK, uid);
         }
     }
 
@@ -294,7 +294,7 @@ public class PermissionMonitor {
         mContext = context;
         mBpfNetMaps = bpfNetMaps;
         mThread = thread;
-        if (BpfNetMaps.isAtLeast25Q2()) {
+        if (isAtLeast25Q2()) {
             // Local net restrictions is supported as a developer opt-in starting in Android B.
             // This listener should finish registration by the time the system has completed
             // boot setup such that any changes to runtime permissions for local network
@@ -914,7 +914,7 @@ public class PermissionMonitor {
     synchronized void onPackageRemoved(@NonNull final String packageName, final int uid) {
         // Update uid permission.
         updateAppIdTrafficPermission(uid);
-        if (BpfNetMaps.isAtLeast25Q2()) {
+        if (isAtLeast25Q2()) {
             mBpfNetMaps.removeUidFromLocalNetBlockMap(uid);
             if (hasSdkSandbox(uid)) mBpfNetMaps.removeUidFromLocalNetBlockMap(
                     sProcessShim.toSdkSandboxUid(uid));

@@ -24,6 +24,7 @@ import static android.net.TetheringManager.TETHERING_WIFI_P2P;
 import static com.android.net.module.util.Inet4AddressUtils.inet4AddressToIntHTH;
 import static com.android.net.module.util.Inet4AddressUtils.intToInet4AddressHTH;
 import static com.android.net.module.util.Inet4AddressUtils.prefixLengthToV4NetmaskIntHTH;
+import static com.android.net.module.util.SdkUtil.isAtLeast25Q2;
 
 import static java.util.Arrays.asList;
 
@@ -33,14 +34,12 @@ import android.net.LinkAddress;
 import android.net.LinkProperties;
 import android.net.Network;
 import android.net.NetworkCapabilities;
-import android.os.Build;
 import android.os.RemoteException;
 import android.util.ArrayMap;
 
 import androidx.annotation.Nullable;
 
 import com.android.internal.annotations.VisibleForTesting;
-import com.android.modules.utils.build.SdkLevel;
 
 import java.io.PrintWriter;
 import java.net.Inet4Address;
@@ -255,13 +254,6 @@ public class PrivateAddressCoordinator {
 
         // No available address.
         return null;
-    }
-
-    // TODO: Remove this method when SdkLevel.isAtLeastB() is fixed, aosp is at sdk level 36 or use
-    //  NetworkStackUtils.isAtLeast25Q2 when it is moved to a static lib.
-    public static boolean isAtLeast25Q2() {
-        return SdkLevel.isAtLeastB()  || (SdkLevel.isAtLeastV()
-                && "Baklava".equals(Build.VERSION.CODENAME));
     }
 
     private int getRandomPrefixIndex() {

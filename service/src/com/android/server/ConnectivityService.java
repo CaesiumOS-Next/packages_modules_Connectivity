@@ -153,6 +153,7 @@ import static com.android.net.module.util.PermissionUtils.enforceAnyPermissionOf
 import static com.android.net.module.util.PermissionUtils.enforceNetworkStackPermission;
 import static com.android.net.module.util.PermissionUtils.enforceNetworkStackPermissionOr;
 import static com.android.net.module.util.PermissionUtils.hasAnyPermissionOf;
+import static com.android.net.module.util.SdkUtil.isAtLeast25Q2;
 import static com.android.server.ConnectivityStatsLog.CONNECTIVITY_STATE_SAMPLE;
 import static com.android.server.connectivity.ConnectivityFlags.CELLULAR_DATA_INACTIVITY_TIMEOUT;
 import static com.android.server.connectivity.ConnectivityFlags.DELAY_DESTROY_SOCKETS;
@@ -9895,7 +9896,7 @@ public class ConnectivityService extends IConnectivityManager.Stub {
             @NonNull final LinkProperties oldLp) {
 
         // The maps are available only after 25Q2 release
-        if (!BpfNetMaps.isAtLeast25Q2()) {
+        if (!isAtLeast25Q2()) {
             return;
         }
 
@@ -10001,7 +10002,7 @@ public class ConnectivityService extends IConnectivityManager.Stub {
      */
     private void addLocalAddressesToBpfMap(final String iface, final List<IpPrefix> prefixes,
                                            @Nullable final LinkProperties lp) {
-        if (!BpfNetMaps.isAtLeast25Q2()) return;
+        if (!isAtLeast25Q2()) return;
 
         for (IpPrefix prefix : prefixes) {
             // Add local dnses allow rule To BpfMap before adding the block rule for prefix
@@ -10031,7 +10032,7 @@ public class ConnectivityService extends IConnectivityManager.Stub {
      */
     private void removeLocalAddressesFromBpfMap(final String iface, final List<IpPrefix> prefixes,
                                                 @Nullable final LinkProperties lp) {
-        if (!BpfNetMaps.isAtLeast25Q2()) return;
+        if (!isAtLeast25Q2()) return;
 
         for (IpPrefix prefix : prefixes) {
             // The reasoning for prefix length is explained in addLocalAddressesToBpfMap()
@@ -10053,7 +10054,7 @@ public class ConnectivityService extends IConnectivityManager.Stub {
      */
     private void addLocalDnsesToBpfMap(final String iface, IpPrefix prefix,
             @Nullable final LinkProperties lp) {
-        if (!BpfNetMaps.isAtLeast25Q2() || lp == null) return;
+        if (!isAtLeast25Q2() || lp == null) return;
 
         for (InetAddress dnsServer : lp.getDnsServers()) {
             // Adds dns allow rule to LocalNetAccessMap for both TCP and UDP protocol at port 53,
@@ -10077,7 +10078,7 @@ public class ConnectivityService extends IConnectivityManager.Stub {
      */
     private void removeLocalDnsesFromBpfMap(final String iface, IpPrefix prefix,
             @Nullable final LinkProperties lp) {
-        if (!BpfNetMaps.isAtLeast25Q2() || lp == null) return;
+        if (!isAtLeast25Q2() || lp == null) return;
 
         for (InetAddress dnsServer : lp.getDnsServers()) {
             // Removes dns allow rule from LocalNetAccessMap for both TCP and UDP protocol
