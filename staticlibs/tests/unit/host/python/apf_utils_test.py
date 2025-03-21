@@ -11,7 +11,7 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-
+from ipaddress import AddressValueError
 from unittest.mock import MagicMock, patch
 from absl.testing import parameterized
 from mobly import asserts
@@ -35,6 +35,7 @@ from net_tests_utils.host.python.apf_utils import (
     stop_capture_packets,
     get_matched_packet_counts,
     send_raw_packet_downstream,
+    get_ethernet_multicast_address
 )
 from net_tests_utils.host.python.assert_utils import UnexpectedBehaviorError
 
@@ -399,3 +400,10 @@ IpClient.wlan1
 
     # Assert that the result matches the expected result
     asserts.assert_equal(result, expected_result)
+
+  def test_get_ethernet_multicast_address(self):
+      asserts.assert_equal(get_ethernet_multicast_address('239.0.0.1'), '01:00:5E:00:00:01')
+      asserts.assert_equal(get_ethernet_multicast_address('239.255.0.1'), '01:00:5E:7F:00:01')
+
+      with asserts.assert_raises(AddressValueError):
+          get_ethernet_multicast_address('192.168.1.1')
