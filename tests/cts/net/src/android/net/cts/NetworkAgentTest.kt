@@ -198,9 +198,9 @@ private fun Message(what: Int, arg1: Int, arg2: Int, obj: Any?) = Message.obtain
     it.obj = obj
 }
 
-private val LINK_ADDRESS = LinkAddress("2001:db8::1/64")
-private val REMOTE_ADDRESS = InetAddresses.parseNumericAddress("2001:db8::123")
-private val PREFIX = IpPrefix("2001:db8::/64")
+private val LINK_ADDRESS = LinkAddress("2001:db8::1/0")
+private val REMOTE_ADDRESS = InetAddresses.parseNumericAddress("2001:db8::1")
+private val PREFIX = IpPrefix("2001:db8::/0")
 private val NEXTHOP = InetAddresses.parseNumericAddress("fe80::abcd")
 
 // On T and below, the native network is only created when the agent connects.
@@ -741,12 +741,24 @@ class NetworkAgentTest {
         tryTest {
             // This process is not the carrier service UID, so allowedUids should be ignored in all
             // the following cases.
-            doTestAllowedUidsWithSubId(defaultSubId, TRANSPORT_CELLULAR, uid,
-                    expectUidsPresent = false)
-            doTestAllowedUidsWithSubId(defaultSubId, TRANSPORT_WIFI, uid,
-                    expectUidsPresent = false)
-            doTestAllowedUidsWithSubId(defaultSubId, TRANSPORT_BLUETOOTH, uid,
-                    expectUidsPresent = false)
+            doTestAllowedUidsWithSubId(
+                defaultSubId,
+                TRANSPORT_CELLULAR,
+                uid,
+                    expectUidsPresent = false
+            )
+            doTestAllowedUidsWithSubId(
+                defaultSubId,
+                TRANSPORT_WIFI,
+                uid,
+                    expectUidsPresent = false
+            )
+            doTestAllowedUidsWithSubId(
+                defaultSubId,
+                TRANSPORT_BLUETOOTH,
+                uid,
+                    expectUidsPresent = false
+            )
 
             // The tools to set the carrier service package override do not exist before U,
             // so there is no way to test the rest of this test on < U.
@@ -764,9 +776,11 @@ class NetworkAgentTest {
             val timeout = SystemClock.elapsedRealtime() + DEFAULT_TIMEOUT_MS
             while (true) {
                 if (SystemClock.elapsedRealtime() > timeout) {
-                    fail("Couldn't make $servicePackage the service package for $defaultSubId: " +
+                    fail(
+                        "Couldn't make $servicePackage the service package for $defaultSubId: " +
                             "dumpsys connectivity".execute().split("\n")
-                                    .filter { it.contains("Logical slot = $defaultSlotIndex.*") })
+                                    .filter { it.contains("Logical slot = $defaultSlotIndex.*") }
+                    )
                 }
                 if ("dumpsys connectivity"
                         .execute()
@@ -789,10 +803,18 @@ class NetworkAgentTest {
                 // TODO(b/315136340): Allow ownerUid to see allowedUids and enable below test case
                 // doTestAllowedUids(defaultSubId, TRANSPORT_WIFI, uid, expectUidsPresent = true)
             }
-            doTestAllowedUidsWithSubId(defaultSubId, TRANSPORT_BLUETOOTH, uid,
-                    expectUidsPresent = false)
-            doTestAllowedUidsWithSubId(defaultSubId, intArrayOf(TRANSPORT_CELLULAR, TRANSPORT_WIFI),
-                    uid, expectUidsPresent = false)
+            doTestAllowedUidsWithSubId(
+                defaultSubId,
+                TRANSPORT_BLUETOOTH,
+                uid,
+                    expectUidsPresent = false
+            )
+            doTestAllowedUidsWithSubId(
+                defaultSubId,
+                intArrayOf(TRANSPORT_CELLULAR, TRANSPORT_WIFI),
+                    uid,
+                expectUidsPresent = false
+            )
         }
     }
 
@@ -1848,8 +1870,10 @@ class NetworkAgentTest {
                 it.setTransportInfo(VpnTransportInfo(
                     VpnManager.TYPE_VPN_PLATFORM,
                     sessionId,
-                    /*bypassable=*/ false,
-                    /*longLivedTcpConnectionsExpensive=*/ false
+                    /*bypassable=*/
+                    false,
+                    /*longLivedTcpConnectionsExpensive=*/
+                    false
                 ))
                 it.underlyingNetworks = listOf()
             }
