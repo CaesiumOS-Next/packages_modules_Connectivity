@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13835a86_3d612024",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 50
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-21T09:09:56Z",
+      "side": 1,
+      "message": "Happy with the carrier privilege part of this code",
+      "revId": "ac3af1a145cd2c118b9bf8de3e152a989aaf6fa0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e37094ae_1162849f",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringServiceTest.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-21T09:09:56Z",
+      "side": 1,
+      "message": "nit : you can simplify the syntax\n\n    runAsDeviceOwner(result -\u003e verifyStartTethering...",
+      "range": {
+        "startLine": 465,
+        "startChar": 25,
+        "endLine": 465,
+        "endChar": 38
+      },
+      "revId": "ac3af1a145cd2c118b9bf8de3e152a989aaf6fa0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fdf32c88_6ef80a8d",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/CarrierConfigRule.kt",
+        "patchSetId": 50
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-21T09:09:56Z",
+      "side": 1,
+      "message": "You don\u0027t need this : a condition variable always starts closed (and in usage, is almost never closed again after it\u0027s opened)",
+      "range": {
+        "startLine": 208,
+        "startChar": 12,
+        "endLine": 208,
+        "endChar": 22
+      },
+      "revId": "ac3af1a145cd2c118b9bf8de3e152a989aaf6fa0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2504295_83d1d1e8",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-21T09:09:56Z",
+      "side": 1,
+      "message": "Do you have tests for the case where the called doesn\u0027t hold carrier privilege ?",
+      "revId": "ac3af1a145cd2c118b9bf8de3e152a989aaf6fa0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
