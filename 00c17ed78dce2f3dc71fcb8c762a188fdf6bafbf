@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "556681e0_a8f99f0c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-03-21T21:37:59Z",
+      "side": 1,
+      "message": "I cannot figure out how to structure this CL simpler because the current code is such a mess and this unravels it all. Let me know if you want to go through it together.",
+      "revId": "00c17ed78dce2f3dc71fcb8c762a188fdf6bafbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
