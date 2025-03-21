@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecd5b788_80c607f4",
+        "filename": "framework/src/android/net/connectivity/ConnectivityInternalApiUtil.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-21T09:18:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9996f115_1be625ae",
+      "range": {
+        "startLine": 96,
+        "startChar": 18,
+        "endLine": 96,
+        "endChar": 25
+      },
+      "revId": "f471c1610d767aff547d204230b008d95c575238",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7a9b2f49_6cf1b18c",
@@ -37,6 +61,24 @@
       "writtenOn": "2025-03-21T08:59:49Z",
       "side": 1,
       "message": "This class does nothing. You should be able to remove it and replace with an anonymous class.\n\nnew NetworkAgent(...) {}",
+      "revId": "f471c1610d767aff547d204230b008d95c575238",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e73f2c9e_3e930996",
+        "filename": "framework/src/android/net/connectivity/ConnectivityInternalApiUtil.java",
+        "patchSetId": 31
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-21T09:18:45Z",
+      "side": 1,
+      "message": "Done.\nYou are right about this.",
+      "parentUuid": "7a9b2f49_6cf1b18c",
       "revId": "f471c1610d767aff547d204230b008d95c575238",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
