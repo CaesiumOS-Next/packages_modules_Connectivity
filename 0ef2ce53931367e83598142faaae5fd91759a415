@@ -223,6 +223,30 @@
       },
       "revId": "0ef2ce53931367e83598142faaae5fd91759a415",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85dc5109_b3ff5f67",
+        "filename": "service-t/src/com/android/server/net/NetworkStatsFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-21T02:26:27Z",
+      "side": 1,
+      "message": "For our code HashSet is virtually *never* the right choice, and that is especially true for integers. The indirection from looking up the key is likely to be more expensive than the 10 comparisons in SparseBooleanArray for 1000 UIDs.",
+      "parentUuid": "59452d07_905e7923",
+      "range": {
+        "startLine": 281,
+        "startChar": 68,
+        "endLine": 281,
+        "endChar": 75
+      },
+      "revId": "0ef2ce53931367e83598142faaae5fd91759a415",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

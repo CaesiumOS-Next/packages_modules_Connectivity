@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c88fae72_303d87d2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-21T02:26:27Z",
+      "side": 1,
+      "message": "As per offline sync, this will limit the number of tags per boot, but tags will still accumulate across boots. If this is not sufficient mitigation, we will also need to do something in the recorder.\n\nI\u0027m also wondering whether this is reasonably intuitive for apps. The issue here is that for an app that adds, say, 10k tags per boot will now only see the first X tags of each boot. That\u0027s probably not particularly intuitive or easy to check for. That being said, this is only for apps with a bad behavior and who don\u0027t remember their own tags anyway ? So maybe it\u0027s fine ?",
+      "revId": "44e101af04282d400dd573359b92cca29cc866d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7fb34626_87843532",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-21T02:26:27Z",
+      "side": 1,
+      "message": "existing",
+      "range": {
+        "startLine": 550,
+        "startChar": 32,
+        "endLine": 550,
+        "endChar": 37
+      },
+      "revId": "44e101af04282d400dd573359b92cca29cc866d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fa2e3f7_a66c6a7a",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-21T02:26:27Z",
+      "side": 1,
+      "message": "Why is there no stats entry with this ? I\u0027d expect here should be ?",
+      "range": {
+        "startLine": 565,
+        "startChar": 8,
+        "endLine": 565,
+        "endChar": 26
+      },
+      "revId": "44e101af04282d400dd573359b92cca29cc866d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "419bb21d_2f634e1b",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-21T02:26:27Z",
+      "side": 1,
+      "message": "exceeds",
+      "range": {
+        "startLine": 572,
+        "startChar": 30,
+        "endLine": 572,
+        "endChar": 36
+      },
+      "revId": "44e101af04282d400dd573359b92cca29cc866d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "191a9397_2855495d",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-21T02:26:27Z",
+      "side": 1,
+      "message": "existing",
+      "range": {
+        "startLine": 573,
+        "startChar": 42,
+        "endLine": 573,
+        "endChar": 46
+      },
+      "revId": "44e101af04282d400dd573359b92cca29cc866d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
