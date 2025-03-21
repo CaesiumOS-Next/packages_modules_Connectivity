@@ -1,0 +1,199 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56bea8c6_89ed4202",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 26
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-21T10:20:09Z",
+      "side": 1,
+      "message": "+2 assuming comments are addressed at least in a quick followup",
+      "revId": "3b5edffc660d85d1177d27d79a37bc6d3b3b4f04",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ec8084d_891127b8",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 1253,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-21T10:20:09Z",
+      "side": 1,
+      "message": "Is it possible to force it on ?",
+      "range": {
+        "startLine": 1253,
+        "startChar": 36,
+        "endLine": 1253,
+        "endChar": 51
+      },
+      "revId": "3b5edffc660d85d1177d27d79a37bc6d3b3b4f04",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8810b64c_3ee61bbd",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 3194,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-21T10:20:09Z",
+      "side": 1,
+      "message": "It\u0027s very unobvious that this is what the code does, I only understand it because I discussed it with Rémi earlier. Suggest reword :\n\nCompat change is enabled by default on apps targetting B+. Agent should not be visible on U- even if it\u0027s rolled out.",
+      "range": {
+        "startLine": 3193,
+        "startChar": 33,
+        "endLine": 3194,
+        "endChar": 70
+      },
+      "revId": "3b5edffc660d85d1177d27d79a37bc6d3b3b4f04",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0fcd44e_90336740",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 26
+      },
+      "lineNbr": 1092,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-21T10:20:09Z",
+      "side": 1,
+      "message": "enableMatch... \u003d",
+      "range": {
+        "startLine": 1092,
+        "startChar": 52,
+        "endLine": 1092,
+        "endChar": 57
+      },
+      "revId": "3b5edffc660d85d1177d27d79a37bc6d3b3b4f04",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "271c6919_0e430030",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 26
+      },
+      "lineNbr": 1094,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-21T10:20:09Z",
+      "side": 1,
+      "message": "This is true generally, but I think you can turn it off locally temporarily with an adb command ?",
+      "range": {
+        "startLine": 1094,
+        "startChar": 41,
+        "endLine": 1094,
+        "endChar": 58
+      },
+      "revId": "3b5edffc660d85d1177d27d79a37bc6d3b3b4f04",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18fa6c6f_fb205ed9",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 26
+      },
+      "lineNbr": 1126,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-21T10:20:09Z",
+      "side": 1,
+      "message": "Who will disconnect this ?",
+      "revId": "3b5edffc660d85d1177d27d79a37bc6d3b3b4f04",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22207539_b90e6201",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSLocalAgentTests.kt",
+        "patchSetId": 26
+      },
+      "lineNbr": 1126,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-21T10:20:09Z",
+      "side": 1,
+      "message": "Suggest a small comment saying that connect() will expect OnAvailable",
+      "range": {
+        "startLine": 1126,
+        "startChar": 27,
+        "endLine": 1126,
+        "endChar": 42
+      },
+      "revId": "3b5edffc660d85d1177d27d79a37bc6d3b3b4f04",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "651206b9_c96b564e",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSNetworkRequestStateStatsMetricsTests.kt",
+        "patchSetId": 26
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-21T10:20:09Z",
+      "side": 1,
+      "message": "I think it would be better to have a @hide function that checks fields that are not managed by CS",
+      "range": {
+        "startLine": 63,
+        "startChar": 52,
+        "endLine": 63,
+        "endChar": 80
+      },
+      "revId": "3b5edffc660d85d1177d27d79a37bc6d3b3b4f04",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "765b1b6b_886c73d5",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSAgentWrapper.kt",
+        "patchSetId": 26
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-21T10:20:09Z",
+      "side": 1,
+      "message": "\u003e 100 lines, did you bypass lint ?",
+      "range": {
+        "startLine": 157,
+        "startChar": 100,
+        "endLine": 157,
+        "endChar": 101
+      },
+      "revId": "3b5edffc660d85d1177d27d79a37bc6d3b3b4f04",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
