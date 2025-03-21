@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "25212b6d_0b635f79",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringServiceTest.java",
+        "patchSetId": 48
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-21T09:22:48Z",
+      "side": 1,
+      "message": "If tethering succeeds, why NO_RESULT instead of TETHER_ERROR_NO_ERROR?",
+      "parentUuid": "3165b24c_05e9a926",
+      "range": {
+        "startLine": 414,
+        "startChar": 4,
+        "endLine": 414,
+        "endChar": 5
+      },
+      "revId": "f9412de9e0e002bb643017d4af7940097903bef6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "20c4cee5_ad18efff",
         "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringServiceTest.java",
         "patchSetId": 48
