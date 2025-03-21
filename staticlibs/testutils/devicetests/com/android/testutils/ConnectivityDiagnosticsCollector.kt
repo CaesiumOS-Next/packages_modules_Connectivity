@@ -453,7 +453,7 @@ class ConnectivityDiagnosticsCollector : BaseMetricListener() {
             it.flush()
         }
 
-        runCommandInShell(cmd, shell) { stdout, _ ->
+        runCommandInShell(cmd, shell) { stdout ->
             stdout.copyTo(buffer)
         }
     }
