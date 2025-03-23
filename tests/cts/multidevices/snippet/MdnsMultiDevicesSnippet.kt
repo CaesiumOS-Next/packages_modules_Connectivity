@@ -41,8 +41,8 @@ private const val REGISTRATION_TIMEOUT_MS = 10_000L
 class MdnsMultiDevicesSnippet : Snippet {
     private val context = InstrumentationRegistry.getInstrumentation().getTargetContext()
     private val nsdManager = context.getSystemService(NsdManager::class.java)!!
-    private val registrationRecord = NsdRegistrationRecord()
-    private val discoveryRecord = NsdDiscoveryRecord()
+    private lateinit var registrationRecord: NsdRegistrationRecord
+    private lateinit var discoveryRecord: NsdDiscoveryRecord
     private val resolveRecord = NsdResolveRecord()
 
     @Rpc(description = "Register a mDns service")
@@ -52,12 +52,17 @@ class MdnsMultiDevicesSnippet : Snippet {
         info.setServiceType(SERVICE_TYPE)
         info.setPort(SERVICE_PORT)
         info.setAttribute(SERVICE_ATTRIBUTES_KEY, SERVICE_ATTRIBUTES_VALUE)
+        registrationRecord = NsdRegistrationRecord()
         nsdManager.registerService(info, NsdManager.PROTOCOL_DNS_SD, registrationRecord)
         registrationRecord.expectCallback<ServiceRegistered>(REGISTRATION_TIMEOUT_MS)
     }
 
     @Rpc(description = "Unregister a mDns service")
     fun unregisterMDnsService() {
+        if (!this::registrationRecord.isInitialized) {
+            // Ignore unregistration if the service has not registered
+            return
+        }
         nsdManager.unregisterService(registrationRecord)
         registrationRecord.expectCallback<ServiceUnregistered>()
     }
@@ -67,6 +72,7 @@ class MdnsMultiDevicesSnippet : Snippet {
     @Suppress("DEPRECATION")
     fun ensureMDnsServiceDiscoveryAndResolution() {
         // Discover a mDns service that matches the test service
+        discoveryRecord = NsdDiscoveryRecord()
         nsdManager.discoverServices(SERVICE_TYPE, NsdManager.PROTOCOL_DNS_SD, discoveryRecord)
         val info = discoveryRecord.waitForServiceDiscovered(SERVICE_NAME, SERVICE_TYPE)
         // Resolve the retrieved mDns service.
@@ -86,6 +92,10 @@ class MdnsMultiDevicesSnippet : Snippet {
 
     @Rpc(description = "Stop discovery")
     fun stopMDnsServiceDiscovery() {
+        if (!this::discoveryRecord.isInitialized) {
+            // Ignore discovery stop if discovery has not started
+            return
+        }
         nsdManager.stopServiceDiscovery(discoveryRecord)
         discoveryRecord.expectCallbackEventually<DiscoveryStopped>()
     }
