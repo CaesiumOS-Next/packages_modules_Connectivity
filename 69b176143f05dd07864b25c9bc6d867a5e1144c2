@@ -1,0 +1,45 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfba2a43_7d002fd5",
+        "filename": "tests/cts/net/api23Test/AndroidTest.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-24T02:28:10Z",
+      "side": 1,
+      "message": "This would be errorprone if someone add telephony test cases but forget to remove these lines.\nIs it better to do mobile checks if there is no harm to do that?",
+      "range": {
+        "startLine": 30,
+        "startChar": 22,
+        "endLine": 30,
+        "endChar": 47
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "5ad1cb41_2fa7badd",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/cts/net/api23Test/AndroidTest.xml",
+              "range": {
+                "startLine": 29,
+                "startChar": 0,
+                "endLine": 30,
+                "endChar": 0
+              },
+              "replacement": "        \u003c!-- The tests require a working Wi-Fi network only.\n             If the device has no Wi-Fi network, the test will fail. --\u003e\n"
+            }
+          ]
+        }
+      ],
+      "revId": "69b176143f05dd07864b25c9bc6d867a5e1144c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
