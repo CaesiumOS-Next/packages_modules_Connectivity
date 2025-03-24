@@ -1,0 +1,45 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3564e621_40a87fb8",
+        "filename": "tests/cts/multidevices/snippet/MdnsMultiDevicesSnippet.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-24T05:24:31Z",
+      "side": 1,
+      "message": "It seems to me registrationRecord might be initialized even if registration failure.\nAre we suppose to unregisterService for those cases?\nIf not, maybe check certain even types instead of isInitialized?",
+      "range": {
+        "startLine": 66,
+        "startChar": 19,
+        "endLine": 66,
+        "endChar": 36
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "a4ef26f3_d1afc126",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/cts/multidevices/snippet/MdnsMultiDevicesSnippet.kt",
+              "range": {
+                "startLine": 62,
+                "startChar": 0,
+                "endLine": 66,
+                "endChar": 0
+              },
+              "replacement": ""
+            }
+          ]
+        }
+      ],
+      "revId": "d169a07b44034861acef2729742d5b1be64b86a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
