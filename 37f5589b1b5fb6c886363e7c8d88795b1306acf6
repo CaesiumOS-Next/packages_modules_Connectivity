@@ -46,6 +46,30 @@
       },
       "revId": "37f5589b1b5fb6c886363e7c8d88795b1306acf6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4835c61b_c04ae316",
+        "filename": "tests/common/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 3485374
+      },
+      "writtenOn": "2025-03-24T13:10:18Z",
+      "side": 1,
+      "message": "@anothermark@google.com From the points Jean mentioned, it seems we should not add platform certificate. This is also causing some other tests to fail.https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/3545701?tab\u003dchecks\nIs there some other way to bypass the Access denied error without giving platform certificate to the tests?",
+      "parentUuid": "d5ba3fc3_eab568de",
+      "range": {
+        "startLine": 97,
+        "startChar": 18,
+        "endLine": 97,
+        "endChar": 26
+      },
+      "revId": "37f5589b1b5fb6c886363e7c8d88795b1306acf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
