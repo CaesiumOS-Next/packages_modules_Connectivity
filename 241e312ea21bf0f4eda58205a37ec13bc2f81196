@@ -1,0 +1,116 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0f1b53b_5c115859",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyDownloader.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2025-03-24T13:22:50Z",
+      "side": 1,
+      "message": "nit and a matter of preference, so feel free to ignore: move the if statement outside of the try-catch",
+      "range": {
+        "startLine": 154,
+        "startChar": 12,
+        "endLine": 159,
+        "endChar": 13
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "c99ad17f_c52df609",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyDownloader.java",
+              "range": {
+                "startLine": 153,
+                "startChar": 0,
+                "endLine": 153,
+                "endChar": 0
+              },
+              "replacement": "        LogListUpdateStatus updateStatus;\n"
+            },
+            {
+              "path": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyDownloader.java",
+              "range": {
+                "startLine": 154,
+                "startChar": 0,
+                "endLine": 160,
+                "endChar": 0
+              },
+              "replacement": "            updateStatus \u003d mSignatureVerifier.setPublicKeyFrom(publicKeyUri);\n"
+            },
+            {
+              "path": "networksecurity/service/src/com/android/server/net/ct/CertificateTransparencyDownloader.java",
+              "range": {
+                "startLine": 164,
+                "startChar": 0,
+                "endLine": 164,
+                "endChar": 0
+              },
+              "replacement": "\n        if (!updateStatus.isPublicKeySet()) {\n            mLogger.logCTLogListUpdateStateChangedEvent(updateStatus);\n            return;\n        }\n"
+            }
+          ]
+        }
+      ],
+      "revId": "241e312ea21bf0f4eda58205a37ec13bc2f81196",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "befd1b26_ff568d8a",
+        "filename": "networksecurity/service/src/com/android/server/net/ct/SignatureVerifier.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2025-03-24T13:22:50Z",
+      "side": 1,
+      "message": "nit: remove this return statement and the one below",
+      "range": {
+        "startLine": 107,
+        "startChar": 12,
+        "endLine": 107,
+        "endChar": 41
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "c008c6cd_4bcb7f6a",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "networksecurity/service/src/com/android/server/net/ct/SignatureVerifier.java",
+              "range": {
+                "startLine": 107,
+                "startChar": 0,
+                "endLine": 108,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "networksecurity/service/src/com/android/server/net/ct/SignatureVerifier.java",
+              "range": {
+                "startLine": 111,
+                "startChar": 0,
+                "endLine": 112,
+                "endChar": 0
+              },
+              "replacement": ""
+            }
+          ]
+        }
+      ],
+      "revId": "241e312ea21bf0f4eda58205a37ec13bc2f81196",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
