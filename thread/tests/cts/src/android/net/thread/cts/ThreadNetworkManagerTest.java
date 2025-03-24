@@ -81,8 +81,9 @@ public class ThreadNetworkManagerTest {
     @Test
     @IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
     @IgnoreAfter(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
-    public void getManager_onUAndTv_returnsNonNull() {
+    public void getManager_onUAndTvWithThreadFeature_returnsNonNull() {
         assumeTrue(mPackageManager.hasSystemFeature(PackageManager.FEATURE_LEANBACK));
+        assumeTrue(mPackageManager.hasSystemFeature("android.hardware.thread_network"));
 
         assertThat(mManager).isNotNull();
     }
