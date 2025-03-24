@@ -40,6 +40,30 @@
       ],
       "revId": "69b176143f05dd07864b25c9bc6d867a5e1144c2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "057ce14d_4eced84e",
+        "filename": "tests/cts/net/api23Test/AndroidTest.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-24T03:07:55Z",
+      "side": 1,
+      "message": "If we remove this check, the device will require a working cellular network. This means the tests cannot run on Wi-Fi-only devices. However, I believe ConnectivityManagerApi23Test tests can run on Wi-Fi-only devices. Therefore, I do not think we should remove this check.",
+      "parentUuid": "cfba2a43_7d002fd5",
+      "range": {
+        "startLine": 30,
+        "startChar": 22,
+        "endLine": 30,
+        "endChar": 47
+      },
+      "revId": "69b176143f05dd07864b25c9bc6d867a5e1144c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
