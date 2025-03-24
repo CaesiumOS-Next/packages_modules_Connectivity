@@ -1,0 +1,186 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e404266a_f860a536",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 770,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-24T05:56:21Z",
+      "side": 1,
+      "message": "Enable is confusing while you are passing false to verify disable.\nIt seems to me this is more likely assertSyncSMFlagEquals().\nHowever, it seems this is not help much for readiblity.\nMaybe just inline this method?",
+      "range": {
+        "startLine": 770,
+        "startChar": 17,
+        "endLine": 770,
+        "endChar": 35
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "37c54d7c_9fe9fc29",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+              "range": {
+                "startLine": 769,
+                "startChar": 0,
+                "endLine": 773,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+              "range": {
+                "startLine": 778,
+                "startChar": 0,
+                "endLine": 779,
+                "endChar": 0
+              },
+              "replacement": "        assertEquals(true, TetheringConfiguration.USE_SYNC_SM);\n"
+            },
+            {
+              "path": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+              "range": {
+                "startLine": 781,
+                "startChar": 0,
+                "endLine": 782,
+                "endChar": 0
+              },
+              "replacement": "        assertEquals(true, TetheringConfiguration.USE_SYNC_SM);\n"
+            },
+            {
+              "path": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+              "range": {
+                "startLine": 785,
+                "startChar": 0,
+                "endLine": 786,
+                "endChar": 0
+              },
+              "replacement": "        assertEquals(SdkUtil.isAtLeast25Q2(), TetheringConfiguration.USE_SYNC_SM);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "e0086be93c68e28af202787e4ef58748e1db2ace",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d699fecc_c0f1d4af",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 785,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-24T05:56:21Z",
+      "side": 1,
+      "message": "To avoid more and more set methods.\nI think we should use @FeatureFlag instead.\nIf so this can be:\n\n@FeatureFlag(TETHER_ENABLE_SYNC_SM)\n@Test\ntestEnableSyncSMFlag_flagEnabled() {\n  assertEnableSyncSM(true);\n}  \n\n@Test\ntestEnableSyncSMFlag_flagDefault() {\n  assertEnableSyncSM(true);\n}  \n\n@FeatureFlag(TETHER_ENABLE_SYNC_SM, enabled \u003d false)\n@Test\ntestEnableSyncSMFlag_flagDisabled() {\n  assertEnableSyncSM(...);\n}",
+      "range": {
+        "startLine": 783,
+        "startChar": 6,
+        "endLine": 785,
+        "endChar": 52
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "391180ac_8081f483",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+              "range": {
+                "startLine": 32,
+                "startChar": 0,
+                "endLine": 32,
+                "endChar": 0
+              },
+              "replacement": "import static com.android.networkstack.tethering.TetheringConfiguration.TETHER_ENABLE_SYNC_SM;\n"
+            },
+            {
+              "path": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+              "range": {
+                "startLine": 66,
+                "startChar": 0,
+                "endLine": 67,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+              "range": {
+                "startLine": 71,
+                "startChar": 0,
+                "endLine": 71,
+                "endChar": 0
+              },
+              "replacement": "import com.android.testutils.FeatureFlag;\n"
+            },
+            {
+              "path": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+              "range": {
+                "startLine": 763,
+                "startChar": 0,
+                "endLine": 769,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+              "range": {
+                "startLine": 774,
+                "startChar": 0,
+                "endLine": 774,
+                "endChar": 0
+              },
+              "replacement": "    @FeatureFlag(TETHER_ENABLE_SYNC_SM)\n"
+            },
+            {
+              "path": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+              "range": {
+                "startLine": 775,
+                "startChar": 0,
+                "endLine": 778,
+                "endChar": 0
+              },
+              "replacement": "    public void testEnableSyncSMFlag_flagEnabled() throws Exception {\n"
+            },
+            {
+              "path": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+              "range": {
+                "startLine": 779,
+                "startChar": 0,
+                "endLine": 779,
+                "endChar": 0
+              },
+              "replacement": "    }\n"
+            },
+            {
+              "path": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+              "range": {
+                "startLine": 780,
+                "startChar": 0,
+                "endLine": 786,
+                "endChar": 0
+              },
+              "replacement": "    @FeatureFlag(TETHER_ENABLE_SYNC_SM, false)\n    @Test\n    public void testEnableSyncSMFlag_flagDisabled() throws Exception {\n        assertEnableSyncSM(false);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "e0086be93c68e28af202787e4ef58748e1db2ace",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
