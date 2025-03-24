@@ -70,6 +70,30 @@
       },
       "revId": "37f5589b1b5fb6c886363e7c8d88795b1306acf6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3be68b30_533b1c1b",
+        "filename": "tests/common/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1826738
+      },
+      "writtenOn": "2025-03-24T17:20:46Z",
+      "side": 1,
+      "message": "See aosp/3558383\n\nI removed the platform cert and resolved it by adding the extra permissions to tests/common/AndroidManifest_coverage.xml",
+      "parentUuid": "4835c61b_c04ae316",
+      "range": {
+        "startLine": 97,
+        "startChar": 18,
+        "endLine": 97,
+        "endChar": 26
+      },
+      "revId": "37f5589b1b5fb6c886363e7c8d88795b1306acf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
