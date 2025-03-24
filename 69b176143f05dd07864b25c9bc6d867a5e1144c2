@@ -64,6 +64,30 @@
       },
       "revId": "69b176143f05dd07864b25c9bc6d867a5e1144c2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "083de244_eebc1544",
+        "filename": "tests/cts/net/api23Test/AndroidTest.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-03-24T03:11:45Z",
+      "side": 1,
+      "message": "I\u0027m wondering if ConnectivityTestTargetPreparer can see the test method annotations. \nIf so we can add something like @IgnoreMobileDataCheck, which is less errorprone and easier to use.\nSee if reminv@ has better idea.",
+      "parentUuid": "057ce14d_4eced84e",
+      "range": {
+        "startLine": 30,
+        "startChar": 22,
+        "endLine": 30,
+        "endChar": 47
+      },
+      "revId": "69b176143f05dd07864b25c9bc6d867a5e1144c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
