@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4985d54_4a269bc8",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 770,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-24T09:15:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e404266a_f860a536",
+      "range": {
+        "startLine": 770,
+        "startChar": 17,
+        "endLine": 770,
+        "endChar": 35
+      },
+      "revId": "e0086be93c68e28af202787e4ef58748e1db2ace",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d699fecc_c0f1d4af",
@@ -179,6 +203,30 @@
           ]
         }
       ],
+      "revId": "e0086be93c68e28af202787e4ef58748e1db2ace",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e59116d0_17d826e1",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 785,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-24T09:15:11Z",
+      "side": 1,
+      "message": "I attempted to use `@FeatureFlag` for this test, but it complicates the maintenance of the entire TetheringConfigurationTest. This is because `@FeatureFlag` modifies the flag value before testing, while some tests dynamically modify the flag value within the test, such as `testChooseUpstreamAutomatically_FlagOverride` and `testChooseUpstreamAutomatically_FlagOverrideAfterT`. To accommodate this, I would need to separate one test into three similar tests, which differ only in their initial flag value. This would likely confuse future developers. Therefore, I prefer to maintain the current design. @jchalard@google.com, do you have any suggestions for this?",
+      "parentUuid": "d699fecc_c0f1d4af",
+      "range": {
+        "startLine": 783,
+        "startChar": 6,
+        "endLine": 785,
+        "endChar": 52
+      },
       "revId": "e0086be93c68e28af202787e4ef58748e1db2ace",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
