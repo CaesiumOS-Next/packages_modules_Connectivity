@@ -16,8 +16,11 @@
 
 package com.android.server.connectivity.mdns;
 
+import static android.net.InetAddresses.parseNumericAddress;
+
 import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.inOrder;
@@ -28,6 +31,8 @@ import static org.mockito.Mockito.verify;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.ConnectivityManager.NetworkCallback;
+import android.net.LinkAddress;
+import android.net.LinkProperties;
 import android.net.Network;
 import android.net.NetworkRequest;
 
@@ -42,6 +47,9 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import java.net.NetworkInterface;
+import java.util.List;
 
 /** Tests for {@link ConnectivityMonitor}. */
 @RunWith(DevSdkIgnoreRunner.class)
@@ -106,18 +114,11 @@ public class ConnectivityMonitorWithConnectivityManagerTests {
     @Test
     public void testIntentFired_shouldNotifyListener() {
         InOrder inOrder = inOrder(mockListener);
-        monitor.startWatchingConnectivityChanges();
-
-        final ArgumentCaptor<NetworkCallback> callbackCaptor =
-                ArgumentCaptor.forClass(NetworkCallback.class);
-        verify(mConnectivityManager, times(1)).registerNetworkCallback(
-                any(NetworkRequest.class), callbackCaptor.capture());
-
-        final NetworkCallback callback = callbackCaptor.getValue();
+        final NetworkCallback callback = setupCallback();
         final Network testNetwork = mock(Network.class);
 
         // Simulate network available.
-        callback.onAvailable(testNetwork);
+        callback.onLinkPropertiesChanged(testNetwork, new LinkProperties());
         inOrder.verify(mockListener).onConnectivityChanged();
 
         // Simulate network lost.
@@ -127,6 +128,57 @@ public class ConnectivityMonitorWithConnectivityManagerTests {
         // Simulate network unavailable.
         callback.onUnavailable();
         inOrder.verify(mockListener).onConnectivityChanged();
+    }
+
+    private NetworkCallback setupCallback() {
+        monitor.startWatchingConnectivityChanges();
+        final ArgumentCaptor<NetworkCallback> callbackCaptor =
+                ArgumentCaptor.forClass(NetworkCallback.class);
+        verify(mConnectivityManager, times(1)).registerNetworkCallback(
+                any(NetworkRequest.class), callbackCaptor.capture());
+
+        return callbackCaptor.getValue();
+    }
+
+    @Test
+    public void testGuessNetworkOfRemoteHost_ipv4Address() {
+        final NetworkCallback callback = setupCallback();
+
+        final Network testNetwork1 = mock(Network.class);
+        final Network testNetwork2 = mock(Network.class);
+
+        final LinkProperties lp1 = new LinkProperties();
+        lp1.addLinkAddress(new LinkAddress("192.0.1.123/24"));
+        final LinkProperties lp2 = new LinkProperties();
+        lp2.addLinkAddress(new LinkAddress("192.0.2.123/24"));
+
+        callback.onLinkPropertiesChanged(testNetwork1, lp1);
+        callback.onLinkPropertiesChanged(testNetwork2, lp2);
+
+        assertEquals(testNetwork1, monitor.guessNetworkOfRemoteHost(
+                List.of(), parseNumericAddress("192.0.1.124")));
+    }
+
+    @Test
+    public void testGuessNetworkOfRemoteHost_linkLocalAddress() throws Exception {
+        final NetworkCallback callback = setupCallback();
+
+        final Network testNetwork1 = mock(Network.class);
+        final Network testNetwork2 = mock(Network.class);
+
+        final LinkProperties lp1 = new LinkProperties();
+        lp1.addLinkAddress(new LinkAddress("fe80::123/64"));
+        lp1.setInterfaceName("wrongiface");
+        final LinkProperties lp2 = new LinkProperties();
+        // Use an interface that is known to exist
+        lp2.setInterfaceName("lo");
+
+        callback.onLinkPropertiesChanged(testNetwork1, lp1);
+        callback.onLinkPropertiesChanged(testNetwork2, lp2);
+
+        assertEquals(testNetwork2, monitor.guessNetworkOfRemoteHost(
+                List.of(new NetworkInterfaceWrapper(NetworkInterface.getByName("lo"))),
+                parseNumericAddress("fe80::124%lo")));
     }
 
     private void verifyNetworkCallbackRegistered(int time) {

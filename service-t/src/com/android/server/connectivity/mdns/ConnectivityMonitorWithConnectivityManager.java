@@ -16,16 +16,28 @@
 
 package com.android.server.connectivity.mdns;
 
+import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.net.ConnectivityManager;
+import android.net.IpPrefix;
+import android.net.LinkProperties;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkRequest;
 import android.os.Build;
+import android.util.ArrayMap;
 
+import androidx.annotation.GuardedBy;
+
+import com.android.net.module.util.CollectionUtils;
 import com.android.net.module.util.SharedLog;
+
+import java.net.Inet6Address;
+import java.net.InetAddress;
+import java.util.List;
+import java.util.function.Predicate;
 
 /** Class for monitoring connectivity changes using {@link ConnectivityManager}. */
 public class ConnectivityMonitorWithConnectivityManager implements ConnectivityMonitor {
@@ -34,6 +46,8 @@ public class ConnectivityMonitorWithConnectivityManager implements ConnectivityM
     private final Listener listener;
     private final ConnectivityManager.NetworkCallback networkCallback;
     private final ConnectivityManager connectivityManager;
+    @GuardedBy("knownNetworks")
+    private final ArrayMap<Network, LinkProperties> knownNetworks = new ArrayMap<>();
     // TODO(b/71901993): Ideally we shouldn't need this flag. However we still don't have clues why
     // the receiver is unregistered twice yet.
     private boolean isCallbackRegistered = false;
@@ -51,15 +65,26 @@ public class ConnectivityMonitorWithConnectivityManager implements ConnectivityM
         networkCallback =
                 new ConnectivityManager.NetworkCallback() {
                     @Override
-                    public void onAvailable(Network network) {
-                        sharedLog.log("network available.");
-                        lastAvailableNetwork = network;
-                        notifyConnectivityChange();
+                    public void onLinkPropertiesChanged(
+                            @NonNull Network network,
+                            @NonNull LinkProperties linkProperties) {
+                        final boolean newNetwork;
+                        synchronized (knownNetworks) {
+                            newNetwork = knownNetworks.put(network, linkProperties) == null;
+                        }
+                        if (newNetwork) {
+                            sharedLog.log("network available: " + network);
+                            lastAvailableNetwork = network;
+                            notifyConnectivityChange();
+                        }
                     }
 
                     @Override
                     public void onLost(Network network) {
-                        sharedLog.log("network lost.");
+                        sharedLog.log("network lost: " + network);
+                        synchronized (knownNetworks) {
+                            knownNetworks.remove(network);
+                        }
                         notifyConnectivityChange();
                     }
 
@@ -105,6 +130,9 @@ public class ConnectivityMonitorWithConnectivityManager implements ConnectivityM
         }
 
         connectivityManager.unregisterNetworkCallback(networkCallback);
+        synchronized (knownNetworks) {
+            knownNetworks.clear();
+        }
         isCallbackRegistered = false;
     }
 
@@ -112,5 +140,58 @@ public class ConnectivityMonitorWithConnectivityManager implements ConnectivityM
     @Nullable
     public Network getAvailableNetwork() {
         return lastAvailableNetwork;
+    }
+
+    /**
+     * Try to guess which network a remote host may be in.
+     *
+     * <p>This is not a perfect guess as it depends on the timing of LinkProperties updates and
+     * interfaces going up/down. Also, it is possible that two interfaces have overlapping prefixes,
+     * so it is not possible to know which one is correct from just an address. This is intended as
+     * an incremental improvement for legacy code that cannot use MdnsSocketProvider, which uses
+     * per-Network sockets to avoid this problem.
+     *
+     * @param address The address of a remote host.
+     * @return The Network if it could be determined, or null otherwise.
+     */
+    @Nullable
+    public Network guessNetworkOfRemoteHost(@NonNull List<NetworkInterfaceWrapper> knownIfaces,
+            @NonNull InetAddress address) {
+        if (address.isLinkLocalAddress()) {
+            final int scopeId = ((Inet6Address) address).getScopeId();
+            for (NetworkInterfaceWrapper iface : knownIfaces) {
+                if (iface.getIndex() == scopeId) {
+                    return getNetworkForInterface(iface.getNetworkInterface().getName());
+                }
+            }
+            return null;
+        }
+        return findMatchingNetwork(lp -> CollectionUtils.any(lp.getLinkAddresses(), la -> {
+            final IpPrefix prefix = new IpPrefix(la.getAddress(), la.getPrefixLength());
+            return prefix.contains(address);
+        }));
+    }
+
+    @Nullable
+    private Network getNetworkForInterface(@Nullable String ifaceName) {
+        if (ifaceName == null) {
+            android.util.Log.i(TAG, "No interface name");
+            return null;
+        }
+        return findMatchingNetwork(lp -> ifaceName.equals(lp.getInterfaceName()));
+    }
+
+    private Network findMatchingNetwork(@NonNull Predicate<LinkProperties> predicate) {
+        synchronized (knownNetworks) {
+            for (int i = 0; i < knownNetworks.size(); i++) {
+                final LinkProperties lp = knownNetworks.valueAt(i);
+                // Do not consider stacked links (lp.getAllInterfaceNames), as they are generally
+                // not compatible with MDNS, and this is consistent with MdnsSocketProvider.
+                if (predicate.test(lp)) {
+                    return knownNetworks.keyAt(i);
+                }
+            }
+        }
+        return null;
     }
 }
