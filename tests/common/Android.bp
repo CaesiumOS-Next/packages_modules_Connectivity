@@ -94,7 +94,6 @@ android_test {
     name: "ConnectivityCoverageTests",
     // Tethering started on SDK 30
     min_sdk_version: "30",
-    certificate: "platform",
     test_suites: [
         "general-tests",
         "mts-tethering",
