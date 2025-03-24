@@ -22,6 +22,30 @@
       },
       "revId": "37f5589b1b5fb6c886363e7c8d88795b1306acf6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5ba3fc3_eab568de",
+        "filename": "tests/common/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-24T05:50:33Z",
+      "side": 1,
+      "message": "Okay so this concretely, this has a bunch of issues. It will :\n- change considerably what permissions this test package can get (likely causing a lot of failures)\n- cause more packages to be signed with the OEM cert (increasing attack surface, because if anybody obtains such a package and it contains a vulnerability, they can now leverage that signature)\n- be really difficult to walk back (once the package has this superpower and tests use it, you\u0027d have to rewrite all tests using it to remove it)\n\nBut there is also an overwhelming reason why we can\u0027t do this : this package is used in MTS. MTS are compiled once and installed as binary on OEM devices. But the platform cert is OEM- (and sometimes device-) specific. So if you build this MTS package with the Pixel cert you can\u0027t install it on some other OEM device, so you can no longer run MTS.",
+      "parentUuid": "60c55566_2b01fd20",
+      "range": {
+        "startLine": 97,
+        "startChar": 18,
+        "endLine": 97,
+        "endChar": 26
+      },
+      "revId": "37f5589b1b5fb6c886363e7c8d88795b1306acf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
