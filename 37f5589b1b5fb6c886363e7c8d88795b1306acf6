@@ -118,6 +118,30 @@
       },
       "revId": "37f5589b1b5fb6c886363e7c8d88795b1306acf6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31a0835e_39a4d8e5",
+        "filename": "tests/common/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 3485374
+      },
+      "writtenOn": "2025-03-24T20:41:11Z",
+      "side": 1,
+      "message": "I took all the changes from aosp/3558383 in this CL but it still shows the same \"access denied\" error.",
+      "parentUuid": "540ccf89_e1e167e6",
+      "range": {
+        "startLine": 97,
+        "startChar": 18,
+        "endLine": 97,
+        "endChar": 26
+      },
+      "revId": "37f5589b1b5fb6c886363e7c8d88795b1306acf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
