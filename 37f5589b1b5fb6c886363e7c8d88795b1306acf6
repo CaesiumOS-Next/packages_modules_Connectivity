@@ -94,6 +94,30 @@
       },
       "revId": "37f5589b1b5fb6c886363e7c8d88795b1306acf6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "540ccf89_e1e167e6",
+        "filename": "tests/common/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 3485374
+      },
+      "writtenOn": "2025-03-24T17:53:30Z",
+      "side": 1,
+      "message": "These tests are passing because I\u0027ve mocked the compatChangeEnabled method currently for all tests. \nIf I remove the mocking and try to use the PlatformCompatChangeRule instead (changes in this CL), all these tests fail with Access denied error. \n\nAdding platform certificate as a fix is not suggested here. \nIs there some other way to pass these tests without mocking the compatChangeEnabled method ?",
+      "parentUuid": "3be68b30_533b1c1b",
+      "range": {
+        "startLine": 97,
+        "startChar": 18,
+        "endLine": 97,
+        "endChar": 26
+      },
+      "revId": "37f5589b1b5fb6c886363e7c8d88795b1306acf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
