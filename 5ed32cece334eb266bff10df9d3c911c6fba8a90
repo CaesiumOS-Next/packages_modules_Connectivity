@@ -33,6 +33,24 @@
       "message": "This also fixed b/405343606",
       "revId": "5ed32cece334eb266bff10df9d3c911c6fba8a90",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4b77348_9e5f9655",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-03-25T21:35:39Z",
+      "side": 1,
+      "message": "Reverting this change is not a solution, the change ensure local network calls are blocked for any application that do not have required permission. The processes running as system uid or application targeting sdk 36 or lower would not be opted into this feature. The fix is granting the required permission to the test case.",
+      "parentUuid": "2f81fb5a_2cbb380b",
+      "revId": "5ed32cece334eb266bff10df9d3c911c6fba8a90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
