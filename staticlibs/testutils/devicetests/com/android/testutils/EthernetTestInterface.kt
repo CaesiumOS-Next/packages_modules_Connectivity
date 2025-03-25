@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package android.net.cts.util
+package com.android.testutils
 
 import android.Manifest.permission.NETWORK_SETTINGS
 import android.content.Context
