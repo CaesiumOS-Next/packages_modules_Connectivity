@@ -730,12 +730,12 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         }
 
         mSkDestroyListener = mDeps.makeSkDestroyListener((message) -> {
-            final StructInetDiagSockId sockId = message.inetDiagMsg.id;
-            try {
-                mCookieTagMap.deleteEntry(new CookieTagMapKey(sockId.cookie));
-            } catch (ErrnoException e) {
-                Log.e(TAG, "Failed to delete CookieTagMap entry for " + sockId.cookie  + ": " + e);
-            }
+            // final StructInetDiagSockId sockId = message.inetDiagMsg.id;
+            // try {
+            //     mCookieTagMap.deleteEntry(new CookieTagMapKey(sockId.cookie));
+            // } catch (ErrnoException e) {
+            //     Log.e(TAG, "Failed to delete CookieTagMap entry for " + sockId.cookie  + ": " + e);
+            // }
         }, mHandler);
         mHandler.post(mSkDestroyListener::start);
     }
