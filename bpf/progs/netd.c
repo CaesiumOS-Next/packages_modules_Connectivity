@@ -758,7 +758,7 @@ DEFINE_XTBPF_PROG("skfilter/denylist/xtbpf", xt_bpf_denylist_prog)
     return XTBPF_NOMATCH;
 }
 
-static __always_inline inline uint8_t get_app_permissions() {
+static __always_inline inline bool has_internet_permission() {
     uint64_t gid_uid = bpf_get_current_uid_gid();
     /*
      * A given app is guaranteed to have the same app ID in all the profiles in
@@ -769,12 +769,12 @@ static __always_inline inline uint8_t get_app_permissions() {
     uint32_t appId = (gid_uid & 0xffffffff) % AID_USER_OFFSET;  // == PER_USER_RANGE == 100000
     uint8_t* permissions = bpf_uid_permission_map_lookup_elem(&appId);
     // if UID not in map, then default to just INTERNET permission.
-    return permissions ? *permissions : BPF_PERMISSION_INTERNET;
+    return permissions ? (*permissions & BPF_PERMISSION_INTERNET) : true;
 }
 
 DEFINE_NETD_BPF_PROG_KVER("cgroupsock/inet_create", inet_socket_create, KVER_4_14)
 (__unused struct bpf_sock* sk) {
-    return (get_app_permissions() & BPF_PERMISSION_INTERNET) ? BPF_ALLOW : BPF_DISALLOW;
+    return has_internet_permission() ? BPF_ALLOW : BPF_DISALLOW;
 }
 
 DEFINE_NETD_BPF_PROG_KVER("cgroupsockrelease/inet_release", inet_socket_release, KVER_5_10)
