@@ -772,7 +772,15 @@ static __always_inline inline bool has_internet_permission() {
     return permissions ? (*permissions & BPF_PERMISSION_INTERNET) : true;
 }
 
-DEFINE_NETD_BPF_PROG_KVER("cgroupsock/inet_create", inet_socket_create, KVER_4_14)
+DEFINE_NETD_BPF_PROG_KVER("cgroupsock/inet_create$5_10", inet_socket_create, KVER_5_10)
+(__unused struct bpf_sock* sk) {
+    SkStorageValue *v = bpf_test_sk_map_get(sk, 0, BPF_SK_STORAGE_GET_F_CREATE);
+    if (v) v->cookie = bpf_get_sk_cookie(sk);
+    return has_internet_permission() ? BPF_ALLOW : BPF_DISALLOW;
+}
+
+DEFINE_NETD_BPF_PROG_KVER_RANGE("cgroupsock/inet_create$4_14",
+                                inet_socket_create, KVER_4_14, KVER_5_10)
 (__unused struct bpf_sock* sk) {
     return has_internet_permission() ? BPF_ALLOW : BPF_DISALLOW;
 }
