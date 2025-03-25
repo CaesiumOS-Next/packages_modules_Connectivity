@@ -16,9 +16,13 @@
 
 package com.android.server
 
+import android.Manifest
 import android.app.AlarmManager
 import android.app.AppOpsManager
+import android.app.Instrumentation
+import android.app.UiAutomation
 import android.bluetooth.BluetoothManager
+import android.compat.testing.PlatformCompatChangeRule
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -73,7 +77,6 @@ import com.android.server.connectivity.MulticastRoutingCoordinatorService
 import com.android.server.connectivity.MultinetworkPolicyTracker
 import com.android.server.connectivity.MultinetworkPolicyTrackerTestDependencies
 import com.android.server.connectivity.NetworkRequestStateStatsMetrics
-import com.android.server.connectivity.PermissionMonitor
 import com.android.server.connectivity.ProxyTracker
 import com.android.server.connectivity.SatelliteAccessController
 import com.android.testutils.visibleOnHandlerThread
@@ -137,6 +140,9 @@ private fun NetworkCapabilities.getLegacyType() =
 open class CSTest {
     @get:Rule
     val testNameRule = TestName()
+
+    @get:Rule
+    val compatChangeRule: PlatformCompatChangeRule = PlatformCompatChangeRule()
 
     companion object {
         val CSTestExecutor = Executors.newSingleThreadExecutor()
@@ -221,7 +227,6 @@ open class CSTest {
     val destroySocketsWrapper = mock<DestroySocketsWrapper>()
 
     val deps = CSDeps()
-    val permDeps = PermDeps()
 
     // Initializations that start threads are done from setUp to avoid thread leak
     lateinit var alarmHandlerThread: HandlerThread
@@ -242,6 +247,14 @@ open class CSTest {
 
     @Before
     fun setUp() {
+        // this is normally done as part of PlatformCompatChangeRule evalute
+        // but we need to do it before we construct ConnectivityService
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val uiAutomation = instrumentation.getUiAutomation()
+        uiAutomation.adoptShellPermissionIdentity(
+            Manifest.permission.LOG_COMPAT_CHANGE,
+            Manifest.permission.READ_COMPAT_CHANGE_CONFIG)
+
         // Set feature flags before constructing ConnectivityService
         val testMethodName = testNameRule.methodName
         try {
@@ -258,7 +271,7 @@ open class CSTest {
 
         alarmHandlerThread = HandlerThread("TestAlarmManager").also { it.start() }
         alarmManager = makeMockAlarmManager(alarmHandlerThread)
-        service = makeConnectivityService(context, netd, deps, permDeps).also {
+        service = makeConnectivityService(context, netd, deps).also {
             it.systemReadyInternal()
         }
         cm = ConnectivityManager(context, service)
@@ -408,10 +421,6 @@ open class CSTest {
         }
 
         override fun makeL2capNetworkProvider(context: Context) = null
-    }
-
-    inner class PermDeps : PermissionMonitor.Dependencies() {
-        override fun shouldEnforceLocalNetRestrictions(uid: Int) = false
     }
 
     inner class CSContext(base: Context) : BroadcastInterceptingContext(base) {
