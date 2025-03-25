@@ -19,6 +19,13 @@ package {
 }
 
 install_symlink {
+    name: "platform_bpftool_symlink",
+
+    symlink_target: "/apex/com.android.tethering/bin/bpftool",
+    installed_location: "bin/bpftool",
+}
+
+install_symlink {
     name: "mainline_tethering_platform_components",
 
     symlink_target: "/apex/com.android.tethering/bin/ethtool",
@@ -27,7 +34,10 @@ install_symlink {
     installed_location: "bin/ethtool",
 
     init_rc: ["netbpfload.rc"],
-    required: ["bpfloader"],
+    required: [
+        "bpfloader",
+        "platform_bpftool_symlink",
+    ],
 }
 
 cc_binary {
