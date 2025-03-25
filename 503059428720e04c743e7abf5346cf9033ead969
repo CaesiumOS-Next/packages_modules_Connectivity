@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4cbc84ec_d6185550",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 986,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-03-25T19:04:17Z",
+      "side": 1,
+      "message": "this is new.",
+      "range": {
+        "startLine": 986,
+        "startChar": 12,
+        "endLine": 986,
+        "endChar": 63
+      },
+      "revId": "503059428720e04c743e7abf5346cf9033ead969",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45865aa3_ef2011a7",
+        "filename": "service-t/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1029,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-03-25T19:04:17Z",
+      "side": 1,
+      "message": "this is new. Rest of the function is copied wholesale.",
+      "range": {
+        "startLine": 1027,
+        "startChar": 12,
+        "endLine": 1029,
+        "endChar": 29
+      },
+      "revId": "503059428720e04c743e7abf5346cf9033ead969",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
