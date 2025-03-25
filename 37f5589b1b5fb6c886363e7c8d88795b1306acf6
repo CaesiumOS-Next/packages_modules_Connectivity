@@ -166,6 +166,30 @@
       },
       "revId": "37f5589b1b5fb6c886363e7c8d88795b1306acf6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5a577cd_8eeeacaf",
+        "filename": "tests/common/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 3485374
+      },
+      "writtenOn": "2025-03-25T15:43:49Z",
+      "side": 1,
+      "message": "So Afaiu, there are 2 solutions here -\n1. Either keep mocking the compatChanges. This makes sense for the unit tests because unit tests are meant to only test the logic in that service with all outer entities mocked. \n2. Refactor the tests so that for every test, the ConnectivityService is started after the adoptShellPermissionIdentity has been run by the rule in the setup.\n\nI\u0027ll prefer keeping the mocking here for these unit tests. @jchalard@google.com WDYS?",
+      "parentUuid": "fb1404c9_cdeab21c",
+      "range": {
+        "startLine": 97,
+        "startChar": 18,
+        "endLine": 97,
+        "endChar": 26
+      },
+      "revId": "37f5589b1b5fb6c886363e7c8d88795b1306acf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
