@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package android.net.cts.util
+package com.android.testutils
 
 import android.Manifest.permission.NETWORK_SETTINGS
 import android.content.Context
@@ -28,9 +28,6 @@ import android.net.cts.util.EthernetTestInterface.EthernetStateListener.Callback
 import android.os.Handler
 import android.util.Log
 import com.android.net.module.util.ArrayTrackRecord
-import com.android.testutils.PollPacketReader
-import com.android.testutils.runAsShell
-import com.android.testutils.waitForIdle
 import java.net.NetworkInterface
 import kotlin.concurrent.Volatile
 import kotlin.test.assertNotNull
