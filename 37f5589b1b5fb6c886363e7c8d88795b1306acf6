@@ -142,6 +142,30 @@
       },
       "revId": "37f5589b1b5fb6c886363e7c8d88795b1306acf6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb1404c9_cdeab21c",
+        "filename": "tests/common/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1826738
+      },
+      "writtenOn": "2025-03-25T15:18:42Z",
+      "side": 1,
+      "message": "FYI I caught up with Neha. This doesn\u0027t need a cert change, but in that case we are dependent on adoptShellPermissionIdentity, which is run as part of evaluate() within the PlatformCompatChangeRule.\n\nThat needs the permissions defined in AndroidManifest_coverage.xml, but there\u0027s also a remaining issue that the tests start the ConnectivityService during setUp(), and this triggers the compat change - and this is before adoptShellPermissionIdentity has been run by the rule. adoptShellPermissionIdentity needs to be run before ConnectivityService is started.",
+      "parentUuid": "31a0835e_39a4d8e5",
+      "range": {
+        "startLine": 97,
+        "startChar": 18,
+        "endLine": 97,
+        "endChar": 26
+      },
+      "revId": "37f5589b1b5fb6c886363e7c8d88795b1306acf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
