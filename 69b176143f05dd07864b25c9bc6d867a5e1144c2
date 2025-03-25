@@ -88,6 +88,30 @@
       },
       "revId": "69b176143f05dd07864b25c9bc6d867a5e1144c2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb8e7acd_27664eae",
+        "filename": "tests/cts/net/api23Test/AndroidTest.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-03-25T07:42:40Z",
+      "side": 1,
+      "message": "If we don\u0027t ignore the mobile data check this test can only be run on a SIM cluster, so this restricts a lot which test benches can run it.\n\nIf we need mobile data there should be a SIM_CARD metatadata tag in this file. So having it setup like this SGTM.",
+      "parentUuid": "083de244_eebc1544",
+      "range": {
+        "startLine": 30,
+        "startChar": 22,
+        "endLine": 30,
+        "endChar": 47
+      },
+      "revId": "69b176143f05dd07864b25c9bc6d867a5e1144c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
