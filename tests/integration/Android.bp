@@ -54,6 +54,7 @@ android_test {
         "service-connectivity-pre-jarjar",
         "service-connectivity-tiramisu-pre-jarjar",
         "services.net",
+        "platform-compat-test-rules",
         "testables",
     ],
     test_suites: ["device-tests"],

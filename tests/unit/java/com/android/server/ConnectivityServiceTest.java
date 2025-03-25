@@ -24,12 +24,14 @@ import static android.Manifest.permission.CREATE_USERS;
 import static android.Manifest.permission.DUMP;
 import static android.Manifest.permission.GET_INTENT_SENDER_INTENT;
 import static android.Manifest.permission.LOCAL_MAC_ADDRESS;
+import static android.Manifest.permission.LOG_COMPAT_CHANGE;
 import static android.Manifest.permission.MANAGE_TEST_NETWORKS;
 import static android.Manifest.permission.NETWORK_FACTORY;
 import static android.Manifest.permission.NETWORK_SETTINGS;
 import static android.Manifest.permission.NETWORK_SETUP_WIZARD;
 import static android.Manifest.permission.NETWORK_STACK;
 import static android.Manifest.permission.PACKET_KEEPALIVE_OFFLOAD;
+import static android.Manifest.permission.READ_COMPAT_CHANGE_CONFIG;
 import static android.Manifest.permission.READ_DEVICE_CONFIG;
 import static android.Manifest.permission.STATUS_BAR_SERVICE;
 import static android.app.ActivityManager.UidFrozenStateChangedCallback.UID_FROZEN_STATE_FROZEN;
@@ -248,8 +250,10 @@ import android.app.ActivityManager.UidFrozenStateChangedCallback;
 import android.app.AlarmManager;
 import android.app.AppOpsManager;
 import android.app.BroadcastOptions;
+import android.app.Instrumentation;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.UiAutomation;
 import android.app.admin.DevicePolicyManager;
 import android.app.usage.NetworkStatsManager;
 import android.compat.testing.PlatformCompatChangeRule;
@@ -590,7 +594,6 @@ public class ConnectivityServiceTest {
     private MockContext mServiceContext;
     private HandlerThread mCsHandlerThread;
     private ConnectivityServiceDependencies mDeps;
-    private PermissionMonitorDependencies mPermDeps;
     private AutomaticOnOffKeepaliveTrackerDependencies mAutoOnOffKeepaliveDependencies;
     private ConnectivityService mService;
     private WrappedConnectivityManager mCm;
@@ -1858,6 +1861,14 @@ public class ConnectivityServiceTest {
 
     @Before
     public void setUp() throws Exception {
+        // this is normally done as part of PlatformCompatChangeRule evalute
+        // but we need to do it before we construct ConnectivityService
+        Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
+        UiAutomation uiAutomation = instrumentation.getUiAutomation();
+        uiAutomation.adoptShellPermissionIdentity(
+            LOG_COMPAT_CHANGE,
+            READ_COMPAT_CHANGE_CONFIG);
+
         mNetIdManager = new TestNetIdManager();
 
         mContext = InstrumentationRegistry.getContext();
@@ -1918,7 +1929,6 @@ public class ConnectivityServiceTest {
         doReturn(mResources).when(mockResContext).getResources();
         ConnectivityResources.setResourcesContextForTest(mockResContext);
         mDeps = new ConnectivityServiceDependencies(mockResContext);
-        mPermDeps = new PermissionMonitorDependencies();
         doReturn(true).when(mMockKeepaliveTrackerDependencies)
                 .isAddressTranslationEnabled(mServiceContext);
         doReturn(new ConnectivityResources(mockResContext)).when(mMockKeepaliveTrackerDependencies)
@@ -1931,7 +1941,7 @@ public class ConnectivityServiceTest {
                 mMockDnsResolver,
                 mock(IpConnectivityLog.class),
                 mMockNetd,
-                mDeps, mPermDeps);
+                mDeps);
         mService.mLingerDelayMs = TEST_LINGER_DELAY_MS;
         mService.mNascentDelayMs = TEST_NASCENT_DELAY_MS;
 
@@ -2390,14 +2400,6 @@ public class ConnectivityServiceTest {
             return null;
         }
     }
-
-    static class PermissionMonitorDependencies extends PermissionMonitor.Dependencies {
-        @Override
-        public boolean shouldEnforceLocalNetRestrictions(int uid) {
-            return false;
-        }
-    }
-
     private class AutomaticOnOffKeepaliveTrackerDependencies
             extends AutomaticOnOffKeepaliveTracker.Dependencies {
         AutomaticOnOffKeepaliveTrackerDependencies(Context context) {
