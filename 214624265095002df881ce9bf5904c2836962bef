@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f6952d8_8b2232cb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-03-25T02:33:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c64fd17_8c525f33",
+      "range": {
+        "startLine": 7,
+        "startChar": 30,
+        "endLine": 7,
+        "endChar": 32
+      },
+      "revId": "214624265095002df881ce9bf5904c2836962bef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e605ee63_40335bba",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-03-25T00:23:30Z",
       "side": 1,
       "message": "Maybe want to add verify(interfacetracker).addInterface\n\nBetter yet, use an InOrder to check the order the order of the calls",
+      "range": {
+        "startLine": 84,
+        "startChar": 11,
+        "endLine": 84,
+        "endChar": 35
+      },
+      "revId": "214624265095002df881ce9bf5904c2836962bef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53c64261_f2f6c1fa",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSInterfaceTrackerTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-03-25T02:33:01Z",
+      "side": 1,
+      "message": "Thanks for pointing out the inorder checking, added it here!",
+      "parentUuid": "e605ee63_40335bba",
       "range": {
         "startLine": 84,
         "startChar": 11,
