@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50df03f1_0370a6c7",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 786,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-03-25T09:24:58Z",
+      "side": 1,
+      "message": "use a helper function\n\nie.\ninet_sock_create() {\n}\n{\nreturn inet_sock_create(sk, KVER_5_10);\n}\n{\nreturn inet_sock_create(sk, KVER_4_14);\n}\n\nit will be easier to get consistent behaviour as what we need to do grows in scope",
+      "range": {
+        "startLine": 775,
+        "startChar": 0,
+        "endLine": 786,
+        "endChar": 1
+      },
+      "revId": "53a3aa278a878aa3adb9043096138f498e027233",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
