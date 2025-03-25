@@ -794,8 +794,8 @@ DEFINE_NETD_BPF_PROG_KVER_RANGE("cgroupsock/inet_create$4_14",
 
 DEFINE_NETD_BPF_PROG_KVER("cgroupsockrelease/inet_release", inet_socket_release, KVER_5_10)
 (struct bpf_sock* sk) {
-    uint64_t cookie = bpf_get_sk_cookie(sk);
-    if (cookie) bpf_cookie_tag_map_delete_elem(&cookie);
+    SkStorageValue *v = bpf_sk_storage_get(sk, 0, 0);
+    if (v) bpf_cookie_tag_map_delete_elem(&v->cookie);
 
     return 1;
 }
