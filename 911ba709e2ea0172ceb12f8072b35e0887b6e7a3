@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aaad1e09_7310eb33",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 767,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-25T09:00:14Z",
+      "side": 1,
+      "message": "Okay so I should have caught this last time, but I don\u0027t see a lot of value in this way of testing it. This is just a method that sets a static flag (which by the way is really dangerous and confusing), and you\u0027re calling it immediately from the test as is and testing the static member, so... you\u0027re testing one line of production code and two dozen lines of test code ?",
+      "range": {
+        "startLine": 767,
+        "startChar": 68,
+        "endLine": 767,
+        "endChar": 84
+      },
+      "revId": "911ba709e2ea0172ceb12f8072b35e0887b6e7a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffc1b2c7_4df20b6b",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 779,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-25T09:00:14Z",
+      "side": 1,
+      "message": "forcefully\n\n(if it was just \"by default\" it would not still be true after you call the setter)",
+      "range": {
+        "startLine": 779,
+        "startChar": 30,
+        "endLine": 779,
+        "endChar": 40
+      },
+      "revId": "911ba709e2ea0172ceb12f8072b35e0887b6e7a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
