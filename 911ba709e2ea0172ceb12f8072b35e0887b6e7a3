@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7bc0102f_f51a4ee9",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 767,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-26T03:28:42Z",
+      "side": 1,
+      "message": "I spoke with @markchien@google.com regarding the static member. He mentioned that Lorenzo suggested this flag should only be read once after the device boots. However, I believe moving this flag to Tethering class could achieve the same result without requiring a static field. Since this change is intended to address the leftover comments, I can create a separate change to implement that if you think it\u0027s worthwhile.",
+      "parentUuid": "aaad1e09_7310eb33",
+      "range": {
+        "startLine": 767,
+        "startChar": 68,
+        "endLine": 767,
+        "endChar": 84
+      },
+      "revId": "911ba709e2ea0172ceb12f8072b35e0887b6e7a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ffc1b2c7_4df20b6b",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-03-25T09:00:14Z",
       "side": 1,
       "message": "forcefully\n\n(if it was just \"by default\" it would not still be true after you call the setter)",
+      "range": {
+        "startLine": 779,
+        "startChar": 30,
+        "endLine": 779,
+        "endChar": 40
+      },
+      "revId": "911ba709e2ea0172ceb12f8072b35e0887b6e7a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ab5eda6_bc499cef",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 779,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-26T03:28:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ffc1b2c7_4df20b6b",
       "range": {
         "startLine": 779,
         "startChar": 30,
