@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91e4ab3b_2c5ac4ba",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-26T21:58:04Z",
+      "side": 1,
+      "message": "NewAPI error is not fixed yet",
+      "revId": "7096d65d592dfcca7a89c33bea57ee16fa424812",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
