@@ -45,6 +45,30 @@
       },
       "revId": "d976287d037ec60645c7fa2f6088cc6c1ba94139",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc71a8ef_c18c2dc7",
+        "filename": "service/src/com/android/server/connectivity/QuicConnectionCloser.java",
+        "patchSetId": 54
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-26T06:44:36Z",
+      "side": 1,
+      "message": "Per discussion, if you have a test that can reproduce this race, then the post is likely necessary, even though this code runs on the SkDestroyListener\u0027s thread. So perhaps we could expaned the comment to say:\n\n\u003d\u003d\u003d\n\nhandleUdpSocketDestroy must be posted to the thread to avoid racing with handleUnregisterQuicConnectionCloseInfo, even though they both run on the same thread. Specifically, the following can happen:\n\n- unregisterQuicConnectionClosePayload posts handleUnregisterQuicConnectionCloseInfo to the handler and then closes the fd.\n- The close() will cause the kernel to enqueue a netlink message to the SkDestroyHandler\u0027s fd\n- It\u0027s possible that the MessageQueue of the handler sees both the SkDestroyHandler\u0027s fd and the MessageQueue fd go active at the same time, and chooses to run the netlink event first.\n- As a result, handleUdpSocketDestroy runs before handleUnregisterQuicConnectionCloseInfo, and the code incorrectly sends a close packet for a socket that the app has already unregistered.\n\nPosting handleUdpSocketDestroy to the handler ensures that it always runs after handleUnregisterQuicConnectionCloseInfo. It doesn\u0027t matter if the handleUdpSocketDestroy is delayed, because it will only send a packet if mRegisteredQuicConnectionCloseInfos contains the socket cookie, and socket cookies are never reused.",
+      "parentUuid": "dfe0f3d4_330f18a8",
+      "range": {
+        "startLine": 197,
+        "startChar": 45,
+        "endLine": 197,
+        "endChar": 49
+      },
+      "revId": "d976287d037ec60645c7fa2f6088cc6c1ba94139",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

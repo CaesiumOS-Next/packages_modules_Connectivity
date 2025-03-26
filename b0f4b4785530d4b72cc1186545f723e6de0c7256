@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fbbc2b3d_6e1c16af",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 55
+      },
+      "lineNbr": 6882,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-26T06:44:36Z",
+      "side": 1,
+      "message": ", even if first calls unregisterQuicConnectionClosePayload. This is because this method operates asynchronously.",
+      "range": {
+        "startLine": 6882,
+        "startChar": 28,
+        "endLine": 6882,
+        "endChar": 29
+      },
+      "revId": "b0f4b4785530d4b72cc1186545f723e6de0c7256",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e28670e3_f924728e",
+        "filename": "service/src/com/android/server/connectivity/QuicConnectionCloser.java",
+        "patchSetId": 55
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-26T06:44:36Z",
+      "side": 1,
+      "message": "You might want to mention what can happen to mNetworkForNetId while this code is running. Perhaps say something like (assuming it\u0027s correct):\n\n    // This code runs on the ConnectivityService handler thread. The only code that can\n    // remove entries from mNetworkForNetId runs on that thread, so no entries can be\n    // removed from mNetworkForNetId while the code in this class is running.",
+      "range": {
+        "startLine": 71,
+        "startChar": 88,
+        "endLine": 71,
+        "endChar": 89
+      },
+      "revId": "b0f4b4785530d4b72cc1186545f723e6de0c7256",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
