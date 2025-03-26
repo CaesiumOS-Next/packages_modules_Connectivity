@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f3762f0_09ee2260",
+        "filename": "service/src/com/android/server/connectivity/QuicConnectionCloser.java",
+        "patchSetId": 54
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-26T06:07:22Z",
+      "side": 1,
+      "message": "Nit: unless the linter complains, would rename to getsockoptInt to match the name of the Os function. Same for getsockname and getpeername below.",
+      "range": {
+        "startLine": 161,
+        "startChar": 19,
+        "endLine": 161,
+        "endChar": 32
+      },
+      "revId": "d976287d037ec60645c7fa2f6088cc6c1ba94139",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dfe0f3d4_330f18a8",
+        "filename": "service/src/com/android/server/connectivity/QuicConnectionCloser.java",
+        "patchSetId": 54
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-03-26T06:07:22Z",
+      "side": 1,
+      "message": "Why is there a post here?\n\nIf the post is only to ensure that handleUdpSocketDestroy runs on |handler|, then that is already guaranteed to happen:\n- This lambda becomes udpSkDestroyListener.mSkDestroyCallback.\n- mSkDestroyCallback is only ever called by processNetlinkMessage\n- processNetlinkMessage runs on the same thread as |handler|, because FdEventsReader calls addOnFileDescriptorEventListener on the MessageQueue that it gets using mHandler.getLooper().getQueue().\n\nIf the post is needed for some other reason, then maybe update the comment?",
+      "range": {
+        "startLine": 197,
+        "startChar": 45,
+        "endLine": 197,
+        "endChar": 49
+      },
+      "revId": "d976287d037ec60645c7fa2f6088cc6c1ba94139",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
