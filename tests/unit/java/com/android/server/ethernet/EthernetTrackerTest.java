@@ -42,6 +42,7 @@ import android.os.RemoteException;
 
 import androidx.test.filters.SmallTest;
 
+import com.android.server.ethernet.EthernetTracker.DEFAULT_CAPABILITIES;
 import com.android.server.ethernet.EthernetTracker.EthernetConfigParser;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
@@ -185,7 +186,7 @@ public class EthernetTrackerTest {
 
         // On Android B+, "*" defaults to using DEFAULT_CAPABILITIES.
         p = new EthernetConfigParser("eth0;*;;;;;;", true /*isAtLeastB*/);
-        assertThat(p.mCaps).isEqualTo(EthernetTracker.DEFAULT_CAPABILITIES);
+        assertThat(p.mCaps).isEqualTo(DEFAULT_CAPABILITIES);
 
         // But not so before B.
         p = new EthernetConfigParser("eth0;*", false /*isAtLeastB*/);
@@ -205,10 +206,24 @@ public class EthernetTrackerTest {
         // TRANSPORT_VPN (4) is not allowed.
         p = new EthernetConfigParser("eth0;;;4", false /*isAtLeastB*/);
         assertThat(p.mCaps.hasSingleTransport(NetworkCapabilities.TRANSPORT_ETHERNET)).isTrue();
+        p = new EthernetConfigParser("eth0;*;;4", true /*isAtLeastB*/);
+        assertThat(p.mCaps.hasSingleTransport(NetworkCapabilities.TRANSPORT_ETHERNET)).isTrue();
 
         // invalid capability and transport type
         p = new EthernetConfigParser("eth0;-1,a,1000,,;;-1", false /*isAtLeastB*/);
         assertThat(p.mCaps).isEqualTo(baseNc);
+
+        p = new EthernetConfigParser("eth0;*;;0", false /*isAtLeastB*/);
+        assertThat(p.mCaps.hasSingleTransport(NetworkCapabilities.TRANSPORT_CELLULAR)).isTrue();
+        p = new EthernetConfigParser("eth0;*;;0", true /*isAtLeastB*/);
+        assertThat(p.mCaps.hasSingleTransport(NetworkCapabilities.TRANSPORT_CELLULAR)).isTrue();
+
+        NetworkCapabilities nc = new NetworkCapabilities.Builder(DEFAULT_CAPABILITIES)
+                .removeTransportType(NetworkCapabilities.TRANSPORT_ETHERNET)
+                .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
+                .build();
+        p = new EthernetConfigParser("eth0;*;;0", true /*isAtLeastB*/);
+        assertThat(p.mCaps).isEqualTo(nc);
     }
 
     @Test
