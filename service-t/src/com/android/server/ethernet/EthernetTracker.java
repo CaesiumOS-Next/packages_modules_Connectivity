@@ -1035,7 +1035,8 @@ public class EthernetTracker {
             final NetworkCapabilities nc =
                     parseCapabilities(tokens.length > 1 ? tokens[1] : null, isAtLeastB);
             final int transportType = parseTransportType(tokens.length > 3 ? tokens[3] : null);
-            nc.addTransportType(transportType);
+            // Remove old TRANSPORT_ETHERNET first to override with transportType.
+            nc.removeTransportType(TRANSPORT_ETHERNET).addTransportType(transportType);
             mCaps = nc;
 
             mIpConfig = parseStaticIpConfiguration(tokens.length > 2 ? tokens[2] : null);
