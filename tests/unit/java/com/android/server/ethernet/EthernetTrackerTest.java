@@ -209,6 +209,13 @@ public class EthernetTrackerTest {
         // invalid capability and transport type
         p = new EthernetConfigParser("eth0;-1,a,1000,,;;-1", false /*isAtLeastB*/);
         assertThat(p.mCaps).isEqualTo(baseNc);
+
+        // On Android B+, "*" defaults to using DEFAULT_CAPABILITIES with transport type override.
+        NetworkCapabilities expectedCapabilities =
+                new NetworkCapabilities(EthernetTracker.DEFAULT_CAPABILITIES);
+        expectedCapabilities.setTransportTypes(new int[] {NetworkCapabilities.TRANSPORT_CELLULAR});
+        p = new EthernetConfigParser("eth0;*;;0", true /*isAtLeastB*/);
+        assertThat(p.mCaps).isEqualTo(expectedCapabilities);
     }
 
     @Test

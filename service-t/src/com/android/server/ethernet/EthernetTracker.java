@@ -1034,8 +1034,8 @@ public class EthernetTracker {
 
             final NetworkCapabilities nc =
                     parseCapabilities(tokens.length > 1 ? tokens[1] : null, isAtLeastB);
-            final int transportType = parseTransportType(tokens.length > 3 ? tokens[3] : null);
-            nc.addTransportType(transportType);
+            final int[] transportTypes = {parseTransportType(tokens.length > 3 ? tokens[3] : null)};
+            nc.setTransportTypes(transportTypes);
             mCaps = nc;
 
             mIpConfig = parseStaticIpConfiguration(tokens.length > 2 ? tokens[2] : null);
