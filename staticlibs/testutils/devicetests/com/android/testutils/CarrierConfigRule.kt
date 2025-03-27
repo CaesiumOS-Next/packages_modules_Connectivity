@@ -135,9 +135,13 @@ class CarrierConfigRule : TestRule {
         }
     }
 
-    private fun runShellCommand(cmd: String) {
+    private fun runShellCommand(cmd: String): String {
         val fd: ParcelFileDescriptor = uiAutomation.executeShellCommand(cmd)
-        fd.close() // Don't care about the output.
+        try {
+            return ParcelFileDescriptor.AutoCloseInputStream(fd).use { it.reader().readText() }
+        } finally {
+            fd.close()
+        }
     }
 
     /**
@@ -233,6 +237,23 @@ class CarrierConfigRule : TestRule {
      * Drops carrier privilege from the given subscription ID.
      */
     fun dropCarrierPrivilege(subId: Int) = setHoldCarrierPrivilege(false, subId)
+
+    /**
+     * Setting carrier service package was added in U QPR1, so check for that.
+     *
+     * In T and below, return false. In V and above, return true as this must work.
+     * In U, test for the command presence. That means the test can be disabled by
+     * removing that command in QPR1+, but this would indicate malicious intent.
+     */
+    fun isSettingCarrierServicePackageSupported(): Boolean {
+        if (SdkLevel.isAtLeastV()) return true
+        // A T device with this command present should not be held accountable to have it work
+        if (!SdkLevel.isAtLeastU()) return false
+        return !runAsShell(MODIFY_PHONE_STATE) {
+            runShellCommand("cmd phone set-carrier-service-package-override")
+                .startsWith("Unknown command")
+        }
+    }
 
     /**
      * Sets the carrier service package override for the given subscription ID. A null argument will
