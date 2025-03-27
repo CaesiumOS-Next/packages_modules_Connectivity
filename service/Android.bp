@@ -202,8 +202,8 @@ java_library {
         "com.android.tethering",
     ],
     lint: {
-        baseline_filename: "lint-baseline.xml",
-
+        strict_updatability_linting: true,
+        error_checks: ["NewApi"],
     },
     visibility: [
         "//packages/modules/Connectivity/service-t",
