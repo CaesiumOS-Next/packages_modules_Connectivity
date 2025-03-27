@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b09b0d4_069c42ec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-03-27T05:15:20Z",
+      "side": 1,
+      "message": "let\u0027s wait for a new prebuilt drop make sure it doesn\u0027t land here without the patch this requires",
+      "revId": "5407e29f1b46add87914c6a6c822ab4a752cc96e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
