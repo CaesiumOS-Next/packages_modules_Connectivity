@@ -203,7 +203,7 @@ java_library {
     ],
     lint: {
         baseline_filename: "lint-baseline.xml",
-
+        error_checks: ["NewApi"],
     },
     visibility: [
         "//packages/modules/Connectivity/service-t",
