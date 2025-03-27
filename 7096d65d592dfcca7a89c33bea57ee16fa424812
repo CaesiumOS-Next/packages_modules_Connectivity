@@ -16,6 +16,24 @@
       "message": "NewAPI error is not fixed yet",
       "revId": "7096d65d592dfcca7a89c33bea57ee16fa424812",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f303dd0f_8e625f59",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947461
+      },
+      "writtenOn": "2025-03-27T03:53:30Z",
+      "side": 1,
+      "message": "aosp/3563843 should fix the issue.",
+      "parentUuid": "91e4ab3b_2c5ac4ba",
+      "revId": "7096d65d592dfcca7a89c33bea57ee16fa424812",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
