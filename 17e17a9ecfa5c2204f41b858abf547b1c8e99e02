@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4496aba_03d13ebf",
+        "filename": "Tethering/apex/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2025-03-27T02:17:30Z",
+      "side": 1,
+      "message": "seems to be missing an apex_available",
+      "range": {
+        "startLine": 85,
+        "startChar": 9,
+        "endLine": 85,
+        "endChar": 16
+      },
+      "revId": "17e17a9ecfa5c2204f41b858abf547b1c8e99e02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
