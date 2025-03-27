@@ -1,0 +1,114 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bebec3ff_a7d39937",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/ConnectivityMonitorWithConnectivityManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-27T07:23:59Z",
+      "side": 1,
+      "message": "Should `lastAvailableNetwork` be set to `null` as well?",
+      "range": {
+        "startLine": 86,
+        "startChar": 24,
+        "endLine": 86,
+        "endChar": 25
+      },
+      "revId": "c158ceaef145f861d25aad0f8ed15d3bb7f63db0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fa3ef94_afa79d2d",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/ConnectivityMonitorWithConnectivityManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-27T07:23:59Z",
+      "side": 1,
+      "message": "Miss `@param knownIfaces`",
+      "range": {
+        "startLine": 152,
+        "startChar": 5,
+        "endLine": 152,
+        "endChar": 6
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "a3fd6de9_38c7040e",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service-t/src/com/android/server/connectivity/mdns/ConnectivityMonitorWithConnectivityManager.java",
+              "range": {
+                "startLine": 153,
+                "startChar": 0,
+                "endLine": 153,
+                "endChar": 0
+              },
+              "replacement": "     * @param knownIfaces The list of known network interfaces.\n"
+            }
+          ]
+        }
+      ],
+      "revId": "c158ceaef145f861d25aad0f8ed15d3bb7f63db0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb626c28_6f5af295",
+        "filename": "service-t/src/com/android/server/connectivity/mdns/MdnsSocketClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-27T07:23:59Z",
+      "side": 1,
+      "message": "You have the interface information while guessing the network. Perhaps you could include that information in the returning object (maybe using SocketKey?).",
+      "range": {
+        "startLine": 466,
+        "startChar": 36,
+        "endLine": 466,
+        "endChar": 65
+      },
+      "revId": "c158ceaef145f861d25aad0f8ed15d3bb7f63db0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8191bce7_a2af2a16",
+        "filename": "tests/unit/java/com/android/server/connectivity/mdns/ConnectivityMonitorWithConnectivityManagerTests.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2025-03-27T07:23:59Z",
+      "side": 1,
+      "message": "Can you verify the scenario where guessing the network returns null if the network is lost?",
+      "range": {
+        "startLine": 189,
+        "startChar": 4,
+        "endLine": 189,
+        "endChar": 5
+      },
+      "revId": "c158ceaef145f861d25aad0f8ed15d3bb7f63db0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
