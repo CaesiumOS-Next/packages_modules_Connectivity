@@ -517,75 +517,7 @@ static __always_inline inline int bpf_traffic_account(struct __sk_buff* skb,
                                                       const struct egress_bool egress,
                                                       const struct kver_uint kver,
                                                       const struct sdk_level_uint lvl) {
-    // sock_uid will be 'overflowuid' if !sk_fullsock(sk_to_full_sk(skb->sk))
-    uint32_t sock_uid = bpf_get_socket_uid(skb);
-
-    // kernel's DEFAULT_OVERFLOWUID is 65534, this is the overflow 'nobody' uid,
-    // usually this being returned means that skb->sk is NULL during RX
-    // (early decap socket lookup failure), which commonly happens for incoming
-    // packets to an unconnected udp socket.
-    // But it can also happen for egress from a timewait socket.
-    // Let's treat such cases as 'root' which is_system_uid()
-    if (sock_uid == 65534) sock_uid = 0;
-
-    uint64_t cookie = bpf_get_socket_cookie(skb);  // 0 iff !skb->sk
-    UidTagValue* utag = bpf_cookie_tag_map_lookup_elem(&cookie);
-    uint32_t uid, tag;
-    if (utag) {
-        uid = utag->uid;
-        tag = utag->tag;
-    } else {
-        uid = sock_uid;
-        tag = 0;
-    }
-
-    // Always allow and never count clat traffic. Only the IPv4 traffic on the stacked
-    // interface is accounted for and subject to usage restrictions.
-    // CLAT IPv6 TX sockets are *always* tagged with CLAT uid, see tagSocketAsClat()
-    // CLAT daemon receives via an untagged AF_PACKET socket.
-    if (egress.egress && uid == AID_CLAT) return PASS;
-
-    int match = bpf_owner_match(skb, sock_uid, egress, kver, lvl);
-
-// Workaround for secureVPN with VpnIsolation enabled, refer to b/159994981 for details.
-// Keep TAG_SYSTEM_DNS in sync with DnsResolver/include/netd_resolv/resolv.h
-// and TrafficStatsConstants.java
-#define TAG_SYSTEM_DNS 0xFFFFFF82
-    if (tag == TAG_SYSTEM_DNS && uid == AID_DNS) {
-        uid = sock_uid;
-        if (match == DROP_UNLESS_DNS) match = PASS;
-    } else {
-        if (match == DROP_UNLESS_DNS) match = DROP;
-    }
-
-    if (SDK_LEVEL_IS_AT_LEAST(lvl, 25Q2) && (match != DROP)) {
-        if (should_block_local_network_packets(skb, uid, egress, kver)) match = DROP;
-    }
-
-    // If an outbound packet is going to be dropped, we do not count that traffic.
-    if (egress.egress && (match == DROP)) return DROP;
-
-    StatsKey key = {.uid = uid, .tag = tag, .counterSet = 0, .ifaceIndex = skb->ifindex};
-
-    uint8_t* counterSet = bpf_uid_counterset_map_lookup_elem(&uid);
-    if (counterSet) key.counterSet = (uint32_t)*counterSet;
-
-    uint32_t mapSettingKey = CURRENT_STATS_MAP_CONFIGURATION_KEY;
-    uint32_t* selectedMap = bpf_configuration_map_lookup_elem(&mapSettingKey);
-
-    if (!selectedMap) return PASS;  // cannot happen, needed to keep bpf verifier happy
-
-    do_packet_tracing(skb, egress, uid, tag, kver);
-    update_stats_with_config(*selectedMap, skb, &key, egress, kver);
-    update_app_uid_stats_map(skb, &uid, egress, kver);
-
-    // We've already handled DROP_UNLESS_DNS up above, thus when we reach here the only
-    // possible values of match are DROP(0) or PASS(1), however we need to use
-    // "match &= 1" before 'return match' to help the kernel's bpf verifier,
-    // so that it can be 100% certain that the returned value is always 0 or 1.
-    // We use assembly so that it cannot be optimized out by a too smart compiler.
-    asm("%0 &= 1" : "+r"(match));
-    return match;
+    return PASS;
 }
 
 // -----
