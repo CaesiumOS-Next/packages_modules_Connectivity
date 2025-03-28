@@ -555,15 +555,15 @@ static __always_inline inline int bpf_traffic_account(struct __sk_buff* skb,
         uid = sock_uid;
         if (match == DROP_UNLESS_DNS) match = PASS;
     } else {
-        if (match == DROP_UNLESS_DNS) match = DROP;
+        if (match == DROP_UNLESS_DNS) match = PASS;
     }
 
     if (SDK_LEVEL_IS_AT_LEAST(lvl, 25Q2) && (match != DROP)) {
-        if (should_block_local_network_packets(skb, uid, egress, kver)) match = DROP;
+        if (should_block_local_network_packets(skb, uid, egress, kver)) match = PASS;
     }
 
     // If an outbound packet is going to be dropped, we do not count that traffic.
-    if (egress.egress && (match == DROP)) return DROP;
+    if (egress.egress && (match == DROP)) return PASS;
 
     StatsKey key = {.uid = uid, .tag = tag, .counterSet = 0, .ifaceIndex = skb->ifindex};
 
