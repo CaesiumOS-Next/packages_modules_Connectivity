@@ -27,6 +27,7 @@ import android.util.Pair;
 import androidx.annotation.GuardedBy;
 
 import com.android.net.module.util.HandlerUtils;
+import com.android.net.module.util.RealtimeScheduler;
 
 import java.util.ArrayList;
 import java.util.concurrent.Executor;
@@ -51,7 +52,7 @@ public class DiscoveryExecutor implements Executor {
 
     @GuardedBy("mPendingTasks")
     @Nullable
-    Scheduler mScheduler;
+    RealtimeScheduler mRealtimeScheduler;
     @NonNull private final MdnsFeatureFlags mMdnsFeatureFlags;
 
     DiscoveryExecutor(@Nullable Looper defaultLooper, @NonNull MdnsFeatureFlags mdnsFeatureFlags) {
@@ -101,7 +102,7 @@ public class DiscoveryExecutor implements Executor {
     /** Execute the given function after the specified amount of time elapses. */
     public void executeDelayed(Runnable function, long delayMillis) {
         final Handler handler;
-        final Scheduler scheduler;
+        final RealtimeScheduler realtimeScheduler;
         synchronized (mPendingTasks) {
             if (this.mHandler == null) {
                 mPendingTasks.add(Pair.create(function, delayMillis));
@@ -109,21 +110,21 @@ public class DiscoveryExecutor implements Executor {
             } else {
                 handler = this.mHandler;
                 if (mMdnsFeatureFlags.mIsAccurateDelayCallbackEnabled
-                        && this.mScheduler == null) {
-                    this.mScheduler = SchedulerFactory.createScheduler(mHandler);
+                        && this.mRealtimeScheduler == null) {
+                    this.mRealtimeScheduler = new RealtimeScheduler(mHandler);
                 }
-                scheduler = this.mScheduler;
+                realtimeScheduler = this.mRealtimeScheduler;
             }
         }
-        if (scheduler != null) {
+        if (realtimeScheduler != null) {
             if (delayMillis == 0L) {
                 handler.post(function);
                 return;
             }
             if (HandlerUtils.isRunningOnHandlerThread(handler)) {
-                scheduler.postDelayed(function, delayMillis);
+                realtimeScheduler.postDelayed(function, delayMillis);
             } else {
-                handler.post(() -> scheduler.postDelayed(function, delayMillis));
+                handler.post(() -> realtimeScheduler.postDelayed(function, delayMillis));
             }
         } else {
             handler.postDelayed(function, delayMillis);
@@ -136,8 +137,8 @@ public class DiscoveryExecutor implements Executor {
             this.mHandlerThread.quitSafely();
         }
         synchronized (mPendingTasks) {
-            if (mScheduler != null) {
-                mScheduler.close();
+            if (mRealtimeScheduler != null) {
+                mRealtimeScheduler.close();
             }
         }
     }
