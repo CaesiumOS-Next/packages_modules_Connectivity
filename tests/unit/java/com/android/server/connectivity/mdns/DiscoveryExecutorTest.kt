@@ -17,7 +17,6 @@
 package com.android.server.connectivity.mdns
 
 import android.os.Build
-import android.os.Handler
 import android.os.HandlerThread
 import android.testing.TestableLooper
 import com.android.testutils.DevSdkIgnoreRule
@@ -37,8 +36,6 @@ private const val DEFAULT_TIMEOUT = 2000L
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.S_V2)
 class DiscoveryExecutorTest {
     private val thread = HandlerThread(DiscoveryExecutorTest::class.simpleName).apply { start() }
-    private val handler by lazy { Handler(thread.looper) }
-    private val testableLooper by lazy { TestableLooper(thread.looper) }
 
     @After
     fun tearDown() {
@@ -48,10 +45,8 @@ class DiscoveryExecutorTest {
 
     @Test
     fun testCheckAndRunOnHandlerThread() {
-        val executor = DiscoveryExecutor(
-                testableLooper.looper,
-                MdnsFeatureFlags.newBuilder().build()
-        )
+        val testableLooper = TestableLooper(thread.looper)
+        val executor = DiscoveryExecutor(testableLooper.looper)
         try {
             val future = CompletableFuture<Boolean>()
             executor.checkAndRunOnHandlerThread { future.complete(true) }
@@ -63,17 +58,17 @@ class DiscoveryExecutorTest {
 
         // Create a DiscoveryExecutor with the null defaultLooper and verify the task can execute
         // normally.
-        val executor2 = DiscoveryExecutor(
-                null /* defaultLooper */,
-                MdnsFeatureFlags.newBuilder().build()
-        )
+        val executor2 = DiscoveryExecutor(null /* defaultLooper */)
         val future2 = CompletableFuture<Boolean>()
         executor2.checkAndRunOnHandlerThread { future2.complete(true) }
         assertTrue(future2.get(DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS))
         executor2.shutDown()
     }
 
-    private fun verifyExecute(executor: DiscoveryExecutor) {
+    @Test
+    fun testExecute() {
+        val testableLooper = TestableLooper(thread.looper)
+        val executor = DiscoveryExecutor(testableLooper.looper)
         try {
             val future = CompletableFuture<Boolean>()
             executor.execute { future.complete(true) }
@@ -86,27 +81,9 @@ class DiscoveryExecutorTest {
     }
 
     @Test
-    fun testExecute() {
-        verifyExecute(DiscoveryExecutor(
-                testableLooper.looper,
-                MdnsFeatureFlags.newBuilder().build()
-        ))
-    }
-
-    @Test
-    fun testExecute_RealtimeScheduler() {
-        verifyExecute(DiscoveryExecutor(
-                testableLooper.looper,
-                MdnsFeatureFlags.newBuilder().setIsAccurateDelayCallbackEnabled(true).build()
-        ))
-    }
-
-    @Test
     fun testExecuteDelayed() {
-        val executor = DiscoveryExecutor(
-                testableLooper.looper,
-                MdnsFeatureFlags.newBuilder().build()
-        )
+        val testableLooper = TestableLooper(thread.looper)
+        val executor = DiscoveryExecutor(testableLooper.looper)
         try {
             // Verify the executeDelayed method
             val future = CompletableFuture<Boolean>()
@@ -125,23 +102,6 @@ class DiscoveryExecutorTest {
             // The function should be executed.
             testableLooper.moveTimeForward(500L)
             testableLooper.processAllMessages()
-            assertTrue(future.get(500L, TimeUnit.MILLISECONDS))
-        } finally {
-            testableLooper.destroy()
-        }
-    }
-
-    @Test
-    fun testExecuteDelayed_RealtimeScheduler() {
-        val executor = DiscoveryExecutor(
-                thread.looper,
-                MdnsFeatureFlags.newBuilder().setIsAccurateDelayCallbackEnabled(true).build()
-        )
-        try {
-            // Verify the executeDelayed method
-            val future = CompletableFuture<Boolean>()
-            // Schedule a task with 50ms delay
-            executor.executeDelayed({ future.complete(true) }, 50L)
             assertTrue(future.get(500L, TimeUnit.MILLISECONDS))
         } finally {
             testableLooper.destroy()
