@@ -1,0 +1,274 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b88d0c61_b2d607a8",
+        "filename": "framework/src/android/net/QosFilter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-31T07:03:58Z",
+      "side": 1,
+      "message": "prefix length, source address and port",
+      "range": {
+        "startLine": 100,
+        "startChar": 69,
+        "endLine": 101,
+        "endChar": 18
+      },
+      "revId": "334ea407111ab50d01e0f8df5c64b9568a86d789",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "482a86d8_6abb1d81",
+        "filename": "framework/src/android/net/QosFilter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-31T07:03:58Z",
+      "side": 1,
+      "message": "0 is a valid prefix length though, maybe -1 is a better sentinel.",
+      "range": {
+        "startLine": 106,
+        "startChar": 75,
+        "endLine": 106,
+        "endChar": 76
+      },
+      "revId": "334ea407111ab50d01e0f8df5c64b9568a86d789",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19933b00_88297826",
+        "filename": "framework/src/android/net/QosSocketFilter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-31T07:03:58Z",
+      "side": 1,
+      "message": "Maybe you want to call your new function instead ?\n\n    return matchesLocalAddress(address, 0 /* prefixLength */, startPort, endPort)",
+      "range": {
+        "startLine": 182,
+        "startChar": 0,
+        "endLine": 186,
+        "endChar": 25
+      },
+      "revId": "334ea407111ab50d01e0f8df5c64b9568a86d789",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5eda941_716c3fc4",
+        "filename": "framework/src/android/net/QosSocketFilter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-31T07:03:58Z",
+      "side": 1,
+      "message": "Errorprone says :\n\n    @inheritDoc is not a valid block tag. Should it be an inline tag instead?\n\nCan this be fixed ?",
+      "range": {
+        "startLine": 216,
+        "startChar": 8,
+        "endLine": 216,
+        "endChar": 18
+      },
+      "revId": "334ea407111ab50d01e0f8df5c64b9568a86d789",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "658991d0_c0d05bdb",
+        "filename": "framework/src/android/net/QosSocketFilter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-31T07:03:58Z",
+      "side": 1,
+      "message": "final on the `byte[]`s",
+      "range": {
+        "startLine": 272,
+        "startChar": 8,
+        "endLine": 272,
+        "endChar": 12
+      },
+      "revId": "334ea407111ab50d01e0f8df5c64b9568a86d789",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a781025_6279dafa",
+        "filename": "framework/src/android/net/QosSocketFilter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-31T07:03:58Z",
+      "side": 1,
+      "message": "I think this is correct, but wouldn\u0027t something like the following (untested) code not be easier to read ?\n\n    final byte mask \u003d (byte) length - (length % 8);\n    final byte[] addressSocketByteArray \u003d Arrays.copyOf(addressSocket.getAddress(), (prefixLength + 7) / 8);\n    final byte[] addressFilterByteArray \u003d Arrays.copyOf(addressFilter.getAddress(), (prefixLength + 7) / 8);\n    addressSocketByteArray[addressSocketByteArray.length - 1] \u0026\u003d mask;\n    addressFilterByteArray[addressFilterByteArray.length - 1] \u0026\u003d mask;\n    return Arrays.equals(addressSocketByteArray, addressFilterByteArray);\n\n(only accept this if you agree it\u0027s easier to read)",
+      "range": {
+        "startLine": 277,
+        "startChar": 0,
+        "endLine": 293,
+        "endChar": 9
+      },
+      "revId": "334ea407111ab50d01e0f8df5c64b9568a86d789",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a34f3bd4_40e88c1d",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 1374,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-31T07:03:58Z",
+      "side": 1,
+      "message": "address \u003d null, prefixLength \u003d 0",
+      "range": {
+        "startLine": 1374,
+        "startChar": 62,
+        "endLine": 1374,
+        "endChar": 66
+      },
+      "revId": "334ea407111ab50d01e0f8df5c64b9568a86d789",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3156afb1_5460f8a5",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 1395,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-31T07:03:58Z",
+      "side": 1,
+      "message": "maybe pass an `IpPrefix?` so it\u0027s only one arg",
+      "range": {
+        "startLine": 1394,
+        "startChar": 8,
+        "endLine": 1395,
+        "endChar": 25
+      },
+      "revId": "334ea407111ab50d01e0f8df5c64b9568a86d789",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db037745_6947f4c5",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 1414,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-31T07:03:58Z",
+      "side": 1,
+      "message": "I think this needs either careful commenting about what the address in the filter is supposed to be and what it matches.\n\nAlso, I\u0027m not sure I understand how this validates the implementation of the filters. I see it does call it, but address+prefixLength mean an all-zero IP, and port range doesn\u0027t filter anything. Are you just checking that this can be called while the tests in the next file of this patch ensure functionality ?",
+      "range": {
+        "startLine": 1411,
+        "startChar": 0,
+        "endLine": 1414,
+        "endChar": 21
+      },
+      "revId": "334ea407111ab50d01e0f8df5c64b9568a86d789",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02ec20ee_1cac68a8",
+        "filename": "tests/unit/java/android/net/QosSocketFilterTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-31T07:03:58Z",
+      "side": 1,
+      "message": "0 /* prefixLength */",
+      "revId": "334ea407111ab50d01e0f8df5c64b9568a86d789",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c83b4d3_3ff2bec8",
+        "filename": "tests/unit/java/android/net/QosSocketFilterTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-31T07:03:58Z",
+      "side": 1,
+      "message": "Nit : I\u0027d argue these locals make the code harder to read – for each check I have to look up what the actual value is, I think it would be more immediate if they were just inlined.",
+      "range": {
+        "startLine": 114,
+        "startChar": 18,
+        "endLine": 114,
+        "endChar": 32
+      },
+      "revId": "334ea407111ab50d01e0f8df5c64b9568a86d789",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "350b27a8_1db28f86",
+        "filename": "tests/unit/java/android/net/QosSocketFilterTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-03-31T07:03:58Z",
+      "side": 1,
+      "message": "Seeing how this is the same value as D you could just use D",
+      "range": {
+        "startLine": 129,
+        "startChar": 53,
+        "endLine": 129,
+        "endChar": 61
+      },
+      "revId": "334ea407111ab50d01e0f8df5c64b9568a86d789",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
