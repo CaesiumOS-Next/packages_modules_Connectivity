@@ -368,6 +368,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4c6ced03_a40b6f2f",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1742951
+      },
+      "writtenOn": "2025-03-31T17:02:57Z",
+      "side": 1,
+      "message": "I changed the flow on purpose to reduce the permissions that the SdkSandbox gets.",
+      "parentUuid": "af1e9185_f32f8979",
+      "range": {
+        "startLine": 377,
+        "startChar": 28,
+        "endLine": 377,
+        "endChar": 47
+      },
+      "revId": "ea1d050dff89d453c8c9bd11e62327fb4fd553b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8b547a7c_b4d4e8b0",
         "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
         "patchSetId": 13

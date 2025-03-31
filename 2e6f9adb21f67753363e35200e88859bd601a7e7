@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab22c4ed_b13aa1e5",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 1742951
+      },
+      "writtenOn": "2025-03-31T17:02:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e06ca1d1_62ac6790",
+      "range": {
+        "startLine": 498,
+        "startChar": 12,
+        "endLine": 498,
+        "endChar": 28
+      },
+      "revId": "2e6f9adb21f67753363e35200e88859bd601a7e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d0b443be_27747f6b",
@@ -61,6 +85,30 @@
       "writtenOn": "2025-03-14T07:49:06Z",
       "side": 1,
       "message": "why?  (hint: AFAICT it can happen)",
+      "range": {
+        "startLine": 502,
+        "startChar": 40,
+        "endLine": 502,
+        "endChar": 56
+      },
+      "revId": "2e6f9adb21f67753363e35200e88859bd601a7e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9385c0e5_bdf6b8bd",
+        "filename": "bpf/progs/netd.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 1742951
+      },
+      "writtenOn": "2025-03-31T17:02:57Z",
+      "side": 1,
+      "message": "You\u0027re right. It could happen if network activity starts and the package added broadcast hasn\u0027t yet been received.",
+      "parentUuid": "d0b443be_27747f6b",
       "range": {
         "startLine": 502,
         "startChar": 40,
@@ -165,6 +213,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "854c1545_4e81072f",
+        "filename": "tests/native/connectivity_native_test/SdkSandboxLocalhostRestrictedTest.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1742951
+      },
+      "writtenOn": "2025-03-31T17:02:57Z",
+      "side": 1,
+      "message": "It could be in the map. This is a UID that\u0027s high enough that\u0027s unlikely to have an sdk. In contrast, when testing for a known UID we\u0027re checking for the UID assigned to an installed packagename. I can rephrase to \"This UID very likely not in the traffic perms map\"? or is there a better practice here?",
+      "parentUuid": "0e41ae47_c674b720",
+      "range": {
+        "startLine": 35,
+        "startChar": 47,
+        "endLine": 35,
+        "endChar": 50
+      },
+      "revId": "2e6f9adb21f67753363e35200e88859bd601a7e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7b15f1f6_c39c1981",
         "filename": "tests/native/connectivity_native_test/SdkSandboxLocalhostRestrictedTest.cpp",
         "patchSetId": 19
@@ -209,6 +281,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a954aa54_434f577f",
+        "filename": "tests/native/connectivity_native_test/SdkSandboxLocalhostRestrictedTest.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1742951
+      },
+      "writtenOn": "2025-03-31T17:02:57Z",
+      "side": 1,
+      "message": "I don\u0027t understand that either. If getsockname isn\u0027t called before the sendto happens, the sendto fails with EINVAL. My assumption is that there\u0027s some initialization needed on the recvAddr that getsockname ensures. I wrote these tests based on how binder_test#fakeRemoteSocketpair works. Happy to follow a different clearer pattern if you have examples.",
+      "parentUuid": "90118889_df1f1a4d",
+      "range": {
+        "startLine": 62,
+        "startChar": 53,
+        "endLine": 62,
+        "endChar": 61
+      },
+      "revId": "2e6f9adb21f67753363e35200e88859bd601a7e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "deac5e74_01369121",
@@ -222,6 +318,30 @@
       "writtenOn": "2025-03-14T06:59:15Z",
       "side": 1,
       "message": "It took me some time to figure out that this is allowed because it\u0027s out of a ScopedUidChange and that it\u0027s writing data that we want to check in l.73 can\u0027t be received. Can you add a few comments here to say this is allowed because it\u0027s executed as a non-sandboxed UID or otherwise make it more prominent ?",
+      "range": {
+        "startLine": 66,
+        "startChar": 9,
+        "endLine": 66,
+        "endChar": 11
+      },
+      "revId": "2e6f9adb21f67753363e35200e88859bd601a7e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9ab5391_66136d23",
+        "filename": "tests/native/connectivity_native_test/SdkSandboxLocalhostRestrictedTest.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1742951
+      },
+      "writtenOn": "2025-03-31T17:02:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "deac5e74_01369121",
       "range": {
         "startLine": 66,
         "startChar": 9,
@@ -255,6 +375,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2f90bfe_892a0ae4",
+        "filename": "tests/native/connectivity_native_test/SdkSandboxLocalhostRestrictedTest.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1742951
+      },
+      "writtenOn": "2025-03-31T17:02:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8513925_6128ca36",
+      "range": {
+        "startLine": 73,
+        "startChar": 14,
+        "endLine": 73,
+        "endChar": 16
+      },
+      "revId": "2e6f9adb21f67753363e35200e88859bd601a7e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d3456564_676c8ec5",
@@ -268,6 +412,30 @@
       "writtenOn": "2025-03-14T06:59:15Z",
       "side": 1,
       "message": "Nit : maybe add a comment to reference the framework code that this mimics",
+      "range": {
+        "startLine": 101,
+        "startChar": 12,
+        "endLine": 101,
+        "endChar": 22
+      },
+      "revId": "2e6f9adb21f67753363e35200e88859bd601a7e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7cb47f2_ce649729",
+        "filename": "tests/native/connectivity_native_test/SdkSandboxLocalhostRestrictedTest.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1742951
+      },
+      "writtenOn": "2025-03-31T17:02:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d3456564_676c8ec5",
       "range": {
         "startLine": 101,
         "startChar": 12,
@@ -301,6 +469,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3171eb12_6048e365",
+        "filename": "tests/native/connectivity_native_test/SdkSandboxLocalhostRestrictedTest.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1742951
+      },
+      "writtenOn": "2025-03-31T17:02:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bbef035c_436382ca",
+      "range": {
+        "startLine": 127,
+        "startChar": 11,
+        "endLine": 127,
+        "endChar": 41
+      },
+      "revId": "2e6f9adb21f67753363e35200e88859bd601a7e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "613bf3e5_16684569",
@@ -314,6 +506,30 @@
       "writtenOn": "2025-03-14T06:59:15Z",
       "side": 1,
       "message": "Maybe EQ(3) to mirror l.227. Though this isn\u0027t the case here, it\u0027s frequent that sendto may only send a chunk of what was requested, so you could imagine that it returns 2 and then l.227 is incorrect. EQ(3) makes it more obvious that in this case there can\u0027t be any fragmentation.",
+      "range": {
+        "startLine": 221,
+        "startChar": 11,
+        "endLine": 221,
+        "endChar": 16
+      },
+      "revId": "2e6f9adb21f67753363e35200e88859bd601a7e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a696056_aba4a371",
+        "filename": "tests/native/connectivity_native_test/SdkSandboxLocalhostRestrictedTest.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1742951
+      },
+      "writtenOn": "2025-03-31T17:02:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "613bf3e5_16684569",
       "range": {
         "startLine": 221,
         "startChar": 11,
