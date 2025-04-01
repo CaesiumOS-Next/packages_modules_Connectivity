@@ -1,0 +1,326 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9cc76cf1_f9b5f033",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-04-01T09:13:32Z",
+      "side": 1,
+      "message": "forgot to remove ?",
+      "range": {
+        "startLine": 81,
+        "startChar": 4,
+        "endLine": 81,
+        "endChar": 6
+      },
+      "revId": "4b1863f9e3c88a1951d7835c721c823fab597f40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94485cea_0ebe3ecd",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-04-01T09:13:32Z",
+      "side": 1,
+      "message": "Since you have a Set\u003cRange\u003cInteger\u003e\u003e, would it not make sense to adopt the same convention here ?",
+      "range": {
+        "startLine": 535,
+        "startChar": 42,
+        "endLine": 535,
+        "endChar": 81
+      },
+      "revId": "4b1863f9e3c88a1951d7835c721c823fab597f40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7d36195_f69115c5",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-04-01T09:13:32Z",
+      "side": 1,
+      "message": "While I don\u0027t have a lot of love for the implementation of that class, we do have `UidRange`. It\u0027s arguable whether you want to use it because while it would fit well for netIds too the naming would be strange, and then if you use it here but not for netIds it\u0027s also not consistent. So I\u0027ll leave that decision to you, as long as you have considered it. Please add a short comment to justify your choice.",
+      "range": {
+        "startLine": 536,
+        "startChar": 16,
+        "endLine": 536,
+        "endChar": 30
+      },
+      "revId": "4b1863f9e3c88a1951d7835c721c823fab597f40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca5eac5e_17c333d8",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 540,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-04-01T09:13:32Z",
+      "side": 1,
+      "message": "Instead of copy-pasting the code for destroyLiveTcpSockets, can you please factorize that code ? You can write a function that takes a Predicate\u003cInetDiagMessage\u003e and call it in all three similar methods.",
+      "range": {
+        "startLine": 540,
+        "startChar": 8,
+        "endLine": 540,
+        "endChar": 22
+      },
+      "revId": "4b1863f9e3c88a1951d7835c721c823fab597f40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62c3106e_7b50d83f",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-04-01T09:13:32Z",
+      "side": 1,
+      "message": "While it\u0027s good that you cut out this check in a method, I think it should be named something like `matchesLocalAddress` – that\u0027s what it does, and there are many other methods in this file that destroy sockets based on some condition.",
+      "range": {
+        "startLine": 563,
+        "startChar": 26,
+        "endLine": 563,
+        "endChar": 50
+      },
+      "revId": "4b1863f9e3c88a1951d7835c721c823fab597f40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0164af8_22c2e102",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-04-01T09:13:32Z",
+      "side": 1,
+      "message": "Let\u0027s make sure all non-primitive arguments are marked with either @NonNull or @Nullable throughout the file.",
+      "range": {
+        "startLine": 564,
+        "startChar": 42,
+        "endLine": 564,
+        "endChar": 47
+      },
+      "revId": "4b1863f9e3c88a1951d7835c721c823fab597f40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c533d42_8b04c576",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-04-01T09:13:32Z",
+      "side": 1,
+      "message": "IIUC this means that if an interfaceId is passed, then the range of netIds and uidRanges are ignored. Is this expected ? It\u0027s counter-intuitive and not documented. If it is expected, I think it should not just be documented – it should probably actually be two different methods so they have different sets of arguments",
+      "range": {
+        "startLine": 578,
+        "startChar": 12,
+        "endLine": 579,
+        "endChar": 65
+      },
+      "revId": "4b1863f9e3c88a1951d7835c721c823fab597f40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9069527f_84d0b7e6",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-04-01T09:13:32Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this knowledge be encapsulated in this method instead of passed down by the caller ? It\u0027s specific to the impl of the FwMark.",
+      "range": {
+        "startLine": 615,
+        "startChar": 14,
+        "endLine": 615,
+        "endChar": 73
+      },
+      "revId": "4b1863f9e3c88a1951d7835c721c823fab597f40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fa4e522_ad405816",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-04-01T09:13:32Z",
+      "side": 1,
+      "message": "permission required by the network\n\nIdeally you\u0027d have more details, like INTERNET permission and USE_RESTRICTED_NETWORKS permission and how one implies the other.",
+      "range": {
+        "startLine": 637,
+        "startChar": 25,
+        "endLine": 637,
+        "endChar": 43
+      },
+      "revId": "4b1863f9e3c88a1951d7835c721c823fab597f40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e30e479c_e17989d5",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 648,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-04-01T09:13:32Z",
+      "side": 1,
+      "message": "Do you want to have a method encapsulating this for reuse ? e.g.\n\n    private static StructNlAttr findInetDiagMarkAttr(diagMsg) {\n      for (attr \u003d ...)\n        if type \u003d\u003d INET_DIAG_MARK return attr\n    }",
+      "range": {
+        "startLine": 648,
+        "startChar": 8,
+        "endLine": 648,
+        "endChar": 51
+      },
+      "revId": "4b1863f9e3c88a1951d7835c721c823fab597f40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a98f335_063a874f",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 654,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-04-01T09:13:32Z",
+      "side": 1,
+      "message": "This requires at least comments",
+      "range": {
+        "startLine": 654,
+        "startChar": 60,
+        "endLine": 654,
+        "endChar": 94
+      },
+      "revId": "4b1863f9e3c88a1951d7835c721c823fab597f40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b27d531_9da40e2d",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/netlink/InetDiagSocketTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 870,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-04-01T09:13:32Z",
+      "side": 1,
+      "message": "@NonNull or @Nullable on all args",
+      "range": {
+        "startLine": 870,
+        "startChar": 66,
+        "endLine": 870,
+        "endChar": 77
+      },
+      "revId": "4b1863f9e3c88a1951d7835c721c823fab597f40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02a97894_d1cdf0aa",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/netlink/InetDiagSocketTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 873,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-04-01T09:13:32Z",
+      "side": 1,
+      "message": "Please make you locals final unless there is a really strong reason not to.",
+      "range": {
+        "startLine": 873,
+        "startChar": 8,
+        "endLine": 873,
+        "endChar": 12
+      },
+      "revId": "4b1863f9e3c88a1951d7835c721c823fab597f40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fff36c8c_0fd213dc",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/netlink/InetDiagSocketTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 940,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-04-01T09:13:32Z",
+      "side": 1,
+      "message": "This is almost identical to `doTestMatchingDestroyCondition`, please factorize",
+      "range": {
+        "startLine": 940,
+        "startChar": 17,
+        "endLine": 940,
+        "endChar": 42
+      },
+      "revId": "4b1863f9e3c88a1951d7835c721c823fab597f40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
