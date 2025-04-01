@@ -16,6 +16,57 @@
       "message": "Verified with ABTD build:\nhttps://android-build.corp.google.com/test_investigate/invocation/I91800010380421252/test/TR34029675644990521/?itab\u003dtests\u0026ttab\u003dartifacts\u0026redirect\u003dhttp%3A%2F%2Ffusion2%2F533b4814-96ae-4483-ae75-adc0ee8ab763\u0026testStringSearch\u003dtraff\u0026status\u003dfailing%2CmoduleError%2Cflaky",
       "revId": "c311019223c6f407b34f711b6d739d9a35dde4e6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8850e125_ed8824fb",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ConnectivityDiagnosticsCollector.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-04-01T03:29:39Z",
+      "side": 1,
+      "message": "Before T can you add some message before the tcpdump output to indicate that it may be incomplete ? In case people try to compare output from S and T+ test results.",
+      "revId": "c311019223c6f407b34f711b6d739d9a35dde4e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04a2f3df_090ea464",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ConnectivityDiagnosticsCollector.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-04-01T03:29:39Z",
+      "side": 1,
+      "message": "This assumes that having just 1 char is enough for tcpdump to be running, but it could also print some stuff before that. It would feel more correct to actually wait for the string \"listening on\" ?",
+      "revId": "c311019223c6f407b34f711b6d739d9a35dde4e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d0794ae_adf4faa8",
+        "filename": "staticlibs/testutils/devicetests/com/android/testutils/ConnectivityDiagnosticsCollector.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2025-04-01T03:29:39Z",
+      "side": 1,
+      "message": "You can use com.android.testutils.PollingUtils.pollingCheck",
+      "revId": "c311019223c6f407b34f711b6d739d9a35dde4e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
