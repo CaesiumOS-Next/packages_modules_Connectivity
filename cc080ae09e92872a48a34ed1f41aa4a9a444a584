@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1afe47c_f964fa3b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 1124,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-04-01T09:14:22Z",
+      "side": 1,
+      "message": "This must be final, otherwise you\u0027ll sometimes crash in l.4241 when the handler thread doesn\u0027t see the updated member (per Java spec chapter 17.5).",
+      "range": {
+        "startLine": 1124,
+        "startChar": 14,
+        "endLine": 1124,
+        "endChar": 21
+      },
+      "revId": "cc080ae09e92872a48a34ed1f41aa4a9a444a584",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c1f77a9_f350762a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 2229,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-04-01T09:14:22Z",
+      "side": 1,
+      "message": "nit : do you need that many lines ? Other uses are like 20.",
+      "range": {
+        "startLine": 2229,
+        "startChar": 40,
+        "endLine": 2229,
+        "endChar": 43
+      },
+      "revId": "cc080ae09e92872a48a34ed1f41aa4a9a444a584",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21eb6769_067beec1",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 15306,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-04-01T09:14:22Z",
+      "side": 1,
+      "message": "Can we export this to a satellite class of ConnectivityService for better code separation ? ConnectivityService#processNetlinkMessage caring about just removing addresses without so much as a comment looks a bit strange.\n\nI think you can meaningfully do this in two ways :\n• Either make a satellite class that builds its own NetlinkMonitor\n• Or keep the NetlinkMonitor here, and have ConnectivityService#processNetlinkMessage be a dispatch method that calls a satellite class that handles it\n\nAlternatively you could write comments on this methods to explain what are the current use cases, and say that we could make this a dispatcher method if we have more use cases in the future.",
+      "range": {
+        "startLine": 15306,
+        "startChar": 17,
+        "endLine": 15306,
+        "endChar": 38
+      },
+      "revId": "cc080ae09e92872a48a34ed1f41aa4a9a444a584",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "175344f1_242eb16f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 15315,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-04-01T09:14:22Z",
+      "side": 1,
+      "message": "final for these three locals please. For interfaceId and netIdRange make them blank finals",
+      "range": {
+        "startLine": 15315,
+        "startChar": 8,
+        "endLine": 15315,
+        "endChar": 19
+      },
+      "revId": "cc080ae09e92872a48a34ed1f41aa4a9a444a584",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b051323d_5b0963ab",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 15321,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-04-01T09:14:22Z",
+      "side": 1,
+      "message": "What is the definition of this ? It looks like this is all v4 and all v6 non-link local address but this doesn\u0027t really get me to \"non-platform managed\" ; can you please explicit what the platform is supposed to manage and why ?",
+      "range": {
+        "startLine": 15321,
+        "startChar": 31,
+        "endLine": 15321,
+        "endChar": 58
+      },
+      "revId": "cc080ae09e92872a48a34ed1f41aa4a9a444a584",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdef03e9_8dc2fcd2",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-04-01T09:14:22Z",
+      "side": 1,
+      "message": "Won\u0027t this fit on one line ?",
+      "range": {
+        "startLine": 448,
+        "startChar": 0,
+        "endLine": 451,
+        "endChar": 24
+      },
+      "revId": "cc080ae09e92872a48a34ed1f41aa4a9a444a584",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
