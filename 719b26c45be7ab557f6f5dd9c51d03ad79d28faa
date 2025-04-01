@@ -1,0 +1,395 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32f9765d_0c7de892",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 1111,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-04-01T09:13:51Z",
+      "side": 1,
+      "message": "AIUI this member must only ever be touched on the handler thread, so please add a comment explaining this",
+      "range": {
+        "startLine": 1111,
+        "startChar": 50,
+        "endLine": 1111,
+        "endChar": 66
+      },
+      "revId": "719b26c45be7ab557f6f5dd9c51d03ad79d28faa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a34ed7a_7fac2e23",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 1840,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-04-01T09:13:51Z",
+      "side": 1,
+      "message": "I don\u0027t think it\u0027s a good idea to log every time someone is reading this ; it will result in a lot of log spam.\n\nInstead I suggest reading it once and for all in a final boolean at the top and logging at that time.",
+      "range": {
+        "startLine": 1840,
+        "startChar": 16,
+        "endLine": 1840,
+        "endChar": 76
+      },
+      "revId": "719b26c45be7ab557f6f5dd9c51d03ad79d28faa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "871be397_a8d0f7bb",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 9788,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-04-01T09:13:51Z",
+      "side": 1,
+      "message": "addresses",
+      "range": {
+        "startLine": 9788,
+        "startChar": 25,
+        "endLine": 9788,
+        "endChar": 32
+      },
+      "revId": "719b26c45be7ab557f6f5dd9c51d03ad79d28faa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3b27c55_66daaafe",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 9793,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-04-01T09:13:51Z",
+      "side": 1,
+      "message": "final here and all your locals please, like everywhere else in this file. Here you can do this by initializing with a ternary\n\n    final List\u003cInetAddress\u003e addList \u003d newLp !\u003d null ? newLp.getAllAddresses() : null;",
+      "range": {
+        "startLine": 9793,
+        "startChar": 8,
+        "endLine": 9793,
+        "endChar": 12
+      },
+      "revId": "719b26c45be7ab557f6f5dd9c51d03ad79d28faa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23b4b78b_899e4ad9",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 9811,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-04-01T09:13:51Z",
+      "side": 1,
+      "message": "Why single-out these ? At least a comment would be welcome.\nAlso, what about v4 link-local ? What about localhost ?",
+      "range": {
+        "startLine": 9811,
+        "startChar": 63,
+        "endLine": 9811,
+        "endChar": 81
+      },
+      "revId": "719b26c45be7ab557f6f5dd9c51d03ad79d28faa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b881108c_a31dd15b",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDestroySocketTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-04-01T09:13:51Z",
+      "side": 1,
+      "message": "nit : since you\u0027re making a more generic function you could redefine this\n\n    private fun cellLp() \u003d makeLp(TEST_CELL_IFACE)",
+      "range": {
+        "startLine": 75,
+        "startChar": 12,
+        "endLine": 75,
+        "endChar": 18
+      },
+      "revId": "719b26c45be7ab557f6f5dd9c51d03ad79d28faa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "766909da_fe7b91c9",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDestroySocketTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-04-01T09:13:51Z",
+      "side": 1,
+      "message": "This is fine enough, but you could considerably simplify it by having the transport type taken in `cellNc` (and rename it to `makeNc`) and just passing transportType to it here ?",
+      "range": {
+        "startLine": 376,
+        "startChar": 8,
+        "endLine": 376,
+        "endChar": 11
+      },
+      "revId": "719b26c45be7ab557f6f5dd9c51d03ad79d28faa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fce16607_a5effd2f",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDestroySocketTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-04-01T09:13:51Z",
+      "side": 1,
+      "message": "Please don\u0027t use waitForIdle() – instead, use a NetworkCallback and wait for the network to be connected. Return the callback so you can also wait for disconnection in l.421 and the like. The issue is that waitForIdle() is brittle, because it depends on a message having been posted to the handler and on the processing to be finished when the handler becomes idle, both of which are implementation details that can change. Sometimes we don\u0027t have a choice, but here this is a common pattern with a well-defined better option. You can look at `NetworkAgentTest#createConnectedNetworkAgent` for an example.",
+      "range": {
+        "startLine": 382,
+        "startChar": 8,
+        "endLine": 382,
+        "endChar": 19
+      },
+      "revId": "719b26c45be7ab557f6f5dd9c51d03ad79d28faa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca40a010_4db66a84",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDestroySocketTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-04-01T09:13:51Z",
+      "side": 1,
+      "message": "some",
+      "range": {
+        "startLine": 388,
+        "startChar": 60,
+        "endLine": 388,
+        "endChar": 65
+      },
+      "revId": "719b26c45be7ab557f6f5dd9c51d03ad79d28faa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d86f805c_1283ae85",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDestroySocketTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-04-01T09:13:51Z",
+      "side": 1,
+      "message": "Instead of having string constants, suggest frontloading the InetAddress.getByName. Then you\u0027d pass a List\u003cInetAddress\u003e to prepareNetworkAgent which would be easier to read, and you\u0027d be able to dispense with this call here.\n\nBy the way you can just use [] instead of `.get`",
+      "range": {
+        "startLine": 405,
+        "startChar": 75,
+        "endLine": 405,
+        "endChar": 93
+      },
+      "revId": "719b26c45be7ab557f6f5dd9c51d03ad79d28faa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "864d1192_5456d136",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDestroySocketTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-04-01T09:13:51Z",
+      "side": 1,
+      "message": "Use kotlin.test.assertNotNull instead of junit.frameworks.Assert.assertNotNull. Then you can simplify this by saying\n\n    val networks1 \u003d assertNotNull(service.mIptoNetworksMap...)\n\nThis will immediately fail the test if it\u0027s null and let you remove the question marks below.\n\nAlso suggest inline defining a small helper\n\n    fun getNet(addr: String) \u003d service.mIpToNetworksMap.get(InetAddress.getByName(addr))\n    val networks1 \u003d assertNotNull(getNet(TEST_IPV6_ADDRESS1))\n    val networks2 \u003d assertNotNull(getNet(TEST_IPV4_ADDRESS1))",
+      "range": {
+        "startLine": 410,
+        "startChar": 8,
+        "endLine": 410,
+        "endChar": 21
+      },
+      "revId": "719b26c45be7ab557f6f5dd9c51d03ad79d28faa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "988576a0_a08e05b5",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDestroySocketTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-04-01T09:13:51Z",
+      "side": 1,
+      "message": "You might even be able to say `assertEquals(setOf(...), networks1)` ?",
+      "range": {
+        "startLine": 414,
+        "startChar": 8,
+        "endLine": 414,
+        "endChar": 20
+      },
+      "revId": "719b26c45be7ab557f6f5dd9c51d03ad79d28faa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "575ab368_f9a99924",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDestroySocketTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 423,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-04-01T09:13:51Z",
+      "side": 1,
+      "message": "This requires that the update is done to the object inside the map, which is not a requirement of this implementation. I think you want to get the object again.\n\nTo reduce verbosity you can just define a sub-function inside this function like\n\n    InetAddress.getMap() \u003d service.mIpToNetworksMap[this]\n\n...and then you would say\n\n    assertEquals(1, TEST_IPV6_ADDRESS1.getMap().size)",
+      "range": {
+        "startLine": 423,
+        "startChar": 24,
+        "endLine": 423,
+        "endChar": 39
+      },
+      "revId": "719b26c45be7ab557f6f5dd9c51d03ad79d28faa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b768c54d_93fe2ebb",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDestroySocketTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-04-01T09:13:51Z",
+      "side": 1,
+      "message": "Maybe also assertFalse(contains(V6_ADDR2)) and V4_ADDRESS2",
+      "range": {
+        "startLine": 446,
+        "startChar": 0,
+        "endLine": 446,
+        "endChar": 0
+      },
+      "revId": "719b26c45be7ab557f6f5dd9c51d03ad79d28faa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "210e7da8_ea44e3a0",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDestroySocketTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-04-01T09:13:51Z",
+      "side": 1,
+      "message": "Right so this is what I was pointing out in l.423 : here you need to get again because the implementation inserted a new map instead. Your test relying on that detail is brittle.",
+      "range": {
+        "startLine": 457,
+        "startChar": 32,
+        "endLine": 457,
+        "endChar": 48
+      },
+      "revId": "719b26c45be7ab557f6f5dd9c51d03ad79d28faa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "769366e2_d3cb1899",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDestroySocketTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-04-01T09:13:51Z",
+      "side": 1,
+      "message": "I guess this is because ADDRESS3 is link-local ? Maybe a comment would be useful ?",
+      "range": {
+        "startLine": 470,
+        "startChar": 14,
+        "endLine": 470,
+        "endChar": 19
+      },
+      "revId": "719b26c45be7ab557f6f5dd9c51d03ad79d28faa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b1a6d5d_bd404e2a",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2025-04-01T09:13:51Z",
+      "side": 1,
+      "message": "nit : it\u0027s terser and easier to read to write it like the method above\n\n    override fun flagConnectivityServiceDestroySocket() \u003d true",
+      "range": {
+        "startLine": 415,
+        "startChar": 19,
+        "endLine": 415,
+        "endChar": 23
+      },
+      "revId": "719b26c45be7ab557f6f5dd9c51d03ad79d28faa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
