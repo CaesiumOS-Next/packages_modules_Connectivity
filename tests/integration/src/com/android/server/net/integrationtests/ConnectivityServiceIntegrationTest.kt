@@ -229,7 +229,8 @@ class ConnectivityServiceIntegrationTest {
         networkStackClient = TestNetworkStackClient(realContext)
         networkStackClient.start()
 
-        service = runAsShell(permission.OBSERVE_GRANT_REVOKE_PERMISSIONS) {
+        service = runAsShell(permission.OBSERVE_GRANT_REVOKE_PERMISSIONS, permission.LOG_COMPAT_CHANGE,
+            permission.READ_COMPAT_CHANGE_CONFIG) {
             TestConnectivityService(TestDependencies())
         }
         cm = ConnectivityManager(context, service)

@@ -16,7 +16,7 @@
 
 package com.android.server
 
-import android.Manifest
+import android.Manifest.permission
 import android.app.AlarmManager
 import android.app.AppOpsManager
 import android.bluetooth.BluetoothManager
@@ -80,6 +80,7 @@ import com.android.server.connectivity.NetworkRequestStateStatsMetrics
 import com.android.server.connectivity.ProxyTracker
 import com.android.server.connectivity.QuicConnectionCloser
 import com.android.server.connectivity.SatelliteAccessController
+import com.android.testutils.runAsShell
 import com.android.testutils.visibleOnHandlerThread
 import com.android.testutils.waitForIdle
 import java.util.concurrent.Executors
@@ -251,14 +252,6 @@ open class CSTest {
 
     @Before
     fun setUp() {
-        // this is normally done as part of PlatformCompatChangeRule evalute
-        // but we need to do it before we construct ConnectivityService
-        val instrumentation = InstrumentationRegistry.getInstrumentation()
-        val uiAutomation = instrumentation.getUiAutomation()
-        uiAutomation.adoptShellPermissionIdentity(
-            Manifest.permission.LOG_COMPAT_CHANGE,
-            Manifest.permission.READ_COMPAT_CHANGE_CONFIG)
-
         // Set feature flags before constructing ConnectivityService
         val testMethodName = testNameRule.methodName
         try {
@@ -275,8 +268,10 @@ open class CSTest {
 
         alarmHandlerThread = HandlerThread("TestAlarmManager").also { it.start() }
         alarmManager = makeMockAlarmManager(alarmHandlerThread)
-        service = makeConnectivityService(context, netd, deps).also {
-            it.systemReadyInternal()
+        service = runAsShell(permission.LOG_COMPAT_CHANGE, permission.READ_COMPAT_CHANGE_CONFIG) {
+            makeConnectivityService(context, netd, deps).also {
+                it.systemReadyInternal()
+            }
         }
         cm = ConnectivityManager(context, service)
         // csHandler initialization must be after makeConnectivityService since ConnectivityService

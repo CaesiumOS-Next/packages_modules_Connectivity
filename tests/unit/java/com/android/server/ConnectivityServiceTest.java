@@ -1865,14 +1865,6 @@ public class ConnectivityServiceTest {
 
     @Before
     public void setUp() throws Exception {
-        // this is normally done as part of PlatformCompatChangeRule evalute
-        // but we need to do it before we construct ConnectivityService
-        Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
-        UiAutomation uiAutomation = instrumentation.getUiAutomation();
-        uiAutomation.adoptShellPermissionIdentity(
-            LOG_COMPAT_CHANGE,
-            READ_COMPAT_CHANGE_CONFIG);
-
         mNetIdManager = new TestNetIdManager();
 
         mContext = InstrumentationRegistry.getContext();
@@ -1941,11 +1933,12 @@ public class ConnectivityServiceTest {
                 .getSupportedKeepalives(mServiceContext);
         mAutoOnOffKeepaliveDependencies =
                 new AutomaticOnOffKeepaliveTrackerDependencies(mServiceContext);
-        mService = new ConnectivityService(mServiceContext,
+        mService = runAsShell(LOG_COMPAT_CHANGE, READ_COMPAT_CHANGE_CONFIG, () ->
+                new ConnectivityService(mServiceContext,
                 mMockDnsResolver,
                 mock(IpConnectivityLog.class),
                 mMockNetd,
-                mDeps);
+                mDeps));
         mService.mLingerDelayMs = TEST_LINGER_DELAY_MS;
         mService.mNascentDelayMs = TEST_NASCENT_DELAY_MS;
 
