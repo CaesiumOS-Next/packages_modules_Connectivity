@@ -57,5 +57,4 @@ android_test {
     ],
     per_testcase_directory: true,
     sdk_version: "test_current",
-    host_required: ["net-tests-utils-host-common"],
 }
