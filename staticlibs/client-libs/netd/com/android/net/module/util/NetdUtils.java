@@ -232,17 +232,13 @@ public class NetdUtils {
     /** Add or remove |route|. */
     public static void modifyRoute(final INetd netd, final ModifyOperation op, final int netId,
             final RouteInfo route) {
-        final String ifName = route.getInterface();
-        final String dst = route.getDestination().toString();
-        final String nextHop = findNextHop(route);
-
         try {
             switch(op) {
                 case ADD:
-                    netd.networkAddRoute(netId, ifName, dst, nextHop);
+                    netd.networkAddRouteParcel(netId, toRouteInfoParcel(route));
                     break;
                 case REMOVE:
-                    netd.networkRemoveRoute(netId, ifName, dst, nextHop);
+                    netd.networkRemoveRouteParcel(netId, toRouteInfoParcel(route));
                     break;
                 default:
                     throw new IllegalStateException("Unsupported modify operation:" + op);
