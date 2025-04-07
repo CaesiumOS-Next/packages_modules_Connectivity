@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dca1de7d_2245e60e",
+        "filename": "staticlibs/netd/aidl_api/netd_aidl_interface/18/android/net/INetd.aidl",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-04-07T23:02:26Z",
+      "side": 1,
+      "message": "Make sense, thank you for pointing it out. I have split it into 2 CLs ag/32916463 and ag/32921600 in internal/main as aosp/main is now read-only.",
+      "parentUuid": "29cff799_96e47c95",
+      "revId": "05e46d7237b781296823f332dcf5cab26dd7fc7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bc63f913_ebe3bd79",
         "filename": "staticlibs/netd/binder/android/net/RouteInfoParcel.aidl",
         "patchSetId": 5
@@ -31,6 +49,24 @@
       "writtenOn": "2025-04-03T10:10:10Z",
       "side": 1,
       "message": "Generally we don\u0027t mix AIDL interface changes and non-AIDL changes in the same CL. Can you move the AIDL changes to another CL that adds the new interface version and freezes it?",
+      "revId": "05e46d7237b781296823f332dcf5cab26dd7fc7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbb6fd72_ce91d34b",
+        "filename": "staticlibs/netd/binder/android/net/RouteInfoParcel.aidl",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1895337
+      },
+      "writtenOn": "2025-04-07T23:02:26Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "bc63f913_ebe3bd79",
       "revId": "05e46d7237b781296823f332dcf5cab26dd7fc7c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
