@@ -16,6 +16,24 @@
       "message": "this if is spurious, just call add unconditionally.",
       "revId": "8d5c6eae80cb932c099a697dbc0666e13ec65000",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9a81f9f_0269d1de",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 53
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 3305446
+      },
+      "writtenOn": "2025-04-08T15:27:17Z",
+      "side": 1,
+      "message": "Fixed in main",
+      "parentUuid": "7df8b386_b927570a",
+      "revId": "8d5c6eae80cb932c099a697dbc0666e13ec65000",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
