@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "41744771_0fefeba7",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 1111,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2025-04-09T12:18:14Z",
+      "side": 1,
+      "message": "Acknowledged, updated to ag/32890002",
+      "parentUuid": "32f9765d_0c7de892",
+      "range": {
+        "startLine": 1111,
+        "startChar": 50,
+        "endLine": 1111,
+        "endChar": 66
+      },
+      "revId": "719b26c45be7ab557f6f5dd9c51d03ad79d28faa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1a34ed7a_7fac2e23",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-04-01T09:13:51Z",
       "side": 1,
       "message": "I don\u0027t think it\u0027s a good idea to log every time someone is reading this ; it will result in a lot of log spam.\n\nInstead I suggest reading it once and for all in a final boolean at the top and logging at that time.",
+      "range": {
+        "startLine": 1840,
+        "startChar": 16,
+        "endLine": 1840,
+        "endChar": 76
+      },
+      "revId": "719b26c45be7ab557f6f5dd9c51d03ad79d28faa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f02d3b0e_3b256832",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 1840,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2025-04-09T12:18:14Z",
+      "side": 1,
+      "message": "Acknowledged, updated to ag/32890002",
+      "parentUuid": "1a34ed7a_7fac2e23",
       "range": {
         "startLine": 1840,
         "startChar": 16,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "94e3015e_a3bcf421",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 9788,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2025-04-09T12:18:14Z",
+      "side": 1,
+      "message": "Acknowledged, updated to ag/32890002",
+      "parentUuid": "871be397_a8d0f7bb",
+      "range": {
+        "startLine": 9788,
+        "startChar": 25,
+        "endLine": 9788,
+        "endChar": 32
+      },
+      "revId": "719b26c45be7ab557f6f5dd9c51d03ad79d28faa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a3b27c55_66daaafe",
@@ -83,6 +155,30 @@
       "writtenOn": "2025-04-01T09:13:51Z",
       "side": 1,
       "message": "final here and all your locals please, like everywhere else in this file. Here you can do this by initializing with a ternary\n\n    final List\u003cInetAddress\u003e addList \u003d newLp !\u003d null ? newLp.getAllAddresses() : null;",
+      "range": {
+        "startLine": 9793,
+        "startChar": 8,
+        "endLine": 9793,
+        "endChar": 12
+      },
+      "revId": "719b26c45be7ab557f6f5dd9c51d03ad79d28faa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e65b18fd_45eec874",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 9793,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2025-04-09T12:18:14Z",
+      "side": 1,
+      "message": "Acknowledged, updated to ag/32890002",
+      "parentUuid": "a3b27c55_66daaafe",
       "range": {
         "startLine": 9793,
         "startChar": 8,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed6056b1_086db19d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 9811,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2025-04-09T12:18:14Z",
+      "side": 1,
+      "message": "I left comment for this. ag/32890002\nIpv6 link address is auto generated on IPv6 available network interfaces however we may have a NetworkOffers that they don\u0027t report the link local address to CS.\nSo, IPv6 link address will be deleted when CS handles netlink event RTM_DELADDR.",
+      "parentUuid": "23b4b78b_899e4ad9",
+      "range": {
+        "startLine": 9811,
+        "startChar": 63,
+        "endLine": 9811,
+        "endChar": 81
+      },
+      "revId": "719b26c45be7ab557f6f5dd9c51d03ad79d28faa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b881108c_a31dd15b",
@@ -129,6 +249,30 @@
       "writtenOn": "2025-04-01T09:13:51Z",
       "side": 1,
       "message": "nit : since you\u0027re making a more generic function you could redefine this\n\n    private fun cellLp() \u003d makeLp(TEST_CELL_IFACE)",
+      "range": {
+        "startLine": 75,
+        "startChar": 12,
+        "endLine": 75,
+        "endChar": 18
+      },
+      "revId": "719b26c45be7ab557f6f5dd9c51d03ad79d28faa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "411c5ece_29a2f4f2",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDestroySocketTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2025-04-09T12:18:14Z",
+      "side": 1,
+      "message": "Acknowledged, updated to ag/32890002",
+      "parentUuid": "b881108c_a31dd15b",
       "range": {
         "startLine": 75,
         "startChar": 12,
@@ -162,6 +306,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b56271f_129c5301",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDestroySocketTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2025-04-09T12:18:14Z",
+      "side": 1,
+      "message": "Acknowledged, updated to ag/32890002",
+      "parentUuid": "766909da_fe7b91c9",
+      "range": {
+        "startLine": 376,
+        "startChar": 8,
+        "endLine": 376,
+        "endChar": 11
+      },
+      "revId": "719b26c45be7ab557f6f5dd9c51d03ad79d28faa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fce16607_a5effd2f",
@@ -175,6 +343,30 @@
       "writtenOn": "2025-04-01T09:13:51Z",
       "side": 1,
       "message": "Please don\u0027t use waitForIdle() – instead, use a NetworkCallback and wait for the network to be connected. Return the callback so you can also wait for disconnection in l.421 and the like. The issue is that waitForIdle() is brittle, because it depends on a message having been posted to the handler and on the processing to be finished when the handler becomes idle, both of which are implementation details that can change. Sometimes we don\u0027t have a choice, but here this is a common pattern with a well-defined better option. You can look at `NetworkAgentTest#createConnectedNetworkAgent` for an example.",
+      "range": {
+        "startLine": 382,
+        "startChar": 8,
+        "endLine": 382,
+        "endChar": 19
+      },
+      "revId": "719b26c45be7ab557f6f5dd9c51d03ad79d28faa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58858546_fa545041",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDestroySocketTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2025-04-09T12:18:14Z",
+      "side": 1,
+      "message": "Acknowledged, updated to ag/32890002\n\nIn case of disconnect(), the map is updated after callback to listeners at destroyNetwork, thus waitForIdle() is required. I\u0027ll use waitForIdle() at the last part of this test to check the map status after all connections disconnected.",
+      "parentUuid": "fce16607_a5effd2f",
       "range": {
         "startLine": 382,
         "startChar": 8,
@@ -208,6 +400,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d747cf8_84228e08",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDestroySocketTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2025-04-09T12:18:14Z",
+      "side": 1,
+      "message": "Acknowledged, updated to ag/32890002",
+      "parentUuid": "ca40a010_4db66a84",
+      "range": {
+        "startLine": 388,
+        "startChar": 60,
+        "endLine": 388,
+        "endChar": 65
+      },
+      "revId": "719b26c45be7ab557f6f5dd9c51d03ad79d28faa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d86f805c_1283ae85",
@@ -221,6 +437,30 @@
       "writtenOn": "2025-04-01T09:13:51Z",
       "side": 1,
       "message": "Instead of having string constants, suggest frontloading the InetAddress.getByName. Then you\u0027d pass a List\u003cInetAddress\u003e to prepareNetworkAgent which would be easier to read, and you\u0027d be able to dispense with this call here.\n\nBy the way you can just use [] instead of `.get`",
+      "range": {
+        "startLine": 405,
+        "startChar": 75,
+        "endLine": 405,
+        "endChar": 93
+      },
+      "revId": "719b26c45be7ab557f6f5dd9c51d03ad79d28faa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6154ddac_eee944e5",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDestroySocketTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2025-04-09T12:18:14Z",
+      "side": 1,
+      "message": "Acknowledged, updated to ag/32890002",
+      "parentUuid": "d86f805c_1283ae85",
       "range": {
         "startLine": 405,
         "startChar": 75,
@@ -254,6 +494,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eed010cb_a283f126",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDestroySocketTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2025-04-09T12:18:14Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "864d1192_5456d136",
+      "range": {
+        "startLine": 410,
+        "startChar": 8,
+        "endLine": 410,
+        "endChar": 21
+      },
+      "revId": "719b26c45be7ab557f6f5dd9c51d03ad79d28faa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "988576a0_a08e05b5",
@@ -267,6 +531,30 @@
       "writtenOn": "2025-04-01T09:13:51Z",
       "side": 1,
       "message": "You might even be able to say `assertEquals(setOf(...), networks1)` ?",
+      "range": {
+        "startLine": 414,
+        "startChar": 8,
+        "endLine": 414,
+        "endChar": 20
+      },
+      "revId": "719b26c45be7ab557f6f5dd9c51d03ad79d28faa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04f2e923_26016385",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDestroySocketTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2025-04-09T12:18:14Z",
+      "side": 1,
+      "message": "Acknowledged, updated to ag/32890002",
+      "parentUuid": "988576a0_a08e05b5",
       "range": {
         "startLine": 414,
         "startChar": 8,
@@ -300,6 +588,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "65a15bdd_76a357ad",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDestroySocketTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 423,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2025-04-09T12:18:14Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "575ab368_f9a99924",
+      "range": {
+        "startLine": 423,
+        "startChar": 24,
+        "endLine": 423,
+        "endChar": 39
+      },
+      "revId": "719b26c45be7ab557f6f5dd9c51d03ad79d28faa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b768c54d_93fe2ebb",
@@ -313,6 +625,30 @@
       "writtenOn": "2025-04-01T09:13:51Z",
       "side": 1,
       "message": "Maybe also assertFalse(contains(V6_ADDR2)) and V4_ADDRESS2",
+      "range": {
+        "startLine": 446,
+        "startChar": 0,
+        "endLine": 446,
+        "endChar": 0
+      },
+      "revId": "719b26c45be7ab557f6f5dd9c51d03ad79d28faa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7660635d_863a928e",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDestroySocketTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2025-04-09T12:18:14Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "b768c54d_93fe2ebb",
       "range": {
         "startLine": 446,
         "startChar": 0,
@@ -346,6 +682,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1b50c07_3bc41201",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDestroySocketTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2025-04-09T12:18:14Z",
+      "side": 1,
+      "message": "Acknowledged, updated to ag/32890002",
+      "parentUuid": "210e7da8_ea44e3a0",
+      "range": {
+        "startLine": 457,
+        "startChar": 32,
+        "endLine": 457,
+        "endChar": 48
+      },
+      "revId": "719b26c45be7ab557f6f5dd9c51d03ad79d28faa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "769366e2_d3cb1899",
@@ -369,6 +729,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "db319e2e_08e01585",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDestroySocketTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2025-04-09T12:18:14Z",
+      "side": 1,
+      "message": "Acknowledged, updated to ag/32890002",
+      "parentUuid": "769366e2_d3cb1899",
+      "range": {
+        "startLine": 470,
+        "startChar": 14,
+        "endLine": 470,
+        "endChar": 19
+      },
+      "revId": "719b26c45be7ab557f6f5dd9c51d03ad79d28faa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6b1a6d5d_bd404e2a",
@@ -382,6 +766,30 @@
       "writtenOn": "2025-04-01T09:13:51Z",
       "side": 1,
       "message": "nit : it\u0027s terser and easier to read to write it like the method above\n\n    override fun flagConnectivityServiceDestroySocket() \u003d true",
+      "range": {
+        "startLine": 415,
+        "startChar": 19,
+        "endLine": 415,
+        "endChar": 23
+      },
+      "revId": "719b26c45be7ab557f6f5dd9c51d03ad79d28faa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b9b920a_4b9a7485",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2025-04-09T12:18:14Z",
+      "side": 1,
+      "message": "Acknowledged, updated to ag/32890002",
+      "parentUuid": "6b1a6d5d_bd404e2a",
       "range": {
         "startLine": 415,
         "startChar": 19,
