@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5048811_92266cd1",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1905,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2025-04-09T12:19:10Z",
+      "side": 1,
+      "message": "Acknowledged, updated to ag/32963578.",
+      "parentUuid": "49965313_249864d5",
+      "range": {
+        "startLine": 1905,
+        "startChar": 41,
+        "endLine": 1905,
+        "endChar": 44
+      },
+      "revId": "68cc26bfde54bdf8646bcab68dcb4741977055be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "90f35f54_20e44f7d",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-04-01T09:14:30Z",
       "side": 1,
       "message": "It\u0027s deeply confusing that this is called twice without so much as a comment. The existing code had the following comment to explain\n\n    // Destroy sockets again in case any were opened after we called destroySocketsLackingPermission\n    // above and before we changed the permissions. These sockets won\u0027t be able to send any RST\n    // packets because they are now no longer routed, but at least the apps will get errors.",
+      "range": {
+        "startLine": 5757,
+        "startChar": 16,
+        "endLine": 5757,
+        "endChar": 54
+      },
+      "revId": "68cc26bfde54bdf8646bcab68dcb4741977055be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8fd17d34_bb6607c4",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 5757,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2025-04-09T12:19:10Z",
+      "side": 1,
+      "message": "Acknowledged, updated to ag/32963578.",
+      "parentUuid": "90f35f54_20e44f7d",
       "range": {
         "startLine": 5757,
         "startChar": 16,
