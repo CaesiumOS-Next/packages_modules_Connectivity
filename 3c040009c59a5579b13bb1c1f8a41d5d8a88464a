@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "060477f7_36c62359",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4713,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-04-09T04:18:07Z",
+      "side": 1,
+      "message": "If this is impossible, can we add a terrible error for it, and if we see no terrible errors in production, upgrade this to a crash?",
+      "range": {
+        "startLine": 4713,
+        "startChar": 16,
+        "endLine": 4713,
+        "endChar": 59
+      },
+      "revId": "3c040009c59a5579b13bb1c1f8a41d5d8a88464a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
