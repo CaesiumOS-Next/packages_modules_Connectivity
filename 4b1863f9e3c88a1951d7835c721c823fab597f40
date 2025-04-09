@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4b6c9cc_48295291",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2025-04-09T12:17:52Z",
+      "side": 1,
+      "message": "Acknowledged, updated to ag/32867382",
+      "parentUuid": "9cc76cf1_f9b5f033",
+      "range": {
+        "startLine": 81,
+        "startChar": 4,
+        "endLine": 81,
+        "endChar": 6
+      },
+      "revId": "4b1863f9e3c88a1951d7835c721c823fab597f40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "94485cea_0ebe3ecd",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-04-01T09:13:32Z",
       "side": 1,
       "message": "Since you have a Set\u003cRange\u003cInteger\u003e\u003e, would it not make sense to adopt the same convention here ?",
+      "range": {
+        "startLine": 535,
+        "startChar": 42,
+        "endLine": 535,
+        "endChar": 81
+      },
+      "revId": "4b1863f9e3c88a1951d7835c721c823fab597f40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c7bae4a_7a298c98",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2025-04-09T12:17:52Z",
+      "side": 1,
+      "message": "Acknowledged, updated to ag/32867382",
+      "parentUuid": "94485cea_0ebe3ecd",
       "range": {
         "startLine": 535,
         "startChar": 42,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea5b7123_90580d98",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2025-04-09T12:17:52Z",
+      "side": 1,
+      "message": "For netIdRange Set\u003cRange\u003cInteger\u003e\u003e is more suitable, I will update it.\nHowever exemptNetIds doesn\u0027t need to have Range at current design. Let me keep to use Set\u003cInteger\u003e for exemptNetIds.",
+      "parentUuid": "d7d36195_f69115c5",
+      "range": {
+        "startLine": 536,
+        "startChar": 16,
+        "endLine": 536,
+        "endChar": 30
+      },
+      "revId": "4b1863f9e3c88a1951d7835c721c823fab597f40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ca5eac5e_17c333d8",
@@ -83,6 +155,30 @@
       "writtenOn": "2025-04-01T09:13:32Z",
       "side": 1,
       "message": "Instead of copy-pasting the code for destroyLiveTcpSockets, can you please factorize that code ? You can write a function that takes a Predicate\u003cInetDiagMessage\u003e and call it in all three similar methods.",
+      "range": {
+        "startLine": 540,
+        "startChar": 8,
+        "endLine": 540,
+        "endChar": 22
+      },
+      "revId": "4b1863f9e3c88a1951d7835c721c823fab597f40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "462ad3d5_bf72b51b",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 540,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2025-04-09T12:17:52Z",
+      "side": 1,
+      "message": "Acknowledged, updated to ag/32867382",
+      "parentUuid": "ca5eac5e_17c333d8",
       "range": {
         "startLine": 540,
         "startChar": 8,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7756080_3a45b85c",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2025-04-09T12:17:52Z",
+      "side": 1,
+      "message": "Ack, updated to ag/32867382",
+      "parentUuid": "62c3106e_7b50d83f",
+      "range": {
+        "startLine": 563,
+        "startChar": 26,
+        "endLine": 563,
+        "endChar": 50
+      },
+      "revId": "4b1863f9e3c88a1951d7835c721c823fab597f40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d0164af8_22c2e102",
@@ -139,6 +259,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bb76582_bd04bd9f",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2025-04-09T12:17:52Z",
+      "side": 1,
+      "message": "Acknowledged, updated to ag/32867382",
+      "parentUuid": "d0164af8_22c2e102",
+      "range": {
+        "startLine": 564,
+        "startChar": 42,
+        "endLine": 564,
+        "endChar": 47
+      },
+      "revId": "4b1863f9e3c88a1951d7835c721c823fab597f40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2c533d42_8b04c576",
@@ -152,6 +296,30 @@
       "writtenOn": "2025-04-01T09:13:32Z",
       "side": 1,
       "message": "IIUC this means that if an interfaceId is passed, then the range of netIds and uidRanges are ignored. Is this expected ? It\u0027s counter-intuitive and not documented. If it is expected, I think it should not just be documented – it should probably actually be two different methods so they have different sets of arguments",
+      "range": {
+        "startLine": 578,
+        "startChar": 12,
+        "endLine": 579,
+        "endChar": 65
+      },
+      "revId": "4b1863f9e3c88a1951d7835c721c823fab597f40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc4ad17c_035f37e4",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2025-04-09T12:17:52Z",
+      "side": 1,
+      "message": "Acknowledged, updated to ag/32867382",
+      "parentUuid": "2c533d42_8b04c576",
       "range": {
         "startLine": 578,
         "startChar": 12,
@@ -187,6 +355,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "25ad3c80_1867266a",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2025-04-09T12:17:52Z",
+      "side": 1,
+      "message": "The caller gets this mask value from Netd, so I think it needs to be passed down from caller. Can we keep current implementation?",
+      "parentUuid": "9069527f_84d0b7e6",
+      "range": {
+        "startLine": 615,
+        "startChar": 14,
+        "endLine": 615,
+        "endChar": 73
+      },
+      "revId": "4b1863f9e3c88a1951d7835c721c823fab597f40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6fa4e522_ad405816",
         "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
         "patchSetId": 11
@@ -198,6 +390,30 @@
       "writtenOn": "2025-04-01T09:13:32Z",
       "side": 1,
       "message": "permission required by the network\n\nIdeally you\u0027d have more details, like INTERNET permission and USE_RESTRICTED_NETWORKS permission and how one implies the other.",
+      "range": {
+        "startLine": 637,
+        "startChar": 25,
+        "endLine": 637,
+        "endChar": 43
+      },
+      "revId": "4b1863f9e3c88a1951d7835c721c823fab597f40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4eba6a44_e44d4b8b",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2025-04-09T12:17:52Z",
+      "side": 1,
+      "message": "Acknowledged, updated to ag/32867382",
+      "parentUuid": "6fa4e522_ad405816",
       "range": {
         "startLine": 637,
         "startChar": 25,
@@ -231,6 +447,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b8ad754_12d7ce00",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 648,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2025-04-09T12:17:52Z",
+      "side": 1,
+      "message": "Acknowledged, updated to ag/32867382",
+      "parentUuid": "e30e479c_e17989d5",
+      "range": {
+        "startLine": 648,
+        "startChar": 8,
+        "endLine": 648,
+        "endChar": 51
+      },
+      "revId": "4b1863f9e3c88a1951d7835c721c823fab597f40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9a98f335_063a874f",
@@ -244,6 +484,30 @@
       "writtenOn": "2025-04-01T09:13:32Z",
       "side": 1,
       "message": "This requires at least comments",
+      "range": {
+        "startLine": 654,
+        "startChar": 60,
+        "endLine": 654,
+        "endChar": 94
+      },
+      "revId": "4b1863f9e3c88a1951d7835c721c823fab597f40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8c13f32_b168eec9",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 654,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2025-04-09T12:17:52Z",
+      "side": 1,
+      "message": "Acknowledged, updated to ag/32867382",
+      "parentUuid": "9a98f335_063a874f",
       "range": {
         "startLine": 654,
         "startChar": 60,
@@ -277,6 +541,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "45a9bb59_e60d8425",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/netlink/InetDiagSocketTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 870,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2025-04-09T12:17:52Z",
+      "side": 1,
+      "message": "Acknowledged, updated to ag/32867382",
+      "parentUuid": "8b27d531_9da40e2d",
+      "range": {
+        "startLine": 870,
+        "startChar": 66,
+        "endLine": 870,
+        "endChar": 77
+      },
+      "revId": "4b1863f9e3c88a1951d7835c721c823fab597f40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "02a97894_d1cdf0aa",
@@ -300,6 +588,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0d0f1d1_af478cfe",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/netlink/InetDiagSocketTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 873,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2025-04-09T12:17:52Z",
+      "side": 1,
+      "message": "Acknowledged, updated to ag/32867382",
+      "parentUuid": "02a97894_d1cdf0aa",
+      "range": {
+        "startLine": 873,
+        "startChar": 8,
+        "endLine": 873,
+        "endChar": 12
+      },
+      "revId": "4b1863f9e3c88a1951d7835c721c823fab597f40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fff36c8c_0fd213dc",
@@ -313,6 +625,30 @@
       "writtenOn": "2025-04-01T09:13:32Z",
       "side": 1,
       "message": "This is almost identical to `doTestMatchingDestroyCondition`, please factorize",
+      "range": {
+        "startLine": 940,
+        "startChar": 17,
+        "endLine": 940,
+        "endChar": 42
+      },
+      "revId": "4b1863f9e3c88a1951d7835c721c823fab597f40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05468d1e_9f472afd",
+        "filename": "staticlibs/tests/unit/src/com/android/net/module/util/netlink/InetDiagSocketTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 940,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2025-04-09T12:17:52Z",
+      "side": 1,
+      "message": "Acknowledged, updated to ag/32867382",
+      "parentUuid": "fff36c8c_0fd213dc",
       "range": {
         "startLine": 940,
         "startChar": 17,
