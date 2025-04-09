@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c18262f_1af3fba9",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 1115,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2025-04-09T12:18:40Z",
+      "side": 1,
+      "message": "Updated to ag/32930397.\n\nI changed it as final.",
+      "parentUuid": "8f5dc312_33eb9cab",
+      "range": {
+        "startLine": 1115,
+        "startChar": 4,
+        "endLine": 1115,
+        "endChar": 11
+      },
+      "revId": "ea5c0547964aa68e899cf3192a6a1be587d33a66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c9e93b08_3d64c852",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-04-01T09:14:14Z",
       "side": 1,
       "message": "This looks very ad-hoc ; I don\u0027t think it\u0027s well defined what this is supposed to return for a non-existent network. Are you replacing code that is currently calling this ?\n\nAlso keep in mind that netd is OEM code. They very well might have modified `NetdNativeService::getFwmarkForNetwork`.",
+      "range": {
+        "startLine": 2177,
+        "startChar": 44,
+        "endLine": 2177,
+        "endChar": 73
+      },
+      "revId": "ea5c0547964aa68e899cf3192a6a1be587d33a66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a88f4db_62ed3d6f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 2177,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2025-04-09T12:18:40Z",
+      "side": 1,
+      "message": "Since what we want to know is netId mask for the Fwmark value and the mask value will be constance for each connection. So, I hope to get for a non-existent network at construct time rather than getting it based on network connection.\n\nAlso I added code to disable this feature if it doesn\u0027t return 0xffff defined by AOSP netd.\n\nBy the way, can we provide option(or config) to disable this feature to OEM? Just in case that an OEM really needs to disable this feature.",
+      "parentUuid": "c9e93b08_3d64c852",
       "range": {
         "startLine": 2177,
         "startChar": 44,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5d14ab7_d4c5d855",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 2182,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2025-04-09T12:18:40Z",
+      "side": 1,
+      "message": "Updated to ag/32930397.",
+      "parentUuid": "9bc66563_b50655f5",
+      "range": {
+        "startLine": 2182,
+        "startChar": 0,
+        "endLine": 2182,
+        "endChar": 55
+      },
+      "revId": "ea5c0547964aa68e899cf3192a6a1be587d33a66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "de9dcc7a_f080b8f7",
@@ -83,6 +155,30 @@
       "writtenOn": "2025-04-01T09:14:14Z",
       "side": 1,
       "message": "It doesn\u0027t look intuitive to call a method that destroys sockets inside a method called updateIpAddress. Could we either make them separate or rename updateIpAddressForNetwork to clarify ?",
+      "range": {
+        "startLine": 9854,
+        "startChar": 16,
+        "endLine": 9854,
+        "endChar": 50
+      },
+      "revId": "ea5c0547964aa68e899cf3192a6a1be587d33a66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1ead5df_9d38693a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 9854,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2025-04-09T12:18:40Z",
+      "side": 1,
+      "message": "Updated to ag/32930397.",
+      "parentUuid": "de9dcc7a_f080b8f7",
       "range": {
         "startLine": 9854,
         "startChar": 16,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ee41a59_5b0a520d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 9865,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2025-04-09T12:18:40Z",
+      "side": 1,
+      "message": "Updated to ag/32930397.",
+      "parentUuid": "07eb01af_4d6e3d68",
+      "range": {
+        "startLine": 9865,
+        "startChar": 31,
+        "endLine": 9865,
+        "endChar": 51
+      },
+      "revId": "ea5c0547964aa68e899cf3192a6a1be587d33a66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e8756493_b5f0de44",
@@ -129,6 +249,30 @@
       "writtenOn": "2025-04-01T09:14:14Z",
       "side": 1,
       "message": "I think this needs much better documentation.\n\n- Please have comments here explaining what VPNs have to do with this.\n- Please rename the method so that it\u0027s obvious what VPNs have to do with this.\n- Please have the cover comment explain what this patch is doing that has to do with VPNs.",
+      "range": {
+        "startLine": 9872,
+        "startChar": 28,
+        "endLine": 9872,
+        "endChar": 33
+      },
+      "revId": "ea5c0547964aa68e899cf3192a6a1be587d33a66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5df7fc2b_8f492625",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 9872,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2025-04-09T12:18:40Z",
+      "side": 1,
+      "message": "Updated to ag/32930397.\n\nThis is the logic concluded in the design review.\nhttps://docs.google.com/document/d/1oIqVWZ5pmdD3jlGNJLVluyyv1y4Rznjg-Wxpl8ocF4A/edit?tab\u003dt.0#heading\u003dh.9hb7g6hhmjj3",
+      "parentUuid": "e8756493_b5f0de44",
       "range": {
         "startLine": 9872,
         "startChar": 28,
@@ -162,6 +306,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "adbcebc4_b4849d6e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 9874,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2025-04-09T12:18:40Z",
+      "side": 1,
+      "message": "Current implementation completes this in one loop.\nIf we use CollectionUtils we need multiple loops, but it has better readability.\nUpdated to use CollectionUtils.",
+      "parentUuid": "4326b207_f09453de",
+      "range": {
+        "startLine": 9874,
+        "startChar": 20,
+        "endLine": 9874,
+        "endChar": 42
+      },
+      "revId": "ea5c0547964aa68e899cf3192a6a1be587d33a66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "67fab1ca_445717c1",
@@ -185,6 +353,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2ac3e44_c8a692bc",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 9884,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2025-04-09T12:18:40Z",
+      "side": 1,
+      "message": "Yes, right.\nDuring the design discussion, Lorenzo noted that UID ranges do not overlap for VPN networks.\nhttps://docs.google.com/document/d/1oIqVWZ5pmdD3jlGNJLVluyyv1y4Rznjg-Wxpl8ocF4A/edit?disco\u003dAAABTyFCtlo",
+      "parentUuid": "67fab1ca_445717c1",
+      "range": {
+        "startLine": 9884,
+        "startChar": 16,
+        "endLine": 9884,
+        "endChar": 41
+      },
+      "revId": "ea5c0547964aa68e899cf3192a6a1be587d33a66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6aac0d97_0fc67494",
@@ -198,6 +390,30 @@
       "writtenOn": "2025-04-01T09:14:14Z",
       "side": 1,
       "message": "Maybe I\u0027m tired, but I\u0027m deeply confused by what this code is trying to do.\n\n- If there is a VPN with this address, then no exemption, so destroy all sockets with this address ?\n- If there is no VPN with this address, then exempt all networks with this address except the passed netId, so destroy only for this netId ?\n\nIf that understanding is correct I think you can replace this entire function with something like\n\n    if (there is a VPN) {\n      destroy(address, Range.create(min, max), null, nai.nc.getUids(), 0, mask);\n    } else {\n      destroy(address, Range.create(nai.netId, nai.netId), null, null, 0, mask);\n    }\n\nAm I missing something ?\n\n\nAlso this is happening whenever any agent updates its link properties, so IIUC, as long as there is a VPN with this address, any network losing this address will destroy all sockets with this source address on other networks ? Is this what we want to do ?",
+      "range": {
+        "startLine": 9890,
+        "startChar": 20,
+        "endLine": 9890,
+        "endChar": 34
+      },
+      "revId": "ea5c0547964aa68e899cf3192a6a1be587d33a66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1acffdf_2a24dfe3",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 9890,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2025-04-09T12:18:40Z",
+      "side": 1,
+      "message": "I left comments for this on the code.\n\nWhat we want to do is\n\nif (removed IP address presents on multiple networks) {\n  if (there is no VPN) {\n    //exemptedNetIds are for the networks not losing this address.\n    destroy(address, Range(netid_min,netid_max), exemptedNetIds, null, mask);\n  } else if (all are VPN) {\n    // uidRange is for the network losing this address.\n    destroy(address, Range(netid_min,netid_max), null, uidRange, mask);\n  } else {\n    // If there are VPN and nonVPN mixed, delete all sockets for the address.\n    destroy(address, Range(netid_min,netid_max), null, null, mask);\n  }\n} else {\n  destroy(address, Range(netid_min,netid_max), null, null, mask);\n}\n\nDuring the design discussion, we recognize that it\u0027s too complex to determine which sockets to be destroyed if there are both VPN and nonVPN networks possessing the same IP address, So we concluded to destroy all sockets for the address at this case. It\u0027s not a regression as Netd currently does this.",
+      "parentUuid": "6aac0d97_0fc67494",
       "range": {
         "startLine": 9890,
         "startChar": 20,
@@ -233,6 +449,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3ff01ae4_3d596235",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDestroySocketTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 513,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2025-04-09T12:18:40Z",
+      "side": 1,
+      "message": "I\u0027ll update test code once the code review for the implementation part completes.",
+      "parentUuid": "7e8654d8_253ceb8a",
+      "range": {
+        "startLine": 513,
+        "startChar": 8,
+        "endLine": 513,
+        "endChar": 19
+      },
+      "revId": "ea5c0547964aa68e899cf3192a6a1be587d33a66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "38640ca0_8edcc94f",
         "filename": "tests/unit/java/com/android/server/connectivityservice/CSDestroySocketTest.kt",
         "patchSetId": 16
@@ -244,6 +484,30 @@
       "writtenOn": "2025-04-01T09:14:14Z",
       "side": 1,
       "message": "For safety, shouldn\u0027t this be the netId of agent1 ? I understand that in your current code, the map will return all netIds with this address and you\u0027ll exempt the other ones with the exemption argument, but this looks pretty hard to understand in isolation.",
+      "range": {
+        "startLine": 517,
+        "startChar": 55,
+        "endLine": 517,
+        "endChar": 91
+      },
+      "revId": "ea5c0547964aa68e899cf3192a6a1be587d33a66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66372a80_d235e005",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDestroySocketTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2025-04-09T12:18:40Z",
+      "side": 1,
+      "message": "It would be nice if the mark value of all sockets exactly matches the netID value of the network they are actually used in, but there may be cases where this is not the case (VPN case). In such cases, the current design has a limitation that it cannot perfectly determine the target socket to be deleted. Since the previous implementation deleted all sockets for that IP address without considering the situation where multiple networks use the same IP address, I think it would be better to use a method to remove netIds that can be reliably excluded from the entire netId range.",
+      "parentUuid": "38640ca0_8edcc94f",
       "range": {
         "startLine": 517,
         "startChar": 55,
@@ -279,6 +543,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "acc510e2_7d76d3b8",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDestroySocketTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2025-04-09T12:18:40Z",
+      "side": 1,
+      "message": "I\u0027ll update test code once the code review for the implementation part completes.",
+      "parentUuid": "eb915adc_1306af3a",
+      "range": {
+        "startLine": 559,
+        "startChar": 27,
+        "endLine": 561,
+        "endChar": 46
+      },
+      "revId": "ea5c0547964aa68e899cf3192a6a1be587d33a66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "86cab74a_ce4b5961",
         "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
         "patchSetId": 16
@@ -290,6 +578,30 @@
       "writtenOn": "2025-04-01T09:14:14Z",
       "side": 1,
       "message": "If you\u0027re only calling it with 0 I think 0 here is probably more appropriate (it won\u0027t surprise someone calling it for some existing netID)",
+      "range": {
+        "startLine": 204,
+        "startChar": 64,
+        "endLine": 204,
+        "endChar": 70
+      },
+      "revId": "ea5c0547964aa68e899cf3192a6a1be587d33a66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28bfb49b_6f0a9b31",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/base/CSTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2025-04-09T12:18:40Z",
+      "side": 1,
+      "message": "Acknowledged, updated to ag/32930397",
+      "parentUuid": "86cab74a_ce4b5961",
       "range": {
         "startLine": 204,
         "startChar": 64,
