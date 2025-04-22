@@ -124,7 +124,7 @@ class EthernetManagerTest {
         init {
             tapInterface = runAsShell(MANAGE_TEST_NETWORKS) {
                 val tnm = context.getSystemService(TestNetworkManager::class.java)
-                tnm.createTapInterface(false /* bringUp */)
+                tnm.createTapInterface(true /*carrier*/, false /*bringUp*/, false /*v6ProvDelay*/)
             }
             val mtu = 1500
             packetReader = TapPacketReader(handler, tapInterface.fileDescriptor.fileDescriptor, mtu)
