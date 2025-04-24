@@ -377,6 +377,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e9ffe0e_1e5b3dac",
+        "filename": "staticlibs/device/com/android/net/module/util/netlink/InetDiagMessage.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2025-04-24T01:53:56Z",
+      "side": 1,
+      "message": "Acknowledged, updated to ag/32867382",
+      "parentUuid": "25ad3c80_1867266a",
+      "range": {
+        "startLine": 615,
+        "startChar": 14,
+        "endLine": 615,
+        "endChar": 73
+      },
+      "revId": "4b1863f9e3c88a1951d7835c721c823fab597f40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6fa4e522_ad405816",
