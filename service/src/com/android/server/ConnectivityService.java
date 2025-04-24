@@ -11502,6 +11502,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private void addNetworkToLegacyTypeTracker(@NonNull final NetworkAgentInfo nai) {
         for (int i = 0; i < nai.numNetworkRequests(); i++) {
             NetworkRequest nr = nai.requestAt(i);
+            if (nr == null) {
+              continue;
+            }
             if (nr.legacyType != TYPE_NONE && nr.isRequest()) {
                 // legacy type tracker filters out repeat adds
                 mLegacyTypeTracker.add(nr.legacyType, nai);
