@@ -471,6 +471,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a99cbdc_1a4bb8af",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDestroySocketTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 513,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2025-04-24T01:53:00Z",
+      "side": 1,
+      "message": "Acknowledged, updated to ag/32930397",
+      "parentUuid": "3ff01ae4_3d596235",
+      "range": {
+        "startLine": 513,
+        "startChar": 8,
+        "endLine": 513,
+        "endChar": 19
+      },
+      "revId": "ea5c0547964aa68e899cf3192a6a1be587d33a66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "38640ca0_8edcc94f",
@@ -555,6 +579,30 @@
       "side": 1,
       "message": "I\u0027ll update test code once the code review for the implementation part completes.",
       "parentUuid": "eb915adc_1306af3a",
+      "range": {
+        "startLine": 559,
+        "startChar": 27,
+        "endLine": 561,
+        "endChar": 46
+      },
+      "revId": "ea5c0547964aa68e899cf3192a6a1be587d33a66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e9a2376_8c820973",
+        "filename": "tests/unit/java/com/android/server/connectivityservice/CSDestroySocketTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2025-04-24T01:53:00Z",
+      "side": 1,
+      "message": "Acknowledged, updated to ag/32930397",
+      "parentUuid": "acc510e2_7d76d3b8",
       "range": {
         "startLine": 559,
         "startChar": 27,
