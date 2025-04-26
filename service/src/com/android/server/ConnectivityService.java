@@ -5502,7 +5502,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         for (int i = 0; i < nai.numNetworkRequests(); i++) {
             final NetworkRequest request = nai.requestAt(i);
             final NetworkRequestInfo nri = mNetworkRequests.get(request);
-            final NetworkAgentInfo currentNetwork = nri.getSatisfier();
+            final NetworkAgentInfo currentNetwork = nri != null ? nri.getSatisfier(): null;
             if (currentNetwork != null
                     && currentNetwork.network.getNetId() == nai.network.getNetId()) {
                 // uid rules for this network will be removed in destroyNativeNetwork(nai).
@@ -11818,6 +11818,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
         for (int i = 0; i < nai.numNetworkRequests(); i++) {
             NetworkRequest nr = nai.requestAt(i);
             NetworkRequestInfo nri = mNetworkRequests.get(nr);
+            if (nri == null) {
+                continue;
+            }
 
             final int blockedReasons = mUidBlockedReasons.get(nri.mAsUid, BLOCKED_REASON_NONE);
             final boolean oldVpnBlocked = isUidBlockedByVpn(nri.mAsUid, oldBlockedUidRanges);
