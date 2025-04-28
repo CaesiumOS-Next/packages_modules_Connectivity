@@ -342,7 +342,12 @@ public class Tethering {
                 (Intent ignored) -> {
                     mLog.log("OBSERVED carrier config change");
                     updateConfiguration();
-                    mEntitlementMgr.reevaluateSimCardProvisioning(mConfig);
+
+                    if (mActiveDataSubId != INVALID_SUBSCRIPTION_ID) {
+                        mEntitlementMgr.reevaluateSimCardProvisioning(mConfig);
+                    } else {
+                        mLog.log("IGNORED reevaluate provisioning, invalid subscription id");
+                    }
                 });
 
         mSettingsObserver = new SettingsObserver(mContext, mHandler);
