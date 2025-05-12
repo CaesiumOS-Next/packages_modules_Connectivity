@@ -156,6 +156,8 @@ public class OffloadController {
     // quota is interface independent and global for tether offload. Note that this is only
     // accessed on the handler thread and in the constructor.
     private long mRemainingAlertQuota = QUOTA_UNLIMITED;
+
+    private long mGlobalAlertBytes;
     // Runnable that used to schedule the next stats poll.
     private final Runnable mScheduledPollingTask = () -> {
         updateStatsForCurrentUpstream();
@@ -423,6 +425,8 @@ public class OffloadController {
             // Ignore set alert calls from HAL V1.1 since the hardware supports set warning now.
             // Thus, the software polling mechanism is not needed.
             if (!useStatsPolling()) {
+                mGlobalAlertBytes = quotaBytes;
+                maybeUpdateDataWarningAndLimit(currentUpstreamInterface());
                 return;
             }
             // Post it to handler thread since it access remaining quota bytes.
@@ -530,7 +534,8 @@ public class OffloadController {
         final InterfaceQuota quota = mInterfaceQuotas.getOrDefault(iface, InterfaceQuota.MAX_VALUE);
         final boolean ret;
         if (mOffloadHalVersion >= OFFLOAD_HAL_VERSION_HIDL_1_1) {
-            ret = mHwInterface.setDataWarningAndLimit(iface, quota.warningBytes, quota.limitBytes);
+            ret = mHwInterface.setDataWarningAndLimit(iface,
+                    Math.min(mGlobalAlertBytes, quota.warningBytes), quota.limitBytes);
         } else {
             ret = mHwInterface.setDataLimit(iface, quota.limitBytes);
         }
