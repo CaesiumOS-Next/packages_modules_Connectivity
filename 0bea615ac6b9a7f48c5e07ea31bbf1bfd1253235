@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1a59675_8aa06a09",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2025-05-12T02:43:55Z",
+      "side": 1,
+      "message": "I think this is needed also because:\n  1. The required stats are from offloadedController\n  2. The current design commented in comment#92, \nmaybe desribe them in the commit message to provide more context about why the patch is needed.",
+      "range": {
+        "startLine": 11,
+        "startChar": 19,
+        "endLine": 11,
+        "endChar": 20
+      },
+      "revId": "0bea615ac6b9a7f48c5e07ea31bbf1bfd1253235",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
