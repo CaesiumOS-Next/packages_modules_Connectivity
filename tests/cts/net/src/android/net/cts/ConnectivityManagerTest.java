@@ -29,6 +29,7 @@ import static android.Manifest.permission.READ_DEVICE_CONFIG;
 import static android.content.pm.PackageManager.FEATURE_BLUETOOTH;
 import static android.content.pm.PackageManager.FEATURE_ETHERNET;
 import static android.content.pm.PackageManager.FEATURE_TELEPHONY;
+import static android.content.pm.PackageManager.FEATURE_TELEPHONY_DATA;
 import static android.content.pm.PackageManager.FEATURE_USB_HOST;
 import static android.content.pm.PackageManager.FEATURE_WATCH;
 import static android.content.pm.PackageManager.FEATURE_WIFI;
@@ -2664,6 +2665,11 @@ public class ConnectivityManagerTest {
         final boolean oldMeteredValue = wifiNetworkCapabilities.isMetered();
 
         testAndCleanup(() -> {
+            // Make sure cellular networks do not interfere with the test
+            if (mPackageManager.hasSystemFeature(FEATURE_TELEPHONY_DATA)) {
+                mCtsNetUtils.setMobileDataEnabled(false);
+            }
+
             // This network will be used for unmetered. Wait for it to be validated because
             // OEM_NETWORK_PREFERENCE_TEST only prefers NOT_METERED&VALIDATED to a network with
             // TRANSPORT_TEST, like OEM_NETWORK_PREFERENCE_OEM_PAID.
@@ -2689,6 +2695,9 @@ public class ConnectivityManagerTest {
             // system is in the expected state.
             waitForAvailable(systemDefaultCallback, TRANSPORT_WIFI);
         }, /* cleanup */ () -> {
+            if (mPackageManager.hasSystemFeature(FEATURE_TELEPHONY_DATA)) {
+                mCtsNetUtils.setMobileDataEnabled(true);
+            }
             // Validate that removing the test network will fallback to the default network.
             runWithShellPermissionIdentity(tnt::teardown);
             defaultCallback.expectCallback(CallbackEntry.LOST, tnt.getNetwork(),
