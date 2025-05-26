@@ -16,11 +16,13 @@
 
 package android.net.cts.util;
 
+import static android.Manifest.permission.MODIFY_PHONE_STATE;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_TEST;
 
 import static com.android.compatibility.common.util.PropertyUtil.getFirstApiLevel;
+import static com.android.testutils.TestPermissionUtil.runAsShell;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -52,10 +54,13 @@ import android.os.ConditionVariable;
 import android.os.IBinder;
 import android.system.Os;
 import android.system.OsConstants;
+import android.telephony.SubscriptionManager;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.android.compatibility.common.util.SystemUtil;
+import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.ConnectivitySettingsUtils;
 import com.android.testutils.ConnectUtil;
 
@@ -505,6 +510,51 @@ public final class CtsNetUtils {
         // just sleep.
         if (requiresValidatedServer) {
             Thread.sleep(PRIVATE_DNS_PROBE_MS);
+        }
+    }
+
+    /**
+     * Enables or disables the mobile data and waits for the state to change.
+     *
+     * @param enable - true to enable, false to disable the mobile data.
+     */
+    public void setMobileDataEnabled(boolean enable) throws InterruptedException {
+        final TelephonyManager tm =  mContext.getSystemService(TelephonyManager.class)
+                .createForSubscriptionId(SubscriptionManager.getDefaultDataSubscriptionId());
+
+        if (tm == null || tm.isDataEnabled() == enable) {
+            return;
+        }
+
+        final NetworkRequest request = new NetworkRequest.Builder()
+                .addTransportType(TRANSPORT_CELLULAR)
+                .addCapability(NET_CAPABILITY_INTERNET)
+                .build();
+        final TestNetworkCallback callback = new TestNetworkCallback();
+        mCm.registerNetworkCallback(request, callback);
+
+        try {
+            if (!enable && callback.waitForAvailable() == null) {
+                Log.i(TAG, "Cannot disable mobile data: mobile data is not connected");
+                return;
+            }
+
+            if (SdkLevel.isAtLeastS()) {
+                runAsShell(MODIFY_PHONE_STATE, () -> tm.setDataEnabledForReason(
+                        TelephonyManager.DATA_ENABLED_REASON_USER, enable));
+            } else {
+                runAsShell(MODIFY_PHONE_STATE, () -> tm.setDataEnabled(enable));
+            }
+            if (enable) {
+                assertNotNull("Enabling mobile data did not connect mobile data",
+                        callback.waitForAvailable());
+            } else {
+                assertNotNull("Disabling mobile data did not disconnect mobile data",
+                        callback.waitForLost());
+            }
+
+        } finally {
+            mCm.unregisterNetworkCallback(callback);
         }
     }
 

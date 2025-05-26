@@ -65,6 +65,7 @@ import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_METERED;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_PARTIAL_CONNECTIVITY;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_VALIDATED;
+import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_TEST;
 import static android.net.NetworkCapabilities.TRANSPORT_VPN;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
@@ -238,6 +239,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Supplier;
 import java.util.regex.Matcher;
@@ -2662,6 +2664,7 @@ public class ConnectivityManagerTest {
                 () -> mCm.getNetworkCapabilities(wifiNetwork));
         final String ssid = unquoteSSID(wifiNetworkCapabilities.getSsid());
         final boolean oldMeteredValue = wifiNetworkCapabilities.isMetered();
+        final AtomicBoolean disabledMobileData = new AtomicBoolean(false);
 
         testAndCleanup(() -> {
             // This network will be used for unmetered. Wait for it to be validated because
@@ -2682,6 +2685,25 @@ public class ConnectivityManagerTest {
             setWifiMeteredStatusAndWait(ssid, true /* isMetered */, true /* waitForValidation */);
             defaultCallback.expectCallback(CallbackEntry.LOST, wifiNetwork,
                     NETWORK_CALLBACK_TIMEOUT_MS);
+
+            // Make sure unmetered cellular networks do not interfere with the test, as not
+            // all devices will have telephony, therefore Wi-Fi must be relied upon.
+            Network activeNetwork = mCm.getActiveNetwork();
+            NetworkCapabilities activeNetworkCapabilities = callWithShellPermissionIdentity(
+                    () -> mCm.getNetworkCapabilities(activeNetwork));
+            if (activeNetworkCapabilities.hasTransport(TRANSPORT_CELLULAR)
+                    && !activeNetworkCapabilities.isMetered()) {
+                // Unmetered cellular will now be the system default over metered Wi-Fi.
+                waitForAvailable(systemDefaultCallback, TRANSPORT_CELLULAR);
+
+                mCtsNetUtils.setMobileDataEnabled(false);
+                disabledMobileData.set(true);
+
+                defaultCallback.eventuallyExpect(CallbackEntry.LOST,
+                        NETWORK_CALLBACK_TIMEOUT_MS,
+                        lost -> activeNetwork.equals(lost.getNetwork()));
+            }
+
             waitForAvailable(defaultCallback, tnt.getNetwork());
             // Depending on if this device has cellular connectivity or not, multiple available
             // callbacks may be received. Eventually, metered Wi-Fi should be the final available
@@ -2696,6 +2718,10 @@ public class ConnectivityManagerTest {
             waitForAvailable(defaultCallback);
             }, /* cleanup */ () -> {
                 setWifiMeteredStatusAndWait(ssid, oldMeteredValue, false /* waitForValidation */);
+
+                if (disabledMobileData.get()) {
+                    mCtsNetUtils.setMobileDataEnabled(true);
+                }
             }, /* cleanup */ () -> {
                 // Cleanup any prior test state from setOemNetworkPreference
                 clearOemNetworkPreference();
