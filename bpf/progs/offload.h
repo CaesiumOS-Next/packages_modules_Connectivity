@@ -62,7 +62,7 @@ enum {
 #undef ERR
 
 #define ERR(x) #x,
-static const char *bpf_tether_errors[] = {
+static const char *const bpf_tether_errors[] = {
     BPF_TETHER_ERRORS
 };
 #undef ERR
