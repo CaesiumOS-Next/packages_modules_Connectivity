@@ -253,6 +253,11 @@ public class VpnTest {
         return !pm.hasSystemFeature("android.hardware.type.watch");
     }
 
+    private boolean isWiFiFeatureSupported() {
+        final PackageManager pm = getInstrumentation().getContext().getPackageManager();
+        return pm.hasSystemFeature(PackageManager.FEATURE_WIFI);
+    }
+
     public final <T extends Activity> T launchActivity(String packageName, Class<T> activityClass) {
         final Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.setClassName(packageName, activityClass.getName());
@@ -282,8 +287,9 @@ public class VpnTest {
         mRemoteSocketFactoryClient.bind();
         mDevice.waitForIdle();
         mCtsNetUtils = new CtsNetUtils(mTestContext);
-        mConnectUtil = new ConnectUtil(mTestContext);
+        assumeTrue("Skipping due to WiFi hardware not supported!!", isWiFiFeatureSupported());
         mPackageManager = mTestContext.getPackageManager();
+        mConnectUtil = new ConnectUtil(mTestContext);
         assumeTrue(supportedHardware());
     }
 
