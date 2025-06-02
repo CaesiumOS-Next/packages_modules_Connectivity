@@ -16,6 +16,24 @@
       "message": "Thanks for submitting the patch, is it possible for you to move the patch to partner gerrit?",
       "revId": "2664af36c10e8dc8e96db48bd05e5a6957b74e24",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea7e65a5_e967b17f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2034140
+      },
+      "writtenOn": "2025-06-02T20:27:27Z",
+      "side": 1,
+      "message": "Not sure what\u0027s partner Gerrit.",
+      "parentUuid": "87c7993e_7bca4971",
+      "revId": "2664af36c10e8dc8e96db48bd05e5a6957b74e24",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
