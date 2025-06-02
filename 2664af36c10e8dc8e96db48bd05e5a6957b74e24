@@ -34,6 +34,23 @@
       "parentUuid": "87c7993e_7bca4971",
       "revId": "2664af36c10e8dc8e96db48bd05e5a6957b74e24",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b838531_fc3685ae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-06-02T20:44:55Z",
+      "side": 1,
+      "message": "IFIRC previous discussions about a similar patch:\nthis null cannot happen without a buggy non-aosp change elsewhere.",
+      "revId": "2664af36c10e8dc8e96db48bd05e5a6957b74e24",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
