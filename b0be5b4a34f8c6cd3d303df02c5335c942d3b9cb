@@ -16,6 +16,24 @@
       "message": "The VPN APIs are independent from Wi-Fi because VPNs can work on other network types than Wi-Fi. So it\u0027s not correct to run the VPN tests only when Wi-Fi is supported.",
       "revId": "b0be5b4a34f8c6cd3d303df02c5335c942d3b9cb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46f2c21d_149f7d0f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3808142
+      },
+      "writtenOn": "2025-06-03T08:15:15Z",
+      "side": 1,
+      "message": "@lorenzo@google.com,\nAs per the setUp() method, mWifiManager is being used. while creating object for ConnectUtil, assertion happens due to \"Could not find WifiManager\".\n\nIn our existing hardware wifi feature is not supported.",
+      "parentUuid": "e0382dd2_bd9b496e",
+      "revId": "b0be5b4a34f8c6cd3d303df02c5335c942d3b9cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
