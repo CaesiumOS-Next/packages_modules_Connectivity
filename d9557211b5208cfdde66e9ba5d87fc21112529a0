@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1a48443f_f072d470",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2025-06-11T18:00:42Z",
+      "side": 1,
+      "message": "We\u0027ll need to include unit tests at a minimum for any changes.",
+      "range": {
+        "startLine": 14,
+        "startChar": 6,
+        "endLine": 14,
+        "endChar": 20
+      },
+      "revId": "d9557211b5208cfdde66e9ba5d87fc21112529a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "143723f1_ea58792f",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -14,6 +37,77 @@
       "writtenOn": "2025-06-11T17:34:32Z",
       "side": 1,
       "message": "Is this something you can help with James?",
+      "revId": "d9557211b5208cfdde66e9ba5d87fc21112529a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6ae3648_f0f558e3",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5557,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2025-06-11T18:00:42Z",
+      "side": 1,
+      "message": "@jchalard@google.com, was `ServiceSpecificException` excluded on purpose here? It looks like as per the attachment in http://b/423953234#comment1, a `ServiceSpecificException` can be thrown when networkRemoveUidRangesParcel is called in netd in some cases.",
+      "range": {
+        "startLine": 5557,
+        "startChar": 41,
+        "endLine": 5557,
+        "endChar": 65
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "45eb9e40_9dff2f89",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 4685,
+                "startChar": 0,
+                "endLine": 4685,
+                "endChar": 0
+              },
+              "replacement": "                case NetworkAgent.EVENT_NETWORK_PARTIAL_CONNECTIVITY_CHANGED: {\n                    final boolean partialConnectivity \u003d toBool(msg.arg1);\n                    nai.setPartialConnectivity(partialConnectivity);\n                    updateCapabilitiesForNetwork(nai);\n                    break;\n                }\n"
+            },
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 5551,
+                "startChar": 0,
+                "endLine": 5555,
+                "endChar": 0
+              },
+              "replacement": "        } else if (nai.isCreated() \u0026\u0026 !nai.isDestroyed()) {\n            // Delayed teardown.\n"
+            },
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 5557,
+                "startChar": 0,
+                "endLine": 5558,
+                "endChar": 0
+              },
+              "replacement": "            } catch (RemoteException | ServiceSpecificException e) {\n"
+            },
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 6030,
+                "startChar": 0,
+                "endLine": 6031,
+                "endChar": 0
+              },
+              "replacement": "                } catch (RemoteException | ServiceSpecificException e) {\n"
+            }
+          ]
+        }
+      ],
       "revId": "d9557211b5208cfdde66e9ba5d87fc21112529a0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
