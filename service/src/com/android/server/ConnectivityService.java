@@ -4682,6 +4682,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     handleUpdateLinkProperties(nai, newLp);
                     break;
                 }
+                case NetworkAgent.EVENT_NETWORK_PARTIAL_CONNECTIVITY_CHANGED: {
+                    final boolean partialConnectivity = toBool(msg.arg1);
+                    nai.setPartialConnectivity(partialConnectivity);
+                    updateCapabilitiesForNetwork(nai);
+                    break;
+                }
                 case NetworkAgent.EVENT_NETWORK_INFO_CHANGED: {
                     NetworkInfo info = (NetworkInfo) arg.second;
                     updateNetworkInfo(nai, info);
@@ -5548,13 +5554,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
         if (nai.teardownDelayMs == 0) {
             destroyNetwork(nai);
             return;
-        }
-
-        // Delayed teardown.
-        if (nai.isCreated() && !nai.isDestroyed()) {
+        } else if (nai.isCreated() && !nai.isDestroyed()) {
+            // Delayed teardown.
             try {
                 mNetd.networkSetPermissionForNetwork(nai.network.netId, INetd.PERMISSION_SYSTEM);
-            } catch (RemoteException e) {
+            } catch (RemoteException | ServiceSpecificException e) {
                 Log.d(TAG, "Error marking network restricted during teardown: ", e);
             }
         }
@@ -6027,8 +6031,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 try {
                     modifyNetworkUidRanges(false /* add */, satisfier, nri.getUids(),
                             nri.getPreferenceOrderForNetd());
-                } catch (RemoteException e) {
-                    loge("Exception setting network preference default network", e);
+                } catch (RemoteException e | ServiceSpecificException e) {
+                    loge("netid=" + satisfier.network.getNetId() +
+                            " uids=" + toUidRangeStableParcels(nri.getUids()) +
+                            " prio=" + nri.getPreferenceOrderForNetd());
                 }
             }
         }
