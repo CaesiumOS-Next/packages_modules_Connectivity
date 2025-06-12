@@ -1985,6 +1985,7 @@ public class ConnectivityManagerTest {
 
         final Network network = mCtsNetUtils.connectToCell();
         final int supported = getSupportedKeepalivesForNet(network);
+        assumeTrue("This test requires cellular keepalives to be supported", supported != 0);
         final InetAddress srcAddr = getFirstV4Address(network);
         assumeTrue("This test requires native IPv4", srcAddr != null);
 
