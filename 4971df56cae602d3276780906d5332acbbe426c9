@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61f9cb4b_91efbcc6",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1988,
+      "author": {
+        "id": 1583555
+      },
+      "writtenOn": "2025-06-12T13:09:30Z",
+      "side": 1,
+      "message": "I suggest using assumeTrue as the check below, so the correct status and message is reflected in the test results.",
+      "revId": "4971df56cae602d3276780906d5332acbbe426c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
