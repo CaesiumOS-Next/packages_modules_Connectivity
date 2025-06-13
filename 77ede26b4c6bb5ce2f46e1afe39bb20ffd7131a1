@@ -1,0 +1,160 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4a75bd3_f7a5a867",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2669,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2025-06-13T23:48:18Z",
+      "side": 1,
+      "message": "There may be cases where there is a \"cellular\" network but telephony isn\u0027t declared using a transport override for ethernet. Therefore, we should not check the telephony data feature.\n\nIn this case, what you should really do is check if the current default network is a cellular and metered. The easiest way may be to use the synchronous method `getActiveNetwork` https://developer.android.com/reference/android/net/ConnectivityManager#getActiveNetwork(), then check if the returned network is cellular and metered. If so, you can then disable it.",
+      "range": {
+        "startLine": 2669,
+        "startChar": 16,
+        "endLine": 2669,
+        "endChar": 72
+      },
+      "revId": "77ede26b4c6bb5ce2f46e1afe39bb20ffd7131a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec758683_3bc82540",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2699,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2025-06-13T23:48:18Z",
+      "side": 1,
+      "message": "You\u0027ll need to account for setting this to whatever the value was previously. E.g., it is possible mobile data was disabled by the user prior to this test running. If so, you need to make sure it stays in a disabled state.",
+      "range": {
+        "startLine": 2699,
+        "startChar": 16,
+        "endLine": 2699,
+        "endChar": 56
+      },
+      "revId": "77ede26b4c6bb5ce2f46e1afe39bb20ffd7131a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76ffa0fb_4ade8859",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2025-06-13T23:48:18Z",
+      "side": 1,
+      "message": "Please rename to `enable`.",
+      "range": {
+        "startLine": 521,
+        "startChar": 45,
+        "endLine": 521,
+        "endChar": 52
+      },
+      "revId": "77ede26b4c6bb5ce2f46e1afe39bb20ffd7131a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35d27665_34b046d3",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2025-06-13T23:48:18Z",
+      "side": 1,
+      "message": "Please add this after this line:\n\n    if(tm.isDataEnabled() \u003d\u003d enabled) {\n        return;\n    }",
+      "range": {
+        "startLine": 522,
+        "startChar": 8,
+        "endLine": 522,
+        "endChar": 33
+      },
+      "revId": "77ede26b4c6bb5ce2f46e1afe39bb20ffd7131a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4691e587_26aef8b0",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2025-06-13T23:48:18Z",
+      "side": 1,
+      "message": "use `registerNetworkCallback`, since we don\u0027t want this request to actually bring up a cellular network.",
+      "range": {
+        "startLine": 529,
+        "startChar": 12,
+        "endLine": 529,
+        "endChar": 26
+      },
+      "revId": "77ede26b4c6bb5ce2f46e1afe39bb20ffd7131a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9399942_2a50a344",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2025-06-13T23:48:18Z",
+      "side": 1,
+      "message": "This won\u0027t work if there isn\u0027t a cellular network available on the device, which does happen in some cases. Please update this to something similar to the AI suggested fix.",
+      "range": {
+        "startLine": 533,
+        "startChar": 16,
+        "endLine": 533,
+        "endChar": 29
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "37541c08_7d1e482d",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+              "range": {
+                "startLine": 533,
+                "startChar": 0,
+                "endLine": 535,
+                "endChar": 0
+              },
+              "replacement": "                if (callback.waitForAvailable() \u003d\u003d null) {\n                    Log.i(TAG, \"Cannot disable mobile data: mobile data is not connected\");\n                    return;\n                }\n"
+            }
+          ]
+        }
+      ],
+      "revId": "77ede26b4c6bb5ce2f46e1afe39bb20ffd7131a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
