@@ -16,6 +16,24 @@
       "message": "I suggest using assumeTrue as the check below, so the correct status and message is reflected in the test results.",
       "revId": "4971df56cae602d3276780906d5332acbbe426c9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e4c948d_065e4b84",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1988,
+      "author": {
+        "id": 3742640
+      },
+      "writtenOn": "2025-06-13T07:32:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61f9cb4b_91efbcc6",
+      "revId": "4971df56cae602d3276780906d5332acbbe426c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
