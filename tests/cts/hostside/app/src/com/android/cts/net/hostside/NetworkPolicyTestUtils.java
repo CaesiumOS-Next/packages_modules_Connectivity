@@ -48,6 +48,7 @@ import android.net.NetworkPolicyManager;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
 import android.net.wifi.WifiManager.ActionListener;
+import android.os.Build;
 import android.os.PersistableBundle;
 import android.os.Process;
 import android.os.UserHandle;
@@ -482,5 +483,9 @@ public class NetworkPolicyTestUtils {
         } finally {
             uiAutomation.dropShellPermissionIdentity();
         }
+    }
+
+    public static boolean isUpsideDownCakeOrLower() {
+        return Build.VERSION.SDK_INT <= Build.VERSION_CODES.UPSIDE_DOWN_CAKE;
     }
 }
