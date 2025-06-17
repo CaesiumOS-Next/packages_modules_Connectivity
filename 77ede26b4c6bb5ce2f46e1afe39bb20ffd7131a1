@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "855bdfa5_83a693ff",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2669,
+      "author": {
+        "id": 3742640
+      },
+      "writtenOn": "2025-06-17T08:10:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f4a75bd3_f7a5a867",
+      "range": {
+        "startLine": 2669,
+        "startChar": 16,
+        "endLine": 2669,
+        "endChar": 72
+      },
+      "revId": "77ede26b4c6bb5ce2f46e1afe39bb20ffd7131a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ec758683_3bc82540",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-06-13T23:48:18Z",
       "side": 1,
       "message": "You\u0027ll need to account for setting this to whatever the value was previously. E.g., it is possible mobile data was disabled by the user prior to this test running. If so, you need to make sure it stays in a disabled state.",
+      "range": {
+        "startLine": 2699,
+        "startChar": 16,
+        "endLine": 2699,
+        "endChar": 56
+      },
+      "revId": "77ede26b4c6bb5ce2f46e1afe39bb20ffd7131a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b442ec7_780068cf",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2699,
+      "author": {
+        "id": 3742640
+      },
+      "writtenOn": "2025-06-17T08:10:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec758683_3bc82540",
       "range": {
         "startLine": 2699,
         "startChar": 16,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a964d4c6_aa7cab05",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 3742640
+      },
+      "writtenOn": "2025-06-17T08:10:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "76ffa0fb_4ade8859",
+      "range": {
+        "startLine": 521,
+        "startChar": 45,
+        "endLine": 521,
+        "endChar": 52
+      },
+      "revId": "77ede26b4c6bb5ce2f46e1afe39bb20ffd7131a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "35d27665_34b046d3",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4c19fea_6bdf2d2d",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 3742640
+      },
+      "writtenOn": "2025-06-17T08:10:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35d27665_34b046d3",
+      "range": {
+        "startLine": 522,
+        "startChar": 8,
+        "endLine": 522,
+        "endChar": 33
+      },
+      "revId": "77ede26b4c6bb5ce2f46e1afe39bb20ffd7131a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4691e587_26aef8b0",
@@ -106,6 +202,30 @@
       "writtenOn": "2025-06-13T23:48:18Z",
       "side": 1,
       "message": "use `registerNetworkCallback`, since we don\u0027t want this request to actually bring up a cellular network.",
+      "range": {
+        "startLine": 529,
+        "startChar": 12,
+        "endLine": 529,
+        "endChar": 26
+      },
+      "revId": "77ede26b4c6bb5ce2f46e1afe39bb20ffd7131a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3249e67a_d7749b15",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 3742640
+      },
+      "writtenOn": "2025-06-17T08:10:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4691e587_26aef8b0",
       "range": {
         "startLine": 529,
         "startChar": 12,
@@ -153,6 +273,30 @@
           ]
         }
       ],
+      "revId": "77ede26b4c6bb5ce2f46e1afe39bb20ffd7131a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "67b32259_396bed42",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 3742640
+      },
+      "writtenOn": "2025-06-17T08:10:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9399942_2a50a344",
+      "range": {
+        "startLine": 533,
+        "startChar": 16,
+        "endLine": 533,
+        "endChar": 29
+      },
       "revId": "77ede26b4c6bb5ce2f46e1afe39bb20ffd7131a1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
