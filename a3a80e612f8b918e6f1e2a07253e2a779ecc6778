@@ -16,6 +16,121 @@
       "message": "Thank you for the comments :)",
       "revId": "a3a80e612f8b918e6f1e2a07253e2a779ecc6778",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bc9ce44_9a4aa905",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2667,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2025-06-19T02:26:04Z",
+      "side": 1,
+      "message": "I think a normal boolean should be fine? Not only would this be consistent with the `oleMeteredValue` directly above, but I also believe there aren\u0027t any threading concerns with this value.",
+      "range": {
+        "startLine": 2667,
+        "startChar": 14,
+        "endLine": 2667,
+        "endChar": 27
+      },
+      "revId": "a3a80e612f8b918e6f1e2a07253e2a779ecc6778",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8934a751_d4bed22a",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2689,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2025-06-19T02:26:04Z",
+      "side": 1,
+      "message": "Can you add a bit more to the comment? Perhaps this?\n\n    // Make sure unmetered cellular networks do not interfere with the test, as not\n    // all devices will have telephony, therefore Wi-Fi must be relied upon.",
+      "range": {
+        "startLine": 2689,
+        "startChar": 12,
+        "endLine": 2689,
+        "endChar": 83
+      },
+      "revId": "a3a80e612f8b918e6f1e2a07253e2a779ecc6778",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecdc0c88_1d0e4511",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2695,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2025-06-19T02:26:04Z",
+      "side": 1,
+      "message": "Let\u0027s add a comment:\n\n    // Unmetered cellular will now be the system default over metered Wi-Fi.",
+      "range": {
+        "startLine": 2695,
+        "startChar": 16,
+        "endLine": 2695,
+        "endChar": 76
+      },
+      "revId": "a3a80e612f8b918e6f1e2a07253e2a779ecc6778",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "846c6e7a_98ffb18b",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2725,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2025-06-19T02:26:04Z",
+      "side": 1,
+      "message": "Let\u0027s move this block into the first /* cleanup */ block right under l.2718 of this patch. I don\u0027t see any reason to have another anonymous function.",
+      "range": {
+        "startLine": 2723,
+        "startChar": 16,
+        "endLine": 2725,
+        "endChar": 17
+      },
+      "revId": "a3a80e612f8b918e6f1e2a07253e2a779ecc6778",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf2b86c0_13bbb1d1",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 523,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2025-06-19T02:26:04Z",
+      "side": 1,
+      "message": "You need to do a null check on `tm` before using it, as not all devices will declare Telephony. If it is null, you can just return.",
+      "range": {
+        "startLine": 522,
+        "startChar": 8,
+        "endLine": 523,
+        "endChar": 93
+      },
+      "revId": "a3a80e612f8b918e6f1e2a07253e2a779ecc6778",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
