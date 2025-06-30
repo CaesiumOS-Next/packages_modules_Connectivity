@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b97107cf_19a602be",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2667,
+      "author": {
+        "id": 3742640
+      },
+      "writtenOn": "2025-06-30T08:59:19Z",
+      "side": 1,
+      "message": "I can\u0027t use a normal boolean because the variable needs to be final to be used in the lambda, and I can\u0027t modify a final boolean :/",
+      "parentUuid": "7bc9ce44_9a4aa905",
+      "range": {
+        "startLine": 2667,
+        "startChar": 14,
+        "endLine": 2667,
+        "endChar": 27
+      },
+      "revId": "a3a80e612f8b918e6f1e2a07253e2a779ecc6778",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8934a751_d4bed22a",
         "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
         "patchSetId": 4
@@ -54,6 +78,30 @@
       "writtenOn": "2025-06-19T02:26:04Z",
       "side": 1,
       "message": "Can you add a bit more to the comment? Perhaps this?\n\n    // Make sure unmetered cellular networks do not interfere with the test, as not\n    // all devices will have telephony, therefore Wi-Fi must be relied upon.",
+      "range": {
+        "startLine": 2689,
+        "startChar": 12,
+        "endLine": 2689,
+        "endChar": 83
+      },
+      "revId": "a3a80e612f8b918e6f1e2a07253e2a779ecc6778",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05e0efe8_f5609fc9",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2689,
+      "author": {
+        "id": 3742640
+      },
+      "writtenOn": "2025-06-30T08:59:19Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "8934a751_d4bed22a",
       "range": {
         "startLine": 2689,
         "startChar": 12,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac417f82_1a934f89",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2695,
+      "author": {
+        "id": 3742640
+      },
+      "writtenOn": "2025-06-30T08:59:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ecdc0c88_1d0e4511",
+      "range": {
+        "startLine": 2695,
+        "startChar": 16,
+        "endLine": 2695,
+        "endChar": 76
+      },
+      "revId": "a3a80e612f8b918e6f1e2a07253e2a779ecc6778",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "846c6e7a_98ffb18b",
@@ -100,6 +172,30 @@
       "writtenOn": "2025-06-19T02:26:04Z",
       "side": 1,
       "message": "Let\u0027s move this block into the first /* cleanup */ block right under l.2718 of this patch. I don\u0027t see any reason to have another anonymous function.",
+      "range": {
+        "startLine": 2723,
+        "startChar": 16,
+        "endLine": 2725,
+        "endChar": 17
+      },
+      "revId": "a3a80e612f8b918e6f1e2a07253e2a779ecc6778",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5db04bcc_6da25c74",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2725,
+      "author": {
+        "id": 3742640
+      },
+      "writtenOn": "2025-06-30T08:59:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "846c6e7a_98ffb18b",
       "range": {
         "startLine": 2723,
         "startChar": 16,
