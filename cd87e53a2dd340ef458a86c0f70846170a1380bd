@@ -34,6 +34,24 @@
       "parentUuid": "2bc27368_cbee8228",
       "revId": "cd87e53a2dd340ef458a86c0f70846170a1380bd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36b952ce_afbf27f2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1583555
+      },
+      "writtenOn": "2025-07-02T19:46:15Z",
+      "side": 1,
+      "message": "It looks like this VSR requirement was removed for automotive devices (b/370099415). @jmattis@google.com could you confirm and add more details if needed? Thanks",
+      "parentUuid": "7a0028de_bd0a5ed1",
+      "revId": "cd87e53a2dd340ef458a86c0f70846170a1380bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
