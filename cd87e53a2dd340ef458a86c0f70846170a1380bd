@@ -16,6 +16,24 @@
       "message": "Nathan, is it correct that CDD does not require keepalive support even on devices that support telephony?",
       "revId": "cd87e53a2dd340ef458a86c0f70846170a1380bd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a0028de_bd0a5ed1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1060151
+      },
+      "writtenOn": "2025-07-02T16:26:41Z",
+      "side": 1,
+      "message": "It is not required by the CDD. It is only required for devices that support the Telephony HAL version \u003e 1.1 (IIRC) and/or comply with the VSR. That said, we haven\u0027t found a real device that fits in this category and sought Android certification in as long as I can remember. @Mia is your device not supporting the Radio HAL and not bound by the VSR?",
+      "parentUuid": "2bc27368_cbee8228",
+      "revId": "cd87e53a2dd340ef458a86c0f70846170a1380bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
