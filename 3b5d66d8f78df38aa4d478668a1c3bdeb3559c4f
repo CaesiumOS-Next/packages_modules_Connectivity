@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a51fee3_4611e1c7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2025-07-06T19:39:46Z",
+      "side": 1,
+      "message": "Thanks for making the changes. LGTM now.\n\nJean, can you review and see if this looks good now? The PANS test needs to account for unmetered cell networks, which this CL addresses.\n\nThanks.",
+      "revId": "3b5d66d8f78df38aa4d478668a1c3bdeb3559c4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
