@@ -52,6 +52,24 @@
       "parentUuid": "7a0028de_bd0a5ed1",
       "revId": "cd87e53a2dd340ef458a86c0f70846170a1380bd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4be45d14_9b971e87",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2025-07-06T18:51:50Z",
+      "side": 1,
+      "message": "Yes, this change to automotive GAS requirements was intentional, and part of increasing automotive OEM adoption of Telephony as part of the Telephony modularization effort. In particular, Automotive devices only require a small subset of Telephony features as opposed to say a phone, which is why the GAS requirements updated some of them (including keepalive) which is consistent with the CDD:\n\n\"SHOULD include support for Cellular keepalive offload.\"\n\nHi Nathan, can you expand a bit on your statement \"It is only required for devices that support the Telephony HAL version...\"? I didn\u0027t see where in the CDD that was mentioned as related to this particular requirement?\n\nThanks!",
+      "parentUuid": "36b952ce_afbf27f2",
+      "revId": "cd87e53a2dd340ef458a86c0f70846170a1380bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
