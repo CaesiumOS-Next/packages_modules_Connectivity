@@ -70,6 +70,24 @@
       "parentUuid": "36b952ce_afbf27f2",
       "revId": "cd87e53a2dd340ef458a86c0f70846170a1380bd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eca87f10_bbaf236f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1060151
+      },
+      "writtenOn": "2025-07-07T16:33:07Z",
+      "side": 1,
+      "message": "The CDD doesn\u0027t say anything about the HAL; however, the CDD is also not all-encompassing. IOW, the absence of a requirement in the CDD doesn\u0027t mean something isn\u0027t required based on a variety of other \"sources\" of requirements. The VSR is one; the API documentation is another; tests themselves are a third. In general, tests and especially API documentation supersede any ambiguity in the CDD.\nUnfortunately I was not privy to the conversations where this requirement was removed from the VSR, so I just can\u0027t be helpful in unraveling the intent there; however, it looks like the signature in the HAL now allows this to be unsupported if the feature flag for DATA is not supported:\n\n    /**\n     * @param info Response info struct containing response type, serial no. and error\n     * @param status Status object containing a new handle and a current status. The status returned\n     *        here may be PENDING to indicate that the radio has not yet processed the keepalive\n     *        request.\n     *\n     * Valid errors returned:\n     *   RadioError:REQUEST_NOT_SUPPORTED when android.hardware.telephony.data is not defined\n     *   RadioError:NONE\n     *   RadioError:NO_RESOURCES\n     *   RadioError:INVALID_ARGUMENTS\n     */\n    void startKeepaliveResponse(in RadioResponseInfo info, in KeepaliveStatus status);\n    \nSo, if the device isn\u0027t declaring telephony.data (which also exempts a huge swath of requirements), then it isn\u0027t required (again, I\u0027m assuming this thing needs GMS core?). As it stands, it looks like this is still required to me (again, assuming a HAL new enough to require telephony.data).\n\nAlso, FWIW, an implementation of this is a couple hundred lines of code (I just saw one), and it has been in the HAL for many years now. As a separate conversation, I\u0027d like to understand why a vendor would still push back on this. It can\u0027t be because of substantial effort, and it doesn\u0027t actually require a hardware change.",
+      "parentUuid": "4be45d14_9b971e87",
+      "revId": "cd87e53a2dd340ef458a86c0f70846170a1380bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
