@@ -88,6 +88,24 @@
       "parentUuid": "4be45d14_9b971e87",
       "revId": "cd87e53a2dd340ef458a86c0f70846170a1380bd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4859c22_dfa83f06",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2025-07-13T20:54:19Z",
+      "side": 1,
+      "message": "Hi Nathan,\n\nThanks for the detailed response! I can help with understanding on why we get pushback in Automotive for keepalive. IIUC, many of the benefits of keepalives don\u0027t apply to automotive (power savings are not a concerns, VPNs are not supported, calling/messages are handled by a phone connected over BT, etc).\n\nSince there is little perceived benefit (let me know if there is something I am missing which can help when talking keepalive support with partners), there isn\u0027t similarly little appetite to support keepalives even if the overall implementation surface is small (couple hundred lines of code, etc). \n\nAlso, one of the primary areas of focus for us with our partners is to help with compliance costs, so any help we can give in this area without impacting users is one we are interested in exploring. Thanks and let me know if you have any questions on what I wrote above!",
+      "parentUuid": "eca87f10_bbaf236f",
+      "revId": "cd87e53a2dd340ef458a86c0f70846170a1380bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
