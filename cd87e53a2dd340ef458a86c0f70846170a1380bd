@@ -106,6 +106,24 @@
       "parentUuid": "eca87f10_bbaf236f",
       "revId": "cd87e53a2dd340ef458a86c0f70846170a1380bd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84d45881_8e24476d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1060151
+      },
+      "writtenOn": "2025-07-14T20:18:45Z",
+      "side": 1,
+      "message": "I think we should turn the discussion around a little bit an ask:\n1) Is the requirement in some way onerous/difficult to meet?\n2) If not, what\u0027s the cost in time/complexity/bugs of fragmenting the ecosystem?\n\nIn this case, the compliance cost is very low, and even if the feature doesn\u0027t get used, its existence does not impose a meaningful resource cost. In fact, we recently had another team demonstrate that even for someone with zero familiarity, it was less than a full day\u0027s work.\n\nMeanwhile, as evidenced by what seems like an not-entirely-successful attempt to exempt vendors from the requirement, our compliance requirements and infrastructure are very complicated (the vendor freeze in particular has piled onto this, but form-factor-specific requirements have also added a substantial amount of pain). Moreover, exempting devices from the requirement is not cost-free even to do it: in order to avoid undefined behavior, exempted devices need to have defined behavior, which also needs to be tested and for which there are not currently tests AFAIK.\n\nWRT benefit, I imagine this will only be used if the board ends up doing some form of WiFi calling/SIP calling, but since we build platforms, it\u0027s really hard to say, and when/if some auto vendors end up using it, another mess will ensue. As such, exempting from requirements really ought to be a last option, not a first option. This appears to be case in point, as it isn\u0027t even this simplest option, and is not devoid of collateral damage. I will provide you an internal link to a reference implementation that perhaps you can adapt and include along with the rest of the min radio. That should reduce vendor compliance cost from very minimal down to zero.",
+      "parentUuid": "d4859c22_dfa83f06",
+      "revId": "cd87e53a2dd340ef458a86c0f70846170a1380bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
