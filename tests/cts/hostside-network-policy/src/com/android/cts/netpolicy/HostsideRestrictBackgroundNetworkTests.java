@@ -28,12 +28,22 @@ import com.android.tradefed.util.RunUtil;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.Assume;
 
 @FlakyTest(bugId = 288324467)
 public class HostsideRestrictBackgroundNetworkTests extends HostsideNetworkPolicyTestCase {
 
+    private boolean isMultiUserSupported;
+    private boolean isMultiDisplaySupported;
+
     @Before
     public void setUp() throws Exception {
+        String users = getDevice().executeShellCommand("pm list users");
+        isMultiUserSupported = users.contains("UserInfo");
+
+        String features = getDevice().executeShellCommand("pm list features");
+        isMultiDisplaySupported = features.contains("android.software.activities_on_secondary_displays");
+
         uninstallPackage(TEST_APP2_PKG, false);
         installPackage(TEST_APP2_APK);
     }
@@ -125,6 +135,10 @@ public class HostsideRestrictBackgroundNetworkTests extends HostsideNetworkPolic
 
     @Test
     public void testBatterySaverModeMetered_enabled() throws Exception {
+        Assume.assumeFalse(
+            "This test is disabled on multi-user/multi-display devices",
+            isMultiUserSupported || isMultiDisplaySupported
+        );
         runDeviceTestsWithCustomOptions(TEST_PKG, TEST_PKG + ".BatterySaverModeMeteredTest",
                 "testBackgroundNetworkAccess_enabled");
     }
