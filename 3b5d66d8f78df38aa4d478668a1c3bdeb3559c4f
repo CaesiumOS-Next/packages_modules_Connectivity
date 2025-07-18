@@ -16,6 +16,23 @@
       "message": "Thanks for making the changes. LGTM now.\n\nJean, can you review and see if this looks good now? The PANS test needs to account for unmetered cell networks, which this CL addresses.\n\nThanks.",
       "revId": "3b5d66d8f78df38aa4d478668a1c3bdeb3559c4f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e660ca9_4ee3f40d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2025-07-18T23:47:20Z",
+      "side": 1,
+      "message": "Hi Lorenzo,\n\nCan you help with next steps on this? Looks like this CTS test needs to be updated to account for the existence of an unmetered cellular network. I\u0027ve already done one pass and changes looks ready for your review.\n\nThanks.",
+      "revId": "3b5d66d8f78df38aa4d478668a1c3bdeb3559c4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
