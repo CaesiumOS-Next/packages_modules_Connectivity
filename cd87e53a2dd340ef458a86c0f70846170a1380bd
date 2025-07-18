@@ -124,6 +124,24 @@
       "parentUuid": "d4859c22_dfa83f06",
       "revId": "cd87e53a2dd340ef458a86c0f70846170a1380bd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e6a6ca0_13f13beb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2025-07-18T23:44:02Z",
+      "side": 1,
+      "message": "Hi Nathan,\n\nRegarding adding support, I can\u0027t really say so would have to defer to Mia to reply. Similarly for your other question, it\u0027s hard to predict what could occur long term if the CL was merged as-is.\n\nI agree with you in principle, we should do everything we can to avoid fragmentation in the platform. I think the confusion here is stemming from the inconsistent verbiage in the CDD which our OEM partners are referencing. This lends credibility to what you already mentioned about our complicated compliance requirements. I think another complication is sometimes the tests themselves are not always accurate (e.g., there is another test which fails for unmetered cellular networks).\n\nThese are some of the challenges we\u0027re running into. In any case, perhaps Mia can let us know if adding keepalive support on their end would be an option? If not, any additional info as to why this would be difficult as per Nathan\u0027s ask would be appreciated.\n\nOn an aside, perhaps one mitigation to aid consistency with the HAL would be to gate this test on `FEATURE_TELEPHONY_DATA` and not `FEATURE_TELEPHONY`?\n\nThanks!",
+      "parentUuid": "84d45881_8e24476d",
+      "revId": "cd87e53a2dd340ef458a86c0f70846170a1380bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
