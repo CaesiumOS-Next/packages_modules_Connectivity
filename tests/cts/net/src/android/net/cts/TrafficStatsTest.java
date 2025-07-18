@@ -19,6 +19,7 @@ package android.net.cts;
 import android.net.NetworkStats;
 import android.net.TrafficStats;
 import android.os.Process;
+import android.os.SystemProperties;
 import android.platform.test.annotations.AppModeFull;
 import android.test.AndroidTestCase;
 import android.util.Log;
@@ -40,6 +41,11 @@ public class TrafficStatsTest extends AndroidTestCase {
         final Range range = new Range(lower, upper);
         assertTrue(tag + ": " + value + " is not within range [" + lower + ", " + upper + "]",
                 range.contains(value));
+    }
+
+    private static boolean isAdbOverNetwork() {
+        return (SystemProperties.getInt("persist.adb.tcp.port", -1) > -1)
+               || (SystemProperties.getInt("service.adb.tcp.port", -1) > -1); 
     }
 
     public void testValidMobileStats() {
@@ -210,8 +216,11 @@ public class TrafficStatsTest extends AndroidTestCase {
          *  - setup/teardown
          *   + 7 approx.: syn, syn-ack, ack, fin-ack, ack, fin-ack, ack;
          *   but sometimes the last find-acks just vanish, so we set a lower limit of +5.
+         * 
+         *  - For ADB/TCP setup, extra upper limit adjustment is needed to account
+         *    for the extra packets of background traffic and cert test traffic
          */
-        final int maxExpectedExtraPackets = 7;
+        final int maxExpectedExtraPackets = isAdbOverNetwork() ?  1024 : 7;
         final int minExpectedExtraPackets = 5;
 
         // Some other tests don't cleanup connections correctly.
