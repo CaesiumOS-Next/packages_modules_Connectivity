@@ -142,6 +142,24 @@
       "parentUuid": "84d45881_8e24476d",
       "revId": "cd87e53a2dd340ef458a86c0f70846170a1380bd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d724a302_070930d1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1060151
+      },
+      "writtenOn": "2025-07-21T18:41:44Z",
+      "side": 1,
+      "message": "Switching over to TELEPHONY_DATA for devices running newer HALs would definitely make sense. The enforcement of that is (surprisingly, or maybe not surprisingly) a bit tricky due to various testing at various SDK levels and the dependence on HAL version (part of the morass created by the VSR). But, I have filed b/433287758 for this.",
+      "parentUuid": "3e6a6ca0_13f13beb",
+      "revId": "cd87e53a2dd340ef458a86c0f70846170a1380bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
