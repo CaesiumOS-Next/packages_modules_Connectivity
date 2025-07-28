@@ -156,6 +156,7 @@ import android.util.Pair;
 import android.util.Range;
 
 import androidx.test.InstrumentationRegistry;
+import androidx.test.filters.RequiresDevice;
 import androidx.test.runner.AndroidJUnit4;
 
 import com.android.internal.util.ArrayUtils;
@@ -555,6 +556,7 @@ public class ConnectivityManagerTest {
     @AppModeFull(reason = "Cannot get WifiManager in instant app mode")
     @Test
     @SkipPresubmit(reason = "Virtual devices use a single internet connection for all networks")
+    @RequiresDevice // Virtual devices use a single internet connection for all networks
     public void testOpenConnection() throws Exception {
         assumeTrue(mPackageManager.hasSystemFeature(FEATURE_WIFI));
         assumeTrue(mPackageManager.hasSystemFeature(FEATURE_TELEPHONY));
@@ -1440,6 +1442,7 @@ public class ConnectivityManagerTest {
     @AppModeFull(reason = "Cannot get WifiManager in instant app mode")
     @Test
     @SkipPresubmit(reason = "Keepalive is not supported on virtual hardware")
+    @RequiresDevice // Keepalive is not supported on virtual hardware
     public void testCreateTcpKeepalive() throws Exception {
         assumeTrue(mPackageManager.hasSystemFeature(FEATURE_WIFI));
 
@@ -1647,6 +1650,7 @@ public class ConnectivityManagerTest {
     @AppModeFull(reason = "Cannot get WifiManager in instant app mode")
     @Test
     @SkipPresubmit(reason = "Keepalive is not supported on virtual hardware")
+    @RequiresDevice // Keepalive is not supported on virtual hardware
     public void testSocketKeepaliveLimitWifi() throws Exception {
         assumeTrue(mPackageManager.hasSystemFeature(FEATURE_WIFI));
 
@@ -1697,6 +1701,7 @@ public class ConnectivityManagerTest {
     @AppModeFull(reason = "Cannot request network in instant app mode")
     @Test
     @SkipPresubmit(reason = "Keepalive is not supported on virtual hardware")
+    @RequiresDevice // Keepalive is not supported on virtual hardware
     public void testSocketKeepaliveLimitTelephony() throws Exception {
         if (!mPackageManager.hasSystemFeature(FEATURE_TELEPHONY)) {
             Log.i(TAG, "testSocketKeepaliveLimitTelephony cannot execute unless device"
@@ -1743,6 +1748,7 @@ public class ConnectivityManagerTest {
     @AppModeFull(reason = "Cannot get WifiManager in instant app mode")
     @Test
     @SkipPresubmit(reason = "Keepalive is not supported on virtual hardware")
+    @RequiresDevice // Keepalive is not supported on virtual hardware
     public void testSocketKeepaliveUnprivileged() throws Exception {
         assumeTrue(mPackageManager.hasSystemFeature(FEATURE_WIFI));
 
