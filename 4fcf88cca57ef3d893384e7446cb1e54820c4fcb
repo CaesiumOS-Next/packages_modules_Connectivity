@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "573c8663_9d52fb75",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 4690,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-07-29T23:17:48Z",
+      "side": 1,
+      "message": "appears unrelated?",
+      "range": {
+        "startLine": 4685,
+        "startChar": 0,
+        "endLine": 4690,
+        "endChar": 17
+      },
+      "revId": "4fcf88cca57ef3d893384e7446cb1e54820c4fcb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08e64997_76535a37",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5559,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-07-29T23:17:48Z",
+      "side": 1,
+      "message": "spurious change",
+      "range": {
+        "startLine": 5557,
+        "startChar": 0,
+        "endLine": 5559,
+        "endChar": 0
+      },
+      "revId": "4fcf88cca57ef3d893384e7446cb1e54820c4fcb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e68ca20_2429f707",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 6035,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2025-07-29T23:17:48Z",
+      "side": 1,
+      "message": "I get printing more info, but we should probably keep the core message",
+      "range": {
+        "startLine": 6035,
+        "startChar": 25,
+        "endLine": 6035,
+        "endChar": 26
+      },
+      "revId": "4fcf88cca57ef3d893384e7446cb1e54820c4fcb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
