@@ -574,6 +574,7 @@ class EthernetManagerTest {
         // Since restricted interfaces cannot be used for tethering,
         // assumeNoInterfaceForTetheringAvailable() is an okay proxy.
         assumeNoInterfaceForTetheringAvailable()
+        assumeNoPreexistingInterfaces()
 
         // If an interface exists when the callback is registered, it is reported on registration.
         val iface = createInterface()
@@ -640,6 +641,14 @@ class EthernetManagerTest {
             // tethering.
             releaseTetheredInterface()
         }
+    }
+
+    private fun assumeNoPreexistingInterfaces() {
+        val preexistingIfaces = em.getInterfaceList()
+        assumeTrue(
+            "Skipping test due to presence of pre-existing interfaces: $preexistingIfaces",
+            preexistingIfaces.isEmpty()
+        )
     }
 
     @Test
