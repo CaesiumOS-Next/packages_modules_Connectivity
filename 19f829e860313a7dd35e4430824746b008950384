@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c7c5547_8d07d573",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-08-08T00:14:30Z",
+      "side": 1,
+      "message": "Instead of skipping the test, can you fix it instead? The commit message says that the putting the screen off is not enough to put the app in the background. So it seems like the right way to fix it is ensure the other displays are off as well.",
+      "revId": "19f829e860313a7dd35e4430824746b008950384",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
