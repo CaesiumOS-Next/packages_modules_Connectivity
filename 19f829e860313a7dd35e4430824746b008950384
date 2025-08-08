@@ -16,6 +16,24 @@
       "message": "Instead of skipping the test, can you fix it instead? The commit message says that the putting the screen off is not enough to put the app in the background. So it seems like the right way to fix it is ensure the other displays are off as well.",
       "revId": "19f829e860313a7dd35e4430824746b008950384",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f935ec5d_add3fa63",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3643961
+      },
+      "writtenOn": "2025-08-08T08:21:19Z",
+      "side": 1,
+      "message": "Dear Lorenzo,\nWe won\u0027t be able to put other displays to sleep as we don\u0027t have the api yet.\nb/437105925 and b/425760759\nFYI @danieladam@google.com",
+      "parentUuid": "8c7c5547_8d07d573",
+      "revId": "19f829e860313a7dd35e4430824746b008950384",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
