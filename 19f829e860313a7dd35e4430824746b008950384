@@ -34,6 +34,24 @@
       "parentUuid": "8c7c5547_8d07d573",
       "revId": "19f829e860313a7dd35e4430824746b008950384",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bdb44535_fcade148",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1954245
+      },
+      "writtenOn": "2025-08-08T17:55:49Z",
+      "side": 1,
+      "message": "Hi Lorenzo, it is as per Oleksandr\u0027s comment. Currently, we do not have any API to only put a few diplay groups to sleep. The problem is that with BMW\u0027s setup, they have multiple display power groups, not all of which go to sleep. As a follow up, we will be exposing an adb command to do so but that can only happen in newer releases.\n\n@Oleksandr.Nikitin@bmw.de, can you leave a TODO similar to the other bugs please? Thanks\n\nThere is more context in this bug - b/437029207. cc: @brup@google.com",
+      "parentUuid": "f935ec5d_add3fa63",
+      "revId": "19f829e860313a7dd35e4430824746b008950384",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
