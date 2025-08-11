@@ -1,0 +1,75 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14a726c6_340a31f2",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/DataSaverModeTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2025-08-11T17:10:39Z",
+      "side": 1,
+      "message": "Please checkout how these assumptions are handled within this test module. We should add a `NOT_AUTOMATIVE` property in https://cs.android.com/android/platform/superproject/main/+/main:cts/hostsidetests/network-policy/app/src/com/android/cts/netpolicy/hostside/Property.java and annotate this test with `@RequiredProperties({NOT_AUTOMATIVE})`",
+      "range": {
+        "startLine": 102,
+        "startChar": 7,
+        "endLine": 103,
+        "endChar": 36
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "35f55329_d2773eef",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/cts/hostside/app/src/com/android/cts/net/hostside/DataSaverModeTest.java",
+              "range": {
+                "startLine": 29,
+                "startChar": 0,
+                "endLine": 29,
+                "endChar": 0
+              },
+              "replacement": "import static com.android.cts.net.hostside.Property.NOT_AUTOMOTIVE;\n"
+            },
+            {
+              "path": "tests/cts/hostside/app/src/com/android/cts/net/hostside/DataSaverModeTest.java",
+              "range": {
+                "startLine": 31,
+                "startChar": 0,
+                "endLine": 32,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "tests/cts/hostside/app/src/com/android/cts/net/hostside/DataSaverModeTest.java",
+              "range": {
+                "startLine": 42,
+                "startChar": 0,
+                "endLine": 42,
+                "endChar": 0
+              },
+              "replacement": "@OptionalProperties({NOT_AUTOMOTIVE})\n"
+            },
+            {
+              "path": "tests/cts/hostside/app/src/com/android/cts/net/hostside/DataSaverModeTest.java",
+              "range": {
+                "startLine": 102,
+                "startChar": 0,
+                "endLine": 104,
+                "endChar": 0
+              },
+              "replacement": "        if (isAutomotive()) {\n            return;\n        }\n"
+            }
+          ]
+        }
+      ],
+      "revId": "469abe840c1546d6798abca0684ba855ab6276db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
