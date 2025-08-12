@@ -70,6 +70,30 @@
       ],
       "revId": "469abe840c1546d6798abca0684ba855ab6276db",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "232e0f2c_c924e816",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/DataSaverModeTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 3731572
+      },
+      "writtenOn": "2025-08-12T15:31:00Z",
+      "side": 1,
+      "message": "@sudheersai@google.com thanks for your remarks, we will make the change.\nWhy are you suggesting OptionalProperties({NOT_AUTOMOTIVE}) and if(isAutomotive()){return;}? An alternative would be to use @RequiredProperties({NOT_AUTOMOTIVE}) - and no additional if(isAutomotive()....\nCan you please suggest what you prefer? Thanks!",
+      "parentUuid": "14a726c6_340a31f2",
+      "range": {
+        "startLine": 102,
+        "startChar": 7,
+        "endLine": 103,
+        "endChar": 36
+      },
+      "revId": "469abe840c1546d6798abca0684ba855ab6276db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
