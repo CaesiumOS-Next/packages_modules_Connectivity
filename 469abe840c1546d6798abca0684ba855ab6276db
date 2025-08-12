@@ -94,6 +94,30 @@
       },
       "revId": "469abe840c1546d6798abca0684ba855ab6276db",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1ee13b1_b095dce0",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/DataSaverModeTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2025-08-12T17:25:25Z",
+      "side": 1,
+      "message": "`OptionalProperties` is part of the AI-generated suggestion based on my comment. In this case, it is not accurate and can be ignored.",
+      "parentUuid": "232e0f2c_c924e816",
+      "range": {
+        "startLine": 102,
+        "startChar": 7,
+        "endLine": 103,
+        "endChar": 36
+      },
+      "revId": "469abe840c1546d6798abca0684ba855ab6276db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
