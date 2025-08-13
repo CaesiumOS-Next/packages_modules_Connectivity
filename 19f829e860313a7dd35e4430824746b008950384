@@ -70,6 +70,24 @@
       "parentUuid": "bdb44535_fcade148",
       "revId": "19f829e860313a7dd35e4430824746b008950384",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "898df8f8_e633131e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-08-13T05:51:37Z",
+      "side": 1,
+      "message": "Ack, thanks. If it\u0027s not possible to do this correctly in this release, and there\u0027s a plan to fix that, then I think it\u0027s OK to skip the test.\n\nIn that case, let\u0027s change \"isAutomotive()\" to \"isAutomotive \u0026\u0026 Build.VERSION.SDK_INT \u003c\u003d Build.VERSION_CODES_BAKLAVA\" . That will ensure that the tests will automatically be re-enabled on future releases and that we can remove DO NOT MERGE and automerge this CL into all test releases, avoiding the need for cherry-picks.",
+      "parentUuid": "e4ed928a_5311eb2d",
+      "revId": "19f829e860313a7dd35e4430824746b008950384",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
