@@ -106,6 +106,24 @@
       "parentUuid": "898df8f8_e633131e",
       "revId": "19f829e860313a7dd35e4430824746b008950384",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1a54492_6ea9c951",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3731572
+      },
+      "writtenOn": "2025-08-13T07:40:44Z",
+      "side": 1,
+      "message": "@danieladam@google.com , @lorenzo@google.com to both combine your suggestion and @sudheersai@google.com s suggestion, I would propose the following:\n\nWe modify the commit to annotate the test method with @RequiredProperties({NOT_AUTOMOTIVE, BUILD_VERSION_VANILLA_ICE_CREAM_OR_OLDER})\n\nWould that work for all of you?",
+      "parentUuid": "a41a242f_bfeb968d",
+      "revId": "19f829e860313a7dd35e4430824746b008950384",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
