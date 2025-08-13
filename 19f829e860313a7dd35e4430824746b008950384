@@ -142,6 +142,24 @@
       "parentUuid": "d1a54492_6ea9c951",
       "revId": "19f829e860313a7dd35e4430824746b008950384",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed9c4ec1_6e05d8e9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3731572
+      },
+      "writtenOn": "2025-08-13T07:51:51Z",
+      "side": 1,
+      "message": "@danieladam@google.com what about BUILD_VERSION_VANILLA_ICE_CREAM_OR_LOWER?\n\nYou are right, BUILD_VERSION_VANILLA_ICE_CREAM_OR_LOWER is not defined. We would need to define it in https://cs.android.com/android/platform/superproject/main/+/main:cts/hostsidetests/network-policy/app/src/com/android/cts/netpolicy/hostside/Property.java and https://cs.android.com/android/platform/superproject/main/+/main:cts/hostsidetests/network-policy/app/src/com/android/cts/netpolicy/hostside/NetworkPolicyTestUtils.java",
+      "parentUuid": "3324315a_3d76f7af",
+      "revId": "19f829e860313a7dd35e4430824746b008950384",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
