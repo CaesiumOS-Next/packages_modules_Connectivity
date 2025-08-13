@@ -118,6 +118,30 @@
       },
       "revId": "469abe840c1546d6798abca0684ba855ab6276db",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "380f0193_cb3cfd8f",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/DataSaverModeTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 3731572
+      },
+      "writtenOn": "2025-08-13T13:35:00Z",
+      "side": 1,
+      "message": "@ssundher@google.com we further looked into your suggestion. With the additional suggestions from your colleagues to include also Build.VERSION.SDK_INT \u003c\u003d Build.VERSION_CODES.VANILLA_ICE_CREAM it gets complicated using RequiredProperties:\n\nIf we want to put the condition isAutomotive \u0026\u0026 Build.VERSION.SDK_INT \u003c\u003d Build.VERSION_CODES.VANILLA_ICE_CREAM as a @RequiredProperties , we would need to combine it into a single property - e.g.: NOT_AUTMOTIVE_AND_NOT_BUILD_VERSION_VANILLA_ICE_CREAM_OR_LOWER . RequiredProperties are evaluated such that every required property needs to be true - meaning splitting it up in 2 RequiredProperties (i.e. @RequiredProperties({NOT_AUTMOTIVE, NOT_BUILD_VERSION_VANILLA_ICE_CREAM_OR_OLDER}) is not equivalent to NOT_AUTMOTIVE_AND_NOT_BUILD_VERSION_VANILLA_ICE_CREAM_OR_LOWER (\u003d: isAutomotive \u0026\u0026 Build.VERSION.SDK_INT \u003c\u003d Build.VERSION_CODES.VANILLA_ICE_CREAM ). So implementing NOT_AUTMOTIVE_AND_NOT_BUILD_VERSION_VANILLA_ICE_CREAM_OR_LOWER is the only option of we want to use RequiredProperties.\n\nSudheer, should we a.) implement RequiredProperties({NOT_AUTMOTIVE_AND_NOT_BUILD_VERSION_VANILLA_ICE_CREAM_OR_LOWER}) or should we b.) proceed with the current approach of assumeFalse(isAutomotive() \u0026\u0026 Build.VERSION.SDK_INT \u003c\u003d Build.VERSION_CODES.VANILLA_ICE_CREAM ) ?",
+      "parentUuid": "c1ee13b1_b095dce0",
+      "range": {
+        "startLine": 102,
+        "startChar": 7,
+        "endLine": 103,
+        "endChar": 36
+      },
+      "revId": "469abe840c1546d6798abca0684ba855ab6276db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
