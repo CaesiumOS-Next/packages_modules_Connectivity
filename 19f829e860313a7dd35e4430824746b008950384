@@ -124,6 +124,24 @@
       "parentUuid": "a41a242f_bfeb968d",
       "revId": "19f829e860313a7dd35e4430824746b008950384",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3324315a_3d76f7af",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2010396
+      },
+      "writtenOn": "2025-08-13T07:46:39Z",
+      "side": 1,
+      "message": "The meaning of BUILD_VERSION_VANILLA_ICE_CREAM_OR_OLDER is unclear and its definition I couldn’t find in the existing codes. The \"OR_OLDER\" part is particularly ambiguous, as it could imply either a higher or lower version number when interpreted in terms of release year. This makes the naming convention potentially misleading.",
+      "parentUuid": "d1a54492_6ea9c951",
+      "revId": "19f829e860313a7dd35e4430824746b008950384",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
