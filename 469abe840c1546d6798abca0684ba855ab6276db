@@ -142,6 +142,30 @@
       },
       "revId": "469abe840c1546d6798abca0684ba855ab6276db",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ccdaf72f_a0174578",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/DataSaverModeTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 3731572
+      },
+      "writtenOn": "2025-08-13T13:38:38Z",
+      "side": 1,
+      "message": "I wanted to tag you, @sudheersai@google.com , in the previous comment.",
+      "parentUuid": "380f0193_cb3cfd8f",
+      "range": {
+        "startLine": 102,
+        "startChar": 7,
+        "endLine": 103,
+        "endChar": 36
+      },
+      "revId": "469abe840c1546d6798abca0684ba855ab6276db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
