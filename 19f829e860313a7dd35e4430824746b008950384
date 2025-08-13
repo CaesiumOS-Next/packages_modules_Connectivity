@@ -88,6 +88,24 @@
       "parentUuid": "e4ed928a_5311eb2d",
       "revId": "19f829e860313a7dd35e4430824746b008950384",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a41a242f_bfeb968d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2010396
+      },
+      "writtenOn": "2025-08-13T06:02:32Z",
+      "side": 1,
+      "message": "Since none of the previous changes will apply beyond Android 15, I recommend a different condition. My suggestion is the following condition: isAutomotive \u0026\u0026 Build.VERSION.SDK_INT \u003c\u003d Build.VERSION_CODES.VANILLA_ICE_CREAM.",
+      "parentUuid": "898df8f8_e633131e",
+      "revId": "19f829e860313a7dd35e4430824746b008950384",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
