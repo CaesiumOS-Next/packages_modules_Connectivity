@@ -166,6 +166,30 @@
       },
       "revId": "469abe840c1546d6798abca0684ba855ab6276db",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b054682_0b91c718",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/DataSaverModeTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2025-08-15T17:22:14Z",
+      "side": 1,
+      "message": "Since this is only meant for V, it\u0027s okay to use the current approach and include the additional conditional `Build.VERSION.SDK_INT \u003c\u003d Build.VERSION_CODES.VANILLA_ICE_CREAM )`.",
+      "parentUuid": "ccdaf72f_a0174578",
+      "range": {
+        "startLine": 102,
+        "startChar": 7,
+        "endLine": 103,
+        "endChar": 36
+      },
+      "revId": "469abe840c1546d6798abca0684ba855ab6276db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
