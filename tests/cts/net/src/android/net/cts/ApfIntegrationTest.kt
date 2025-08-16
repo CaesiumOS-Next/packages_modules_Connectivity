@@ -20,7 +20,6 @@
 package android.net.cts
 
 import android.Manifest.permission.WRITE_DEVICE_CONFIG
-import android.content.pm.PackageManager
 import android.content.pm.PackageManager.FEATURE_AUTOMOTIVE
 import android.content.pm.PackageManager.FEATURE_WIFI
 import android.net.ConnectivityManager
@@ -29,20 +28,10 @@ import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import android.net.apf.ApfCapabilities
 import android.net.apf.ApfConstants.ETH_ETHERTYPE_OFFSET
-import android.net.apf.ApfConstants.ETH_HEADER_LEN
-import android.net.apf.ApfConstants.ICMP6_CHECKSUM_OFFSET
 import android.net.apf.ApfConstants.ICMP6_TYPE_OFFSET
-import android.net.apf.ApfConstants.IPV6_DEST_ADDR_OFFSET
-import android.net.apf.ApfConstants.IPV6_HEADER_LEN
 import android.net.apf.ApfConstants.IPV6_NEXT_HEADER_OFFSET
-import android.net.apf.ApfConstants.IPV6_SRC_ADDR_OFFSET
-import android.net.apf.ApfCounterTracker
-import android.net.apf.ApfCounterTracker.Counter.DROPPED_IPV6_MULTICAST_PING
-import android.net.apf.ApfCounterTracker.Counter.FILTER_AGE_16384THS
-import android.net.apf.ApfCounterTracker.Counter.PASSED_IPV6_ICMP
 import android.net.apf.ApfV4Generator
 import android.net.apf.ApfV4GeneratorBase
-import android.net.apf.ApfV6Generator
 import android.net.apf.BaseApfGenerator
 import android.net.apf.BaseApfGenerator.MemorySlot
 import android.net.apf.BaseApfGenerator.Register.R0
@@ -71,12 +60,6 @@ import com.android.compatibility.common.util.SystemUtil.runShellCommand
 import com.android.compatibility.common.util.SystemUtil.runShellCommandOrThrow
 import com.android.compatibility.common.util.VsrTest
 import com.android.internal.util.HexDump
-import com.android.net.module.util.NetworkStackConstants.ETHER_ADDR_LEN
-import com.android.net.module.util.NetworkStackConstants.ETHER_DST_ADDR_OFFSET
-import com.android.net.module.util.NetworkStackConstants.ETHER_HEADER_LEN
-import com.android.net.module.util.NetworkStackConstants.ETHER_SRC_ADDR_OFFSET
-import com.android.net.module.util.NetworkStackConstants.ICMPV6_HEADER_MIN_LEN
-import com.android.net.module.util.NetworkStackConstants.IPV6_ADDR_LEN
 import com.android.net.module.util.PacketReader
 import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo
@@ -153,17 +136,8 @@ class ApfIntegrationTest {
         }
 
         private fun waitForInteractiveState(interactive: Boolean) {
-            // TODO(b/366037029): This test condition should be removed once
-            // PowerManager#isInteractive is fully implemented on automotive
-            // form factor with visible background user.
-            if (isAutomotiveWithVisibleBackgroundUser()) {
-                // Wait for 2 seconds to ensure the interactive state is updated.
-                // This is a workaround for b/366037029.
-                Thread.sleep(2000L)
-            } else {
-                val result = pollingCheck({ powerManager.isInteractive() }, timeout_ms = 2000)
-                assertThat(result).isEqualTo(interactive)
-            }
+            val result = pollingCheck({ powerManager.isInteractive() }, timeout_ms = 2000)
+            assertThat(result).isEqualTo(interactive)
         }
 
         private fun isAutomotiveWithVisibleBackgroundUser(): Boolean {
@@ -179,6 +153,11 @@ class ApfIntegrationTest {
         fun setupOnce() {
             // TODO: assertions thrown in @BeforeClass / @AfterClass are not well supported in the
             // test infrastructure. Consider saving exception and throwing it in setUp().
+
+            // TODO(b/366037029): This test condition should be removed once
+            // PowerManager#isInteractive is fully implemented on automotive
+            // form factor with visible background user.
+            assumeFalse(isAutomotiveWithVisibleBackgroundUser())
 
             // APF must run when the screen is off and the device is not interactive.
             turnScreenOff()
