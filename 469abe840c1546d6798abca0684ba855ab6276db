@@ -190,6 +190,30 @@
       },
       "revId": "469abe840c1546d6798abca0684ba855ab6276db",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e69be262_0cb7e586",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/DataSaverModeTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2025-08-18T04:03:32Z",
+      "side": 1,
+      "message": "Sorry I didn\u0027t notice the `DO NOT MERGE` in the commit message. If this is only needed for Android 14 and we are not planning to cherrypick this to newer releases. The change as is looks okay to me. However, if this is not the case and this will be cherrypicked to other branches, then please include the version number conditional as per my earlier comment.",
+      "parentUuid": "1b054682_0b91c718",
+      "range": {
+        "startLine": 102,
+        "startChar": 7,
+        "endLine": 103,
+        "endChar": 36
+      },
+      "revId": "469abe840c1546d6798abca0684ba855ab6276db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
