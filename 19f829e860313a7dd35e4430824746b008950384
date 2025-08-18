@@ -196,6 +196,24 @@
       "parentUuid": "0a87a584_36f8f8f2",
       "revId": "19f829e860313a7dd35e4430824746b008950384",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f881120_181c9d0c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3731572
+      },
+      "writtenOn": "2025-08-18T09:45:19Z",
+      "side": 1,
+      "message": "@danieladam@google.com @sudheersai@google.com please let us know if the current commit is fine as it is now.",
+      "parentUuid": "44602df2_7cbcf359",
+      "revId": "19f829e860313a7dd35e4430824746b008950384",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
