@@ -178,6 +178,24 @@
       "parentUuid": "ed9c4ec1_6e05d8e9",
       "revId": "19f829e860313a7dd35e4430824746b008950384",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44602df2_7cbcf359",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2010396
+      },
+      "writtenOn": "2025-08-18T08:52:13Z",
+      "side": 1,
+      "message": "This doesn\u0027t have any effect. With DO NOT MERGE, the code will be used only for Android 14. Means the function isUpsideDownCakeOrLower() will be never used in newer Android release. Of course also not with lower because. I prefer only DO NOT MERGE.",
+      "parentUuid": "0a87a584_36f8f8f2",
+      "revId": "19f829e860313a7dd35e4430824746b008950384",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
