@@ -33,6 +33,69 @@
       "message": "Hi Lorenzo,\n\nCan you help with next steps on this? Looks like this CTS test needs to be updated to account for the existence of an unmetered cellular network. I\u0027ve already done one pass and changes looks ready for your review.\n\nThanks.",
       "revId": "3b5d66d8f78df38aa4d478668a1c3bdeb3559c4f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f5ea07d_2edb74aa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-08-19T09:25:53Z",
+      "side": 1,
+      "message": "Mostly LGTM but see comments inline. Once the comments are addressed, please move the test parts of this CL to the android-latest-release. I think you won\u0027t need the test utility changes in main since they are already there. Then we can cherry-pick it to the internal tree. After that we will work with you to see how to get this change into the  android 13 tests.",
+      "revId": "3b5d66d8f78df38aa4d478668a1c3bdeb3559c4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e171df8_59183703",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2692,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-08-19T09:25:53Z",
+      "side": 1,
+      "message": "Why do we need the shell permission here? Any app should be able to get the network capabilities, no? If not, please add a comment explaining why not.",
+      "range": {
+        "startLine": 2692,
+        "startChar": 60,
+        "endLine": 2692,
+        "endChar": 91
+      },
+      "revId": "3b5d66d8f78df38aa4d478668a1c3bdeb3559c4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd6570d2_996486c6",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2720,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2025-08-19T09:25:53Z",
+      "side": 1,
+      "message": "If this throws, setMobileDataEnabled(true) will not run. Can you move setMobileDataEnabled to another nested cleanup block?",
+      "range": {
+        "startLine": 2720,
+        "startChar": 16,
+        "endLine": 2720,
+        "endChar": 43
+      },
+      "revId": "3b5d66d8f78df38aa4d478668a1c3bdeb3559c4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
