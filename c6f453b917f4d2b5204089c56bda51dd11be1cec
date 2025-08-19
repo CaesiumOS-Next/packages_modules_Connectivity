@@ -1,0 +1,39 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e19efcb4_72e3c51f",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/DataSaverModeTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 2010396
+      },
+      "writtenOn": "2025-08-19T05:19:30Z",
+      "side": 1,
+      "message": "Hello Oleksandr.Nikitin@bmw.de,\n\nmaybe you can add a second line of comment, which stats this is a temporary solution and only required for Android 14.",
+      "fixSuggestions": [
+        {
+          "fixId": "9000e440_89eab375",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "tests/cts/hostside/app/src/com/android/cts/net/hostside/DataSaverModeTest.java",
+              "range": {
+                "startLine": 103,
+                "startChar": 0,
+                "endLine": 103,
+                "endChar": 0
+              },
+              "replacement": "        // This is a temporary solution and only required for Android 14.\n"
+            }
+          ]
+        }
+      ],
+      "revId": "c6f453b917f4d2b5204089c56bda51dd11be1cec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
