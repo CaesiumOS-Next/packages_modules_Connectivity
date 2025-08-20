@@ -36,6 +36,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6feb9c4_36b370e8",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/DataSaverModeTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 3643961
+      },
+      "writtenOn": "2025-08-20T07:24:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e19efcb4_72e3c51f",
+      "revId": "c6f453b917f4d2b5204089c56bda51dd11be1cec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ad1f2739_b17bea1c",
@@ -49,6 +67,30 @@
       "writtenOn": "2025-08-19T07:00:13Z",
       "side": 1,
       "message": "Please add a maximum SDK here to ensure that this solution is indeed temporary. One way to do this would be:\n\n    if (Build.SDK_INT \u003c\u003d Build.VERSION_CODES.BAKLAVA) {\n        assumeFalse(isAutomotive());\n    }",
+      "range": {
+        "startLine": 103,
+        "startChar": 8,
+        "endLine": 103,
+        "endChar": 19
+      },
+      "revId": "c6f453b917f4d2b5204089c56bda51dd11be1cec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "68b6ce7c_071b4be9",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/DataSaverModeTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 3643961
+      },
+      "writtenOn": "2025-08-20T07:24:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad1f2739_b17bea1c",
       "range": {
         "startLine": 103,
         "startChar": 8,
