@@ -160,6 +160,24 @@
       "parentUuid": "3e6a6ca0_13f13beb",
       "revId": "cd87e53a2dd340ef458a86c0f70846170a1380bd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26af2a8b_16b6e5d6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3742640
+      },
+      "writtenOn": "2025-08-20T07:49:14Z",
+      "side": 1,
+      "message": "Hi!\nThe reason we haven\u0027t added support is like James wrote, we don\u0027t currently see the benefit. Also, the modem is in a different ECU, which complicates the implementation a little I guess. I\u0027m sure it is still possible to do, we just have more urgent things to work on currently.\nI made this CL because we would like to be able to enable FEATURE_TELEPHONY eventually (we have run into some issues on android 15 due to it being disabled).\nSince I created this CL we have settled on a different solution though, since fixing all CTS failures that arise when we enable FEATURE_TELEPHONY is too time consuming.\nSo this CL is not as important as before, and I would be okay with abandoning it and dealing with this problem again when we have time/need to enable FEATURE_TELEPHONY.",
+      "parentUuid": "d724a302_070930d1",
+      "revId": "cd87e53a2dd340ef458a86c0f70846170a1380bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
