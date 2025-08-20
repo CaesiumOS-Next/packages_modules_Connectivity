@@ -103,6 +103,7 @@ import kotlin.test.assertFailsWith
 import kotlin.test.assertNotNull
 import org.junit.After
 import org.junit.AfterClass
+import org.junit.Assume.assumeFalse
 import org.junit.Before
 import org.junit.BeforeClass
 import org.junit.Rule
@@ -165,6 +166,7 @@ class ApfIntegrationTest {
                 assertThat(result).isEqualTo(interactive)
             }
         }
+
 
         private fun isAutomotiveWithVisibleBackgroundUser(): Boolean {
             val packageManager = context.getPackageManager()
