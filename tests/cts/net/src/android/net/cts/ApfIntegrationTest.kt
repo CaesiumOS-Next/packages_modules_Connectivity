@@ -349,12 +349,25 @@ class ApfIntegrationTest {
     fun testApfCapabilities() {
         // APF became mandatory in Android 14 VSR.
         assume().that(getVsrApiLevel()).isAtLeast(34)
+<<<<<<< HEAD
 
         // ApfFilter does not support anything but ARPHRD_ETHER.
         assertThat(caps.apfPacketFormat).isEqualTo(OsConstants.ARPHRD_ETHER)
 
         // DEVICEs launching with Android 14 with CHIPSETs that set ro.board.first_api_level to 34:
         // - [GMS-VSR-5.3.12-003] MUST return 4 or higher as the APF version number from calls to
+=======
+            isTvDeviceSupportFullNetworkingUnder2w()
+        )
+
+        // APF GMS-VSR requirements don't apply to automotive devices. There is no power benefit to
+        // running APF on automotive as the device has almost infinite battery power.
+        assumeFalse("Skip test: automotive device", pm.hasSystemFeature(FEATURE_AUTOMOTIVE))
+
+        networkCallback = TestableNetworkCallback()
+        cm.requestNetwork(
+                NetworkRequest.Builder()
+>>>>>>> PATCH
         //   the getApfPacketFilterCapabilities HAL method.
         // - [GMS-VSR-5.3.12-004] MUST indicate at least 1024 bytes of usable memory from calls to
         //   the getApfPacketFilterCapabilities HAL method.
