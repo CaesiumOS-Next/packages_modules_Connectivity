@@ -52,6 +52,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "57e9bfab_ee5bce72",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3742640
+      },
+      "writtenOn": "2025-08-22T09:16:15Z",
+      "side": 1,
+      "message": "Uploaded new patch here :)\nhttps://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/3743630",
+      "parentUuid": "4f5ea07d_2edb74aa",
+      "revId": "3b5d66d8f78df38aa4d478668a1c3bdeb3559c4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0e171df8_59183703",
@@ -75,6 +93,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "22aaeb1d_96ef9bd6",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2692,
+      "author": {
+        "id": 3742640
+      },
+      "writtenOn": "2025-08-22T09:16:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e171df8_59183703",
+      "range": {
+        "startLine": 2692,
+        "startChar": 60,
+        "endLine": 2692,
+        "endChar": 91
+      },
+      "revId": "3b5d66d8f78df38aa4d478668a1c3bdeb3559c4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cd6570d2_996486c6",
@@ -88,6 +130,30 @@
       "writtenOn": "2025-08-19T09:25:53Z",
       "side": 1,
       "message": "If this throws, setMobileDataEnabled(true) will not run. Can you move setMobileDataEnabled to another nested cleanup block?",
+      "range": {
+        "startLine": 2720,
+        "startChar": 16,
+        "endLine": 2720,
+        "endChar": 43
+      },
+      "revId": "3b5d66d8f78df38aa4d478668a1c3bdeb3559c4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56922af2_3f5b6889",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2720,
+      "author": {
+        "id": 3742640
+      },
+      "writtenOn": "2025-08-22T09:16:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd6570d2_996486c6",
       "range": {
         "startLine": 2720,
         "startChar": 16,
