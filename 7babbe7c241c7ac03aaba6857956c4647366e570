@@ -39,6 +39,30 @@
       },
       "revId": "7babbe7c241c7ac03aaba6857956c4647366e570",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93f7c00d_830ee1c6",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/DataSaverModeTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 3643961
+      },
+      "writtenOn": "2025-08-25T08:18:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "998e30f9_3df140ac",
+      "range": {
+        "startLine": 108,
+        "startChar": 12,
+        "endLine": 108,
+        "endChar": 72
+      },
+      "revId": "7babbe7c241c7ac03aaba6857956c4647366e570",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
