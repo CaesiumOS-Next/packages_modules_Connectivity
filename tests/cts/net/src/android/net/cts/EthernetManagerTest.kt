@@ -574,6 +574,7 @@ class EthernetManagerTest {
         // Since restricted interfaces cannot be used for tethering,
         // assumeNoInterfaceForTetheringAvailable() is an okay proxy.
         assumeNoInterfaceForTetheringAvailable()
+        assumeNoPreexistingInterfaces()
 
         // If an interface exists when the callback is registered, it is reported on registration.
         val iface = createInterface()
@@ -639,6 +640,25 @@ class EthernetManagerTest {
             // do nothing -- the TimeoutException indicates that no interface is available for
             // tethering.
             releaseTetheredInterface()
+        }
+    }
+
+    private fun assumeNoPreexistingInterfaces() {
+        val listener = EthernetStateListener()
+        try {
+            // Register a temporary listener. This will not be added to the main
+            // teardown list.
+            em.addInterfaceStateListener(handler::post, listener)
+            listener.assertNoCallback()
+        } catch (e: AssertionError) {
+            // A callback was received, which means an interface exists.
+            assumeTrue(
+                "Skipping test due to presence of pre-existing interfaces. " +
+                    "First callback received was: ${e.message}",
+                false
+            )
+        } finally {
+            em.removeInterfaceStateListener(listener)
         }
     }
 
@@ -992,3 +1012,4 @@ class EthernetManagerTest {
         cb.eventuallyExpectLpForStaticConfig(STATIC_IP_CONFIGURATION.staticIpConfiguration)
     }
 }
+
