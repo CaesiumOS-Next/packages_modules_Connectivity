@@ -574,6 +574,7 @@ class EthernetManagerTest {
         // Since restricted interfaces cannot be used for tethering,
         // assumeNoInterfaceForTetheringAvailable() is an okay proxy.
         assumeNoInterfaceForTetheringAvailable()
+        assumeNoPreexistingInterfaces()
 
         // If an interface exists when the callback is registered, it is reported on registration.
         val iface = createInterface()
@@ -642,6 +643,25 @@ class EthernetManagerTest {
         }
     }
 
+    private fun assumeNoPreexistingInterfaces() {
+        val listener = EthernetStateListener()
+        try {
+            // Register a temporary listener. This will not be added to the main
+            // teardown list.
+            em.addInterfaceStateListener(handler::post, listener)
+            listener.assertNoCallback()
+        } catch (e: AssertionError) {
+            // A callback was received, which means an interface exists.
+            assumeTrue(
+                "Skipping test due to presence of pre-existing interfaces. " +
+                    "First callback received was: ${e.message}",
+                false
+            )
+        } finally {
+            em.removeInterfaceStateListener(listener)
+        }
+    }
+
     @Test
     fun testCallbacks_forServerModeInterfaces() {
         // do not run this test if an interface that can be used for tethering already exists.
@@ -667,17 +687,37 @@ class EthernetManagerTest {
         listener.expectCallback(iface, STATE_LINK_UP, ROLE_CLIENT)
     }
 
+<<<<<<< HEAD
     @Test
     fun testGetInterfaceList() {
         // Create two test interfaces and check the return list contains the interface names.
         val iface1 = createInterface()
         val iface2 = createInterface()
         var ifaces = em.getInterfaceList()
+=======
+    fun testCallbacks_afterRemovingServerModeInterface() {
+        // do not run this test if an interface that can be used for tethering already exists.
+        assumeNoInterfaceForTetheringAvailable()
+        assumeNoPreexistingInterfaces()
+
+        val iface = createInterface()
+        requestTetheredInterface().expectOnAvailable()
+<<<<<<< HEAD
+>>>>>>> PATCH
         assertTrue(ifaces.size > 0)
         assertTrue(ifaces.contains(iface1.name))
         assertTrue(ifaces.contains(iface2.name))
 
         // Remove one existing test interface and check the return list doesn't contain the
+=======
+    fun testCallbacks_withRunningInterfaces() {
+        // Do not run this test when unrestricted interfaces are present. Refer to testCallbacks.
+        assumeNoInterfaceForTetheringAvailable()
+        assumeNoPreexistingInterfaces()
+
+        // The interfaces must be created before setIncludeTestInterfaces is set to false, so the
+        // test can ensure that the RTM_NEWLINK has been processed before proceeding.
+>>>>>>> PATCH
         // removed interface name.
         removeInterface(iface1)
         ifaces = em.getInterfaceList()
@@ -992,3 +1032,33 @@ class EthernetManagerTest {
         cb.eventuallyExpectLpForStaticConfig(STATIC_IP_CONFIGURATION.staticIpConfiguration)
     }
 }
+<<<<<<< HEAD
+=======
+    @Test
+    fun testRemoveInterface_disableEnableEthernet() {
+        assumeNoInterfaceForTetheringAvailable()
+        assumeNoPreexistingInterfaces()
+
+        // Set up 2 interfaces for testing
+        val iface1 = createInterface()
+>>>>>>> PATCH
+<<<<<<< HEAD
+=======
+    fun testSetTetheringInterfaceMode_disableEnableEthernet() {
+        // do not run this test if an interface that can be used for tethering already exists.
+        assumeNoInterfaceForTetheringAvailable()
+        assumeNoPreexistingInterfaces()
+
+        val listener = EthernetStateListener()
+        addInterfaceStateListener(listener)
+>>>>>>> PATCH
+<<<<<<< HEAD
+=======
+    fun testCallbacks_doNotIncludeNcmOnlyInterfaces() {
+        // It is unlikely that an NCM-only "interface" is present while running this test.
+        assumeNoInterfaceForTetheringAvailable()
+        assumeNoPreexistingInterfaces()
+
+        setIncludeTestInterfaces(TEST_INTERFACE_MODE_NCM)
+        val iface = createInterface()
+>>>>>>> PATCH
