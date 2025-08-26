@@ -568,12 +568,12 @@ class EthernetManagerTest {
 
     @Test
     fun testCallbacks() {
-        // Only run this test when no non-restricted / physical interfaces are present.
-        // This test ensures that interface state listeners function properly, so the assumption
-        // check is explicitly *not* using an interface state listener.
-        // Since restricted interfaces cannot be used for tethering,
-        // assumeNoInterfaceForTetheringAvailable() is an okay proxy.
-        assumeNoInterfaceForTetheringAvailable()
+        // Only run this test when no pre-existing ethernet interfaces are present.
+        // The assumption check uses an InterfaceStateListener to reliably detect any
+        // pre-existing interfaces in a race-free way, preventing flakes. While this
+        // uses the component-under-test to gate the test itself, it's a deliberate
+        // trade-off to create a stable check.
+        assumeNoPreexistingInterfaces()
 
         // If an interface exists when the callback is registered, it is reported on registration.
         val iface = createInterface()
@@ -639,6 +639,25 @@ class EthernetManagerTest {
             // do nothing -- the TimeoutException indicates that no interface is available for
             // tethering.
             releaseTetheredInterface()
+        }
+    }
+
+    private fun assumeNoPreexistingInterfaces() {
+        val listener = EthernetStateListener()
+        try {
+            // Register a temporary listener. This will not be added to the main
+            // teardown list.
+            em.addInterfaceStateListener(handler::post, listener)
+            listener.assertNoCallback()
+        } catch (e: AssertionError) {
+            // A callback was received, which means an interface exists.
+            assumeTrue(
+                "Skipping test due to presence of pre-existing interfaces. " +
+                    "First callback received was: ${e.message}",
+                false
+            )
+        } finally {
+            em.removeInterfaceStateListener(listener)
         }
     }
 
