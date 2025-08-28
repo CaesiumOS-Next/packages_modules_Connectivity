@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2bad271c_051ea035",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2034140
+      },
+      "writtenOn": "2025-08-28T18:11:31Z",
+      "side": 1,
+      "message": "Duplicate of https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/3281594 Please abandon",
+      "revId": "656de9e8ac2cdacfc4431641c61df6e34833e9a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
