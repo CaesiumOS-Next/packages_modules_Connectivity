@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20b4a157_46ebf606",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1583555
+      },
+      "writtenOn": "2025-08-28T12:01:51Z",
+      "side": 1,
+      "message": "Hi Lorenzo,\n\nThis is the android-latest-release version of http://r.android.com/3662234. Could you check that your comments were properly addressed and the patch is ready? Then I\u0027ll create the cherry-picks for `main` and `android16-tests-dev`.\n\nThanks",
+      "revId": "0835ba57d8b85481a9336a10eb218e4fb4202b49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
