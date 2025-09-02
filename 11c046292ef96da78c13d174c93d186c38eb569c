@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3dbe5ee4_b523943f",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 656,
+      "author": {
+        "id": 1954140
+      },
+      "writtenOn": "2025-09-02T14:42:11Z",
+      "side": 1,
+      "message": "was previously setEthernetEnabled(ethernetEnabled) in the original change; this file version doesn\u0027t have that field",
+      "range": {
+        "startLine": 656,
+        "startChar": 8,
+        "endLine": 656,
+        "endChar": 26
+      },
+      "revId": "11c046292ef96da78c13d174c93d186c38eb569c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
