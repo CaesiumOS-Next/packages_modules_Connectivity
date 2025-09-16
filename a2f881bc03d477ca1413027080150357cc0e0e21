@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ddded1ac_b2f71d6e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3891764
+      },
+      "writtenOn": "2025-09-16T07:24:08Z",
+      "side": 1,
+      "message": "Hi @lorenzo@google.com, \nGentle ping. I kindly ask for your support to complete the review.",
+      "revId": "a2f881bc03d477ca1413027080150357cc0e0e21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
