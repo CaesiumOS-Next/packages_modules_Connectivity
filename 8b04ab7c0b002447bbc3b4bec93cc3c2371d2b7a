@@ -22,6 +22,30 @@
       },
       "revId": "8b04ab7c0b002447bbc3b4bec93cc3c2371d2b7a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4476528_bdabdf0a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1123518
+      },
+      "writtenOn": "2025-09-18T17:48:20Z",
+      "side": 1,
+      "message": "Cherry pick aosp/1872873 to aosp-tests-dev failed with merge conflict. Will assign the bug to WIFI team to deal with their tests",
+      "parentUuid": "abe10c28_108b6eba",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 5
+      },
+      "revId": "8b04ab7c0b002447bbc3b4bec93cc3c2371d2b7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
