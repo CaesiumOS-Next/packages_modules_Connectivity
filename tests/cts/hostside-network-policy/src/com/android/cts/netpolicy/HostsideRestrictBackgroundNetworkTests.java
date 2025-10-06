@@ -16,8 +16,12 @@
 
 package com.android.cts.netpolicy;
 
-import static org.junit.Assert.fail;
+import static com.android.compatibility.common.util.FeatureUtil.isAutomotive;
 
+import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeFalse;
+
+import android.os.Build;
 import android.platform.test.annotations.FlakyTest;
 import android.platform.test.annotations.SecurityTest;
 
@@ -68,6 +72,11 @@ public class HostsideRestrictBackgroundNetworkTests extends HostsideNetworkPolic
 
     @Test
     public void testDataSaverMode_enabled() throws Exception {
+        // TODO(b/437105925): Rewrite the test with a new way of turning all displays off.
+        // This is a temporary solution and only required for Android 14 and 15.
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+            assumeFalse(isAutomotive());
+        }
         runDeviceTestsWithCustomOptions(TEST_PKG, TEST_PKG + ".DataSaverModeTest",
                 "testGetRestrictBackgroundStatus_enabled");
     }
