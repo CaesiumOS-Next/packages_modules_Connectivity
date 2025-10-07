@@ -28,6 +28,7 @@ java_defaults {
         "androidx.test.rules",
         "androidx.test.uiautomator_uiautomator",
         "compatibility-device-util-axt",
+        "compatibility-host-util",
         "cts-net-utils",
         "ctstestrunner-axt",
         "modules-utils-build",
