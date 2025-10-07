@@ -17,12 +17,15 @@
 package com.android.cts.netpolicy;
 
 import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeFalse;
 
+import android.os.Build;
 import android.platform.test.annotations.FlakyTest;
 import android.platform.test.annotations.SecurityTest;
 
 import com.android.ddmlib.Log;
 import com.android.tradefed.device.DeviceNotAvailableException;
+import com.android.tradefed.device.ITestDevice;
 import com.android.tradefed.util.RunUtil;
 
 import org.junit.After;
@@ -31,6 +34,14 @@ import org.junit.Test;
 
 @FlakyTest(bugId = 288324467)
 public class HostsideRestrictBackgroundNetworkTests extends HostsideNetworkPolicyTestCase {
+    private static final int VANILLA_ICE_CREAM_SDK_INT = 35;
+    private static ITestDevice sDevice;
+
+    @Override
+    public static void setUpOnceBase(TestInformation testInfo) throws Exception {
+        super.setUpOnceBase(testInfo);
+        sDevice = testInfo.getDevice();
+    }
 
     @Before
     public void setUp() throws Exception {
@@ -68,6 +79,11 @@ public class HostsideRestrictBackgroundNetworkTests extends HostsideNetworkPolic
 
     @Test
     public void testDataSaverMode_enabled() throws Exception {
+        // TODO(b/437105925): Rewrite the test with a new way of turning all displays off.
+        // This is a temporary solution and only required for Android 14 and 15.
+        if (sDevice.getApiLevel() <= VANILLA_ICE_CREAM_SDK_INT) {
+            assumeFalse(isAutomotive());
+        }
         runDeviceTestsWithCustomOptions(TEST_PKG, TEST_PKG + ".DataSaverModeTest",
                 "testGetRestrictBackgroundStatus_enabled");
     }
