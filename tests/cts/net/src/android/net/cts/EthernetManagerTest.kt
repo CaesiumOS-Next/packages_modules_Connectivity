@@ -43,6 +43,7 @@ import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkCapabilities.NET_CAPABILITY_NOT_CONGESTED
 import android.net.NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED
+<<<<<<< HEAD
 import android.net.NetworkCapabilities.NET_CAPABILITY_TEMPORARILY_NOT_METERED
 import android.net.NetworkCapabilities.NET_CAPABILITY_TRUSTED
 import android.net.NetworkCapabilities.TRANSPORT_ETHERNET
@@ -53,6 +54,18 @@ import android.net.TestNetworkInterface
 import android.net.TestNetworkManager
 import android.net.cts.EthernetManagerTest.EthernetStateListener.CallbackEntry.EthernetStateChanged
 import android.net.cts.EthernetManagerTest.EthernetStateListener.CallbackEntry.InterfaceStateChanged
+=======
+import android.net.Network
+import android.net.NetworkCapabilities
+import android.net.NetworkCapabilities.NET_CAPABILITY_NOT_CONGESTED
+import android.net.NetworkCapabilities.NET_CAPABILITY_NOT_METERED
+import android.net.NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED
+import android.net.NetworkCapabilities.NET_CAPABILITY_TEMPORARILY_NOT_METERED
+import android.net.NetworkCapabilities.NET_CAPABILITY_TRUSTED
+import android.net.NetworkCapabilities.TRANSPORT_TEST
+import android.net.NetworkCapabilities.TRANSPORT_USB
+import android.net.NetworkRequest
+>>>>>>> PATCH
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
@@ -111,6 +124,7 @@ private const val TIMEOUT_MS = 10_000L
 private const val NO_CALLBACK_TIMEOUT_MS = 500L
 
 private val DEFAULT_IP_CONFIGURATION = IpConfiguration(IpConfiguration.IpAssignment.DHCP,
+<<<<<<< HEAD
         IpConfiguration.ProxySettings.NONE, null, null)
 private val ETH_REQUEST: NetworkRequest = NetworkRequest.Builder()
         .addTransportType(TRANSPORT_TEST)
@@ -118,6 +132,15 @@ private val ETH_REQUEST: NetworkRequest = NetworkRequest.Builder()
         .removeCapability(NET_CAPABILITY_TRUSTED)
         .build()
 private val TEST_CAPS = NetworkCapabilities.Builder(ETH_REQUEST.networkCapabilities)
+=======
+)
+private val ETH_REQUEST: NetworkRequest = NetworkRequest.Builder()
+        .addTransportType(TRANSPORT_TEST)
+        .addCapability(NET_CAPABILITY_NOT_METERED)
+        .removeCapability(NET_CAPABILITY_TRUSTED)
+        .build()
+private val LOCAL_REQUEST: NetworkRequest = NetworkRequest.Builder()
+>>>>>>> PATCH
         .addCapability(NET_CAPABILITY_TEMPORARILY_NOT_METERED)
         .addCapability(NET_CAPABILITY_NOT_CONGESTED)
         .build()
