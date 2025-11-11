@@ -617,7 +617,7 @@ class EthernetManagerTest {
     fun testCallbacks_withRunningInterface() {
         assumeFalse(isAdbOverEthernet())
         // Only run this test when no non-restricted / physical interfaces are present.
-        assumeNoInterfaceForTetheringAvailable()
+        assumeNoUnrestrictedInterfacesAvailable()
 
         val iface = createInterface()
         val listener = EthernetStateListener()
