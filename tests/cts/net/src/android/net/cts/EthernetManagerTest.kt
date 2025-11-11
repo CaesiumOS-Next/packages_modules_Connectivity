@@ -733,6 +733,7 @@ class EthernetManagerTest {
 
         // remove interface before network request has been removed
         cb.assertNeverLost()
+<<<<<<< HEAD
         removeInterface(iface)
         cb.eventuallyExpectLost()
     }
@@ -740,6 +741,15 @@ class EthernetManagerTest {
     @Test
     fun testNetworkRequest_withMultipleInterfaces() {
         val iface1 = createInterface()
+=======
+    @Test
+    fun testCallbacks_withRunningInterfaces() {
+        // Do not run this test when unrestricted interfaces are present. Refer to testCallbacks.
+        assumeNoUnrestrictedInterfacesAvailable()
+
+        // The interfaces must be created before setIncludeTestInterfaces is set to false, so the
+        // test can ensure that the RTM_NEWLINK has been processed before proceeding.
+>>>>>>> PATCH
         val iface2 = createInterface()
 
         val cb = requestNetwork(ETH_REQUEST.copyWithEthernetSpecifier(iface2.name))
