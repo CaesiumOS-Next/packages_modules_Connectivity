@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e5d9464_ec841f77",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1123518
+      },
+      "writtenOn": "2025-11-26T18:52:32Z",
+      "side": 1,
+      "message": "Hi Lorenzo, could you provide +2 as owner for this cherry-pick?",
+      "revId": "161da26a5db620c9b1aa21eb80b55173ca890070",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
