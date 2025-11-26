@@ -16,6 +16,7 @@
 
 package com.android.server;
 
+import android.os.SystemProperties;
 import android.annotation.Nullable;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -200,6 +201,9 @@ public final class ConnectivityServiceInitializer extends SystemService {
     private ThreadNetworkService createThreadNetworkService(final Context context) {
         final PackageManager pm = context.getPackageManager();
         if (!pm.hasSystemFeature(ThreadNetworkManager.FEATURE_NAME)) {
+            return null;
+        }
+        if (!"true".equals(SystemProperties.get("vendor.thread.driver.ready"))) {
             return null;
         }
         if (!SdkLevel.isAtLeastU()) {
