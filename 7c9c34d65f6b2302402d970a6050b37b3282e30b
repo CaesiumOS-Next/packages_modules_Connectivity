@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07d59475_475a0bec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1943370
+      },
+      "writtenOn": "2025-12-02T13:44:55Z",
+      "side": 1,
+      "message": "@samgarg@google.com, could you help with a Dr.No approval?",
+      "revId": "7c9c34d65f6b2302402d970a6050b37b3282e30b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
