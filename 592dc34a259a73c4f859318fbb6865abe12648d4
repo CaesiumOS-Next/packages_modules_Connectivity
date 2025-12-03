@@ -16,6 +16,23 @@
       "message": "This is cp\u0027d to address https://b.corp.google.com/issues/457027352.",
       "revId": "592dc34a259a73c4f859318fbb6865abe12648d4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fefc51ca_3c689311",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1954140
+      },
+      "writtenOn": "2025-12-03T22:50:57Z",
+      "side": 1,
+      "message": "These changes are fixing https://b.corp.google.com/issues/457027352",
+      "revId": "592dc34a259a73c4f859318fbb6865abe12648d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
