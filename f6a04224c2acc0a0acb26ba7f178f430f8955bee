@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "52b07297_84861c8a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1954140
+      },
+      "writtenOn": "2026-01-07T16:19:39Z",
+      "side": 1,
+      "message": "I think this is right; should point to the original change from what I\u0027ve seen from other cherrypicker changes. Please detail what I should change this to if this thinking is incorrect.",
+      "parentUuid": "c9247473_4c8dc864",
+      "range": {
+        "startLine": 19,
+        "startChar": 17,
+        "endLine": 19,
+        "endChar": 117
+      },
+      "revId": "f6a04224c2acc0a0acb26ba7f178f430f8955bee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8e1a47c6_47823b13",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -37,6 +61,30 @@
       "writtenOn": "2026-01-07T07:36:51Z",
       "side": 1,
       "message": "Could you remove these lines, since conflict was resolved?",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 32
+      },
+      "revId": "f6a04224c2acc0a0acb26ba7f178f430f8955bee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c804b8a3_443ec3dc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1954140
+      },
+      "writtenOn": "2026-01-07T16:19:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8e1a47c6_47823b13",
       "range": {
         "startLine": 22,
         "startChar": 0,
@@ -60,6 +108,30 @@
       "writtenOn": "2026-01-07T07:36:51Z",
       "side": 1,
       "message": "There are two Change-Id",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 52
+      },
+      "revId": "f6a04224c2acc0a0acb26ba7f178f430f8955bee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66ddb272_5626e2c9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1954140
+      },
+      "writtenOn": "2026-01-07T16:19:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fca1b616_ded5bd53",
       "range": {
         "startLine": 26,
         "startChar": 0,
