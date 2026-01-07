@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9247473_4c8dc864",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 3891764
+      },
+      "writtenOn": "2026-01-07T07:36:51Z",
+      "side": 1,
+      "message": "Should be commit SHA",
+      "range": {
+        "startLine": 19,
+        "startChar": 17,
+        "endLine": 19,
+        "endChar": 117
+      },
+      "revId": "f6a04224c2acc0a0acb26ba7f178f430f8955bee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e1a47c6_47823b13",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 3891764
+      },
+      "writtenOn": "2026-01-07T07:36:51Z",
+      "side": 1,
+      "message": "Could you remove these lines, since conflict was resolved?",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 32
+      },
+      "revId": "f6a04224c2acc0a0acb26ba7f178f430f8955bee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fca1b616_ded5bd53",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 3891764
+      },
+      "writtenOn": "2026-01-07T07:36:51Z",
+      "side": 1,
+      "message": "There are two Change-Id",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 52
+      },
+      "revId": "f6a04224c2acc0a0acb26ba7f178f430f8955bee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
