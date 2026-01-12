@@ -27,6 +27,7 @@ import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.cts.util.CtsNetUtils;
 import android.os.Looper;
+import android.os.SystemProperties;
 import android.test.AndroidTestCase;
 import android.util.Log;
 
@@ -54,6 +55,11 @@ public class ConnectivityManagerApi23Test extends AndroidTestCase {
         mCtsNetUtils = new CtsNetUtils(mContext);
     }
 
+    private boolean isAdbOverNetwork() {
+        return (SystemProperties.getInt("persist.adb.tcp.port", -1) > -1)
+          || (SystemProperties.getInt("service.adb.tcp.port", -1) > -1);
+    }
+
     /**
      * Tests reporting of connectivity changed.
      */
@@ -65,8 +71,11 @@ public class ConnectivityManagerApi23Test extends AndroidTestCase {
         }
         ConnectivityReceiver.prepare();
 
+        if (isAdbOverNetwork()) {
+            Log.i(TAG, "testConnectivityChanged_manifestRequestOnly_shouldNotReceiveIntent cannot execute if adb over ethernet");
+            return;
+        }
         mCtsNetUtils.reconnectWifiAndWaitForConnectivityAction();
-
         // The connectivity broadcast has been sent; push through a terminal broadcast
         // to wait for in the receive to confirm it didn't see the connectivity change.
         Intent finalIntent = new Intent(ConnectivityReceiver.FINAL_ACTION);
@@ -81,6 +90,12 @@ public class ConnectivityManagerApi23Test extends AndroidTestCase {
             Log.i(TAG, "testConnectivityChanged_manifestRequestOnlyPreN_shouldReceiveIntent cannot"
                     + "execute unless device supports WiFi");
             return;
+        }
+
+        if (isAdbOverNetwork()) {
+             Log.i(TAG, "testConnectivityChanged_manifestRequestOnlyPreN_shouldReceiveIntent cannot"
+                    + "execute if adb over ethernet");
+             return;
         }
         mContext.startActivity(new Intent()
                 .setComponent(new ComponentName("android.net.cts.appForApi23",
@@ -99,6 +114,11 @@ public class ConnectivityManagerApi23Test extends AndroidTestCase {
         if (!mPackageManager.hasSystemFeature(FEATURE_WIFI)) {
             Log.i(TAG, "testConnectivityChanged_whenRegistered_shouldReceiveIntent cannot execute unless device supports WiFi");
             return;
+        }
+
+        if (isAdbOverNetwork()) {
+             Log.i(TAG, "testConnectivityChanged_whenRegistered_shouldReceiveIntent cannot execute if adb over ethernet");
+             return;
         }
         ConnectivityReceiver.prepare();
         ConnectivityReceiver receiver = new ConnectivityReceiver();
