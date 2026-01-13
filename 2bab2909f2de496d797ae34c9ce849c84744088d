@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8771f71_b5dda976",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1565663
+      },
+      "writtenOn": "2026-01-13T07:03:53Z",
+      "side": 1,
+      "message": "It appears to have been correctly modified and should be properly skipped on automotive devices. \n\nGreat job.",
+      "revId": "2bab2909f2de496d797ae34c9ce849c84744088d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
