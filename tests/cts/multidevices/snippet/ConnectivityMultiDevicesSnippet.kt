@@ -20,6 +20,7 @@ import android.Manifest.permission.NETWORK_SETTINGS
 import android.Manifest.permission.OVERRIDE_WIFI_CONFIG
 import android.content.pm.PackageManager.FEATURE_TELEPHONY
 import android.content.pm.PackageManager.FEATURE_WIFI
+import android.content.pm.PackageManager.FEATURE_AUTOMOTIVE
 import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities.NET_CAPABILITY_VALIDATED
@@ -74,6 +75,9 @@ class ConnectivityMultiDevicesSnippet : Snippet {
 
     @Rpc(description = "Check whether the device supporters AP + STA concurrency.")
     fun isStaApConcurrencySupported() = wifiManager.isStaApConcurrencySupported()
+
+    @Rpc(description = "Check whether the device has Automotive feature.")
+    fun hasAutomotiveFeature(): Boolean = pm.hasSystemFeature(PackageManager.FEATURE_AUTOMOTIVE)
 
     @Rpc(description = "Check whether the device SDK is as least T")
     fun isAtLeastT() = SdkLevel.isAtLeastT()
