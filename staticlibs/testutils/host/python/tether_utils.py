@@ -57,6 +57,7 @@ def assume_hotspot_test_preconditions(
         not server.isStaApConcurrencySupported(),
         "Server requires Wifi AP + STA concurrency",
     )
+    asserts.skip_if(server.hasAutomotiveFeature(), "Skip for IVI (FEATURE_AUTOMOTIVE)")
   elif upstream_type == UpstreamType.NONE:
     pass
   else:
