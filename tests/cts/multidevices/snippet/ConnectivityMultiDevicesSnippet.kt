@@ -78,6 +78,9 @@ class ConnectivityMultiDevicesSnippet : Snippet {
     @Rpc(description = "Check whether the device SDK is as least T")
     fun isAtLeastT() = SdkLevel.isAtLeastT()
 
+    @Rpc(description = "Check whether the device has Automotive feature.")
+    fun hasAutomotiveFeature(): Boolean = pm.hasSystemFeature(PackageManager.FEATURE_AUTOMOTIVE)
+
     @Rpc(description = "Request cellular connection and ensure it is the default network.")
     fun requestCellularAndEnsureDefault() {
         ctsNetUtils.disableWifi()
