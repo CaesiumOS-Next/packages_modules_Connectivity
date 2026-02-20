@@ -691,6 +691,7 @@ class EthernetManagerTest {
 
     @Test
     fun testNetworkRequest_withSingleExistingInterface() {
+        assumeFalse(isAdbOverEthernet())
         createInterface()
 
         // install a listener which will later be used to verify the Lost callback
@@ -708,6 +709,7 @@ class EthernetManagerTest {
 
     @Test
     fun testNetworkRequest_beforeSingleInterfaceIsUp() {
+        assumeFalse(isAdbOverEthernet())
         val cb = requestNetwork(ETH_REQUEST)
 
         // bring up interface after network has been requested.
@@ -742,6 +744,7 @@ class EthernetManagerTest {
 
     @Test
     fun testNetworkRequest_withInterfaceBeingReplaced() {
+        assumeFalse(isAdbOverEthernet())
         val iface1 = createInterface()
 
         val cb = requestNetwork(ETH_REQUEST)
@@ -780,6 +783,7 @@ class EthernetManagerTest {
 
     @Test
     fun testNetworkRequest_ensureProperRefcounting() {
+        assumeFalse(isAdbOverEthernet())
         // create first request before interface is up / exists; create another request after it has
         // been created; release one of them and check that the network stays up.
         val listener = registerNetworkListener(ETH_REQUEST)
@@ -801,6 +805,7 @@ class EthernetManagerTest {
 
     @Test
     fun testNetworkRequest_forInterfaceWhileTogglingCarrier() {
+        assumeFalse(isAdbOverEthernet())
         assumeCreateInterfaceWithoutCarrierSupported()
         assumeChangingCarrierSupported()
 
@@ -819,6 +824,7 @@ class EthernetManagerTest {
     // TODO: move to MTS
     @Test
     fun testNetworkRequest_linkPropertiesUpdate() {
+        assumeFalse(isAdbOverEthernet())
         val iface = createInterface()
         val cb = requestNetwork(ETH_REQUEST)
         // b/233534110: eventuallyExpect<LinkPropertiesChanged>() does not advance ReadHead
@@ -853,6 +859,7 @@ class EthernetManagerTest {
 
     @Test
     fun testEnableDisableInterface_withActiveRequest() {
+        assumeFalse(isAdbOverEthernet())
         val iface = createInterface()
         val cb = requestNetwork(ETH_REQUEST)
         cb.expect<Available>()
@@ -1019,6 +1026,7 @@ class EthernetManagerTest {
 
     @Test
     fun testUpdateConfiguration_withLinkDown() {
+        assumeFalse(isAdbOverEthernet())
         assumeChangingCarrierSupported()
         // createInterface without carrier is racy, so create it and then remove carrier.
         val iface = createInterface()
@@ -1038,6 +1046,7 @@ class EthernetManagerTest {
 
     @Test
     fun testAddInterface_disableEnableEthernet() {
+        assumeFalse(isAdbOverEthernet())
         val listener = EthernetStateListener()
         addInterfaceStateListener(listener)
 
