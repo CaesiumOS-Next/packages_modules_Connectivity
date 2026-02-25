@@ -44,6 +44,7 @@ import android.os.Parcelable;
 import android.service.NetworkStatsHistoryBucketProto;
 import android.service.NetworkStatsHistoryProto;
 import android.util.IndentingPrintWriter;
+import android.util.Log;
 import android.util.proto.ProtoOutputStream;
 
 import com.android.net.module.util.CollectionUtils;
@@ -76,6 +77,7 @@ import java.util.TreeMap;
  */
 @SystemApi(client = MODULE_LIBRARIES)
 public final class NetworkStatsHistory implements Parcelable {
+    private static final String TAG = "NetworkStatsHistory";
     private static final int VERSION_INIT = 1;
     private static final int VERSION_ADD_PACKETS = 2;
     private static final int VERSION_ADD_ACTIVE = 3;
@@ -629,6 +631,23 @@ public final class NetworkStatsHistory implements Parcelable {
             entry.txBytes = getLong(input.txBytes, i, 0L);
             entry.txPackets = getLong(input.txPackets, i, 0L);
             entry.operations = getLong(input.operations, i, 0L);
+
+            // Persisted netstats history may become corrupted after abnormal shutdowns
+            // (e.g. low battery poweroff), leading to negative values. Import should be
+            // resilient: drop/sanitize invalid buckets instead of crashing callers during boot.
+            //
+            // Keep recordData() strict for "live" accounting paths; only sanitize on import.
+            if (entry.isNegative()) {
+                Log.e(TAG, "Ignoring negative netstats bucket during import: "
+                        + "bucketStart=" + bucketStart
+                        + " bucketEnd=" + bucketEnd
+                        + " entry=" + entry);
+                entry.rxBytes = Math.max(0L, entry.rxBytes);
+                entry.rxPackets = Math.max(0L, entry.rxPackets);
+                entry.txBytes = Math.max(0L, entry.txBytes);
+                entry.txPackets = Math.max(0L, entry.txPackets);
+                entry.operations = Math.max(0L, entry.operations);
+            }
 
             recordData(bucketStart, bucketEnd, entry);
         }
