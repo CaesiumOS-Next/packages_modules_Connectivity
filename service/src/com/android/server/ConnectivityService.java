@@ -1879,7 +1879,9 @@ public class ConnectivityService extends IConnectivityManager.Stub {
                 null /* binder */, NetworkCallback.FLAG_INCLUDE_LOCATION_INFO,
                 null /* attributionTags */, DECLARED_METHODS_NONE);
         mNetworkRequests.put(defaultInternetRequest, mDefaultRequest);
-        mDefaultNetworkRequests.add(mDefaultRequest);
+        synchronized (mDefaultNetworkRequests) {
+            mDefaultNetworkRequests.add(mDefaultRequest);
+        }
         mNetworkRequestInfoLogs.log("REGISTER " + mDefaultRequest);
 
         mDefaultMobileDataRequest = createDefaultInternetRequestForTransport(
@@ -2679,21 +2681,23 @@ public class ConnectivityService extends IConnectivityManager.Stub {
 
         HashMap<Network, NetworkCapabilities> result = new HashMap<>();
 
-        for (final NetworkRequestInfo nri : mDefaultNetworkRequests) {
-            if (!nri.isBeingSatisfied()) {
-                continue;
-            }
-            final NetworkAgentInfo nai = nri.getSatisfier();
-            final NetworkCapabilities nc = getNetworkCapabilitiesInternal(nai);
-            if (null != nc
-                    && nc.hasCapability(NET_CAPABILITY_NOT_RESTRICTED)
-                    && !result.containsKey(nai.network)) {
-                result.put(
-                        nai.network,
-                        createWithLocationInfoSanitizedIfNecessaryWhenParceled(
-                                nc, false /* includeLocationSensitiveInfo */,
-                                getCallingPid(), mDeps.getCallingUid(), callingPackageName,
-                                callingAttributionTag));
+        synchronized (mDefaultNetworkRequests) {
+            for (final NetworkRequestInfo nri : mDefaultNetworkRequests) {
+                if (!nri.isBeingSatisfied()) {
+                    continue;
+                }
+                final NetworkAgentInfo nai = nri.getSatisfier();
+                final NetworkCapabilities nc = getNetworkCapabilitiesInternal(nai);
+                if (null != nc
+                        && nc.hasCapability(NET_CAPABILITY_NOT_RESTRICTED)
+                        && !result.containsKey(nai.network)) {
+                    result.put(
+                            nai.network,
+                            createWithLocationInfoSanitizedIfNecessaryWhenParceled(
+                                    nc, false /* includeLocationSensitiveInfo */,
+                                    getCallingPid(), mDeps.getCallingUid(), callingPackageName,
+                                    callingAttributionTag));
+                }
             }
         }
 
@@ -4613,28 +4617,30 @@ public class ConnectivityService extends IConnectivityManager.Stub {
     }
 
     private void dumpPerAppDefaultRequests(IndentingPrintWriter pw) {
-        for (final NetworkRequestInfo defaultRequest : mDefaultNetworkRequests) {
-            if (mDefaultRequest == defaultRequest) {
-                continue;
-            }
+        synchronized (mDefaultNetworkRequests) {
+            for (final NetworkRequestInfo defaultRequest : mDefaultNetworkRequests) {
+                if (mDefaultRequest == defaultRequest) {
+                    continue;
+                }
 
-            final NetworkAgentInfo satisfier = defaultRequest.getSatisfier();
-            final String networkOutput;
-            if (null == satisfier) {
-                networkOutput = "null";
-            } else if (mNoServiceNetwork.equals(satisfier)) {
-                networkOutput = "no service network";
-            } else {
-                networkOutput = String.valueOf(satisfier.network.netId);
+                final NetworkAgentInfo satisfier = defaultRequest.getSatisfier();
+                final String networkOutput;
+                if (null == satisfier) {
+                    networkOutput = "null";
+                } else if (mNoServiceNetwork.equals(satisfier)) {
+                    networkOutput = "no service network";
+                } else {
+                    networkOutput = String.valueOf(satisfier.network.netId);
+                }
+                final String asUidString = (defaultRequest.mAsUid == defaultRequest.mUid)
+                        ? "" : " asUid: " + defaultRequest.mAsUid;
+                final String requestInfo = "Request: [uid/pid:" + defaultRequest.mUid + "/"
+                        + defaultRequest.mPid + asUidString + "]";
+                final String satisfierOutput = "Satisfier: [" + networkOutput + "]"
+                        + " Preference order: " + defaultRequest.mPreferenceOrder
+                        + " Tracked UIDs: " + defaultRequest.getUids();
+                pw.println(requestInfo + " - " + satisfierOutput);
             }
-            final String asUidString = (defaultRequest.mAsUid == defaultRequest.mUid)
-                    ? "" : " asUid: " + defaultRequest.mAsUid;
-            final String requestInfo = "Request: [uid/pid:" + defaultRequest.mUid + "/"
-                    + defaultRequest.mPid + asUidString + "]";
-            final String satisfierOutput = "Satisfier: [" + networkOutput + "]"
-                    + " Preference order: " + defaultRequest.mPreferenceOrder
-                    + " Tracked UIDs: " + defaultRequest.getUids();
-            pw.println(requestInfo + " - " + satisfierOutput);
         }
     }
 
@@ -9234,6 +9240,8 @@ public class ConnectivityService extends IConnectivityManager.Stub {
     @NonNull
     final NetworkRequestInfo mDefaultRequest;
     // Collection of NetworkRequestInfo's used for default networks.
+    // All places with access to mDefaultNetworkRequests should be protected,
+    // synchronized on ArraySet object itself
     // This set is read and iterated on multiple threads.
     // Using CopyOnWriteArraySet since number of default network request is small (system default
     // network request + per-app default network requests) and updated infrequently but read
@@ -9245,7 +9253,9 @@ public class ConnectivityService extends IConnectivityManager.Stub {
 
 
     private boolean isPerAppDefaultRequest(@NonNull final NetworkRequestInfo nri) {
-        return (mDefaultNetworkRequests.contains(nri) && mDefaultRequest != nri);
+        synchronized (mDefaultNetworkRequests) {
+            return (mDefaultNetworkRequests.contains(nri) && mDefaultRequest != nri);
+        }
     }
 
     /**
@@ -9255,14 +9265,16 @@ public class ConnectivityService extends IConnectivityManager.Stub {
      */
     @NonNull
     private NetworkRequestInfo getDefaultRequestTrackingUid(final int uid) {
-        NetworkRequestInfo highestPriorityNri = mDefaultRequest;
-        for (final NetworkRequestInfo nri : mDefaultNetworkRequests) {
-            // Checking the first request is sufficient as only multilayer requests will have more
-            // than one request and for multilayer, all requests will track the same uids.
-            if (nri.mRequests.get(0).networkCapabilities.appliesToUid(uid)) {
-                // Find out the highest priority request.
-                if (nri.hasHigherOrderThan(highestPriorityNri)) {
-                    highestPriorityNri = nri;
+        synchronized (mDefaultNetworkRequests) {
+            NetworkRequestInfo highestPriorityNri = mDefaultRequest;
+            for (final NetworkRequestInfo nri : mDefaultNetworkRequests) {
+                // Checking the first request is sufficient as only multilayer requests will have more
+                // than one request and for multilayer, all requests will track the same uids.
+                if (nri.mRequests.get(0).networkCapabilities.appliesToUid(uid)) {
+                    // Find out the highest priority request.
+                    if (nri.hasHigherOrderThan(highestPriorityNri)) {
+                        highestPriorityNri = nri;
+                    }
                 }
             }
         }
@@ -9397,17 +9409,19 @@ public class ConnectivityService extends IConnectivityManager.Stub {
 
     private NetworkAgentInfo getDefaultNetworkForUid(final int uid) {
         NetworkRequestInfo highestPriorityNri = mDefaultRequest;
-        for (final NetworkRequestInfo nri : mDefaultNetworkRequests) {
-            // Currently, all network requests will have the same uids therefore checking the first
-            // one is sufficient. If/when uids are tracked at the nri level, this can change.
-            final Set<UidRange> uids = nri.mRequests.get(0).networkCapabilities.getUidRanges();
-            if (null == uids) {
-                continue;
-            }
-            for (final UidRange range : uids) {
-                if (range.contains(uid)) {
-                    if (nri.hasHigherOrderThan(highestPriorityNri)) {
-                        highestPriorityNri = nri;
+        synchronized (mDefaultNetworkRequests) {
+            for (final NetworkRequestInfo nri : mDefaultNetworkRequests) {
+                // Currently, all network requests will have the same uids therefore checking the first
+                // one is sufficient. If/when uids are tracked at the nri level, this can change.
+                final Set<UidRange> uids = nri.mRequests.get(0).networkCapabilities.getUidRanges();
+                if (null == uids) {
+                    continue;
+                }
+                for (final UidRange range : uids) {
+                    if (range.contains(uid)) {
+                        if (nri.hasHigherOrderThan(highestPriorityNri)) {
+                            highestPriorityNri = nri;
+                        }
                     }
                 }
             }
@@ -10913,10 +10927,12 @@ public class ConnectivityService extends IConnectivityManager.Stub {
 
     private boolean isProxySetOnAnyDefaultNetwork() {
         ensureRunningOnConnectivityServiceThread();
-        for (final NetworkRequestInfo nri : mDefaultNetworkRequests) {
-            final NetworkAgentInfo nai = nri.getSatisfier();
-            if (nai != null && nai.linkProperties.getHttpProxy() != null) {
-                return true;
+        synchronized (mDefaultNetworkRequests) {
+            for (final NetworkRequestInfo nri : mDefaultNetworkRequests) {
+                final NetworkAgentInfo nai = nri.getSatisfier();
+                if (nai != null && nai.linkProperties.getHttpProxy() != null) {
+                    return true;
+                }
             }
         }
         return false;
@@ -11341,16 +11357,18 @@ public class ConnectivityService extends IConnectivityManager.Stub {
 
     private void processDefaultNetworkChanges(@NonNull final NetworkReassignment changes) {
         boolean isDefaultChanged = false;
-        for (final NetworkRequestInfo defaultRequestInfo : mDefaultNetworkRequests) {
-            final NetworkReassignment.RequestReassignment reassignment =
-                    changes.getReassignment(defaultRequestInfo);
-            if (null == reassignment) {
-                continue;
+        synchronized (mDefaultNetworkRequests) {
+            for (final NetworkRequestInfo defaultRequestInfo : mDefaultNetworkRequests) {
+                final NetworkReassignment.RequestReassignment reassignment =
+                        changes.getReassignment(defaultRequestInfo);
+                if (null == reassignment) {
+                    continue;
+                }
+                // reassignment only contains those instances where the satisfying network changed.
+                isDefaultChanged = true;
+                // Notify system services of the new default.
+                makeDefault(defaultRequestInfo, reassignment.mOldNetwork, reassignment.mNewNetwork);
             }
-            // reassignment only contains those instances where the satisfying network changed.
-            isDefaultChanged = true;
-            // Notify system services of the new default.
-            makeDefault(defaultRequestInfo, reassignment.mOldNetwork, reassignment.mNewNetwork);
         }
 
         if (isDefaultChanged) {
@@ -12544,16 +12562,18 @@ public class ConnectivityService extends IConnectivityManager.Stub {
         ensureRunningOnConnectivityServiceThread();
         final ArrayList<Network> defaultNetworks = new ArrayList<>();
         final Set<Integer> activeNetIds = new ArraySet<>();
-        for (final NetworkRequestInfo nri : mDefaultNetworkRequests) {
-            if (nri.isBeingSatisfied()) {
-                activeNetIds.add(nri.getSatisfier().network().netId);
+        synchronized (mDefaultNetworkRequests) {
+            for (final NetworkRequestInfo nri : mDefaultNetworkRequests) {
+                if (nri.isBeingSatisfied()) {
+                    activeNetIds.add(nri.getSatisfier().network().netId);
+                }
             }
+            forEachNetworkAgentInfo(nai -> {
+                if (activeNetIds.contains(nai.network().netId) || nai.isVPN()) {
+                    defaultNetworks.add(nai.network);
+                }
+            });
         }
-        forEachNetworkAgentInfo(nai -> {
-            if (activeNetIds.contains(nai.network().netId) || nai.isVPN()) {
-                defaultNetworks.add(nai.network);
-            }
-        });
         return defaultNetworks;
     }
 
@@ -14602,7 +14622,9 @@ public class ConnectivityService extends IConnectivityManager.Stub {
 
     private void addPerAppDefaultNetworkRequests(@NonNull final Set<NetworkRequestInfo> nris) {
         ensureRunningOnConnectivityServiceThread();
-        mDefaultNetworkRequests.addAll(nris);
+        synchronized (mDefaultNetworkRequests) {
+            mDefaultNetworkRequests.addAll(nris);
+        }
         final ArraySet<NetworkRequestInfo> perAppCallbackRequestsToUpdate =
                 getPerAppCallbackRequestsToUpdate();
         final ArraySet<NetworkRequestInfo> nrisToRegister = new ArraySet<>(nris);
