@@ -286,6 +286,38 @@ public class NetworkStatsHistoryTest {
     }
 
     @Test
+    public void testImportNegativeBuckets_doesNotCrashAndSanitizes() throws Exception {
+        // Negative values should never happen, but if they appear while importing persisted
+        // history, the import path must be resilient and must not crash callers during boot.
+        final long bucketDuration = HOUR_IN_MILLIS;
+        final long[] bucketStart = new long[] { TEST_START };
+        final long[] activeTime = new long[] { 0L };
+        final long[] rxBytes = new long[] { -5L };
+        final long[] rxPackets = new long[] { -1L };
+        final long[] txBytes = new long[] { 10L };
+        final long[] txPackets = new long[] { -2L };
+        final long[] operations = new long[] { -3L };
+
+        final NetworkStatsHistory input = new NetworkStatsHistory(
+                bucketDuration,
+                bucketStart,
+                activeTime,
+                rxBytes,
+                rxPackets,
+                txBytes,
+                txPackets,
+                operations,
+                /* bucketCount */ 1,
+                /* totalBytes */ rxBytes[0] + txBytes[0]);
+
+        stats = new NetworkStatsHistory(bucketDuration);
+        stats.recordEntireHistory(input);
+
+        assertEquals(1, stats.size());
+        assertValues(stats, 0, bucketDuration, 0L, 0L, 10L, 0L, 0L);
+    }
+
+    @Test
     public void testRemoveStartingBefore() throws Exception {
         stats = new NetworkStatsHistory(HOUR_IN_MILLIS);
 

@@ -44,6 +44,7 @@ import android.os.Parcelable;
 import android.service.NetworkStatsHistoryBucketProto;
 import android.service.NetworkStatsHistoryProto;
 import android.util.IndentingPrintWriter;
+import android.util.Log;
 import android.util.proto.ProtoOutputStream;
 
 import com.android.net.module.util.CollectionUtils;
@@ -76,6 +77,7 @@ import java.util.TreeMap;
  */
 @SystemApi(client = MODULE_LIBRARIES)
 public final class NetworkStatsHistory implements Parcelable {
+    private static final String TAG = "NetworkStatsHistory";
     private static final int VERSION_INIT = 1;
     private static final int VERSION_ADD_PACKETS = 2;
     private static final int VERSION_ADD_ACTIVE = 3;
@@ -617,6 +619,7 @@ public final class NetworkStatsHistory implements Parcelable {
         final NetworkStats.Entry entry = new NetworkStats.Entry(
                 IFACE_ALL, UID_ALL, SET_DEFAULT, TAG_NONE, METERED_NO, ROAMING_NO,
                 DEFAULT_NETWORK_NO, 0L, 0L, 0L, 0L, 0L);
+        boolean loggedNegativeBucketWtf = false;
         for (int i = 0; i < input.bucketCount; i++) {
             final long bucketStart = input.bucketStart[i];
             final long bucketEnd = bucketStart + input.bucketDuration;
@@ -629,6 +632,30 @@ public final class NetworkStatsHistory implements Parcelable {
             entry.txBytes = getLong(input.txBytes, i, 0L);
             entry.txPackets = getLong(input.txPackets, i, 0L);
             entry.operations = getLong(input.operations, i, 0L);
+
+            // Unexpected negative values have been observed while importing history. The exact
+            // root cause may vary (e.g., invalid persisted data or provider/reporting issues), but
+            // import should be resilient to avoid crashing callers during boot.
+            //
+            // Keep recordData() strict for "live" accounting paths; only sanitize on import.
+            if (entry.isNegative()) {
+                final String msg = "Ignoring negative netstats bucket during import: "
+                        + "bucketStart=" + bucketStart
+                        + " bucketEnd=" + bucketEnd
+                        + " entry=" + entry;
+                // Use wtf once per import to surface metrics/bugs without spamming logs.
+                if (!loggedNegativeBucketWtf) {
+                    Log.wtf(TAG, msg);
+                    loggedNegativeBucketWtf = true;
+                } else {
+                    Log.e(TAG, msg);
+                }
+                entry.rxBytes = Math.max(0L, entry.rxBytes);
+                entry.rxPackets = Math.max(0L, entry.rxPackets);
+                entry.txBytes = Math.max(0L, entry.txBytes);
+                entry.txPackets = Math.max(0L, entry.txPackets);
+                entry.operations = Math.max(0L, entry.operations);
+            }
 
             recordData(bucketStart, bucketEnd, entry);
         }
