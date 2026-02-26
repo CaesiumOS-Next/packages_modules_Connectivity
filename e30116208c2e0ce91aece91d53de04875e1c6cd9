@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f929256a_51331b7a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 4666334
+      },
+      "writtenOn": "2026-02-26T10:47:57Z",
+      "side": 1,
+      "message": "Thanks. Agreed the root cause of negative buckets is not proven yet—I\u0027ll remove the “abnormal shutdown/low battery” wording. The goal of this CL is to avoid a boot-loop: keep recordData() strict, but make the history import path resilient so an unexpected negative bucket can’t crash system_server during boot.",
+      "parentUuid": "7130fbd5_c655fce1",
+      "range": {
+        "startLine": 12,
+        "startChar": 16,
+        "endLine": 12,
+        "endChar": 61
+      },
+      "revId": "e30116208c2e0ce91aece91d53de04875e1c6cd9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "37d6dafc_70f6b936",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-02-26T08:30:09Z",
       "side": 1,
       "message": "Maybe unit test this?",
+      "range": {
+        "startLine": 645,
+        "startChar": 16,
+        "endLine": 650,
+        "endChar": 13
+      },
+      "revId": "e30116208c2e0ce91aece91d53de04875e1c6cd9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0a57f37_2d920551",
+        "filename": "framework-t/src/android/net/NetworkStatsHistory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 4666334
+      },
+      "writtenOn": "2026-02-26T10:47:57Z",
+      "side": 1,
+      "message": "Added unit coverage: testImportNegativeBuckets_doesNotCrashAndSanitizes() in tests/unit/java/android/net/NetworkStatsHistoryTest.java, verifying import does not throw and negative fields are clamped to 0.",
+      "parentUuid": "37d6dafc_70f6b936",
       "range": {
         "startLine": 645,
         "startChar": 16,
