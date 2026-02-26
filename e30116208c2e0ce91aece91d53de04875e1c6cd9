@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7130fbd5_c655fce1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2026-02-26T08:30:09Z",
+      "side": 1,
+      "message": "It is weird to me because in any case there should be no negative data. The fileRotator would ensure the writing process is atomic, it would backup file before write, refer to com.android.internal.util.FileRotator#rewriteSingle.\n\nDo you have any proof of your guessing?\nIf not, I\u0027ll suggest remove the misleading info.\n\nIf the reason is still unknown.\nI\u0027ll suggest check your NetworkStatsProvider implementations to see whether they were reporting negative data to the service.\nOr is there any possible in the NetworkStatsService to calculate negative diff, such as the NetworkStatsProvider sudden disappear or other reasons.",
+      "range": {
+        "startLine": 12,
+        "startChar": 16,
+        "endLine": 12,
+        "endChar": 61
+      },
+      "revId": "e30116208c2e0ce91aece91d53de04875e1c6cd9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37d6dafc_70f6b936",
+        "filename": "framework-t/src/android/net/NetworkStatsHistory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2026-02-26T08:30:09Z",
+      "side": 1,
+      "message": "Maybe unit test this?",
+      "range": {
+        "startLine": 645,
+        "startChar": 16,
+        "endLine": 650,
+        "endChar": 13
+      },
+      "revId": "e30116208c2e0ce91aece91d53de04875e1c6cd9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
