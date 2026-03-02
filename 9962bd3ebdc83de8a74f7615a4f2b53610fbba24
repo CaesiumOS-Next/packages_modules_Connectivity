@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae6eb13e_dabcf2d5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2026-03-02T06:25:31Z",
+      "side": 1,
+      "message": "LGTM with nits but I\u0027m not working on this area anymore.\nLeave it for the area poc to judge.",
+      "revId": "9962bd3ebdc83de8a74f7615a4f2b53610fbba24",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0381574_2ea4c20f",
+        "filename": "framework-t/src/android/net/NetworkStatsHistory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 640,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2026-03-02T06:25:31Z",
+      "side": 1,
+      "message": "+reminv@google.com\n1. Should we upload WTF metrics if this happens?\n2. As mentioned in the other comment, one possible root cause is sudden provider disappear. I\u0027ll suggest to have a track bug and have a close look at the code when available.",
+      "range": {
+        "startLine": 640,
+        "startChar": 12,
+        "endLine": 640,
+        "endChar": 37
+      },
+      "revId": "9962bd3ebdc83de8a74f7615a4f2b53610fbba24",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
