@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d4fbd58_b9e43b99",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 9271,
+      "author": {
+        "id": 1976460
+      },
+      "writtenOn": "2026-03-03T07:30:47Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "d171f9cb_82249d9f",
+      "range": {
+        "startLine": 9271,
+        "startChar": 0,
+        "endLine": 9271,
+        "endChar": 102
+      },
+      "revId": "516d2a79c5058cd425b6226b182402add43cce77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "39526c06_11bfebf8",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-03-02T16:26:08Z",
       "side": 1,
       "message": "Please fix this WARNING reported by Check Contents: Lines longer than 100 characters should be wrapped to improve readability; see h...\n\nLines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details. See go/ayeaye-long-lines for ayeaye-specific info.",
+      "range": {
+        "startLine": 9414,
+        "startChar": 0,
+        "endLine": 9414,
+        "endChar": 103
+      },
+      "revId": "516d2a79c5058cd425b6226b182402add43cce77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a32a97be_78c4b880",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 9414,
+      "author": {
+        "id": 1976460
+      },
+      "writtenOn": "2026-03-03T07:30:47Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "39526c06_11bfebf8",
       "range": {
         "startLine": 9414,
         "startChar": 0,
