@@ -39,6 +39,30 @@
       },
       "revId": "9962bd3ebdc83de8a74f7615a4f2b53610fbba24",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0941ce9_d6082780",
+        "filename": "framework-t/src/android/net/NetworkStatsHistory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 640,
+      "author": {
+        "id": 4666334
+      },
+      "writtenOn": "2026-03-10T14:07:06Z",
+      "side": 1,
+      "message": "1. I’ll update the logging to Log.wtf (rate-limited to once per import) so the event is surfaced for tracking, while still sanitizing the bucket to avoid boot crash.\n\n2.the root cause is still being investigated and we’re working with QA/field teams to reproduce and collect a full bugreport plus netstats files.\nRegardless of cause, the current outcome is too severe: a negative bucket during history import can crash system_server at boot and cause a boot-loop, often requiring reflash/service-center recovery. This change keeps recordData() strict for live accounting, but sanitizes invalid imported buckets (with wtf logging) so boot can continue.",
+      "parentUuid": "e0381574_2ea4c20f",
+      "range": {
+        "startLine": 640,
+        "startChar": 12,
+        "endLine": 640,
+        "endChar": 37
+      },
+      "revId": "9962bd3ebdc83de8a74f7615a4f2b53610fbba24",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
