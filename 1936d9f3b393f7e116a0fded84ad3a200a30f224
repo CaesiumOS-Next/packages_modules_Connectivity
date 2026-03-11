@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb09d18d_659e301d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2026-03-11T09:57:19Z",
+      "side": 1,
+      "message": "By \"during history import\", are you referring to maybeUpgradeLegacyStatsLocked here ? https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/service-t/src/com/android/server/net/NetworkStatsService.java;drc\u003d61197364367c9e404c7da6900658f1b16c42d0da;l\u003d1325\n\nThere is no full stacktrace provided in the bug, are you able to provide one ?\n\nIf this is during the one-time import, it may be better to only have this behavior during the import, and not in other cases.\n\nBut there is also a \"consistency check\" in the import: https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Connectivity/service-t/src/com/android/server/net/NetworkStatsService.java;drc\u003d61197364367c9e404c7da6900658f1b16c42d0da;l\u003d1432\n\nSo we also need to make sure altering the stats at runtime won\u0027t trip this check.",
+      "revId": "1936d9f3b393f7e116a0fded84ad3a200a30f224",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b0ff943_6796e0a2",
+        "filename": "framework-t/src/android/net/NetworkStatsHistory.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2026-03-11T09:57:19Z",
+      "side": 1,
+      "message": "This could cause inconsistent/impossible data where there is non-zero rxBytes but zero rxPackets for example. Maybe the entry could be skipped altogether, or maybe it could be adjusted to always be \"possible\" (e.g. if rxPackets is zero, rxBytes should also be set to 0, etc).",
+      "revId": "1936d9f3b393f7e116a0fded84ad3a200a30f224",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
