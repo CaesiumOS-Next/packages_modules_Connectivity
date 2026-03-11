@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f7ca411_e7ca2f33",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4666334
+      },
+      "writtenOn": "2026-03-11T10:58:10Z",
+      "side": 1,
+      "message": "“History import” refers to importing persisted history via NetworkStatsCollection.read() (FileRotator → NetworkStatsCollection → NetworkStatsHistory.recordHistory), not only the one-time legacy upgrade.\n\nFull stackstace is updated in case 487450925",
+      "parentUuid": "bb09d18d_659e301d",
+      "revId": "1936d9f3b393f7e116a0fded84ad3a200a30f224",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9b0ff943_6796e0a2",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-03-11T09:57:19Z",
       "side": 1,
       "message": "This could cause inconsistent/impossible data where there is non-zero rxBytes but zero rxPackets for example. Maybe the entry could be skipped altogether, or maybe it could be adjusted to always be \"possible\" (e.g. if rxPackets is zero, rxBytes should also be set to 0, etc).",
+      "revId": "1936d9f3b393f7e116a0fded84ad3a200a30f224",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "251822fa_e96c0d8c",
+        "filename": "framework-t/src/android/net/NetworkStatsHistory.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 4666334
+      },
+      "writtenOn": "2026-03-11T10:58:10Z",
+      "side": 1,
+      "message": "Patchset is modified . Now behavior is limited to the import path and now skips invalid buckets, so it won’t trip consistency checks or create inconsistent stats at runtime.",
+      "parentUuid": "9b0ff943_6796e0a2",
       "revId": "1936d9f3b393f7e116a0fded84ad3a200a30f224",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
