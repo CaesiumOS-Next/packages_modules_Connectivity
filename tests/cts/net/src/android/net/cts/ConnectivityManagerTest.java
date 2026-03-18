@@ -87,6 +87,7 @@ import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_VPN;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_PARTIAL_CONNECTIVITY;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_TRUSTED;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_VALIDATED;
+import static android.net.NetworkCapabilities.TRANSPORT_ETHERNET;
 import static android.net.NetworkCapabilities.TRANSPORT_TEST;
 import static android.net.NetworkCapabilities.TRANSPORT_VPN;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
@@ -193,6 +194,7 @@ import android.os.Process;
 import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.os.SystemClock;
+import android.os.SystemProperties;
 import android.os.UserHandle;
 import android.os.VintfRuntimeInfo;
 import android.platform.test.annotations.AppModeFull;
@@ -475,6 +477,8 @@ public class ConnectivityManagerTest {
                     NETWORK_SETTINGS);
         }
 
+    }
+
         // All tests in this class require a working Internet connection as they start. Make
         // sure there is still one as they end that's ready to use for the next test to use.
         mTestValidationConfigRule.runAfterNextCleanup(() -> {
@@ -485,6 +489,15 @@ public class ConnectivityManagerTest {
             assertNotNull("Couldn't restore Internet connectivity",
                     callback.eventuallyExpect(CallbackEntry.AVAILABLE));
         });
+    }
+
+    private boolean isDefaultNetworkEthernet() {
+        Network activeNetwork = mCm.getActiveNetwork();
+        if (activeNetwork == null) return false;
+        NetworkCapabilities nc = mCm.getNetworkCapabilities(activeNetwork);
+        if (nc == null) return false;
+       // Check if the default network has transport type Ethernet
+       return nc.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET);
     }
 
     @Test
@@ -1474,6 +1487,7 @@ public class ConnectivityManagerTest {
     @AppModeFull(reason = "Cannot get WifiManager in instant app mode")
     @Test
     public void testRequestNetworkCallback_onUnavailable() {
+        assumeFalse("Skipping Test default network is Ethernet", isDefaultNetworkEthernet());
         boolean previousWifiEnabledState = false;
         if (mPackageManager.hasSystemFeature(FEATURE_WIFI)) {
             previousWifiEnabledState = mWifiManager.isWifiEnabled();
@@ -1514,6 +1528,7 @@ public class ConnectivityManagerTest {
     public void testToggleWifiConnectivityAction() throws Exception {
         assumeTrue(mPackageManager.hasSystemFeature(FEATURE_WIFI));
 
+        assumeFalse("Skipping Test default network is Ethernet", isDefaultNetworkEthernet());
         mCtsNetUtils.reconnectWifiAndWaitForConnectivityAction();
     }
 
@@ -1678,6 +1693,7 @@ public class ConnectivityManagerTest {
     @Test
     public void testGetMultipathPreference() throws Exception {
         assumeTrue(mPackageManager.hasSystemFeature(FEATURE_WIFI));
+        assumeFalse("Skipping Test default network is Ethernet", isDefaultNetworkEthernet());
         final ContentResolver resolver = mContext.getContentResolver();
         mCtsNetUtils.ensureWifiConnected();
         final String ssid = unquoteSSID(getSSID());
@@ -2897,6 +2913,7 @@ public class ConnectivityManagerTest {
         // shims, and @IgnoreUpTo does not check that.
         assumeTrue(TestUtils.shouldTestSApis());
         assumeTrue(mPackageManager.hasSystemFeature(FEATURE_WIFI));
+        assumeFalse("Skipping Test default network is Ethernet", isDefaultNetworkEthernet());
 
         final TestNetworkTracker tnt = callWithShellPermissionIdentity(
                 () -> initTestNetwork(mContext, TEST_LINKADDR, NETWORK_CALLBACK_TIMEOUT_MS));
@@ -2962,6 +2979,7 @@ public class ConnectivityManagerTest {
         // shims, and @IgnoreUpTo does not check that.
         assumeTrue(TestUtils.shouldTestSApis());
         assumeTrue(mPackageManager.hasSystemFeature(FEATURE_WIFI));
+        assumeFalse("Skipping Test default network is Ethernet", isDefaultNetworkEthernet());
 
         final TestNetworkTracker tnt = callWithShellPermissionIdentity(
                 () -> initTestNetwork(mContext, TEST_LINKADDR, NETWORK_CALLBACK_TIMEOUT_MS));
@@ -3373,6 +3391,7 @@ public class ConnectivityManagerTest {
     public void testDefaultNetworkActiveListener() throws Exception {
         final boolean supportWifi = mPackageManager.hasSystemFeature(FEATURE_WIFI);
         final boolean supportTelephony = mPackageManager.hasSystemFeature(FEATURE_TELEPHONY);
+        assumeFalse("Skipping Test default network is Ethernet", isDefaultNetworkEthernet());
         assumeTrue("testDefaultNetworkActiveListener cannot execute"
                 + " unless device supports WiFi or telephony", (supportWifi || supportTelephony));
 
@@ -4017,6 +4036,7 @@ public class ConnectivityManagerTest {
     @AppModeFull(reason = "Cannot get WifiManager in instant app mode")
     @Test @IgnoreUpTo(Build.VERSION_CODES.UPSIDE_DOWN_CAKE) @ConnectivityModuleTest
     public void testBlockedReasons_setUidFirewallRule() throws Exception {
+        assumeFalse("Skipping Test default network is Ethernet", isDefaultNetworkEthernet());
         doTestBlockedReasons_setUidFirewallRule(FIREWALL_CHAIN_DOZABLE, true /* metered */);
         doTestBlockedReasons_setUidFirewallRule(FIREWALL_CHAIN_STANDBY, false /* metered */);
     }
