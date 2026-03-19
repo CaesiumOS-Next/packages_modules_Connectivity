@@ -22,6 +22,30 @@
       },
       "revId": "5f359b4228062ca4c445aa73a6e308f3ef384bd2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe797e5d_4b6379f9",
+        "filename": "service-t/src/com/android/server/ConnectivityServiceInitializer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1434344
+      },
+      "writtenOn": "2026-03-19T07:55:45Z",
+      "side": 1,
+      "message": "My idea is that this prop will only be written after the thread-related driver has been successfully loaded, so it is expected to be in the vendor. Perhaps there is another solution from Google\u0027s design, and we can discuss it together.",
+      "parentUuid": "9c433e0b_791e5a05",
+      "range": {
+        "startLine": 206,
+        "startChar": 49,
+        "endLine": 206,
+        "endChar": 75
+      },
+      "revId": "5f359b4228062ca4c445aa73a6e308f3ef384bd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
