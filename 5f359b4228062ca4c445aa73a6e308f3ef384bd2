@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c433e0b_791e5a05",
+        "filename": "service-t/src/com/android/server/ConnectivityServiceInitializer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1958225
+      },
+      "writtenOn": "2026-03-19T07:15:55Z",
+      "side": 1,
+      "message": "Where is this property set? It doesn\u0027t look like a good idea for this service to check a `vendor.*` system property. This creates a dependency on vendor implementation.",
+      "range": {
+        "startLine": 206,
+        "startChar": 49,
+        "endLine": 206,
+        "endChar": 75
+      },
+      "revId": "5f359b4228062ca4c445aa73a6e308f3ef384bd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
