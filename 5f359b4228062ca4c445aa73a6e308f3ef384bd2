@@ -46,6 +46,30 @@
       },
       "revId": "5f359b4228062ca4c445aa73a6e308f3ef384bd2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09eac835_c07faa54",
+        "filename": "service-t/src/com/android/server/ConnectivityServiceInitializer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 4290819
+      },
+      "writtenOn": "2026-03-31T07:07:05Z",
+      "side": 1,
+      "message": "Could you help assess if it\u0027s possible to check the hardware\u0027s presence during HAL service startup?\nIf the hardware is not found, the HAL service should log an error and exit immediately without registering its Binder interface.\nThe servicemanager will see that the service failed to start and will not fulfill the waitForService request.",
+      "parentUuid": "fe797e5d_4b6379f9",
+      "range": {
+        "startLine": 206,
+        "startChar": 49,
+        "endLine": 206,
+        "endChar": 75
+      },
+      "revId": "5f359b4228062ca4c445aa73a6e308f3ef384bd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
