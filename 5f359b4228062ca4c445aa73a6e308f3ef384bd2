@@ -70,6 +70,30 @@
       },
       "revId": "5f359b4228062ca4c445aa73a6e308f3ef384bd2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "963a076d_b389ca5e",
+        "filename": "service-t/src/com/android/server/ConnectivityServiceInitializer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 4290819
+      },
+      "writtenOn": "2026-04-01T09:10:59Z",
+      "side": 1,
+      "message": "Please ignore above comment and assess this to see if we can remove the dependency of vendor properties.\nStep A: Framework Check with isDeclared()\nReplace the vendor.* property check with a standard check of the VINTF manifest.\nStep B: Use SKU-Specific VINTF Fragments\nFor the \"One Image\" case, do not put the Thread HAL in the main manifest.xml. Instead, use VINTF Fragments targeted at specific hardware SKUs.",
+      "parentUuid": "09eac835_c07faa54",
+      "range": {
+        "startLine": 206,
+        "startChar": 49,
+        "endLine": 206,
+        "endChar": 75
+      },
+      "revId": "5f359b4228062ca4c445aa73a6e308f3ef384bd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
