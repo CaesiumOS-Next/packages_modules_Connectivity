@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "735bcf08_63d3296f",
+        "filename": "framework-t/src/android/net/NetworkStatsHistory.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 640,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2026-04-02T07:21:33Z",
+      "side": 1,
+      "message": "There is no very good guarantee that this method will only be used to import history.\nReading through the stacktrace provided, I see this is actually called from NetworkStatsRecorder.loadLocked, which was actually supposed to already have logic to handle bad data: https://cs.android.com/android/platform/superproject/+/android-latest-release:packages/modules/Connectivity/service-t/src/com/android/server/net/NetworkStatsRecorder.java;drc\u003d1c5f5b527097a3f512788d7107970f972eee23b8;l\u003d239\n\nIt\u0027s inconsistent that it would have this recovery code for IOException (which can probably happen for corrupted data), but not for IllegalArgumentException (happening for other kinds of corrupted data).\n\nConsidering that I think it would be better to catch the exception in NetworkStatsRecorder.loadLocked and use the same error path instead. While you could catch IllegalArgumentException, a possibly better option would be to have recordData return a more specific exception (like NegativeDataException extends IllegalArgumentException), so there can be a specific catch clause for that one.\n\nHaving the error management code in NetworkStatsRecorder, inside the system_server, would also allow us to measure how often it happens with metrics.",
+      "revId": "aec1b17d3289e7b72f016cf61fcf8534321312fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
