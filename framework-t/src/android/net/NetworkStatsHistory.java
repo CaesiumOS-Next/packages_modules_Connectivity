@@ -549,7 +549,7 @@ public final class NetworkStatsHistory implements Parcelable {
         long operations = entry.operations;
 
         if (entry.isNegative()) {
-            throw new IllegalArgumentException("tried recording negative data");
+            throw new NegativeDataException("tried recording negative data");
         }
         if (entry.isEmpty()) {
             return;
@@ -631,6 +631,19 @@ public final class NetworkStatsHistory implements Parcelable {
             entry.operations = getLong(input.operations, i, 0L);
 
             recordData(bucketStart, bucketEnd, entry);
+        }
+    }
+
+    /**
+     * Thrown when attempting to record a {@link NetworkStats.Entry} with negative values.
+     * Used to allow callers to specifically handle invalid persisted data without masking other
+     * {@link IllegalArgumentException} occurrences.
+     *
+     * @hide
+     */
+    public static class NegativeDataException extends IllegalArgumentException {
+        public NegativeDataException(@NonNull String message) {
+            super(message);
         }
     }
 

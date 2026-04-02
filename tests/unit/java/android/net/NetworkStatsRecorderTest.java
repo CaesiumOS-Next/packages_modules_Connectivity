@@ -43,6 +43,7 @@ import android.net.NetworkIdentity;
 import android.net.NetworkIdentitySet;
 import android.net.NetworkStats;
 import android.net.NetworkStatsCollection;
+import android.net.NetworkStatsHistory;
 import android.os.DropBoxManager;
 
 import androidx.test.filters.SmallTest;
@@ -101,10 +102,23 @@ public final class NetworkStatsRecorderTest {
         verify(rotator, times(1)).deleteAll();
         reset(rotator);
 
+        // Assuming that the rotator throws due to inconsistent/corrupted data.
+        doThrow(new NetworkStatsHistory.NegativeDataException("tried recording negative data"))
+                .when(rotator).readMatching(any(), anyLong(), anyLong());
+        wipeOnErrorRecorder.getOrLoadPartialLocked(Long.MIN_VALUE, Long.MAX_VALUE);
+        verify(rotator, times(1)).deleteAll();
+        reset(rotator);
+
         final NetworkStatsRecorder noWipeOnErrorRecorder = buildRecorder(rotator, false);
         doThrow(new IOException()).when(rotator).readMatching(any(), anyLong(), anyLong());
         noWipeOnErrorRecorder.getOrLoadPartialLocked(Long.MIN_VALUE, Long.MAX_VALUE);
         // Verify that the rotator won't delete files.
+        verify(rotator, never()).deleteAll();
+
+        reset(rotator);
+        doThrow(new NetworkStatsHistory.NegativeDataException("tried recording negative data"))
+                .when(rotator).readMatching(any(), anyLong(), anyLong());
+        noWipeOnErrorRecorder.getOrLoadPartialLocked(Long.MIN_VALUE, Long.MAX_VALUE);
         verify(rotator, never()).deleteAll();
     }
 

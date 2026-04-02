@@ -224,6 +224,11 @@ public class NetworkStatsRecorder {
         try {
             mRotator.readMatching(res, start, end);
             res.recordCollection(mPending);
+        } catch (NetworkStatsHistory.NegativeDataException e) {
+            // Reading persisted history may throw if the on-disk data is inconsistent. Don't let
+            // this crash callers during boot; recover using the same path as other read failures.
+            Log.wtf(TAG, "problem completely reading network stats", e);
+            recoverAndDeleteData();
         } catch (IOException e) {
             Log.wtf(TAG, "problem completely reading network stats", e);
             recoverAndDeleteData();
