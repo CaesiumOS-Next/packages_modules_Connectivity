@@ -1504,12 +1504,15 @@ static bool hasGSM() {
 static bool isTV() {
     if (hasGSM()) return false;  // TVs don't do GSM
 
+    static string characteristics = GetProperty("ro.build.characteristics", "");
     static string key = GetProperty("ro.oem.key1", "");
-    static bool tv = StartsWith(key, "ATV00");
+    static vector<string> v = Tokenize(characteristics, ",");
+    static bool tv = StartsWith(key, "ATV00") || (std::find(v.begin(), v.end(), "tv") != v.end());
     static bool logged = false;
     if (!logged) {
         logged = true;
-        ALOGI("isTV(ro.oem.key1='%s'): %s.", key.c_str(), tv ? "true" : "false");
+        ALOGI("isTV(ro.build.characteristics='%s' ro.oem.key1='%s'): %s.",
+              characteristics.c_str(), key.c_str(), tv ? "true" : "false");
     }
     return tv;
 }
