@@ -16,6 +16,23 @@
       "message": "It appears to have been correctly modified and should be properly skipped on automotive devices.\nGreat job.",
       "revId": "4c2d63d8b441420d3e5e5163f89200d1c34862a1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d7c07a2_fdfffa3a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1565663
+      },
+      "writtenOn": "2026-04-16T23:52:13Z",
+      "side": 1,
+      "message": "@shotanakamura@google.com\n\n\nIn packages/modules/Connectivity/Tethering/src/com/android/networkstack/tethering/TetheringConfiguration.java, the behavior of automatic upstream selection changed across releases.\n\nUp to Android 13, chooseUpstreamAutomatically could be enabled or disabled via the resource config_tether_upstream_automatic (and thus was configurable by OEM overlay).\n\n    \u003c!-- When true, the tethering upstream network follows the current default\n         Internet network (except when the current default network is mobile,\n         in which case a DUN network will be used if required).\n\n         When true, overrides the config_tether_upstream_types setting above.\n    --\u003e\n    \u003cbool translatable\u003d\"false\" name\u003d\"config_tether_upstream_automatic\"\u003efalse\u003c/bool\u003e\n       \n       \nStarting in Android 14, automatic upstream selection is effectively forced by the framework logic (e.g., through the forceAutomaticUpstream), which prevents OEMs from disabling it via overlay.\n\n        final boolean forceAutomaticUpstream \u003d SdkLevel.isAtLeastU() || (!SdkLevel.isAtLeastS()\n                \u0026\u0026 mDeps.isTetherForceUpstreamAutomaticFeatureEnabled());\n                               \n                               \nThis creates a mismatch for AAOS IVI architectures where upstream connectivity is provided through the telematics/IVC path and Wi-Fi is not intended to be used as an upstream transport.\nForcing automatic upstream selection interferes with the intended upstream design and leads to CTS failures on Android Automotive devices.\n\nIVI is an in-vehicle device installed in automobiles that operate at driving speeds of 60 km/h or higher.\nThere is no valid use case in which an IVI system uses the Internet connection of an in-vehicle Wi-Fi station client and then reuses that connection as the upstream for the IVI hotspot.\nIn other words, using a Wi-Fi STA connection inside the vehicle as the upstream network for IVI tethering is not a supported or intended scenario in automotive architectures.\nPlease refer to the attached picture  for clarification.\n\nivi_hotspot.png 215 KB (in https://partnerissuetracker.corp.google.com/issues/474456966)\n\nThe ability to control config_tether_upstream_automatic via overlay was the upstream AOSP behavior through Android 13; it is not an LGE-specific customization.\nThis is a flawed implementation in Android Automotive OS, caused by the Google Android Automotive team adopting the Android (mobile) OS implementation without sufficient consideration for automotive-specific requirements.\nHowever, CTS currently does not account for this configurability (or the automotive use case) and enforces the “always automatic” assumption.\nCould you please review the proposed CTS change accordingly?\n\n\nThanks.",
+      "revId": "4c2d63d8b441420d3e5e5163f89200d1c34862a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
