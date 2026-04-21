@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a75997c_50cb4606",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1565663
+      },
+      "writtenOn": "2026-04-21T02:34:34Z",
+      "side": 1,
+      "message": "https://partnerissuetracker.corp.google.com/issues/474456966\n\nDear google,\n\nIt seems that there is still some misunderstanding, so I would like to clarify this point again.\n\nEven if forceAutomaticUpstream in TetheringConfiguration.java is used exactly as in the original Android source, communication between wlan0 (station) and wlan1/2 (hotspot) is blocked in IVI systems due to firewall restrictions.\nFor security reasons, this must never be allowed.\n\nIn other words, unless firewall exceptions are intentionally added, the CTS test will inevitably fail.\nTherefore, the suggestion you mentioned - \"could we ask LGE to investigate if the firewall or routing logic can be adjusted or aligned with the Android standard to pass the CTS validation?\" - is not feasible on the LGE side.\n\n\nThe CTS test introduced in Android 15 validates a behavior that is not applicable to Android Automotive OS.\n\nThe fundamental issue is that the Android Automotive team has completely blocked the ability to disable automatic upstream selection starting from Android 14, even though this function must not be used in IVI systems by design.\nThis is not something that can be addressed by LGE through firewall or routing changes, as it directly impacts IVI architecture and automotive cybersecurity requirements.\n\nIn IVI systems, Wi-Fi STA must not be used as an upstream(e.g security or ivc reasons), and therefore this feature is effectively unsupported. Running a CTS test against a function that cannot and must not be used in IVI is not meaningful.\n\nWe therefore request one of the following approaches:\n\n1) A proper fix from Google to align AAOS behavior with automotive requirements (i.e., removing or modifying forceAutomaticUpstream in TetheringConfiguration.java), with the CTS also being updated accordingly to reflect the AutomaticUpstream configurability.\n\n2) A review of the CTS changes proposed by LGE: https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/3913281\n\n3) Or an official waiver for this CTS test.\n\nLGE has already evaluated all possible approaches; however, the CTS still fails in all cases. There is no viable way to resolve this on the LGE side.\n\nIf LGE can do something, we generally do it.\nConvincing Google and contributing source code changes through Google’s repositories\nis much more difficult than simply fixing the issue on the LGE side.\n\nHowever, no matter how LGE modifies the implementation, the CTS will still fail.\nIn conclusion, this CTS test is not feasible on the current Android Automotive platform.\n\nWe hope that Google can recognize and understand the nature of this issue.\n\nThanks.",
+      "revId": "a584e31d343902130901270bb9b2e357f3548e42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
