@@ -16,6 +16,23 @@
       "message": "Add Bug ID: 474456966",
       "revId": "bc6c0132a0a7e9e699f390277133d5162e082fdb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9321d6a7_4e03121f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1565663
+      },
+      "writtenOn": "2026-04-22T02:00:53Z",
+      "side": 1,
+      "message": "Subject: Request to treat test_hotspot_upstream_wifi as non-applicable for AAOS IVI (FEATURE_AUTOMOTIVE)\n\nDear Google team,\n\nOn IVI (FEATURE_AUTOMOTIVE) devices, communication between the Wi-Fi station interface (e.g., wlan0) and hotspot interfaces (e.g., wlan1/2) is blocked by mandatory firewall rules for automotive security.\n\nAllowing STA-to-hotspot/backhaul communication would require introducing firewall exceptions, which is not acceptable for IVI cybersecurity and violates the intended in-vehicle network separation model.\nThe tested behavior is not applicable to the AAOS IVI architecture.\n\nIn AAOS IVI systems, upstream connectivity is typically provided via telematics/IVC paths, and Wi-Fi STA is not intended to be used as the upstream for tethering.\n\nAs a result, validating \"Wi-Fi STA as hotspot upstream\" in CtsConnectivityMultiDevicesTestCases / ConnectivityMultiDevicesTest#test_hotspot_upstream_wifi is testing a behavior that IVI systems must not support.\n\nEven if the upstream selection logic is kept exactly as implemented in AOSP (including forceAutomaticUpstream), the CTS will still fail unless firewall exceptions are introduced.\n\nIn other words, there is no viable device-side implementation change that can make this test pass without compromising mandatory IVI security requirements.\n\nTherefore, we respectfully request that this CTS test be treated as non-applicable for AAOS IVI (FEATURE_AUTOMOTIVE) devices, by updating the CTS expectations accordingly (e.g., skipping or ignoring this test when FEATURE_AUTOMOTIVE is present).\nProposed CTS-side change for review:\nhttps://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/3913281",
+      "revId": "bc6c0132a0a7e9e699f390277133d5162e082fdb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
