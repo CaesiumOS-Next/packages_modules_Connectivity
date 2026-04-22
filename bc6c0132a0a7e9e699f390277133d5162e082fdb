@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58199a85_2122931e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1565663
+      },
+      "writtenOn": "2026-04-22T01:21:48Z",
+      "side": 1,
+      "message": "Add Bug ID: 474456966",
+      "revId": "bc6c0132a0a7e9e699f390277133d5162e082fdb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
