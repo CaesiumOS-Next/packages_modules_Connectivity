@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bc46250_566f185c",
+        "filename": "bpf/loader/NetBpfLoad.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1508,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2026-05-07T03:59:59Z",
+      "side": 1,
+      "message": "Before the MP product, could you just set this property to a placeholder value that starts with ATV00 ?\n\nThis carve-out is a temporary fix for vendors to migrate to 64-bit products, so I don\u0027t expect it should be expanded for being used long-term.",
+      "range": {
+        "startLine": 1508,
+        "startChar": 37,
+        "endLine": 1508,
+        "endChar": 48
+      },
+      "revId": "2d81f6f373de95786f2bb4c3d6ecef223adba5eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
