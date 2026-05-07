@@ -24,7 +24,12 @@ import static android.content.pm.PackageManager.FEATURE_TELEPHONY;
 import static android.content.pm.PackageManager.FEATURE_WIFI;
 import static android.net.ConnectivityManager.FIREWALL_CHAIN_BACKGROUND;
 import static android.net.ConnectivityManager.TYPE_VPN;
+<<<<<<< HEAD   (fb111cbb894721252969725bda2114e2ce4ed374 Merge "Skip testDataSaverMode_enabled for AAOS MUMD build as)
 import static android.net.NetworkCapabilities.TRANSPORT_TEST;
+||||||| BASE   (a2f881bc03d477ca1413027080150357cc0e0e21 Skip testCallbacks when unrestricted interfaces are present)
+=======
+import static android.net.NetworkCapabilities.NET_CAPABILITY_VALIDATED;
+>>>>>>> BRANCH (761a5679d323e81977297bb22697fd16786849b8 Specify the expected VPN network callbacks)
 import static android.net.NetworkCapabilities.TRANSPORT_VPN;
 import static android.os.Process.INVALID_UID;
 import static android.system.OsConstants.AF_INET;
@@ -1015,7 +1020,10 @@ public class VpnTest {
         checkTrafficOnVpn();
 
         final Network vpnNetwork = mCM.getActiveNetwork();
-        myUidCallback.expectAvailableThenValidatedCallbacks(vpnNetwork, TIMEOUT_MS);
+        myUidCallback.eventuallyExpect(CallbackEntry.NETWORK_CAPS_UPDATED,
+                NETWORK_CALLBACK_TIMEOUT_MS,
+                entry -> entry.getNetwork().equals(vpnNetwork)
+                        && entry.getCaps().hasCapability(NET_CAPABILITY_VALIDATED));
         assertEquals(vpnNetwork, mCM.getActiveNetwork());
         assertNotEqual(defaultNetwork, vpnNetwork);
         maybeExpectVpnTransportInfo(vpnNetwork);
