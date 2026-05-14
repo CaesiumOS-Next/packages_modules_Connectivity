@@ -543,9 +543,13 @@ public class TetheringManager {
             mWaiting = new ConditionVariable();
         }
 
-        int waitForResult(final RequestHelper request, final TetheringManager mgr) {
+        int waitForResult(@NonNull final String op, final RequestHelper request,
+                final TetheringManager mgr) {
+            final String pkg = mgr.mContext.getOpPackageName();
             mgr.getConnector(c -> request.runRequest(c, mListener));
             if (!mWaiting.block(DEFAULT_TIMEOUT_MS)) {
+                Log.w(TAG, "waitForResult TIMEOUT op=" + op + " pkg=" + pkg + " thread="
+                        + Thread.currentThread().getName());
                 throw new IllegalStateException("Callback timeout");
             }
 
@@ -705,7 +709,7 @@ public class TetheringManager {
         Log.i(TAG, "tether caller:" + callerPkg);
         final RequestDispatcher dispatcher = new RequestDispatcher();
 
-        return dispatcher.waitForResult((connector, listener) -> {
+        return dispatcher.waitForResult("tether", (connector, listener) -> {
             try {
                 connector.tether(iface, callerPkg, getAttributionTag(), listener);
             } catch (RemoteException e) {
@@ -741,7 +745,7 @@ public class TetheringManager {
 
         final RequestDispatcher dispatcher = new RequestDispatcher();
 
-        return dispatcher.waitForResult((connector, listener) -> {
+        return dispatcher.waitForResult("unther", (connector, listener) -> {
             try {
                 connector.untether(iface, callerPkg, getAttributionTag(), listener);
             } catch (RemoteException e) {
@@ -768,7 +772,7 @@ public class TetheringManager {
 
         final RequestDispatcher dispatcher = new RequestDispatcher();
 
-        return dispatcher.waitForResult((connector, listener) -> {
+        return dispatcher.waitForResult("setUsbTethering", (connector, listener) -> {
             try {
                 connector.setUsbTethering(enable, callerPkg, getAttributionTag(),
                         listener);
@@ -2191,9 +2195,10 @@ public class TetheringManager {
      */
     @SystemApi(client = MODULE_LIBRARIES)
     public boolean isTetheringSupported(@NonNull final String callerPkg) {
+        Log.d(TAG, "isTetheringSupported callerPkg=" + callerPkg);
 
         final RequestDispatcher dispatcher = new RequestDispatcher();
-        final int ret = dispatcher.waitForResult((connector, listener) -> {
+        final int ret = dispatcher.waitForResult("isTetheringSupported", (connector, listener) -> {
             try {
                 connector.isTetheringSupported(callerPkg, getAttributionTag(), listener);
             } catch (RemoteException e) {
@@ -2238,7 +2243,7 @@ public class TetheringManager {
         Log.i(TAG, "setPreferTestNetworks caller: " + mContext.getOpPackageName());
 
         final RequestDispatcher dispatcher = new RequestDispatcher();
-        final int ret = dispatcher.waitForResult((connector, listener) -> {
+        final int ret = dispatcher.waitForResult("setPreferTestNetworks", (connector, listener) -> {
             try {
                 connector.setPreferTestNetworks(prefer, listener);
             } catch (RemoteException e) {
