@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10a9f174_30f7f49b",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2026-05-15T02:45:37Z",
+      "side": 1,
+      "message": "This will add 2 Log.d lines for every successful call to waitForResult, which seems a bit too verbose (it makes logs more heavy and will use memory that could be more useful for other debug logs). Would it be OK to only have the Log.w on L.553 ? Are the Log.d lines actually necessary for investigating the issue ?\n\nIf you want to know the start/end time of the mWaiting.block, you could first just record SystemClock time without logging it, and then log it in the Log.w",
+      "revId": "e906e557e0a5b2bc65fe9de6933ed7803a5dd7c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
