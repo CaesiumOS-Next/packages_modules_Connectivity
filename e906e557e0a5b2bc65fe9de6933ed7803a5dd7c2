@@ -16,6 +16,24 @@
       "message": "This will add 2 Log.d lines for every successful call to waitForResult, which seems a bit too verbose (it makes logs more heavy and will use memory that could be more useful for other debug logs). Would it be OK to only have the Log.w on L.553 ? Are the Log.d lines actually necessary for investigating the issue ?\n\nIf you want to know the start/end time of the mWaiting.block, you could first just record SystemClock time without logging it, and then log it in the Log.w",
       "revId": "e906e557e0a5b2bc65fe9de6933ed7803a5dd7c2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b05eaa2f_5c992c4b",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 1520437
+      },
+      "writtenOn": "2026-05-15T05:50:19Z",
+      "side": 1,
+      "message": "Thanks for the feedback. I totally agree that Log.d on every successful call is noisy. I initially added those lines to see which requests were issued and how they were processed, to help find the root cause.\n\nI\u0027ve updated the code as you suggested. I\u0027m not fully sure that logging only on failure will be enough to find the root cause. Do you think it will be?\n\nWe\u0027ve seen this about 2~3 times per year for several years, and we\u0027d like to find the root cause.",
+      "parentUuid": "10a9f174_30f7f49b",
+      "revId": "e906e557e0a5b2bc65fe9de6933ed7803a5dd7c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
