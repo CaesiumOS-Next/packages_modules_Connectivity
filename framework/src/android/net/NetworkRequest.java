@@ -822,8 +822,13 @@ public class NetworkRequest implements Parcelable {
                 Objects.equals(that.networkCapabilities, this.networkCapabilities));
     }
 
+    @Override
     public int hashCode() {
-        return Objects.hash(requestId, legacyType, networkCapabilities, type);
+        int result = requestId;
+        result = 31 * result + legacyType;
+        result = 31 * result + networkCapabilities.hashCode();
+        result = 31 * result + (type != null ? type.hashCode() : 0);
+        return result;
     }
 
     /**
