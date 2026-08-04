@@ -1169,18 +1169,20 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         final int targetAttempts = mDeps.getUseFastDataInputTargetAttempts();
         int successes = 0;
         int fallbacks = 0;
-        try {
-            successes = mFastDataInputSuccessesCounter.get();
-            // Fallbacks counter would be set to non-zero value to indicate the reading was
-            // not successful.
-            fallbacks = mFastDataInputFallbacksCounter.get();
-        } catch (IOException e) {
-            TerribleErrorLog.logTerribleError(ConnectivityStatsLog::write,
+	if (useFastDataInput) {
+            try {
+                successes = mFastDataInputSuccessesCounter.get();
+                // Fallbacks counter would be set to non-zero value to indicate the reading was
+                // not successful.
+                fallbacks = mFastDataInputFallbacksCounter.get();
+            } catch (IOException e) {
+                TerribleErrorLog.logTerribleError(ConnectivityStatsLog::write,
                     "Failed to read counters, skip: " + e,
                     CORE_NETWORKING_TERRIBLE_ERROR_OCCURRED,
                     CORE_NETWORKING_TERRIBLE_ERROR_OCCURRED__ERROR_TYPE__TYPE_NETWORK_STATS_FAST_DATA_INPUT_COUNTERS_READ_ERROR);
-            useFastDataInput = false;
-        }
+                useFastDataInput = false;
+            }
+	}
 
         final boolean doComparison;
         if (useFastDataInput) {
