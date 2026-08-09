@@ -1692,8 +1692,13 @@ static int doLoad(char** argv, char * const envp[]) {
     // 6.13+ (implying 26Q2+) requires 64-bit userspace.
     if (isUserspace32bit() && isAtLeastKernelVersion(6, 13)) {
         // due to previous check only reachable on Arm && (<=T kernel uprev || TV || Wear)
-        ALOGE("64-bit userspace required on 6.13+ kernels.");
-        return 14;
+        if (isArm() && isWear()) {
+            // extend the existing Arm Wear 32-bit exemption through 6.13+
+            ALOGW("[Arm Wear] 32-bit userspace unsupported on 6.13+ kernels.");
+        } else {
+            ALOGE("64-bit userspace required on 6.13+ kernels.");
+            return 14;
+        }
     }
 
     if (isAtLeast25Q2) {
