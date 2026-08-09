@@ -22,11 +22,13 @@
 #include <inttypes.h>
 
 #include <android-base/result.h>
+#include <android-base/strings.h>
 #include <android-base/unique_fd.h>
 #include <bpf/WaitForProgsLoaded.h>
 #include <log/log.h>
 #include <private/android_filesystem_config.h>
 
+#define BPF_UTILS_MORE_IS_FOO_HELPERS
 #include "BpfSyscallWrappers.h"
 #include "bpf/BpfUtils.h"
 #include "internal_net_api.h"
@@ -39,6 +41,7 @@ using base::Result;
 using base::unique_fd;
 using base::WaitForProperty;
 using bpf::getSocketCookie;
+using bpf::isArm;
 using bpf::isAtLeastKernelVersion;
 using bpf::isAtLeastT;
 using bpf::isAtLeastU;
@@ -48,6 +51,7 @@ using bpf::isAtLeast26Q2;
 using bpf::isKernel64Bit;
 using bpf::isUser;
 using bpf::isUserspace64bit;
+using bpf::isWear;
 using bpf::queryProgram;
 using bpf::retrieveProgram;
 
@@ -86,7 +90,10 @@ static Result<void> checkProgramAccessible(const char* programPath) {
 
 static void getsockoptTest() {
     // getsockopt bpf hook is not called if the device is running in compat mode.
-    if (isKernel64Bit() != isUserspace64bit() && !isAtLeastKernelVersion(6, 13)) return;
+    // Arm Wear devices remain exempt from 6.13+'s 64-bit userspace requirement
+    // (see NetBpfLoad.cpp), so compat mode can still legitimately occur there.
+    if (isKernel64Bit() != isUserspace64bit() &&
+        (!isAtLeastKernelVersion(6, 13) || (isArm() && isWear()))) return;
 
     // SO_ANDROID_DROP_REASON option is only supported on 5.10+.
     if (!isAtLeastKernelVersion(5, 10)) return;
