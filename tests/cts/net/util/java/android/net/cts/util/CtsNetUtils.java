@@ -417,6 +417,7 @@ public final class CtsNetUtils {
     private NetworkRequest makeWifiNetworkRequest() {
         return new NetworkRequest.Builder()
                 .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
                 .build();
     }
 
