@@ -24,14 +24,11 @@ import static android.nearby.ScanRequest.SCAN_TYPE_NEARBY_PRESENCE;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import android.os.Build;
 import android.os.Parcel;
 import android.os.WorkSource;
 import android.platform.test.annotations.Presubmit;
 
-import androidx.annotation.RequiresApi;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
 
 import org.junit.Test;
@@ -41,15 +38,14 @@ import org.junit.runner.RunWith;
 @Presubmit
 @SmallTest
 @RunWith(AndroidJUnit4.class)
-@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 public class ScanRequestTest {
 
     private static final int RSSI = -40;
-    private static final int UID = 1001;
-    private static final String APP_NAME = "android.nearby.tests";
 
     private static WorkSource getWorkSource() {
-        return new WorkSource(UID, APP_NAME);
+        final int uid = 1001;
+        final String appName = "android.nearby.tests";
+        return new WorkSource(uid, appName);
     }
 
     /** Test creating a scan request. */
@@ -108,7 +104,6 @@ public class ScanRequestTest {
 
     /** Verify toString returns expected string. */
     @Test
-    @SdkSuppress(minSdkVersion = 34)
     public void testToString() {
         WorkSource workSource = getWorkSource();
         ScanRequest request = new ScanRequest.Builder()
@@ -120,28 +115,28 @@ public class ScanRequestTest {
 
         assertThat(request.toString()).isEqualTo(
                 "Request[scanType=1, scanMode=SCAN_MODE_BALANCED, "
-                        + "bleEnabled=true, offloadOnly=false, "
-                        + "workSource=WorkSource{" + UID + " " + APP_NAME + "}, scanFilters=[]]");
+                        + "enableBle=true, workSource=WorkSource{1001 android.nearby.tests}, "
+                        + "scanFilters=[]]");
     }
 
     /** Verify toString works correctly with null WorkSource. */
     @Test
-    @SdkSuppress(minSdkVersion = 34)
-    public void testToString_nullWorkSource_offloadOnly() {
+    public void testToString_nullWorkSource() {
         ScanRequest request = new ScanRequest.Builder().setScanType(
-                SCAN_TYPE_FAST_PAIR).setWorkSource(null).setOffloadOnly(true).build();
+                SCAN_TYPE_FAST_PAIR).setWorkSource(null).build();
 
         assertThat(request.toString()).isEqualTo("Request[scanType=1, "
-                + "scanMode=SCAN_MODE_LOW_POWER, bleEnabled=true, offloadOnly=true, "
-                + "workSource=WorkSource{}, scanFilters=[]]");
+                + "scanMode=SCAN_MODE_LOW_POWER, enableBle=true, workSource=WorkSource{}, "
+                + "scanFilters=[]]");
     }
 
     /** Verify writing and reading from parcel for scan request. */
     @Test
     public void testParceling() {
+        final int scanType = SCAN_TYPE_NEARBY_PRESENCE;
         WorkSource workSource = getWorkSource();
         ScanRequest originalRequest = new ScanRequest.Builder()
-                .setScanType(SCAN_TYPE_NEARBY_PRESENCE)
+                .setScanType(scanType)
                 .setScanMode(SCAN_MODE_BALANCED)
                 .setBleEnabled(true)
                 .setWorkSource(workSource)

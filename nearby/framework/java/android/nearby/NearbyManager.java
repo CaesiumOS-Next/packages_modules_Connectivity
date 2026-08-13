@@ -26,7 +26,6 @@ import android.annotation.SuppressLint;
 import android.annotation.SystemApi;
 import android.annotation.SystemService;
 import android.content.Context;
-import android.nearby.aidl.IOffloadCallback;
 import android.os.RemoteException;
 import android.provider.Settings;
 import android.util.Log;
@@ -38,7 +37,6 @@ import java.lang.ref.WeakReference;
 import java.util.Objects;
 import java.util.WeakHashMap;
 import java.util.concurrent.Executor;
-import java.util.function.Consumer;
 
 /**
  * This class provides a way to perform Nearby related operations such as scanning, broadcasting
@@ -64,7 +62,7 @@ public class NearbyManager {
             ScanStatus.ERROR,
     })
     public @interface ScanStatus {
-        // The undetermined status, some modules may be initializing. Retry is suggested.
+        // Default, invalid state.
         int UNKNOWN = 0;
         // The successful state.
         int SUCCESS = 1;
@@ -75,7 +73,6 @@ public class NearbyManager {
     private static final String TAG = "NearbyManager";
 
     /**
-     * TODO(b/286137024): Remove this when CTS R5 is rolled out.
      * Whether allows Fast Pair to scan.
      *
      * (0 = disabled, 1 = enabled)
@@ -106,9 +103,6 @@ public class NearbyManager {
         mService = service;
     }
 
-    // This can be null when NearbyDeviceParcelable field not set for Presence device
-    // or the scan type is not recognized.
-    @Nullable
     private static NearbyDevice toClientNearbyDevice(
             NearbyDeviceParcelable nearbyDeviceParcelable,
             @ScanRequest.ScanType int scanType) {
@@ -124,12 +118,23 @@ public class NearbyManager {
         }
 
         if (scanType == ScanRequest.SCAN_TYPE_NEARBY_PRESENCE) {
-            PresenceDevice presenceDevice = nearbyDeviceParcelable.getPresenceDevice();
-            if (presenceDevice == null) {
-                Log.e(TAG,
-                        "Cannot find any Presence device in discovered NearbyDeviceParcelable");
+            PublicCredential publicCredential = nearbyDeviceParcelable.getPublicCredential();
+            if (publicCredential == null) {
+                return null;
             }
-            return presenceDevice;
+            byte[] salt = nearbyDeviceParcelable.getSalt();
+            if (salt == null) {
+                salt = new byte[0];
+            }
+            return new PresenceDevice.Builder(
+                    // Use the public credential hash as the device Id.
+                    String.valueOf(publicCredential.hashCode()),
+                    salt,
+                    publicCredential.getSecretId(),
+                    publicCredential.getEncryptedMetadata())
+                    .setRssi(nearbyDeviceParcelable.getRssi())
+                    .addMedium(nearbyDeviceParcelable.getMedium())
+                    .build();
         }
         return null;
     }
@@ -273,42 +278,29 @@ public class NearbyManager {
     }
 
     /**
-     * Query offload capability in a device. The query is asynchronous and result is called back
-     * in {@link Consumer}, which is set to true if offload is supported.
+     * Read from {@link Settings} whether Fast Pair scan is enabled.
      *
-     * @param executor the callback will take place on this {@link Executor}
-     * @param callback the callback invoked with {@link OffloadCapability}
+     * @param context the {@link Context} to query the setting
+     * @return whether the Fast Pair is enabled
+     * @hide
      */
-    public void queryOffloadCapability(@NonNull @CallbackExecutor Executor executor,
-            @NonNull Consumer<OffloadCapability> callback) {
-        try {
-            mService.queryOffloadCapability(new OffloadTransport(executor, callback));
-        } catch (RemoteException e) {
-            throw e.rethrowFromSystemServer();
-        }
+    public static boolean getFastPairScanEnabled(@NonNull Context context) {
+        final int enabled = Settings.Secure.getInt(
+                context.getContentResolver(), FAST_PAIR_SCAN_ENABLED, 0);
+        return enabled != 0;
     }
 
-    private static class OffloadTransport extends IOffloadCallback.Stub {
-
-        private final Executor mExecutor;
-        // Null when cancelled
-        volatile @Nullable Consumer<OffloadCapability> mConsumer;
-
-        OffloadTransport(Executor executor, Consumer<OffloadCapability> consumer) {
-            Preconditions.checkArgument(executor != null, "illegal null executor");
-            Preconditions.checkArgument(consumer != null, "illegal null consumer");
-            mExecutor = executor;
-            mConsumer = consumer;
-        }
-
-        @Override
-        public void onQueryComplete(OffloadCapability capability) {
-            mExecutor.execute(() -> {
-                if (mConsumer != null) {
-                    mConsumer.accept(capability);
-                }
-            });
-        }
+    /**
+     * Write into {@link Settings} whether Fast Pair scan is enabled
+     *
+     * @param context the {@link Context} to set the setting
+     * @param enable whether the Fast Pair scan should be enabled
+     * @hide
+     */
+    @RequiresPermission(Manifest.permission.WRITE_SECURE_SETTINGS)
+    public static void setFastPairScanEnabled(@NonNull Context context, boolean enable) {
+        Settings.Secure.putInt(
+                context.getContentResolver(), FAST_PAIR_SCAN_ENABLED, enable ? 1 : 0);
     }
 
     private static class ScanListenerTransport extends IScanListener.Stub {
@@ -347,9 +339,9 @@ public class NearbyManager {
         public void onDiscovered(NearbyDeviceParcelable nearbyDeviceParcelable)
                 throws RemoteException {
             mExecutor.execute(() -> {
-                NearbyDevice nearbyDevice = toClientNearbyDevice(nearbyDeviceParcelable, mScanType);
-                if (mScanCallback != null && nearbyDevice != null) {
-                    mScanCallback.onDiscovered(nearbyDevice);
+                if (mScanCallback != null) {
+                    mScanCallback.onDiscovered(
+                            toClientNearbyDevice(nearbyDeviceParcelable, mScanType));
                 }
             });
         }
@@ -358,8 +350,7 @@ public class NearbyManager {
         public void onUpdated(NearbyDeviceParcelable nearbyDeviceParcelable)
                 throws RemoteException {
             mExecutor.execute(() -> {
-                NearbyDevice nearbyDevice = toClientNearbyDevice(nearbyDeviceParcelable, mScanType);
-                if (mScanCallback != null && nearbyDevice != null) {
+                if (mScanCallback != null) {
                     mScanCallback.onUpdated(
                             toClientNearbyDevice(nearbyDeviceParcelable, mScanType));
                 }
@@ -369,8 +360,7 @@ public class NearbyManager {
         @Override
         public void onLost(NearbyDeviceParcelable nearbyDeviceParcelable) throws RemoteException {
             mExecutor.execute(() -> {
-                NearbyDevice nearbyDevice = toClientNearbyDevice(nearbyDeviceParcelable, mScanType);
-                if (mScanCallback != null && nearbyDevice != null) {
+                if (mScanCallback != null) {
                     mScanCallback.onLost(
                             toClientNearbyDevice(nearbyDeviceParcelable, mScanType));
                 }
@@ -378,10 +368,10 @@ public class NearbyManager {
         }
 
         @Override
-        public void onError(int errorCode) {
+        public void onError() {
             mExecutor.execute(() -> {
                 if (mScanCallback != null) {
-                    mScanCallback.onError(errorCode);
+                    Log.e("NearbyManager", "onError: There is an error in scan.");
                 }
             });
         }
@@ -420,35 +410,4 @@ public class NearbyManager {
             });
         }
     }
-
-    /**
-     * TODO(b/286137024): Remove this when CTS R5 is rolled out.
-     * Read from {@link Settings} whether Fast Pair scan is enabled.
-     *
-     * @param context the {@link Context} to query the setting
-     * @return whether the Fast Pair is enabled
-     * @hide
-     */
-    public static boolean getFastPairScanEnabled(@NonNull Context context) {
-        final int enabled = Settings.Secure.getInt(
-                context.getContentResolver(), FAST_PAIR_SCAN_ENABLED, 0);
-        return enabled != 0;
-    }
-
-    /**
-     * TODO(b/286137024): Remove this when CTS R5 is rolled out.
-     * Write into {@link Settings} whether Fast Pair scan is enabled
-     *
-     * @param context the {@link Context} to set the setting
-     * @param enable whether the Fast Pair scan should be enabled
-     * @hide
-     */
-    @RequiresPermission(Manifest.permission.WRITE_SECURE_SETTINGS)
-    public static void setFastPairScanEnabled(@NonNull Context context, boolean enable) {
-        Settings.Secure.putInt(
-                context.getContentResolver(), FAST_PAIR_SCAN_ENABLED, enable ? 1 : 0);
-        Log.v(TAG, String.format(
-                "successfully %s Fast Pair scan", enable ? "enables" : "disables"));
-    }
-
 }

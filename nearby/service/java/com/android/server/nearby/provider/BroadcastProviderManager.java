@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 The Android Open Source Project
+ * Copyright (C) 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-package com.android.server.nearby.managers;
+package com.android.server.nearby.provider;
 
-import android.annotation.Nullable;
 import android.content.Context;
 import android.nearby.BroadcastCallback;
 import android.nearby.BroadcastRequest;
@@ -28,10 +27,7 @@ import android.util.Log;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.server.nearby.NearbyConfiguration;
 import com.android.server.nearby.injector.Injector;
-import com.android.server.nearby.presence.Advertisement;
-import com.android.server.nearby.presence.ExtendedAdvertisement;
 import com.android.server.nearby.presence.FastAdvertisement;
-import com.android.server.nearby.provider.BleBroadcastProvider;
 import com.android.server.nearby.util.ForegroundThread;
 
 import java.util.concurrent.Executor;
@@ -70,12 +66,10 @@ public class BroadcastProviderManager implements BleBroadcastProvider.BroadcastL
     public void startBroadcast(BroadcastRequest broadcastRequest, IBroadcastListener listener) {
         synchronized (mLock) {
             mExecutor.execute(() -> {
-                if (!mNearbyConfiguration.isTestAppSupported()) {
-                    NearbyConfiguration configuration = new NearbyConfiguration();
-                    if (!configuration.isPresenceBroadcastLegacyEnabled()) {
-                        reportBroadcastStatus(listener, BroadcastCallback.STATUS_FAILURE);
-                        return;
-                    }
+                NearbyConfiguration configuration = new NearbyConfiguration();
+                if (!configuration.isPresenceBroadcastLegacyEnabled()) {
+                    reportBroadcastStatus(listener, BroadcastCallback.STATUS_FAILURE);
+                    return;
                 }
                 if (broadcastRequest.getType() != BroadcastRequest.BROADCAST_TYPE_NEARBY_PRESENCE) {
                     reportBroadcastStatus(listener, BroadcastCallback.STATUS_FAILURE);
@@ -83,28 +77,16 @@ public class BroadcastProviderManager implements BleBroadcastProvider.BroadcastL
                 }
                 PresenceBroadcastRequest presenceBroadcastRequest =
                         (PresenceBroadcastRequest) broadcastRequest;
-                Advertisement advertisement = getAdvertisement(presenceBroadcastRequest);
-                if (advertisement == null) {
-                    Log.e(TAG, "Failed to start broadcast because broadcastRequest is illegal.");
+                if (presenceBroadcastRequest.getVersion() != BroadcastRequest.PRESENCE_VERSION_V0) {
                     reportBroadcastStatus(listener, BroadcastCallback.STATUS_FAILURE);
                     return;
                 }
+                FastAdvertisement fastAdvertisement = FastAdvertisement.createFromRequest(
+                        presenceBroadcastRequest);
+                byte[] advertisementPackets = fastAdvertisement.toBytes();
                 mBroadcastListener = listener;
-                mBleBroadcastProvider.start(presenceBroadcastRequest.getVersion(),
-                        advertisement.toBytes(), this);
+                mBleBroadcastProvider.start(advertisementPackets, this);
             });
-        }
-    }
-
-    @Nullable
-    private Advertisement getAdvertisement(PresenceBroadcastRequest request) {
-        switch (request.getVersion()) {
-            case BroadcastRequest.PRESENCE_VERSION_V0:
-                return FastAdvertisement.createFromRequest(request);
-            case BroadcastRequest.PRESENCE_VERSION_V1:
-                return ExtendedAdvertisement.createFromRequest(request);
-            default:
-                return null;
         }
     }
 
@@ -113,8 +95,7 @@ public class BroadcastProviderManager implements BleBroadcastProvider.BroadcastL
      */
     public void stopBroadcast(IBroadcastListener listener) {
         synchronized (mLock) {
-            if (!mNearbyConfiguration.isTestAppSupported()
-                    && !mNearbyConfiguration.isPresenceBroadcastLegacyEnabled()) {
+            if (!mNearbyConfiguration.isPresenceBroadcastLegacyEnabled()) {
                 reportBroadcastStatus(listener, BroadcastCallback.STATUS_FAILURE);
                 return;
             }
