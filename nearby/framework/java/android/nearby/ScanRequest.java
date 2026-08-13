@@ -22,7 +22,6 @@ import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.annotation.RequiresPermission;
 import android.annotation.SystemApi;
-import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.os.WorkSource;
@@ -34,8 +33,6 @@ import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.Executor;
-import java.util.function.Consumer;
 
 /**
  * An encapsulation of various parameters for requesting nearby scans.
@@ -65,12 +62,6 @@ public final class ScanRequest implements Parcelable {
      */
     public static final int SCAN_MODE_NO_POWER = -1;
     /**
-     * A special scan mode to indicate that client only wants to use CHRE to scan.
-     *
-     * @hide
-     */
-    public static final int SCAN_MODE_CHRE_ONLY = 3;
-    /**
      * Used to read a ScanRequest from a Parcel.
      */
     @NonNull
@@ -81,7 +72,6 @@ public final class ScanRequest implements Parcelable {
                     .setScanType(in.readInt())
                     .setScanMode(in.readInt())
                     .setBleEnabled(in.readBoolean())
-                    .setOffloadOnly(in.readBoolean())
                     .setWorkSource(in.readTypedObject(WorkSource.CREATOR));
             final int size = in.readInt();
             for (int i = 0; i < size; i++) {
@@ -99,16 +89,14 @@ public final class ScanRequest implements Parcelable {
     private final @ScanType int mScanType;
     private final @ScanMode int mScanMode;
     private final boolean mBleEnabled;
-    private final boolean mOffloadOnly;
     private final @NonNull WorkSource mWorkSource;
     private final List<ScanFilter> mScanFilters;
 
     private ScanRequest(@ScanType int scanType, @ScanMode int scanMode, boolean bleEnabled,
-            boolean offloadOnly, @NonNull WorkSource workSource, List<ScanFilter> scanFilters) {
+            @NonNull WorkSource workSource, List<ScanFilter> scanFilters) {
         mScanType = scanType;
         mScanMode = scanMode;
         mBleEnabled = bleEnabled;
-        mOffloadOnly = offloadOnly;
         mWorkSource = workSource;
         mScanFilters = scanFilters;
     }
@@ -174,13 +162,6 @@ public final class ScanRequest implements Parcelable {
     }
 
     /**
-     * Returns if CHRE enabled for scanning.
-     */
-    public boolean isOffloadOnly() {
-        return mOffloadOnly;
-    }
-
-    /**
      * Returns Scan Filters for this request.
      */
     @NonNull
@@ -216,13 +197,7 @@ public final class ScanRequest implements Parcelable {
         stringBuilder.append("Request[")
                 .append("scanType=").append(mScanType);
         stringBuilder.append(", scanMode=").append(scanModeToString(mScanMode));
-        // TODO(b/286137024): Remove this when CTS R5 is rolled out.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            stringBuilder.append(", bleEnabled=").append(mBleEnabled);
-            stringBuilder.append(", offloadOnly=").append(mOffloadOnly);
-        } else {
-            stringBuilder.append(", enableBle=").append(mBleEnabled);
-        }
+        stringBuilder.append(", enableBle=").append(mBleEnabled);
         stringBuilder.append(", workSource=").append(mWorkSource);
         stringBuilder.append(", scanFilters=").append(mScanFilters);
         stringBuilder.append("]");
@@ -234,7 +209,6 @@ public final class ScanRequest implements Parcelable {
         dest.writeInt(mScanType);
         dest.writeInt(mScanMode);
         dest.writeBoolean(mBleEnabled);
-        dest.writeBoolean(mOffloadOnly);
         dest.writeTypedObject(mWorkSource, /* parcelableFlags= */0);
         final int size = mScanFilters.size();
         dest.writeInt(size);
@@ -250,7 +224,6 @@ public final class ScanRequest implements Parcelable {
             return mScanType == otherRequest.mScanType
                     && (mScanMode == otherRequest.mScanMode)
                     && (mBleEnabled == otherRequest.mBleEnabled)
-                    && (mOffloadOnly == otherRequest.mOffloadOnly)
                     && (Objects.equals(mWorkSource, otherRequest.mWorkSource));
         }
         return false;
@@ -258,7 +231,7 @@ public final class ScanRequest implements Parcelable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(mScanType, mScanMode, mBleEnabled, mOffloadOnly, mWorkSource);
+        return Objects.hash(mScanType, mScanMode, mBleEnabled, mWorkSource);
     }
 
     /** @hide **/
@@ -281,7 +254,6 @@ public final class ScanRequest implements Parcelable {
         private @ScanMode int mScanMode;
 
         private boolean mBleEnabled;
-        private boolean mOffloadOnly;
         private WorkSource mWorkSource;
         private List<ScanFilter> mScanFilters;
 
@@ -289,7 +261,6 @@ public final class ScanRequest implements Parcelable {
         public Builder() {
             mScanType = INVALID_SCAN_TYPE;
             mBleEnabled = true;
-            mOffloadOnly = false;
             mWorkSource = new WorkSource();
             mScanFilters = new ArrayList<>();
         }
@@ -326,22 +297,6 @@ public final class ScanRequest implements Parcelable {
         @NonNull
         public Builder setBleEnabled(boolean bleEnabled) {
             mBleEnabled = bleEnabled;
-            return this;
-        }
-
-        /**
-         * By default, a scan request can be served by either offload or
-         * non-offload implementation, depending on the resource available in the device.
-         *
-         * A client can explicitly request a scan to be served by offload only.
-         * Before the request, the client should query the offload capability by
-         * using {@link NearbyManager#queryOffloadCapability(Executor, Consumer)}}. Otherwise,
-         * {@link ScanCallback#ERROR_UNSUPPORTED} will be returned on devices without
-         * offload capability.
-         */
-        @NonNull
-        public Builder setOffloadOnly(boolean offloadOnly) {
-            mOffloadOnly = offloadOnly;
             return this;
         }
 
@@ -400,8 +355,7 @@ public final class ScanRequest implements Parcelable {
             Preconditions.checkState(isValidScanMode(mScanMode),
                     "invalid scan mode : " + mScanMode
                             + ", scan mode must be one of ScanMode#SCAN_MODE_");
-            return new ScanRequest(
-                    mScanType, mScanMode, mBleEnabled, mOffloadOnly, mWorkSource, mScanFilters);
+            return new ScanRequest(mScanType, mScanMode, mBleEnabled, mWorkSource, mScanFilters);
         }
     }
 }

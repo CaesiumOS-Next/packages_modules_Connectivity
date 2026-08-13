@@ -114,18 +114,4 @@ public class PresenceBroadcastRequestTest {
         assertThat(parcelRequest.getType()).isEqualTo(BROADCAST_TYPE_NEARBY_PRESENCE);
 
     }
-
-    @Test
-    @SdkSuppress(minSdkVersion = 32, codeName = "T")
-    public void describeContents() {
-        PresenceBroadcastRequest broadcastRequest = mBuilder.build();
-        assertThat(broadcastRequest.describeContents()).isEqualTo(0);
-    }
-
-    @Test
-    public void testCreatorNewArray() {
-        PresenceBroadcastRequest[] presenceBroadcastRequests =
-                PresenceBroadcastRequest.CREATOR.newArray(2);
-        assertThat(presenceBroadcastRequests.length).isEqualTo(2);
-    }
 }

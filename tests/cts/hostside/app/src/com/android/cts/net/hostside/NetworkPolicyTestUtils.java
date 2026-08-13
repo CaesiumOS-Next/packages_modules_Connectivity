@@ -449,19 +449,13 @@ public class NetworkPolicyTestUtils {
     // this function and using PollingCheck to try to make sure the uid has updated and reduce the
     // flaky rate.
     public static void assertNetworkingBlockedStatusForUid(int uid, boolean metered,
-            boolean expectedResult) {
-        final String errMsg = String.format("Unexpected result from isUidNetworkingBlocked; "
-                + "uid= " + uid + ", metered=" + metered + ", expected=" + expectedResult);
-        PollingCheck.waitFor(() -> (expectedResult == isUidNetworkingBlocked(uid, metered)),
-                errMsg);
+            boolean expectedResult) throws Exception {
+        PollingCheck.waitFor(() -> (expectedResult == isUidNetworkingBlocked(uid, metered)));
     }
 
-    public static void assertIsUidRestrictedOnMeteredNetworks(int uid, boolean expectedResult) {
-        final String errMsg = String.format(
-                "Unexpected result from isUidRestrictedOnMeteredNetworks; "
-                + "uid= " + uid + ", expected=" + expectedResult);
-        PollingCheck.waitFor(() -> (expectedResult == isUidRestrictedOnMeteredNetworks(uid)),
-                errMsg);
+    public static void assertIsUidRestrictedOnMeteredNetworks(int uid, boolean expectedResult)
+            throws Exception {
+        PollingCheck.waitFor(() -> (expectedResult == isUidRestrictedOnMeteredNetworks(uid)));
     }
 
     public static boolean isUidNetworkingBlocked(int uid, boolean meteredNetwork) {
