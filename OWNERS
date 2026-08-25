@@ -3,3 +3,7 @@ set noparent
 file:platform/packages/modules/Connectivity:main:/OWNERS_core_networking
 
 per-file **IpSec* = file:platform/frameworks/base:main:/services/core/java/com/android/server/vcn/OWNERS
+
+# Scoped Android Build Approvers
+per-file Android.bp,Android.mk,CleanSpec.mk,BUILD,BUILD.bazel,*.bp,*.bzl,cargo_embargo.json = mdb/android-build-approvers
+per-file **/*.go = mdb/android-build-approvers #{LAST_RESORT_SUGGESTION}
