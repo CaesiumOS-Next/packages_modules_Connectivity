@@ -12,3 +12,6 @@ per-file net/src/android/net/cts/EthernetManagerTest.kt = prohr@google.com #{LAS
 # Temporary ownership to develop APF CTS tests.
 per-file net/src/android/net/cts/ApfIntegrationTest.kt = prohr@google.com #{LAST_RESORT_SUGGESTION}
 
+
+# Re-wire build approvers through set noparent barrier
+per-file Android.bp,Android.mk,CleanSpec.mk,BUILD,BUILD.bazel,*.bp,*.bzl,cargo_embargo.json = mdb/android-build-approvers

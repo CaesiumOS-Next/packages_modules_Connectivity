@@ -7,3 +7,6 @@ file:platform/build/soong:/OWNERS
 
 # compat-team@ for changes to hiddenapi files
 file:tools/platform-compat:/OWNERS
+
+# Re-wire build approvers through set noparent barrier
+per-file Android.bp,Android.mk,CleanSpec.mk,BUILD,BUILD.bazel,*.bp,*.bzl,cargo_embargo.json = mdb/android-build-approvers
