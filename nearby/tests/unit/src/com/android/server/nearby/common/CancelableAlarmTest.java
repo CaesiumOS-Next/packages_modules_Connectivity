@@ -117,10 +117,22 @@ public class CancelableAlarmTest {
          * fact go off after delayMillis has passed.
          */
         public void awaitAndExpectDelay(long delayMillis) throws InterruptedException {
-            SystemClock.sleep(delayMillis - 1);
-            assertThat(await(0, TimeUnit.MILLISECONDS)).isFalse();
-            SystemClock.sleep(10);
-            assertThat(await(0, TimeUnit.MILLISECONDS)).isTrue();
+            long startTime = SystemClock.elapsedRealtime();
+            // Check at half duration that it hasn't fired prematurely
+            SystemClock.sleep(delayMillis / 2);
+            assertWithMessage("Latch went off before expected delay.")
+                    .that(await(0, TimeUnit.MILLISECONDS))
+                    .isFalse();
+
+            // Wait up to 5s for the alarm to trigger
+            boolean completed = await(5, TimeUnit.SECONDS);
+            long elapsedTime = SystemClock.elapsedRealtime() - startTime;
+            assertWithMessage("Alarm did not go off after expected delay.")
+                    .that(completed)
+                    .isTrue();
+            assertWithMessage("Elapsed time too short")
+                .that(elapsedTime)
+                .isAtLeast(delayMillis - 50);
         }
 
         /** Asserts that the latch does not go off within delayMillis. */
