@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a245d2e5_22189a9a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1900995
+      },
+      "writtenOn": "2026-09-01T22:43:18Z",
+      "side": 1,
+      "message": "Deleting this change since now we are not using AOSP first. Moving this cl to internal repo: https://googleplex-android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/41873036",
+      "revId": "e2a641196c195850192c3cb9a1ea659ed1d63e55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
