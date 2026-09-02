@@ -16,6 +16,40 @@
       "message": "Please review this and merge it into the A16.1 branch as well.\n\nThanks!",
       "revId": "1251d98319ab492d4b0e9fba4e4a027c966336fb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "989683f0_5124b5fb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1583555
+      },
+      "writtenOn": "2026-09-02T10:12:05Z",
+      "side": 1,
+      "message": "This patch has already been rejected previously (https://android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/3913281/7)",
+      "revId": "1251d98319ab492d4b0e9fba4e4a027c966336fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3683901e_ed85f15b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1583555
+      },
+      "writtenOn": "2026-09-02T10:12:05Z",
+      "side": 1,
+      "message": "The cherry-picked patch (https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/3913281/7) was already rejected.",
+      "revId": "1251d98319ab492d4b0e9fba4e4a027c966336fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
