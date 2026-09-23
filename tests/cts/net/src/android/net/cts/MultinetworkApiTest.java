@@ -319,13 +319,11 @@ public class MultinetworkApiTest {
         // Use async private DNS resolution to avoid flakes due to races applying the setting
         mDeviceConfigRule.setConfig(NAMESPACE_CONNECTIVITY,
                 "networkmonitor_async_privdns_resolution", "1");
-        mCtsNetUtils.reconnectWifiIfSupported();
         mCtsNetUtils.reconnectCellIfSupported();
 
         mCtsNetUtils.storePrivateDnsSetting();
 
         mDeviceConfigRule.runAfterNextCleanup(() -> {
-            mCtsNetUtils.reconnectWifiIfSupported();
             mCtsNetUtils.reconnectCellIfSupported();
         });
         // Enable private DNS strict mode and set server to dns.google before doing NxDomain test.

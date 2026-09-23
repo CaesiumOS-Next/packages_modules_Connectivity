@@ -140,8 +140,8 @@ public class DnsResolverTest {
                 "networkmonitor_async_privdns_resolution", "1");
         // Make sure NetworkMonitor is restarted before and after the test so the flag is applied
         // and cleaned up.
-        maybeToggleWifiAndCell();
-        DEVICE_CONFIG_CLASS_RULE.runAfterNextCleanup(DnsResolverTest::maybeToggleWifiAndCell);
+        maybeToggleCell();
+        DEVICE_CONFIG_CLASS_RULE.runAfterNextCleanup(DnsResolverTest::maybeToggleCell);
     }
 
     @Before
@@ -165,9 +165,8 @@ public class DnsResolverTest {
         }
     }
 
-    private static void maybeToggleWifiAndCell() throws Exception {
+    private static void maybeToggleCell() throws Exception {
         final CtsNetUtils utils = new CtsNetUtils(InstrumentationRegistry.getContext());
-        utils.reconnectWifiIfSupported();
         utils.reconnectCellIfSupported();
     }
 
