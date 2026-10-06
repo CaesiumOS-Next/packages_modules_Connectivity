@@ -16,18 +16,22 @@
 
 package android.net.cts;
 
+import static android.system.OsConstants.RT_SCOPE_UNIVERSE;
+
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assume.assumeFalse;
+import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeTrue;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.ConnectivityManager.NetworkCallback;
+import android.net.LinkAddress;
 import android.net.LinkProperties;
 import android.net.Network;
 import android.net.NetworkInfo;
-import android.os.Build;
 import android.os.SystemClock;
 import android.util.Log;
 
@@ -47,6 +51,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
 
 @RunWith(DevSdkIgnoreRunner.class)
 @DevSdkIgnoreRunner.RestoreDefaultNetwork
@@ -300,29 +305,56 @@ public class DnsTest {
         return false;
     }
 
-    private void ensureIpv6Connectivity() throws InterruptedException {
-        assumeFalse(Build.MODEL.contains("Cuttlefish"));
+    /**
+     * Returns whether the link has an IPv6 default route and a non-link-local IPv6 address.
+     *
+     * Unique local addresses (ULAs, fc00::/7, RFC 4193) are accepted in addition to global
+     * addresses: a network that provides a ULA and an IPv6 default route (for example, behind
+     * NAT66) can reach IPv6 destinations, in the same way that a network that provides a private
+     * IPv4 address behind NAT44 provides IPv4 connectivity.
+     */
+    private static boolean hasIpv6Connectivity(LinkProperties lp) {
+        if (!lp.hasIpv6DefaultRoute()) return false;
+        for (LinkAddress la : lp.getLinkAddresses()) {
+            // Link-local and loopback addresses have a narrower scope than RT_SCOPE_UNIVERSE.
+            if (la.isIpv6() && la.getScope() == RT_SCOPE_UNIVERSE) return true;
+        }
+        return false;
+    }
 
-        CountDownLatch latch = new CountDownLatch(1);
+    /**
+     * Waits for the default network to provide IPv6 connectivity (see
+     * {@link #hasIpv6Connectivity}). Skips the test if the default network does not have an IPv6
+     * default route, because the IPv6 checks cannot pass on such a network.
+     */
+    private void ensureIpv6Connectivity() throws InterruptedException {
+        final CountDownLatch latch = new CountDownLatch(1);
+        final AtomicReference<LinkProperties> lastLp = new AtomicReference<>();
         final int TIMEOUT_MS = 5_000;
 
         final NetworkCallback callback = new NetworkCallback() {
             @Override
             public void onLinkPropertiesChanged(Network network, LinkProperties lp) {
-                if (lp.hasGlobalIpv6Address()) {
+                lastLp.set(lp);
+                if (hasIpv6Connectivity(lp)) {
                     latch.countDown();
                 }
             }
         };
         mCm.registerDefaultNetworkCallback(callback);
 
-        String msg = "Default network did not provide IPv6 connectivity after " + TIMEOUT_MS
-                + "ms. Please connect to an IPv6-capable network. lp="
-                + mCm.getActiveLinkProperties();
         try {
-            assertTrue(msg, latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
+            if (latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS)) return;
         } finally {
             mCm.unregisterNetworkCallback(callback);
         }
+
+        final LinkProperties lp = lastLp.get();
+        assertNotNull("No default network after " + TIMEOUT_MS + "ms", lp);
+        assumeTrue("Default network has no IPv6 default route after " + TIMEOUT_MS
+                + "ms. Connect to an IPv6-capable network to run this test. lp=" + lp,
+                lp.hasIpv6DefaultRoute());
+        fail("Default network has an IPv6 default route but no non-link-local IPv6 address after "
+                + TIMEOUT_MS + "ms. lp=" + lp);
     }
 }

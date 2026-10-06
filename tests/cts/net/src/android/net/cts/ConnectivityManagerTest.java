@@ -133,7 +133,6 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import static org.junit.Assume.assumeFalse;
 import static org.junit.Assume.assumeTrue;
 
 import android.annotation.NonNull;
@@ -950,10 +949,20 @@ public class ConnectivityManagerTest {
     public void testOpenConnection() throws Exception {
         assumeTrue(mPackageManager.hasSystemFeature(FEATURE_WIFI));
         assumeTrue(mPackageManager.hasSystemFeature(FEATURE_TELEPHONY));
-        assumeFalse(Build.MODEL.contains("Cuttlefish"));
 
         Network wifiNetwork = mCtsNetUtils.ensureWifiConnected();
         Network cellNetwork = networkCallbackRule.requestCell();
+        // If neither network has global IPv6 connectivity, both requests use IPv4 (RFC 6724
+        // prefers IPv4 over ULAs), and the test can only check that the server sees two different
+        // IPv4 addresses. That depends on the upstream NAT rather than on the device: for example,
+        // virtual devices usually send Wi-Fi and cellular traffic through the same host NAT.
+        // Require global IPv6 on at least one network, so that the on-link checks below apply.
+        final LinkProperties wifiLp = mCm.getLinkProperties(wifiNetwork);
+        final LinkProperties cellLp = mCm.getLinkProperties(cellNetwork);
+        assumeTrue("Neither Wi-Fi nor cellular has global IPv6 connectivity. wifi=" + wifiLp
+                + " cell=" + cellLp,
+                hasGlobalIpv6Connectivity(wifiLp) || hasGlobalIpv6Connectivity(cellLp));
+
         // This server returns the requestor's IP address as the response body.
         String ipAddressEchoUrl = getIpAddressEchoUrlFromConfig();
         URL url = new URL(ipAddressEchoUrl);
@@ -992,6 +1001,13 @@ public class ConnectivityManagerTest {
         }
 
         assertFalse("Unexpectedly equal: " + wifiNetwork, wifiNetwork.equals(cellNetwork));
+    }
+
+    /**
+     * Returns whether the link has a global (non-ULA) IPv6 address and an IPv6 default route.
+     */
+    private static boolean hasGlobalIpv6Connectivity(LinkProperties lp) {
+        return lp != null && lp.hasGlobalIpv6Address() && lp.hasIpv6DefaultRoute();
     }
 
     /**
