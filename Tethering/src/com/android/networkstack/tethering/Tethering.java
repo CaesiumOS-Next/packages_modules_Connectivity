@@ -185,6 +185,9 @@ import java.util.concurrent.RejectedExecutionException;
 public class Tethering {
 
     private static final String TAG = Tethering.class.getSimpleName();
+    private static final String EXTRA_P2P_CONNECTION_BROADCAST_SEQ =
+            "com.android.server.wifi.p2p.extra.P2P_CONNECTION_BROADCAST_SEQ";
+    private static final boolean ENABLE_P2P_CONNECTION_BROADCAST_SEQ_CHECK = true;
     private static final boolean DBG = Log.isLoggable(TAG, Log.DEBUG);
     private static final boolean VDBG = Log.isLoggable(TAG, Log.VERBOSE);
 
@@ -1354,6 +1357,8 @@ public class Tethering {
     }
 
     private class StateReceiver extends BroadcastReceiver {
+        private long mLastWifiP2pConnectionBroadcastSeq = -1;
+
         @Override
         public void onReceive(Context content, Intent intent) {
             final String action = intent.getAction();
@@ -1499,6 +1504,17 @@ public class Tethering {
                     (WifiP2pInfo) intent.getParcelableExtra(WifiP2pManager.EXTRA_WIFI_P2P_INFO);
             final WifiP2pGroup group =
                     (WifiP2pGroup) intent.getParcelableExtra(WifiP2pManager.EXTRA_WIFI_P2P_GROUP);
+            final long seq = intent.getLongExtra(EXTRA_P2P_CONNECTION_BROADCAST_SEQ, -1);
+
+            if (ENABLE_P2P_CONNECTION_BROADCAST_SEQ_CHECK && seq >= 0) {
+                if (seq <= mLastWifiP2pConnectionBroadcastSeq) {
+                    mLog.w("Ignore stale WifiP2pAction: seq=" + seq
+                            + " lastAcceptedSeq=" + mLastWifiP2pConnectionBroadcastSeq
+                            + " P2pInfo=" + p2pInfo + " Group=" + group);
+                    return;
+                }
+                mLastWifiP2pConnectionBroadcastSeq = seq;
+            }
 
             mLog.i("WifiP2pAction: P2pInfo: " + p2pInfo + " Group: " + group);
 
