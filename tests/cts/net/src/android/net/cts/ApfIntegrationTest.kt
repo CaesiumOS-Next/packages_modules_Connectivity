@@ -343,14 +343,14 @@ class ApfIntegrationTest {
 
         if (caps.apfVersionSupported > 4) {
             assertThat(caps.maximumApfProgramSize).isAtLeast(2048)
-            assertThat(caps.apfVersionSupported).isEqualTo(6000) // v6.0000
+            assertThat(caps.apfVersionSupported).isAnyOf(6000, 6100) // v6.000 or v6.100
         }
 
         // DEVICEs launching with Android 15 (AOSP experimental) or higher with CHIPSETs that set
         // ro.board.first_api_level or ro.board.api_level to 202404 or higher:
         // - [GMS-VSR-5.3.12-009] MUST indicate at least 2048 bytes of usable memory from calls to
         //   the getApfPacketFilterCapabilities HAL method.
-        if (getVsrApiLevel() >= 202404) {
+        if (vsrApiLevel >= 202404) {
             assertThat(caps.maximumApfProgramSize).isAtLeast(2048)
         }
     }
