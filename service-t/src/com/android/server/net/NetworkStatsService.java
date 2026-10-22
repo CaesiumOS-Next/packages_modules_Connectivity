@@ -1205,10 +1205,12 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         int successes = 0;
         int fallbacks = 0;
         try {
-            successes = mFastDataInputSuccessesCounter.get();
-            // Fallbacks counter would be set to non-zero value to indicate the reading was
-            // not successful.
-            fallbacks = mFastDataInputFallbacksCounter.get();
+            if (useFastDataInput) {
+                successes = mFastDataInputSuccessesCounter.get();
+                // Fallbacks counter would be set to non-zero value to indicate the reading was
+                // not successful.
+                fallbacks = mFastDataInputFallbacksCounter.get();
+            }
         } catch (IOException e) {
             Log.wtf(TAG, "Failed to read counters, skip.", e);
             useFastDataInput = false;
@@ -3064,13 +3066,18 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             pw.print(NETSTATS_FASTDATAINPUT_TARGET_ATTEMPTS,
                     mDeps.getUseFastDataInputTargetAttempts());
             pw.println();
-            try {
-                pw.print("FastDataInput successes", mFastDataInputSuccessesCounter.get());
-                pw.println();
-                pw.print("FastDataInput fallbacks", mFastDataInputFallbacksCounter.get());
-                pw.println();
-            } catch (IOException e) {
-                pw.println("(failed to dump FastDataInput counters)");
+            if (mFastDataInputSuccessesCounter != null
+                    && mFastDataInputFallbacksCounter != null) {
+                try {
+                    pw.print("FastDataInput successes", mFastDataInputSuccessesCounter.get());
+                    pw.println();
+                    pw.print("FastDataInput fallbacks", mFastDataInputFallbacksCounter.get());
+                    pw.println();
+                } catch (IOException e) {
+                    pw.println("(failed to dump FastDataInput counters)");
+                }
+            } else {
+                pw.println("(FastDataInput counters unavailable)");
             }
             pw.print("trafficstats.service.cache.isenabled",
                     mIsTrafficStatsServiceRateLimitCacheEnabled);
