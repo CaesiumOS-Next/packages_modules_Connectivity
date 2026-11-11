@@ -32,11 +32,20 @@ import java.util.Locale;
 
 /** Simple decoder for mDNS packets. */
 public class MdnsPacketReader {
-    // The total length in bytes should be less than 255 bytes anyway (including labels and label
-    // length) per RFC9267, so limit the number of labels to 128 (each label is 2 bytes with the
-    // length).
+    // RFC 1035 §2.3.4 / RFC 9267: a label is at most 63 octets, and an encoded domain
+    // name (length bytes + label octets + the terminating root label) is at most 255 octets.
+    // 128 is therefore a hard upper bound on the number of labels in a single name
+    // (even a name of 1-octet labels would exceed 255 octets before 128 labels).
     // https://www.rfc-editor.org/rfc/rfc9267.html#name-label-and-name-length-valid
+    private static final int MAX_LABEL_SIZE = 63;
+    private static final int MAX_NAME_SIZE = 255;
     private static final int LABEL_COUNT_LIMIT = 128;
+
+    // RFC 1035 §4.1.4 / RFC 6891: only these two high-bit patterns are defined for
+    // a length/type byte. 0x40 and 0x80 are reserved and must be rejected.
+    private static final int LABEL_TYPE_MASK = 0xC0;
+    private static final int LABEL_TYPE_NORMAL = 0x00;
+    private static final int LABEL_TYPE_COMPRESSION = 0xC0;
     private final byte[] buf;
     private final int count;
     private final SparseArray<LabelEntry> labelDictionary;
@@ -148,33 +157,58 @@ public class MdnsPacketReader {
     public String[] readLabels() throws IOException {
         List<String> result = new ArrayList<>(5);
         LabelEntry previousEntry = null;
+        // Byte offset where the name currently being parsed begins. A compression
+        // pointer must refer to a prior occurrence of a name (RFC 1035 §4.1.4,
+        // RFC 9267). In this dictionary-based reader, a pointer into the name
+        // currently being built also forms a cycle in nextOffset chains, so any
+        // pointer at or past nameStart is rejected. This is the same idea as the
+        // DnsPacketUtils.DnsRecordParser.parseName check (offset >= oldPos - 2)
+        // applied at the start of the current name rather than at the pointer.
+        final int nameStart = pos;
+        int encodedNameSize = 0;
         int tracingHops = 0;
 
         while (getRemaining() > 0) {
+            if (result.size() >= LABEL_COUNT_LIMIT) {
+                throw new IOException("Invalid MDNS response packet: Too many labels.");
+            }
+
             byte nextByte = peekByte();
+            final int labelType = nextByte & LABEL_TYPE_MASK;
 
             if (nextByte == 0) {
-                // A NUL byte terminates a sequence of labels.
+                // A NUL byte terminates a sequence of labels. It is the root label
+                // and counts as 1 octet toward the 255-octet name limit.
+                encodedNameSize += 1;
+                if (encodedNameSize > MAX_NAME_SIZE) {
+                    throw new IOException("Invalid MDNS response packet: Name too long.");
+                }
                 skip(1);
                 break;
             }
 
             int currentOffset = pos;
 
-            boolean isLabelPointer = (nextByte & 0xC0) == 0xC0;
-            if (isLabelPointer) {
+            if (labelType == LABEL_TYPE_COMPRESSION) {
                 // A pointer terminates a sequence of labels. Store the pointer value in the
                 // previous label entry.
                 int labelOffset = ((readUInt8() & 0x3F) << 8) | (readUInt8() & 0xFF);
+                if (labelOffset >= nameStart) {
+                    throw new IOException(String.format(Locale.ROOT,
+                            "Invalid label pointer: %04X inside current name at %04X",
+                            labelOffset, nameStart));
+                }
                 if (previousEntry != null) {
                     previousEntry.nextOffset = labelOffset;
                 }
 
                 // Follow the chain of labels starting at this pointer, adding all of them onto the
-                // result.
+                // result. Bound the walk unconditionally so a pointer cycle can never grow the
+                // list unbounded (RFC 9267). The historical nsd_limit_label_count flag is no
+                // longer consulted: the cap is required by the RFC regardless.
                 while (labelOffset != 0) {
-                    if (mMdnsFeatureFlags.mIsLabelCountLimitEnabled
-                            && tracingHops > LABEL_COUNT_LIMIT) {
+                    if (++tracingHops > LABEL_COUNT_LIMIT
+                            || result.size() >= LABEL_COUNT_LIMIT) {
                         throw new IOException("Invalid MDNS response packet: Too many labels.");
                     }
                     LabelEntry entry = labelDictionary.get(labelOffset);
@@ -183,15 +217,36 @@ public class MdnsPacketReader {
                                 String.format(Locale.ROOT, "Invalid label pointer: %04X",
                                         labelOffset));
                     }
+                    // Reconstruct the encoded size of this label (length byte + octets).
+                    // The Java String is UTF-8 decoded from the original wire bytes.
+                    encodedNameSize += 1 + entry.label.getBytes(
+                            MdnsConstants.getUtf8Charset()).length;
+                    // Reserve 1 octet for the implicit root label at the end of the chain.
+                    if (encodedNameSize + 1 > MAX_NAME_SIZE) {
+                        throw new IOException("Invalid MDNS response packet: Name too long.");
+                    }
                     result.add(entry.label);
                     labelOffset = entry.nextOffset;
-                    tracingHops++;
                 }
                 break;
+            } else if (labelType != LABEL_TYPE_NORMAL) {
+                // Reserved label types (0x40 / 0x80). DnsPacketUtils already rejects these.
+                throw new IOException(String.format(Locale.ROOT,
+                        "Invalid MDNS response packet: Bad label type: %02X", labelType));
             } else {
-                // It's an ordinary label. Chain it onto the previous label entry (if any), and add
-                // it onto the result.
+                // Ordinary label. After the type check the length byte is 1..63, which
+                // already matches MAX_LABEL_SIZE; still enforce the cap on the decoded
+                // form and on the accumulated encoded name, same as DnsPacketUtils.
                 String val = readString();
+                final int labelBytes = val.getBytes(MdnsConstants.getUtf8Charset()).length;
+                if (labelBytes > MAX_LABEL_SIZE) {
+                    throw new IOException("Invalid MDNS response packet: Label too long.");
+                }
+                encodedNameSize += 1 + labelBytes;
+                // Reserve 1 octet for the terminating root label.
+                if (encodedNameSize + 1 > MAX_NAME_SIZE) {
+                    throw new IOException("Invalid MDNS response packet: Name too long.");
+                }
                 LabelEntry newEntry = new LabelEntry(val);
                 labelDictionary.put(currentOffset, newEntry);
 
