@@ -1169,17 +1169,20 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         final int targetAttempts = mDeps.getUseFastDataInputTargetAttempts();
         int successes = 0;
         int fallbacks = 0;
-        try {
-            successes = mFastDataInputSuccessesCounter.get();
-            // Fallbacks counter would be set to non-zero value to indicate the reading was
-            // not successful.
-            fallbacks = mFastDataInputFallbacksCounter.get();
-        } catch (IOException e) {
-            TerribleErrorLog.logTerribleError(ConnectivityStatsLog::write,
-                    "Failed to read counters, skip: " + e,
-                    CORE_NETWORKING_TERRIBLE_ERROR_OCCURRED,
-                    CORE_NETWORKING_TERRIBLE_ERROR_OCCURRED__ERROR_TYPE__TYPE_NETWORK_STATS_FAST_DATA_INPUT_COUNTERS_READ_ERROR);
-            useFastDataInput = false;
+        // The counters are null if they failed to be created above.
+        if (useFastDataInput) {
+            try {
+                successes = mFastDataInputSuccessesCounter.get();
+                // Fallbacks counter would be set to non-zero value to indicate the reading was
+                // not successful.
+                fallbacks = mFastDataInputFallbacksCounter.get();
+            } catch (IOException e) {
+                TerribleErrorLog.logTerribleError(ConnectivityStatsLog::write,
+                        "Failed to read counters, skip: " + e,
+                        CORE_NETWORKING_TERRIBLE_ERROR_OCCURRED,
+                        CORE_NETWORKING_TERRIBLE_ERROR_OCCURRED__ERROR_TYPE__TYPE_NETWORK_STATS_FAST_DATA_INPUT_COUNTERS_READ_ERROR);
+                useFastDataInput = false;
+            }
         }
 
         final boolean doComparison;
@@ -3032,13 +3035,18 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             pw.print(NETSTATS_FASTDATAINPUT_TARGET_ATTEMPTS,
                     mDeps.getUseFastDataInputTargetAttempts());
             pw.println();
-            try {
-                pw.print("FastDataInput successes", mFastDataInputSuccessesCounter.get());
-                pw.println();
-                pw.print("FastDataInput fallbacks", mFastDataInputFallbacksCounter.get());
-                pw.println();
-            } catch (IOException e) {
-                pw.println("(failed to dump FastDataInput counters)");
+            if (mFastDataInputSuccessesCounter != null
+                    && mFastDataInputFallbacksCounter != null) {
+                try {
+                    pw.print("FastDataInput successes", mFastDataInputSuccessesCounter.get());
+                    pw.println();
+                    pw.print("FastDataInput fallbacks", mFastDataInputFallbacksCounter.get());
+                    pw.println();
+                } catch (IOException e) {
+                    pw.println("(failed to dump FastDataInput counters)");
+                }
+            } else {
+                pw.println("(FastDataInput counters unavailable)");
             }
             pw.print("trafficstats.client.cache.config",
                     mTrafficStatsRateLimitCacheClientSideConfig);
