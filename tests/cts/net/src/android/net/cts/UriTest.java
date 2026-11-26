@@ -233,12 +233,23 @@ public class UriTest extends AndroidTestCase {
 
     public void testDecode_wrongHexDigit() {
         // %p in the end.
-        assertEquals("ab/$\u0102%\u0840\uFFFD\u0000", Uri.decode("ab%2f$%C4%82%25%e0%a1%80%p"));
+        assertDecodedInvalidEscape("ab/$\u0102%\u0840\uFFFD", "\u0000",
+                Uri.decode("ab%2f$%C4%82%25%e0%a1%80%p"));
     }
 
     public void testDecode_secondHexDigitWrong() {
         // %1p in the end.
-        assertEquals("ab/$\u0102%\u0840\uFFFD\u0001", Uri.decode("ab%2f$%c4%82%25%e0%a1%80%1p"));
+        assertDecodedInvalidEscape("ab/$\u0102%\u0840\uFFFD", "\u0001",
+                Uri.decode("ab%2f$%c4%82%25%e0%a1%80%1p"));
+    }
+
+    // An invalid escape decodes to a single U+FFFD. Older platforms also append the partial
+    // value of the escape as a character, and this test runs on them too.
+    private static void assertDecodedInvalidEscape(
+            String expected, String legacyPartialValue, String actual) {
+        if (!actual.equals(expected + legacyPartialValue)) {
+            assertEquals(expected, actual);
+        }
     }
 
     public void testDecode_endsWithPercent_appendsUnknownCharacter() {
